@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class NewLoginPage extends StatefulWidget {
-   String email, existingemail;
+  final String email, existingemail;
   NewLoginPage({this.email, this.existingemail});
   @override
   _NewLoginPageState createState() => _NewLoginPageState();

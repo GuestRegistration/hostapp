@@ -1,30 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:hostapp/src/screen/createnewaccount.dart';
 import 'package:hostapp/src/service/AppleSignInAvailable.dart';
 import 'package:hostapp/src/service/AuthService.dart';
 import 'package:hostapp/src/service/auth_bloc.dart';
 import 'package:hostapp/src/service/auth_bloc_provider.dart';
 import 'package:hostapp/src/service/repository.dart';
-
-/// start import for handling apple signup
 import 'package:provider/provider.dart';
-
 import 'welcome.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'sign_in.dart';
 import 'login_page.dart';
-import 'package:flutter/services.dart';
 
-class AuthScreen extends StatefulWidget {
+class CreatenewaccountScreen extends StatefulWidget {
   @override
-  AuthScreenState createState() => AuthScreenState();
+  _CreatenewaccountScreenState createState() => new _CreatenewaccountScreenState();
 }
+//class _WelcomeScreenState extends State<WelcomeScreen> {}
 
-class AuthScreenState extends State<AuthScreen> {
-  final _repository = Repository();
+class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
+   final _repository = Repository();
   AuthBloc _bloc;
   Locale _myLocale;
   FirebaseUser user;
@@ -208,7 +204,7 @@ class AuthScreenState extends State<AuthScreen> {
       padding: EdgeInsets.all(32),
       child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+         // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             StreamBuilder(
                 stream: _bloc.authStatus,
@@ -221,10 +217,10 @@ class AuthScreenState extends State<AuthScreen> {
                       return _authForm(false);
                       break;
                     case (AuthStatus.emailLinkSent):
-                      return Center(
+                      return Container(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                       //   mainAxisAlignment: MainAxisAlignment.center,
+                       //   crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             // Center(
 
@@ -447,7 +443,7 @@ class AuthScreenState extends State<AuthScreen> {
                               });
                             },
                             child: const Text(
-                              'Email me a Login Link',
+                              'Create your account',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
@@ -622,28 +618,7 @@ class AuthScreenState extends State<AuthScreen> {
                         SizedBox(
                           height: 32.0,
                         ),
-                        SizedBox(
-                          width: 300.0,
-                          height: 60.0,
-                          child: RaisedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return CreatenewaccountScreen();
-                                  },
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              'Create a new account',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            color: Colors.white12,
-                          ),
-                        ),
+                      
                       ]),
                 );
                 //);
@@ -661,18 +636,22 @@ class AuthScreenState extends State<AuthScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             //SizedBox(height: 32),
-            Text(
-              "Login to your account",
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.0),
-            ),
+         
             SizedBox(height: 32),
-            Text(
-              "Give us your email so we can identify you.",
-              style: TextStyle(color: Colors.black, fontSize: 15.0),
+            SizedBox(
+              width: 32.0,
+                          child: Text(
+                 "Let's get started",
+                style: TextStyle(color: Colors.black, fontSize: 30.0),
+              ),
+            ),
+             SizedBox(height: 32),
+            SizedBox(
+              width: 32.0,
+                          child: Text(
+                    "First create your account.",
+                    style: TextStyle(color: Colors.black, fontSize: 15.0),
+                  ),
             ),
             SizedBox(height: 32),
             Align(
@@ -721,15 +700,7 @@ class AuthScreenState extends State<AuthScreen> {
             SizedBox(
               height: 30.0,
             ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                child: Text(
-                  "By continuing, you agree to our Terms of Services",
-                  style: TextStyle(color: Colors.black, fontSize: 15.0),
-                ),
-              ),
-            ),
+            
           ],
         ),
       ),
