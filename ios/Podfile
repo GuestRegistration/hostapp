@@ -6,8 +6,10 @@ target 'Runner' do
   use_frameworks!
 
   # Pods for Runner
+  # pod file start
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'GoogleSignIn'
+  # pod file end
 
 end
