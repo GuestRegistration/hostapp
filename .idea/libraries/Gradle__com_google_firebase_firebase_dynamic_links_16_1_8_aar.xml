@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.firebase:firebase-dynamic-links:16.1.8@aar" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c3bdb0758f5505e7d5f6f7491625c786/jetified-firebase-dynamic-links-16.1.8/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
