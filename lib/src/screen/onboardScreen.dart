@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hostapp/src/app.dart';
 import 'package:hostapp/src/screen/SplashScreen.dart';
-import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppText.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';

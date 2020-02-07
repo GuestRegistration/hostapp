@@ -10,9 +10,9 @@ class AuthProvider {
         url: Constants.projectUrl,
         androidInstallIfNotAvailable: true,
         androidMinimumVersion: '18',
-        androidPackageName: 'com.example.guestapptest',
+        androidPackageName: 'com.example.hostapp',
         handleCodeInApp: true,
-        iOSBundleID: 'com.example.guestapptest');
+        iOSBundleID: 'com.example.hostapp');
   }
 
   Future<AuthResult> signInWithEmailLink(String email, String link) async {

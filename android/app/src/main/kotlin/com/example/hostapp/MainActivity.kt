@@ -1,4 +1,4 @@
-package com.example.hostapp
+package com.macaulaygidado.hostapp
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hostapp/src/screen/createnewaccount.dart';
 import 'package:hostapp/src/service/AppleSignInAvailable.dart';
 import 'package:hostapp/src/service/AuthService.dart';
 import 'package:hostapp/src/service/auth_bloc.dart';
@@ -11,8 +12,6 @@ import 'package:hostapp/src/service/repository.dart';
 /// start import for handling apple signup
 import 'package:provider/provider.dart';
 
-/// end import for handling apple signup
-import 'createaccount.dart';
 import 'welcome.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'sign_in.dart';
@@ -631,7 +630,7 @@ class AuthScreenState extends State<AuthScreen> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return CreateaccountScreen();
+                                    return CreatenewaccountScreen();
                                   },
                                 ),
                               );
