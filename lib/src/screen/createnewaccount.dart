@@ -1,10 +1,9 @@
+import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:hostapp/src/service/AppleSignInAvailable.dart';
-import 'package:hostapp/src/service/AuthService.dart';
 import 'package:hostapp/src/service/auth_bloc.dart';
 import 'package:hostapp/src/service/auth_bloc_provider.dart';
 import 'package:hostapp/src/service/repository.dart';
@@ -15,17 +14,19 @@ import 'login_page.dart';
 
 class CreatenewaccountScreen extends StatefulWidget {
   @override
-  _CreatenewaccountScreenState createState() => new _CreatenewaccountScreenState();
+  _CreatenewaccountScreenState createState() =>
+      new _CreatenewaccountScreenState();
 }
 //class _WelcomeScreenState extends State<WelcomeScreen> {}
 
 class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
-   final _repository = Repository();
+  final _repository = Repository();
   AuthBloc _bloc;
   Locale _myLocale;
   FirebaseUser user;
   var existingemail;
   bool signupcheck = false;
+  bool supportsAppleSignIn = false;
   TextEditingController textemail = new TextEditingController();
   @override
   void didChangeDependencies() {
@@ -36,25 +37,22 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
   }
 
   void initState() {
-    // this.getsavedata();
-
-    /*Timer.run(() {
-      try {
-        InternetAddress.lookup('google.com').then((result) {
-          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-            print('connected');
-          } else {
-            _showDialog(); // show dialog
-          }
-        }).catchError((error) {
-          _showDialog(); // show dialog
-        });
-      } on SocketException catch (_) {
-        _showDialog();
-        print('not connected'); // show dialog
-      }
-    });*/
+    getdeviceinfo();
     super.initState();
+  }
+
+  getdeviceinfo() async {
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      //var iosInfo = await DeviceInfoPlugin().iosInfo;
+      var iosInfo = await DeviceInfoPlugin().iosInfo;
+      var version = iosInfo.systemVersion;
+
+      if (version.contains('13') == true) {
+        supportsAppleSignIn = true;
+      }
+    } else {
+      print("it is not an iOS device");
+    }
   }
 
   void initDynamicLinks() async {
@@ -127,19 +125,96 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
 //          sharedPreferences.clear();
     });
   }*/
-      /// Function start for handling apple signup
-  Future<void> _signInWithApple(BuildContext context) async {
+  // Function start for handling apple signup
 
+  Future signInWithApple() async {
     try {
-      final authService = Provider.of<AuthService>(context, listen: false);
-      final user = await authService.signInWithApple(
-          requestEmail: true, requestFullName: true);
-      print('uid: ${user.uid}');
-    } catch (e) {
-      print(e);
+      final AuthorizationResult result = await AppleSignIn.performRequests([
+        AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+      ]);
+
+      switch (result.status) {
+        case AuthorizationStatus.authorized:
+          try {
+            print("successfull sign in");
+            final AppleIdCredential appleIdCredential = result.credential;
+
+            OAuthProvider oAuthProvider =
+                new OAuthProvider(providerId: "apple.com");
+            final AuthCredential credential = oAuthProvider.getCredential(
+              idToken: String.fromCharCodes(appleIdCredential.identityToken),
+              accessToken:
+                  String.fromCharCodes(appleIdCredential.authorizationCode),
+            );
+
+            final AuthResult _res =
+                await FirebaseAuth.instance.signInWithCredential(credential);
+
+            FirebaseAuth.instance.currentUser().then((val) async {
+              UserUpdateInfo updateUser = UserUpdateInfo();
+              updateUser.displayName =
+                  "${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}";
+              updateUser.photoUrl = "define an url";
+              await val.updateProfile(updateUser);
+            });
+          } catch (e) {
+            print("error");
+          }
+          break;
+        case AuthorizationStatus.error:
+          // do something
+          break;
+
+        case AuthorizationStatus.cancelled:
+          print('User cancelled');
+          break;
+      }
+    } catch (error) {
+      print("error with apple sign in");
     }
   }
-// Function end for handling apple signup
+
+  /// Function end for handling apple signup
+
+  void _authCompleteapple() async {
+    //_authCompletedgoogle function is used to navigate the user after google signup
+    // var email = user.email;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseUser currentuserapple = await auth.currentUser();
+
+    print("currentuserapple.email" + currentuserapple.email);
+
+    var email = currentuserapple.email;
+    Firestore.instance
+        .collection("users")
+        .where("email", isEqualTo: email)
+        .getDocuments()
+        .then((string) {
+      print('Firestore response111: , ${string.documents.length}');
+      string.documents.forEach(
+        (doc) => print("data available"),
+      );
+      if (string.documents.length == 0) {
+        print("email not avilable");
+        //new user
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LoginPage(
+                      existingemail: email.toString(),
+                    )));
+      } else {
+        print("email  alreadyexists");
+        //existing user
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => WelcomeScreen(
+                      email: email.toString(),
+                    )));
+      }
+    });
+  }
 
   void _authCompletedgoogle() async {
     //_authCompletedgoogle function is used to navigate the user after google signup
@@ -191,20 +266,12 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    /// start declaration  for handling apple signup
-
-    final appleSignInAvailable =
-        Provider.of<AppleSignInAvailable>(context, listen: false);
-
-    /// end declaration  for handling apple signup
-    print("appleSignInAvailable" + appleSignInAvailable.toString());
-    print(appleSignInAvailable.toString());
     return Scaffold(
-      body: Container(
+        body: Container(
       padding: EdgeInsets.all(32),
       child: SingleChildScrollView(
         child: Column(
-         // mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             StreamBuilder(
                 stream: _bloc.authStatus,
@@ -219,8 +286,8 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
                     case (AuthStatus.emailLinkSent):
                       return Container(
                         child: Column(
-                       //   mainAxisAlignment: MainAxisAlignment.center,
-                       //   crossAxisAlignment: CrossAxisAlignment.center,
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             // Center(
 
@@ -275,8 +342,7 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
           ],
         ),
       ),
-    )
-    );
+    ));
   }
 
   Widget _authForm(bool isEmail) {
@@ -580,7 +646,7 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
                               }); */
                             },
                             child: const Text(
-                              'With Google',
+                              'with Google',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
@@ -600,11 +666,15 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
                           child: RaisedButton(
                             onPressed: () {
                               //function call for apple sign up
-                              _signInWithApple(context);
+                              // _signInWithApple(context);
+                              signInWithApple().whenComplete(() {
+                                _authCompleteapple();
+                                // print("hai"+email);
+                              });
                               //function call for apple sign up
                             },
                             child: const Text(
-                              'with apple',
+                             'with Apple',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
@@ -618,7 +688,6 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
                         SizedBox(
                           height: 32.0,
                         ),
-                      
                       ]),
                 );
                 //);
@@ -636,22 +705,22 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             //SizedBox(height: 32),
-         
+
             SizedBox(height: 32),
             SizedBox(
               width: 32.0,
-                          child: Text(
-                 "Let's get started",
+              child: Text(
+                "Let's get started",
                 style: TextStyle(color: Colors.black, fontSize: 30.0),
               ),
             ),
-             SizedBox(height: 32),
+            SizedBox(height: 32),
             SizedBox(
               width: 32.0,
-                          child: Text(
-                    "First create your account.",
-                    style: TextStyle(color: Colors.black, fontSize: 15.0),
-                  ),
+              child: Text(
+                "First create your account.",
+                style: TextStyle(color: Colors.black, fontSize: 15.0),
+              ),
             ),
             SizedBox(height: 32),
             Align(
@@ -700,7 +769,6 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
             SizedBox(
               height: 30.0,
             ),
-            
           ],
         ),
       ),

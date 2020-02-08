@@ -41,9 +41,9 @@ Future<void> provider() async {
     //await FirebaseAuth.instance.signOut().whenComplete(() => update());
       final FirebaseAuth auth = FirebaseAuth.instance;
         final FirebaseUser user1 = await auth.currentUser();
-        print("providerData");
+        //print("providerData");
         //print(user1.providerData);
-         print(user1.providerId);
+        // print(user1.providerId);
         // print(user1.)
          /*
          for(int i=0; i<user1.providerData.length;i++){
@@ -68,7 +68,7 @@ var did;
     if (Theme.of(context).platform == TargetPlatform.iOS) {
       IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
       //return iosDeviceInfo.identifierForVendor; // unique ID on iOS
-      print("DeviceId for iOS " + did);
+      //print("DeviceId for iOS " + did);
       did = iosDeviceInfo.identifierForVendor;
     } else {
       AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;

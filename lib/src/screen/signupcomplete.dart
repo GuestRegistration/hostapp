@@ -55,7 +55,7 @@ var did;
     if (Theme.of(context).platform == TargetPlatform.iOS) {
       IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
       //return iosDeviceInfo.identifierForVendor; // unique ID on iOS
-      print("DeviceId for iOS " + did);
+      //print("DeviceId for iOS " + did);
       did = iosDeviceInfo.identifierForVendor;
     } else {
       AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;

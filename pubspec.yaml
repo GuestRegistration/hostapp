@@ -33,7 +33,7 @@ dependencies:
   device_info: ^0.4.1+4  
   apple_sign_in: ^0.1.0
   shared_preferences: ^0.5.6+1
-  provider: ^4.0.1
+  provider: ^4.0.3
   google_fonts: ^0.2.0 #Styling text fonts
   intro_slider: ^2.2.8 #Intro slider for onBoardScreen
   flutter_spinkit: 4.1.0 #for loading
