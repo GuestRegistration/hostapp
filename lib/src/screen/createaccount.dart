@@ -224,7 +224,7 @@ class _CreateaccountScreenState extends State<CreateaccountScreen> {
                       });
                     },
                     child: const Text(
-                      'With Google',
+                      'Google',
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
                     ),
@@ -246,7 +246,7 @@ class _CreateaccountScreenState extends State<CreateaccountScreen> {
                       });
                     },
                     child: const Text(
-                      'with apple',
+                      'Apple',
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
                     ),

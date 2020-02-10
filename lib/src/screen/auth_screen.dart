@@ -661,7 +661,7 @@ try {
                               }); */
                             },
                             child: const Text(
-                              'with Google',
+                              'Google',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
@@ -690,7 +690,7 @@ try {
                               //function call for apple sign up
                             },
                             child: const Text(
-                              'with Apple',
+                              'Apple',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),

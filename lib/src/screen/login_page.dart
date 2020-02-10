@@ -10,7 +10,6 @@ import 'dart:async' show Future;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'signupcomplete.dart';
 
-
 class LoginPage extends StatefulWidget {
   final String email, existingemail;
   LoginPage({this.email, this.existingemail});
@@ -31,10 +30,12 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   TextEditingController phone = new TextEditingController();
   TextEditingController propertiesname = new TextEditingController();
   TextEditingController role = new TextEditingController();
-
+  //bool _btnEnabled = false;
   var hostProperty, hostrole;
   List host1;
-
+  bool isButtonEnabled = true;
+  bool  errorflag = false;
+  var buttoncolor;
   void initState() {
     super.initState();
 
@@ -43,9 +44,36 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     //hosts = List();
     email1 = "${widget.existingemail}";
     print(email1);
+   
+
     WidgetsBinding.instance.addObserver(this);
   }
+isEmpty(){
+   /*if ((name.text == "") &&
+        (lastname.text == "") &&
+        (phone.text == "")) {
+          print(" isButtonEnabled = true;");
+        setState(() {
+             isButtonEnabled = true;
+        });
+           
+    } */
+    if(name.text != "" && lastname.text != "" && phone.text != ""){
+      setState(() {
+         print(" isButtonEnabled = false;");
+        isButtonEnabled =false;
+      });
+    }
+    else {
+             print(" isButtonEnabled = false;");
+        
+       setState(() {
+         isButtonEnabled = true;
+       });
 
+    }
+    
+}
   getData() async {
     return Firestore.instance.collection('users').snapshots();
   }
@@ -148,8 +176,16 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+   // print(isButtonEnabled);
+   
+   if (isButtonEnabled == false) {
+     buttoncolor = Colors.black;
+   } else {
+     buttoncolor = Colors.black12;
+   }
     return Scaffold(
       //backgroundColor: Color(0xff151232),
+           
       backgroundColor: Colors.white,
       key: scaffoldkey,
       body: Container(
@@ -168,6 +204,15 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                   // const Text("You are not currently signed in."),
                   new SizedBox(
                     height: 1.0,
+                  ),
+                  Visibility(child:  Text(
+                    "one or more fields are incomplete",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30.0),
+                  ),
+                  visible: errorflag,
                   ),
                   Text(
                     "Create your profile",
@@ -210,9 +255,25 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                           color: Colors.black12,
                           borderRadius: new BorderRadius.circular(12.0)),
                       child: new TextFormField(
+
                           controller: name,
+                          onChanged: (val){
+                          isEmpty();
+                        },
                           validator: (value) {
+                            /*                              
+                                 if (txt.length == 10){
+          setState((){
+            _btnEnabled = true;
+          });
+        } else {
+          setState((){
+            _btnEnabled = false;
+          });
+      }
+                             */
                             if (value.isEmpty) {
+                             
                               return "Please Enter First Name";
                             }
                             return null;
@@ -252,9 +313,15 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                           borderRadius: new BorderRadius.circular(12.0)),
                       child: new TextFormField(
                           controller: lastname,
+                          onChanged: (val){
+                          isEmpty();
+                        },
                           validator: (value) {
                             if (value.isEmpty) {
+                               
                               return "Please Enter Last Name";
+                            } else {
+                               
                             }
                             return null;
                           },
@@ -294,6 +361,9 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                           borderRadius: new BorderRadius.circular(12.0)),
                       child: new TextFormField(
                           // initialValue: "",
+                          onChanged: (val){
+                          isEmpty();
+                        },
                           controller: phone,
                           //keyboardType: TextInputType.emailAddress,
                           keyboardType: TextInputType.phone,
@@ -301,6 +371,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                           autofocus: false,
                           validator: validateMobile,
                           onSaved: (String val) {
+                             
                             mobile = val;
                           },
                           decoration: InputDecoration(
@@ -319,45 +390,90 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                     child: Align(
                       //alignment: Alignment.topLeft,
                       //     widthFactor: left
-                      child: Container(
-                        child: Text(
-                          "By creating an account, you agree to our Terms and privacy Policy ",
-                          style: TextStyle(color: Colors.black, fontSize: 12.0),
-                        ),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            child:Row(
+                              children: <Widget>[
+                                Text(
+                                  "By creating an account, you agree to our",
+                                  style: TextStyle(color: Colors.black, fontSize: 12.0),
+                                ),
+                                //Text("Terms of service",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),),
+                                 //Text("and",style: TextStyle(color: Colors.black, fontSize: 12.0),),
+                              //  Text("privacy Policy ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),)
+
+
+                              ],
+                            ),
+                          ),
+                            Container(
+                            child:Row(
+                              children: <Widget>[
+                                 
+                                Text("Terms of service ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),),
+                                 Text("and ",style: TextStyle(color: Colors.black, fontSize: 12.0),),
+                                Text(" Privacy Policy ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),)
+
+
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                   SizedBox(
                     height: 10.0,
                   ),
+        
                   new SizedBox(
                     width: 300.0,
                     height: 60.0,
-                    child: new RaisedButton(
-                        child: const Text(
-                          'Next',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                        //color: Color(0xff6839ed),
-                        color: Colors.black26,
-                        onPressed: () {
-                          //  addUser();
-                          if (formKey.currentState.validate()) {
-                            setState(() {
-                              addUser();
-                            });
-                            formKey.currentState.save();
-                            scaffoldkey.currentState.showSnackBar(SnackBar(
-                              content: Text("Start adding user details"),
-                            ));
-                          } else {
-                            // validation error
-                            scaffoldkey.currentState.showSnackBar(SnackBar(
-                              content: Text("Failed to Add user details"),
-                            ));
+                    child: AbsorbPointer(
+                      absorbing: isButtonEnabled,
+                     //fase
+                   //  print("isButtonEnabled"),
+                // absorbing: true,
+                       child: new RaisedButton(
+                          child: const Text(
+                            'Continue',
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                          //color: Color(0xff6839ed),
+                          //color: Colors.black12,
+                          color: buttoncolor,
+                          onPressed: () {
+                            // _btnEnabled == true ? print("hai") : null;
+   
+                            if (formKey.currentState.validate()) {
+                              if (name.text == "" && phone.text == "" && lastname.text == "") {
+                                setState(() {
+                                  errorflag = true;
+                                });
+                              } else {
+                                setState(() {
+                                  errorflag = false;
+                                });
+                              }
+                              setState(() {
+                                addUser();
+                              });
+                              formKey.currentState.save();
+                              scaffoldkey.currentState.showSnackBar(SnackBar(
+                                content: Text("Start adding user details"),
+                              ));
+                            } else {
+                              // validation error
+                              scaffoldkey.currentState.showSnackBar(SnackBar(
+                                content: Text("Failed to Add user details"),
+                              ));
+                            }
                           }
-                        }),
+                          //_btnEnabled:true
+                          ),
+                    ),
                   ),
                 ],
               ),
