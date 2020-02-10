@@ -1,11 +1,14 @@
 //******************************************************************
-// This file contain App Default Texts  that will use throughout the entire App
+// This file contain App Default Texts that will use throughout the entire App
 //***********************************************************************
+
 import 'package:hostapp/src/style/AppImage.dart';
 
 class AppText{
+ static const String errorMessage  = "You haven’t finished filling out your information";
+ static const String proceed = 'Proceed';
   static const String appName = "Guest Registration";
-   static const String slogan = "Easiest way for Guest Registration";
+  static const String slogan = "Easiest way for Guest Registration";
   static const String skip = "Skip";
   static const String next = "Next";
   static const String done = "Done";

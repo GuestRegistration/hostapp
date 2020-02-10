@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/screen/SplashScreen.dart';
+import 'package:hostapp/src/screen/login_view.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppText.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
@@ -52,7 +53,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => SplashScreen()));
+                builder: (context) => LoginView()));
       },
     );
   }

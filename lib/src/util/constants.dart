@@ -19,3 +19,12 @@ class Constants {
   // Numbers
   static const int timeOutDuration = 90;
 }
+
+const String passwordLessRoute = '/passless';
+const String wrapperRoute = '/wrapper';
+const String dynamicLink = "https://guestregistration-4140a.firebaseapp.com";
+const String sheref_Uid = "userID";
+const String dashboardRoute = '/dashboard';
+const String addPropertyRoute = '/addProperty';
+const String signUpViewRoute = '/signUp';
+const String signInViewRoute = '/signIn';
