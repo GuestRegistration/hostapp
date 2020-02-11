@@ -15,7 +15,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'sign_in.dart';
 import 'login_page.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 class AuthScreen extends StatefulWidget {
   @override
   AuthScreenState createState() => AuthScreenState();
@@ -547,7 +547,10 @@ try {
                         SizedBox(
                           width: 300.0,
                           height: 60.0,
-                          child: RaisedButton(
+                          //child: RaisedButton(
+                            child:  SignInButton(
+                  Buttons.GoogleDark,
+                  //text: "Google",
                             onPressed: () async {
                               signInWithGoogle().whenComplete(() async {
                                 //_authCompletedgoogle();
@@ -660,16 +663,16 @@ try {
                                
                               }); */
                             },
-                            child: const Text(
+                            /*child: const Text(
                               'Google',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
-                            ),
+                            ),*/
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
-                            color: Colors.white12,
+                           // color: Colors.white12,
                           ),
                         ),
                         
@@ -679,7 +682,9 @@ try {
                         SizedBox(
                           width: 300.0,
                           height: 60.0,
-                          child: RaisedButton(
+                          child:   SignInButton(
+              Buttons.AppleDark,
+              //text: "Apple",
                             onPressed: () {
                               //function call for apple sign up
                              // _signInWithApple(context);
@@ -689,16 +694,16 @@ try {
                                     });
                               //function call for apple sign up
                             },
-                            child: const Text(
+                           /* child: const Text(
                               'Apple',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
-                            ),
+                            ),*/
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
-                            color: Colors.white12,
+                           // color: Colors.white12,
                           ),
                         ),
                         SizedBox(
