@@ -37,7 +37,9 @@ dependencies:
   google_fonts: ^0.2.0 #Styling text fonts
   intro_slider: ^2.2.8 #Intro slider for onBoardScreen
   flutter_spinkit: 4.1.0 #for loading
-  flutter_signin_button: ^1.0.0
+  flutter_signin_button: ^1.0.0 #for signin button
+  country_pickers: ^1.1.0 # for country code picker
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
