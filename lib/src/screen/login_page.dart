@@ -9,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'dart:async' show Future;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'signupcomplete.dart';
+import 'package:country_pickers/country_pickers.dart';  //for country code
+
 
 class LoginPage extends StatefulWidget {
   final String email, existingemail;
@@ -30,6 +32,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   TextEditingController phone = new TextEditingController();
   TextEditingController propertiesname = new TextEditingController();
   TextEditingController role = new TextEditingController();
+    var phoneCode;
   //bool _btnEnabled = false;
   var hostProperty, hostrole;
   List host1;
@@ -106,7 +109,7 @@ isEmpty(){
                   'name': name.text,
                   'lastname': lastname.text,
                   'email': email1.toLowerCase(),
-                  'phone': phone.text,
+                   'phone': "+"+"${phoneCode}"+"-"+"${phone.text}",                                
                   'host': [],
                 },
               );
@@ -175,6 +178,7 @@ isEmpty(){
   }
 
   @override
+  
   Widget build(BuildContext context) {
    // print(isButtonEnabled);
    
@@ -351,34 +355,51 @@ isEmpty(){
                   ),
 
                   Align(
-                    alignment: Alignment(-.100, 0),
-                    child: Container(
-                      alignment: Alignment.center,
-                      // width: 60.0,
-                      width: MediaQuery.of(context).size.width - 100,
-                      decoration: new BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: new BorderRadius.circular(12.0)),
-                      child: new TextFormField(
-                          // initialValue: "",
-                          onChanged: (val){
-                          isEmpty();
-                        },
-                          controller: phone,
-                          //keyboardType: TextInputType.emailAddress,
-                          keyboardType: TextInputType.phone,
-                          //maxLength: 12,
-                          autofocus: false,
-                          validator: validateMobile,
-                          onSaved: (String val) {
-                             
-                            mobile = val;
-                          },
-                          decoration: InputDecoration(
-                            hintText: "e.g. +44 7911 123456",
-                            fillColor: Color(0xffC8C3D4),
-                            contentPadding: EdgeInsets.all(20),
-                          )),
+                   // alignment: Alignment(-.100, 0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+
+                        CountryPickerDropdown(
+            initialValue: 'in',
+            itemBuilder: _buildDropdownItem,
+            onValuePicked: (country) {
+              print("name ${country.name}");
+            
+              phoneCode = "${country.phoneCode}";
+            },
+          ),
+          
+                       Container(
+                          alignment: Alignment.center,
+                         width: 200.0,
+                         // width: MediaQuery.of(context).size.width - 100,
+                          decoration: new BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: new BorderRadius.circular(12.0)),
+                          child: new TextFormField(
+                              // initialValue: "",
+                              onChanged: (val){
+                              isEmpty();
+                            },
+                              controller: phone,
+                              //keyboardType: TextInputType.emailAddress,
+                              keyboardType: TextInputType.phone,
+                              //maxLength: 12,
+                              autofocus: false,
+                              validator: validateMobile,
+                              onSaved: (String val) {
+                                 
+                                mobile = val;
+                              },
+                              decoration: InputDecoration(
+                                hintText: "e.g. +44 7911 123456",
+                                fillColor: Color(0xffC8C3D4),
+                                contentPadding: EdgeInsets.all(20),
+                              )),
+                        ),
+                      ],
                     ),
                   ),
 
@@ -483,6 +504,19 @@ isEmpty(){
       ),
     );
   }
+   Widget _buildDropdownItem(country) => Container(
+        child: Row(
+          children: <Widget>[
+            CountryPickerUtils.getDefaultFlagImage(country),
+            SizedBox(
+              //width: 15.0,
+            ),
+            //Text("+${country.phoneCode}(${country.isoCode})"),
+             Text("+${country.phoneCode}",style: TextStyle(color: Colors.black, fontSize: 15.0),),
+             
+          ],
+        ),
+      );
 }
 
 String validateMobile(String value) {
