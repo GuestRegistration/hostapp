@@ -41,12 +41,11 @@ Future<void> provider() async {
     //await FirebaseAuth.instance.signOut().whenComplete(() => update());
       final FirebaseAuth auth = FirebaseAuth.instance;
         final FirebaseUser user1 = await auth.currentUser();
-        print("providerData");
-        print(user1.providerData);
-         print(user1.providerId);
-       
-         await FirebaseAuth.instance.signOut().whenComplete(() => update());
-     await googleSignIn.signOut().whenComplete(() => update());
+     
+        // await FirebaseAuth.instance.signOut().whenComplete(() => update());
+     //await googleSignIn.signOut().whenComplete(() => update());
+      await FirebaseAuth.instance.signOut().whenComplete(() => navigate());
+     await googleSignIn.signOut().whenComplete(() => navigate());
   }
   void update() async {
 var did;
@@ -72,7 +71,7 @@ var did;
        'email':email.toString(),
         'DeviceId': "",
       },
-    ).whenComplete(() => navigate());
+    ).whenComplete(() => signOut());
   }
 
   navigate() {
@@ -140,7 +139,7 @@ var did;
                     color: Colors.black,
                     child: RaisedButton(
                       onPressed: () {
-                      signOut();
+                      update();
                       },
                       child: const Text(
                         'Log out',

@@ -45,23 +45,17 @@ Future<void> provider() async {
         //print(user1.providerData);
         // print(user1.providerId);
         // print(user1.)
-         /*
-         for(int i=0; i<user1.providerData.length;i++){
-
-         }
-         
-         if(user1.providerId == 'firebase' ){
-           print("inside if");
-           await FirebaseAuth.instance.signOut().whenComplete(() => update());
-         }
-         else{
-           print("inside else");
-           await googleSignIn.signOut().whenComplete(() => update());
-         }*/
-         await FirebaseAuth.instance.signOut().whenComplete(() => update());
-     await googleSignIn.signOut().whenComplete(() => update());
+          
+          print("uid"+user1.uid);
+        // update();
+         await FirebaseAuth.instance.signOut().whenComplete(() => navigate());
+     await googleSignIn.signOut().whenComplete(() => navigate());
   }
   void update() async {
+    print("inside update function");
+          final FirebaseAuth auth = FirebaseAuth.instance;
+        final FirebaseUser user1 = await auth.currentUser();
+      print("uid inside update"+user1.uid);
 var did;
 
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -85,7 +79,7 @@ var did;
        'email':email.toString(),
         'DeviceId': "",
       },
-    ).whenComplete(() => navigate());
+    ).whenComplete(() => signOut());
   }
 
   navigate() {
@@ -169,7 +163,7 @@ var did;
                     color: Colors.black,
                     child: RaisedButton(
                       onPressed: () {
-                      signOut();
+                      update();
                       },
                       child: const Text(
                         'Log out',
