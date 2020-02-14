@@ -16,6 +16,7 @@ import 'sign_in.dart';
 import 'login_page.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+
 class AuthScreen extends StatefulWidget {
   @override
   AuthScreenState createState() => AuthScreenState();
@@ -29,7 +30,7 @@ class AuthScreenState extends State<AuthScreen> {
   var existingemail;
   bool signupcheck = false;
   TextEditingController textemail = new TextEditingController();
-bool supportsAppleSignIn = false;
+  bool supportsAppleSignIn = false;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -39,24 +40,24 @@ bool supportsAppleSignIn = false;
   }
 
   void initState() {
-
-getdeviceinfo();
+    getdeviceinfo();
     super.initState();
   }
-getdeviceinfo() async {
-  if (Theme.of(context).platform == TargetPlatform.iOS) {
-  //var iosInfo = await DeviceInfoPlugin().iosInfo;
-  var iosInfo =  await DeviceInfoPlugin().iosInfo;
-  var version = iosInfo.systemVersion;
 
-  if (version.contains('13') == true) {
-    supportsAppleSignIn = true;
+  getdeviceinfo() async {
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
+      //var iosInfo = await DeviceInfoPlugin().iosInfo;
+      var iosInfo = await DeviceInfoPlugin().iosInfo;
+      var version = iosInfo.systemVersion;
+
+      if (version.contains('13') == true) {
+        supportsAppleSignIn = true;
+      }
+    } else {
+      print("it is not an iOS device");
+    }
   }
-}
-else{
-  print("it is not an iOS device");
-}
-}
+
   void initDynamicLinks() async {
     final PendingDynamicLinkData data =
         await FirebaseDynamicLinks.instance.getInitialLink();
@@ -127,59 +128,55 @@ else{
 //          sharedPreferences.clear();
     });
   }*/
-      /// Function start for handling apple signup
+  /// Function start for handling apple signup
 
-Future signInWithApple() async {
-try {
+  Future signInWithApple() async {
+    try {
+      final AuthorizationResult result = await AppleSignIn.performRequests([
+        AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+      ]);
 
-  final AuthorizationResult result = await AppleSignIn.performRequests([
-    AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-  ]);
+      switch (result.status) {
+        case AuthorizationStatus.authorized:
+          try {
+            print("successfull sign in");
+            final AppleIdCredential appleIdCredential = result.credential;
 
-  switch (result.status) {
-    case AuthorizationStatus.authorized:
-      try {
-        print("successfull sign in");
-        final AppleIdCredential appleIdCredential = result.credential;
+            OAuthProvider oAuthProvider =
+                new OAuthProvider(providerId: "apple.com");
+            final AuthCredential credential = oAuthProvider.getCredential(
+              idToken: String.fromCharCodes(appleIdCredential.identityToken),
+              accessToken:
+                  String.fromCharCodes(appleIdCredential.authorizationCode),
+            );
 
-        OAuthProvider oAuthProvider =
-            new OAuthProvider(providerId: "apple.com");
-        final AuthCredential credential = oAuthProvider.getCredential(
-          idToken:
-              String.fromCharCodes(appleIdCredential.identityToken),
-          accessToken:
-              String.fromCharCodes(appleIdCredential.authorizationCode),
-        );
+            final AuthResult _res =
+                await FirebaseAuth.instance.signInWithCredential(credential);
 
-        final AuthResult _res = await FirebaseAuth.instance
-            .signInWithCredential(credential);
+            FirebaseAuth.instance.currentUser().then((val) async {
+              UserUpdateInfo updateUser = UserUpdateInfo();
+              updateUser.displayName =
+                  "${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}";
+              updateUser.photoUrl = "define an url";
+              await val.updateProfile(updateUser);
+            });
+          } catch (e) {
+            print("error");
+          }
+          break;
+        case AuthorizationStatus.error:
+          // do something
+          break;
 
-        FirebaseAuth.instance.currentUser().then((val) async {
-          UserUpdateInfo updateUser = UserUpdateInfo();
-          updateUser.displayName =
-              "${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}";
-          updateUser.photoUrl =
-              "define an url";
-          await val.updateProfile(updateUser);
-        });
-
-      } catch (e) {
-       print("error");
+        case AuthorizationStatus.cancelled:
+          print('User cancelled');
+          break;
       }
-      break;
-    case AuthorizationStatus.error:
-      // do something
-      break;
-
-    case AuthorizationStatus.cancelled:
-      print('User cancelled');
-      break;
+    } catch (error) {
+      print("error with apple sign in");
+    }
   }
-} catch (error) {
-  print("error with apple sign in");
-}
-   
-}
+
 // Function end for handling apple signup
   void _authCompletedgoogle() async {
     //_authCompletedgoogle function is used to navigate the user after google signup
@@ -217,16 +214,15 @@ try {
       }
     });
   }
+
   void _authCompleteapple() async {
     //_authCompletedgoogle function is used to navigate the user after google signup
     // var email = user.email;
-     final FirebaseAuth auth =
-                                              FirebaseAuth.instance;
-    final FirebaseUser currentuserapple =
-                                              await auth.currentUser();
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseUser currentuserapple = await auth.currentUser();
 
-                                          print("currentuserapple.email" + currentuserapple.email);
-    
+    print("currentuserapple.email" + currentuserapple.email);
+
     var email = currentuserapple.email;
     Firestore.instance
         .collection("users")
@@ -259,7 +255,6 @@ try {
     });
   }
 
-
   void init() {
     existingemail = "";
     super.initState();
@@ -281,7 +276,7 @@ try {
     //print("appleSignInAvailable" + appleSignInAvailable.toString());
     //print(appleSignInAvailable.toString());
     return Scaffold(
-      body: Container(
+        body: Container(
       padding: EdgeInsets.all(32),
       child: SingleChildScrollView(
         child: Column(
@@ -356,8 +351,7 @@ try {
           ],
         ),
       ),
-    )
-    );
+    ));
   }
 
   Widget _authForm(bool isEmail) {
@@ -548,9 +542,9 @@ try {
                           width: 300.0,
                           height: 60.0,
                           //child: RaisedButton(
-                            child:  SignInButton(
-                  Buttons.GoogleDark,
-                  //text: "Google",
+                          child: SignInButton(
+                            Buttons.GoogleDark,
+                            //text: "Google",
                             onPressed: () async {
                               signInWithGoogle().whenComplete(() async {
                                 //_authCompletedgoogle();
@@ -637,12 +631,21 @@ try {
                                           );
                                           _authCompletedgoogle();
                                         } else {
-                                          print("Email is already signIn");
+                                          print("Email is already signIn for google");
+                                          final FirebaseAuth auth =
+                                              FirebaseAuth.instance;
+                                          final FirebaseUser user1 =
+                                              await auth.currentUser();
+
+                                          print("uid for user1 " + user1.uid);
                                           //Email is already signIn dont allow to signup
-                                          setState(() {
+
+                                          setState(()  {
                                             signupcheck = true;
                                             //set the signupcheck flag true to display the error message
                                           });
+                                      await googleSignIn.signOut();
+
                                         }
                                       }));
                                   if (email.documents.length == 0) {
@@ -672,29 +675,28 @@ try {
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
-                           // color: Colors.white12,
+                            // color: Colors.white12,
                           ),
                         ),
-                        
                         SizedBox(
                           height: 32.0,
                         ),
                         SizedBox(
                           width: 300.0,
                           height: 60.0,
-                          child:   SignInButton(
-              Buttons.AppleDark,
-              //text: "Apple",
+                          child: SignInButton(
+                            Buttons.AppleDark,
+                            //text: "Apple",
                             onPressed: () {
                               //function call for apple sign up
-                             // _signInWithApple(context);
+                              // _signInWithApple(context);
                               signInWithApple().whenComplete(() {
-                                      _authCompleteapple();
-                                      // print("hai"+email);
-                                    });
+                                _authCompleteapple();
+                                // print("hai"+email);
+                              });
                               //function call for apple sign up
                             },
-                           /* child: const Text(
+                            /* child: const Text(
                               'Apple',
                               style: TextStyle(
                                   color: Colors.black,
@@ -703,7 +705,7 @@ try {
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
-                           // color: Colors.white12,
+                            // color: Colors.white12,
                           ),
                         ),
                         SizedBox(
