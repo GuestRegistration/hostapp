@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["apple_sign_in|lib/apple_sign_in.dart","firebase_auth|lib/firebase_auth.dart","flutter|lib/services.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["bottom_navy_bar|lib/bottom_navy_bar.dart","firebase_auth|lib/firebase_auth.dart","flutter|lib/material.dart","flutter_icons|lib/flutter_icons.dart","hostapp|lib/src/screen/ListOfProperty.dart","hostapp|lib/src/screen/FetchProperties.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

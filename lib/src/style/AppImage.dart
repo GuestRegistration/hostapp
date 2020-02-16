@@ -6,5 +6,6 @@ class AppImage{
   static const String board2 = "assets/images/signup.png";
   static const String board3 = "assets/images/share.png";
   static const String board4 = "assets/images/doc.png";
+  static const String loadinggif = "assets/images/loading.gif";
 
 }

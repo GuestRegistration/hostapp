@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["firebase_auth|lib/firebase_auth.dart","hostapp|lib/src/util/storage_repository.dart","hostapp|lib/src/service/auth_provider.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

@@ -12,7 +12,10 @@ final DialogService _dialogService = locator<DialogService>();
 final NavigationService _navigationService = locator<NavigationService>();
 
 
- Future login({@required String email, @required String password})async{
+ Future login()async{
+   String email = 'horlaz229@gmail.com';
+   String password = '244344';
+
      setBusy(true); //For Loading..
        var result = await _authService.loginWithEmail(
          email: email,

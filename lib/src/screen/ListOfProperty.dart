@@ -38,14 +38,14 @@ class _ListOfPropertyState extends State<ListOfProperty>{
         backgroundColor: AppColor.white,
         title: Text('My Properties'),
         actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 15.0),
-            child: GestureDetector(child: Icon(FontAwesome.sign_out, size: 30, color: Colors.red), 
-            onTap: (){
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 15.0),
+          //   child: GestureDetector(child: Icon(FontAwesome.sign_out, size: 30, color: Colors.red), 
+          //   onTap: (){
             
-            },
-            ),
-          ),
+          //   },
+          //   ),
+          // ),
         ],
 
       ),
@@ -95,21 +95,22 @@ class _ListOfPropertyState extends State<ListOfProperty>{
            ListView.builder(
           itemCount: model.properties.length,
           shrinkWrap: true,
-          scrollDirection: Axis.vertical,
+          scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context , int index){
             if(model.properties.length == 0){
               return Center(child: Text('No Property Available', style: AppTextStyle.error(context, Colors.redAccent),),);
             }
-            return PropertyWidget(
-                propertyModel: model.properties[index],
-              );
-             },
-                      )
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PropertyWidget(
+                  propertyModel: model.properties[index],
+                ),
+            );
+             },)
                       : Center(child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation(AppColor.primary),
                       ))
             ),
-              
           ],),
       ),
     )

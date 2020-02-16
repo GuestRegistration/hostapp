@@ -11,7 +11,6 @@ class AddPropertyPortrait extends ProviderWidget<AddPropertyViewModel> {
       body: AddProprtyUI(model),
     );
   }
-
 }
 
 class AddPropertyLandscape extends ProviderWidget<AddPropertyViewModel> {
@@ -26,7 +25,6 @@ class AddPropertyLandscape extends ProviderWidget<AddPropertyViewModel> {
      ) 
     ,),
       ),
-      
     );
   }
 }

@@ -2,10 +2,9 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hostapp/src/screen/ListOfProperty.dart';
 import 'package:hostapp/src/screen/FetchProperties.dart';
-import 'package:hostapp/src/screen/Profile.dart';
-import 'package:hostapp/src/screen/secureStorageTester.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -13,7 +12,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard>{
-  FirebaseAuth user = FirebaseAuth.instance;
   int _selectedIndex = 0;
 
 
@@ -22,35 +20,62 @@ class _DashboardState extends State<Dashboard>{
     return Scaffold(
     resizeToAvoidBottomPadding: true,
       body:  switchBody(),
-       bottomNavigationBar: BottomNavyBar(
-   selectedIndex: _selectedIndex,
-   showElevation: true, // use this to remove appBar's elevation
-   onItemSelected: (index) => setState(() {
-              _selectedIndex = index;
-    }),
-   items: [
-     BottomNavyBarItem(
-       icon: Icon(FontAwesome.building),
-       title: Text('Properties'),
-       activeColor: Colors.red,
-     ),
-     BottomNavyBarItem(
-         icon: Icon(Icons.local_airport),
-         title: Text('Reservation'),
-         activeColor: Colors.purpleAccent
-     ),
-     BottomNavyBarItem(
-         icon: Icon(Icons.message),
-         title: Text('Messages'),
-         activeColor: Colors.pink
-     ),
-     BottomNavyBarItem(
-         icon: Icon(Icons.supervised_user_circle),
-         title: Text('Profile'),
-         activeColor: Colors.blue
-     ),
-   ],
-),
+       bottomNavigationBar:  BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            iconSize: 20.3,
+            fixedColor: Colors.white,
+            backgroundColor: Colors.white,
+             onTap: (index) => _onItemTapped(index),
+            items: <BottomNavigationBarItem>[  
+//Home
+              BottomNavigationBarItem(
+                icon:  Icon(FontAwesome.building,  color: Colors.black, size: 30,),
+                title: new Text("Properties",
+                  style: TextStyle(
+                      color: Colors.black
+                  ),
+              
+                ),
+              ),
+              //Order List
+              BottomNavigationBarItem(
+                icon: Icon(Icons.local_airport,  color: Colors.black, size: 30,),
+                title: new Text("Reservation",
+                  
+                  style: TextStyle(
+                    color: Colors.black,
+
+                  ),
+                ),
+              ),
+
+              //Section
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.settings,
+                  color: Colors.black, size: 30,),
+                title: new Text("Settings",
+                  style: GoogleFonts.alice(
+                    textStyle: TextStyle(
+                      color: Colors.black
+                  ),
+                  )
+                ),
+
+              ),
+                    //Profile
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.person, color: Colors.black,),
+              //   title: new Text("No",
+              //     style: TextStyle(
+              //         color: Colors.black
+              //     ),
+
+              //   ),
+              // ),
+            ]
+
+        ),
     );
   }
 
@@ -65,11 +90,16 @@ class _DashboardState extends State<Dashboard>{
    
 
     }else if(_selectedIndex == 2){ 
-      return ItemsWidget();
+      return Text('');
 
     }else if(_selectedIndex == 3){ 
       return Text('');
 
     }
+  }
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 }

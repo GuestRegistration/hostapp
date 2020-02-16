@@ -17,30 +17,69 @@ class PropertyWidget extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListTile(
-        trailing: Column(
-          children: <Widget>[
-            Icon(Icons.menu),
-            SizedBox(height: 5,),
-            Container(child: CircleAvatar(backgroundColor: Colors.green,), height: 10, width: 10,)
-          ],
-        ),
-        leading: Image.asset(AppImage.icode, height: 50, width: 50,),
-        title: Text(propertyModel.propertyName, style: AppTextStyle.headerSmall(context),),
-        subtitle: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: <Widget>[
-              Icon(Icons.location_on, color: Colors.grey),
-              Flexible(
-                  child: Text(propertyModel.propertyAddress, style: AppTextStyle.headerSmall2(context),
-                 overflow: TextOverflow.ellipsis),
-              )
-            ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 30.0, bottom: 66),
+      child: Stack(
+        children: <Widget>[
+          Center(
+            child:ClipRRect(
+    borderRadius: BorderRadius.circular(8.0),
+    child: Image.network(
+       'https://www.aliantlaw.com/uploads/general/Lagos_VI_Skyline-2.jpg',
+       fit: BoxFit.fill,
+         height: MediaQuery.of(context).size.height,
+                 width: MediaQuery.of(context).size.width,
+                 loadingBuilder: (context, Widget child,ImageChunkEvent loadingProgress){
+                                  return loadingProgress == null ? child:
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: CircularProgressIndicator(
+                                          value: loadingProgress.expectedTotalBytes != null ?
+                                        loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                                          : null,
+                                        ),
+                                      );
+                                  },
+    ),
+)
           ),
-        ), 
-      ),
+          Positioned(
+            left: 20,
+            bottom: 70,
+           child:  Text(propertyModel.propertyName,
+                style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+              ),),
+          ),
+           Positioned(
+            left: 20,
+            bottom: 50,
+           child:  Text(propertyModel.propertyAddress,
+                style: AppTextStyle.inputHint(context)),
+          ),
+           Positioned(
+            left: 20,
+            bottom: 20,
+           child: Row(children: <Widget>[
+              Icon(Icons.location_on, color: Colors.white),
+              Text('L2K 2M1',
+                style: AppTextStyle.headerSmall2(context)),
+           ],)
+          ),
+           Positioned(
+            left: 300,
+           bottom: 30, 
+           child:  Column(children: <Widget>[
+             Icon(Icons.menu, color: Colors.white),
+             SizedBox(height: 5,),
+            Container(child: CircleAvatar(backgroundColor: Colors.green,), height: 10, width: 10,)
+           ],)
+          ),
+          
+        ],
+      )
     );
   }
 }

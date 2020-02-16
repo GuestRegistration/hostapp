@@ -17,19 +17,60 @@ class ListOfPropertyViewModel extends BaseModel{
    final AuthService _authService = locator<AuthService>();
 final NavigationService _navigationService = locator<NavigationService>();
 final FirestoreService _firestoreService = locator<FirestoreService>();
+final DialogService _dialogService = locator<DialogService>();
 
 List<PropertyModel> _propertlist;
 List<PropertyModel> get properties => _propertlist;
 
 
 void initialize(){
-  //listen to real time update and fetch data
-setBusy(true);
+login();
+}
+
+
+void addproperty(){
+  _navigationService.navigateTo(addPropertyRoute);
+}
+
+
+ Future login()async{
+   String email = 'horlaz229@gmail.com';
+   String password = '244344';
+
+     setBusy(true); //For Loading..
+       var result = await _authService.loginWithEmail(
+         email: email,
+         password: password
+       );
+       setBusy(false);
+
+       if(result is bool){
+         if(result){
+          fetchData();
+         }else{
+            await _dialogService.showDialog(
+              title: 'Login Failure',
+              description: 'Login fail, Please try again later',
+
+            );
+         }
+       }else {
+         await _dialogService.showDialog(
+          title: 'Login Failure',
+          description: result,
+         );
+       }
+ }
+
+fetchData(){
+  setBusy(true);
+   //listen to real time update and fetch data
 print('Am Here');
 _firestoreService.fetchProperties().listen((propertyData) {
   List<PropertyModel> updatedData = propertyData;
   if(updatedData != null && updatedData.length > 0){
     _propertlist = updatedData;
+    print(_propertlist.toString());
     notifyListeners();
   }
   setBusy(false);
@@ -37,7 +78,4 @@ _firestoreService.fetchProperties().listen((propertyData) {
 });
 }
 
-void addproperty(){
-  _navigationService.navigateTo(addPropertyRoute);
-}
 }

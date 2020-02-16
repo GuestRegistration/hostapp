@@ -27,7 +27,7 @@ final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
         email: email,
         password: password,
       );
-      await _populateCurrentUser(authResult.user);
+      //await _populateCurrentUser(authResult.user);
       return authResult.user != null;
     } catch (e) {
       return e.message;
@@ -58,17 +58,17 @@ final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
     }
   }
 
-  Future<bool> isUserLoggedIn() async {
-    var user = await _firebaseAuth.currentUser();
-    await _populateCurrentUser(user);
-    return user != null;
-  }
-
-  Future _populateCurrentUser(FirebaseUser user) async {
-    if (user != null) {
-      _currentUser = await _firestoreService.getUser(user.uid);
-    }
-  }
+//  Future<bool> isUserLoggedIn() async {
+//    var user = await _firebaseAuth.currentUser();
+//    await _populateCurrentUser(user);
+//    return user != null;
+//  }
+//
+//  Future _populateCurrentUser(FirebaseUser user) async {
+//    if (user != null) {
+//      _currentUser = await _firestoreService.getUser(user.uid);
+//    }
+//  }
 
   //Sign Out
    Future signOut()async{

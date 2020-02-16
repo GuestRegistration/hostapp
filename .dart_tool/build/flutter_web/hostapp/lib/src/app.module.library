@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["flutter|lib/material.dart","hostapp|lib/src/screen/Dashboard.dart","hostapp|lib/src/service/auth_bloc_provider.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

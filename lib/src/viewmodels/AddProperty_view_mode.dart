@@ -94,7 +94,6 @@ String propertyRule})async{
 
     setBusy(true);
      storageResult = await _cloudStorageService.uploadImage(imageToUpload: image, title: _propertyName);
-  
      var result = await _firestoreService.addProperty(
       PropertyModel(
         propertyAddress: _address,

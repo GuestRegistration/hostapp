@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["flutter|lib/widgets.dart","hostapp|lib/src/locator.dart","hostapp|lib/src/model/UserDetails.dart","hostapp|lib/src/service/authentication.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["country_code_picker|lib/country_code.dart","country_code_picker|lib/country_codes.dart","country_code_picker|lib/selection_dialog.dart","flutter|lib/material.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

@@ -55,7 +55,7 @@ static BoxDecoration disabledFieldDecortaion = BoxDecoration(
         fontFamilyFallback: ["RobotoRegular"],
         fontSize: AppFontSizes.medium,
         fontWeight: FontWeight.w700,
-        color: AppColor.loginGradientEnd);
+        color: AppColor.black);
   }
 
   // For small headers
@@ -122,17 +122,16 @@ static BoxDecoration disabledFieldDecortaion = BoxDecoration(
     return TextStyle(
         fontFamily: "Metropolis",
         fontFamilyFallback: ["RobotoRegular"],
-        fontSize: AppFontSizes.smallest,
+        fontSize: AppFontSizes.medium,
         fontWeight: FontWeight.w700,
-        color: Colors.grey);
+        color: Colors.white);
   }
   static TextStyle inputHint(BuildContext context) {
     return TextStyle(
         fontFamily: "Metropolis",
         fontFamilyFallback: ["RobotoRegular"],
         fontSize: AppFontSizes.small,
-        fontWeight: FontWeight.w500,
-        color: Colors.grey);
+        color: Colors.white);
   }
   static TextStyle emailheaderSmall(BuildContext context, Color color) {
     return TextStyle(

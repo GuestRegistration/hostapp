@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["flutter|lib/material.dart","hostapp|lib/src/screen/AddPropertyScreen.dart","hostapp|lib/src/screen/Dashboard.dart","hostapp|lib/src/screen/WrapperScreen.dart","hostapp|lib/src/util/constants.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

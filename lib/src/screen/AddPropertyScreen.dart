@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/screen/Mobile/AddPropertyMobile.dart';
@@ -65,56 +63,58 @@ final AddPropertyViewModel model;
         ),),
         backgroundColor: AppColor.white,
         actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 15.0),
-            child: GestureDetector(child: Icon(FontAwesome.sign_out, size: 30, color: Colors.red), 
-            onTap: (){
-             // authService.signOut(context: context);
-            },
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 15.0),
+          //   child: GestureDetector(child: Icon(FontAwesome.sign_out, size: 30, color: Colors.red), 
+          //   onTap: (){
+          //    // authService.signOut(context: context);
+          //   },
+          //   ),
+          // ),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          horizontalSpaceSmall,
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                PropertyButton(
-                  text: '1',
-                  background: AppColor.black,
-                  onpress: (){
-                  
-                  },
-                ),
-                horizontalSpaceSmall,
-                PropertyButton(
-                  text: '2',
-                  background: (model.pageIndex == 2 || model.pageIndex == 3 ? AppColor.black
-                  : AppColor.kGrey200),
-                  onpress: (){
-                  //print('Hi');
-                  },
-                ),
+      body: SingleChildScrollView(
+              child: Column(
+          children: <Widget>[
+            horizontalSpaceSmall,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  PropertyButton(
+                    text: '1',
+                    background: AppColor.black,
+                    onpress: (){
+                    
+                    },
+                  ),
+                  horizontalSpaceSmall,
+                  PropertyButton(
+                    text: '2',
+                    background: (model.pageIndex == 2 || model.pageIndex == 3 ? AppColor.black
+                    : AppColor.kGrey200),
+                    onpress: (){
+                    //print('Hi');
+                    },
+                  ),
 
-                 horizontalSpaceSmall,
-                PropertyButton(
-                  text: '3',
-                  background: (model.pageIndex == 3 ? AppColor.black
-                  : AppColor.kGrey200),
-                  onpress: (){
-                  //print('Hi');
-                  },
-                )
-            ],),
-          ),
-          SingleChildScrollView(
-        child: swtichScreen(model, context)
-      ),
-        ],
+                   horizontalSpaceSmall,
+                  PropertyButton(
+                    text: '3',
+                    background: (model.pageIndex == 3 ? AppColor.black
+                    : AppColor.kGrey200),
+                    onpress: (){
+                    //print('Hi');
+                    },
+                  )
+              ],),
+            ),
+            SingleChildScrollView(
+          child: swtichScreen(model, context)
+        ),
+          ],
+        ),
       )
    
     );
@@ -170,7 +170,7 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
                                          onChanged: (value){
                                            
                                          },
-                                        initialSelection: '+234',
+                                        initialSelection: '+1',
                                         favorite: ['+39','FR'],
                                         showCountryOnly: false,
                                         alignLeft: false,

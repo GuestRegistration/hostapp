@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["meta|lib/meta.dart","google_sign_in_platform_interface|lib/src/method_channel_google_sign_in.dart","google_sign_in_platform_interface|lib/src/types.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async"],"hasMain":false}

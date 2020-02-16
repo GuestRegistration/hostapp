@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["flutter|lib/material.dart","hostapp|lib/src/style/AppTextStyle.dart","hostapp|lib/src/util/form_inputs/demo_data.dart","hostapp|lib/src/util/form_inputs/input_validator.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

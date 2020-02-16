@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["flutter|lib/services.dart","flutter|lib/foundation.dart","apple_sign_in|lib/apple_id_credential.dart","apple_sign_in|lib/apple_id_request.dart","apple_sign_in|lib/scope.dart","apple_sign_in|lib/open_id_operation.dart","apple_sign_in|lib/apple_sign_in_button.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async","io"],"hasMain":false}

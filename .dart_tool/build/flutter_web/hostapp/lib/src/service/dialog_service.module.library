@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["flutter|lib/cupertino.dart","hostapp|lib/src/model/dialog_models.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async"],"hasMain":false}
