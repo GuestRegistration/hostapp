@@ -367,14 +367,35 @@ class AuthScreenState extends State<AuthScreen> {
 
                 return SingleChildScrollView(
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        _emailInputField(snapshot.error),
+                         /*comment start for passwordless login*/
+                       // _emailInputField(snapshot.error),
+                        /*comment end for passwordless login*/
                         SizedBox(
-                          height: 32.0,
+                          height: 150.0,
                         ),
-                        SizedBox(
+                        Text("Let's get started", style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,fontSize: 32.0),
+                            ),
+                           SizedBox(
+                          height: 20.0,
+                        ),
+                            SizedBox(
+                              width: 100.0,
+                                                          child: Text("Select a method to begin using", 
+                              style: TextStyle(color:Colors.black26,fontSize: 14.0),),
+                            ),
+                            SizedBox(
+                                                          child: Text("Guest Registration", 
+                              style: TextStyle(color:Colors.black26,fontSize: 14.0),),
+                            ),
+                               SizedBox(
+                          height: 50.0,),
+                        /*comment start for passwordless login*/
+                      /*  SizedBox(
                           width: 300.0,
                           height: 60.0,
                           child: RaisedButton(
@@ -528,8 +549,8 @@ class AuthScreenState extends State<AuthScreen> {
                                     BorderRadius.all(Radius.circular(12))),
                             color: Colors.white12,
                           ),
-                        ),
-                        Center(
+                        ),*/
+                        /*Center(
                           child: Text(
                             'OR',
                             style: TextStyle(
@@ -537,14 +558,15 @@ class AuthScreenState extends State<AuthScreen> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25.0),
                           ),
-                        ),
+                        ),*/
+                         /*comment end for passwordless login*/
                         SizedBox(
                           width: 300.0,
                           height: 60.0,
                           //child: RaisedButton(
                           child: SignInButton(
-                            Buttons.GoogleDark,
-                            //text: "Google",
+                            Buttons.Google,
+                            text: "Continue with Google",
                             onPressed: () async {
                               signInWithGoogle().whenComplete(() async {
                                 //_authCompletedgoogle();
@@ -686,7 +708,7 @@ class AuthScreenState extends State<AuthScreen> {
                           height: 60.0,
                           child: SignInButton(
                             Buttons.AppleDark,
-                            //text: "Apple",
+                               text: "Continue with Apple",
                             onPressed: () {
                               //function call for apple sign up
                               // _signInWithApple(context);
@@ -711,7 +733,8 @@ class AuthScreenState extends State<AuthScreen> {
                         SizedBox(
                           height: 32.0,
                         ),
-                        SizedBox(
+                         /*comment start for create new account*/
+                        /*SizedBox(
                           width: 300.0,
                           height: 60.0,
                           child: RaisedButton(
@@ -732,7 +755,8 @@ class AuthScreenState extends State<AuthScreen> {
                             ),
                             color: Colors.white12,
                           ),
-                        ),
+                        ),*/
+                         /*comment start for create new account*/
                       ]),
                 );
                 //);
@@ -741,8 +765,8 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   /// The method takes in an [error] message from our validator.
-
-  Widget _emailInputField(String error) {
+ /*comment start for passwordless login*/
+ /* Widget _emailInputField(String error) {
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -823,13 +847,14 @@ class AuthScreenState extends State<AuthScreen> {
         ),
       ),
     );
-  }
+  }*/
 
-  void _authenticateUserWithEmail() {
+   /*void _authenticateUserWithEmail() {
     _bloc.sendSignInWithEmailLink().whenComplete(() => _bloc
         .storeUserEmail()
         .whenComplete(() => _bloc.changeAuthStatus(AuthStatus.emailLinkSent)));
-  }
+  }*/
+   /*comment end for passwordless login*/
 
   _showSnackBar(String error) {
     final snackBar = SnackBar(content: Text(error));

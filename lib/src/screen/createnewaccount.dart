@@ -363,11 +363,14 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        _emailInputField(snapshot.error),
+                         /*comment start for passwordless login*/
+                        //_emailInputField(snapshot.error),
+                         /*comment end for passwordless login*/
                         SizedBox(
                           height: 32.0,
                         ),
-                        SizedBox(
+                         /*comment start for passwordless login*/
+                     /*   SizedBox(
                           width: 300.0,
                           height: 60.0,
                           child: RaisedButton(
@@ -530,7 +533,8 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25.0),
                           ),
-                        ),
+                        ),*/
+                         /*comment end for passwordless login*/
                         SizedBox(
                           width: 300.0,
                           height: 60.0,

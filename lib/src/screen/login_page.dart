@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 //import 'package:guestapptest/Model/umodel.dart';
 import 'dart:async' show Future;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hostapp/src/screen/verifyotp.dart';
 import 'signupcomplete.dart';
 import 'package:country_pickers/country_pickers.dart';  //for country code
 
@@ -39,6 +40,11 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   bool isButtonEnabled = true;
   bool  errorflag = false;
   var buttoncolor;
+   String phoneNo;
+  String smsOTP;
+  String verificationId;
+  String errorMessage = '';
+  FirebaseAuth _auth = FirebaseAuth.instance;
   void initState() {
     super.initState();
 
@@ -172,7 +178,139 @@ isEmpty(){
     print(qn.documents.toList());
     return qn.documents;
   }
+  void navigateotp(){
+    print("inside navigate otp");
+       Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return Verifyotp(
+           phoneNumber :"+""${phoneCode}"+"${phone.text}", 
+           name:name.text,
+           lastname:lastname.text,
+           email: email1,
+          );
+        },
+      ),
+    );
+  }
+   Future<void> verifyPhone() async {
+    final PhoneCodeSent smsOTPSent = (String verId, [int forceCodeResend]) {
+      this.verificationId = verId;
+      smsOTPDialog(context).then((value) {
+        print('sign in');
+        addUser();
+      });
+      //navigateotp();
+      
+    };
+    try {
+             print("phone number to send otp ");
+             print("+"+"${phoneCode}"+"${phone.text}");
+      await _auth.verifyPhoneNumber(
+          //phoneNumber: this.phoneNo, // PHONE NUMBER TO SEND OTP
+            phoneNumber: "+""${phoneCode}"+"${phone.text}", 
+             //phoneNumber: "+"+"${phoneCode}"+"${phone.text}", 
+               codeAutoRetrievalTimeout: (String verId) {
+            //Starts the phone number verification process for the given phone number.
+            //Either sends an SMS with a 6 digit code to the phone number specified, or sign's the user in and [verificationCompleted] is called.
+            this.verificationId = verId;
+          },
+          codeSent:
+              smsOTPSent, // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
+          timeout: const Duration(seconds: 20),
+          verificationCompleted: (AuthCredential phoneAuthCredential) {
+            print("phoneAuthCredential"+phoneAuthCredential.toString());
+          },
+          verificationFailed: (AuthException exceptio) {
+            print('exceptio.message+ ${exceptio.message}');
+          });
+    } catch (e) {
+      handleError(e);
+    }
+  }
+  Future<bool> smsOTPDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return new AlertDialog(
+            title: Text('Enter SMS Code'),
+            content: Container(
+              height: 85,
+              child: Column(children: [
+                TextField(
+                  onChanged: (value) {
+                    this.smsOTP = value;
+                  },
+                ),
+                (errorMessage != ''
+                    ? Text(
+                        errorMessage,
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : Container())
+              ]),
+            ),
+            contentPadding: EdgeInsets.all(10),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Done'),
+                onPressed: () {
+                  _auth.currentUser().then((user) {
+                    if (user != null) {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushReplacementNamed('/homepage');
+                    } else {
+                      signIn();
+                    }
+                  });
+                },
+              )
+            ],
+          );
+        });
+  }
+    signIn() async {
+    try {
+      final AuthCredential credential = PhoneAuthProvider.getCredential(
+        verificationId: verificationId,
+        smsCode: smsOTP,
+      );
+            // final FirebaseUser user = (await _auth.signInWithCredential(credential)) as FirebaseUser;
+          final AuthResult user = await _auth.signInWithCredential(credential);
+      final FirebaseUser currentUser = await _auth.currentUser();
+      //assert(user.uid == currentUser.uid);
+addUser();
+     Navigator.of(context).pop();
+      //Navigator.of(context).pushReplacementNamed('/homepage');
+     // .whenComplete(() => addDevicedetails());
+     
+    }
+    catch (e) {
+      handleError(e);
+    }
+  }
+    handleError(PlatformException error) {
+    print("error inside handle error function"+error.toString());
+    switch (error.code) {
+      case 'ERROR_INVALID_VERIFICATION_CODE':
+        FocusScope.of(context).requestFocus(new FocusNode());
+        setState(() {
+          errorMessage = 'Invalid Code';
+        });
+        Navigator.of(context).pop();
+        smsOTPDialog(context).then((value) {
+          print('sign in');
+        });
+        break;
+      default:
+        setState(() {
+          errorMessage = error.message;
+        });
 
+        break;
+    }
+  }
   void dispose() {
     super.dispose();
   }
@@ -183,7 +321,7 @@ isEmpty(){
    // print(isButtonEnabled);
    
    if (isButtonEnabled == false) {
-     buttoncolor = Colors.black;
+     buttoncolor = Colors.cyanAccent;
    } else {
      buttoncolor = Colors.black12;
    }
@@ -253,7 +391,7 @@ isEmpty(){
                     child: Container(
                       alignment: Alignment.center,
                       // height: 60.0,
-                      width: MediaQuery.of(context).size.width - 100,
+                      width: MediaQuery.of(context).size.width - 50,
                       //width: 300.0,
                       decoration: new BoxDecoration(
                           color: Colors.black12,
@@ -265,17 +403,7 @@ isEmpty(){
                           isEmpty();
                         },
                           validator: (value) {
-                            /*                              
-                                 if (txt.length == 10){
-          setState((){
-            _btnEnabled = true;
-          });
-        } else {
-          setState((){
-            _btnEnabled = false;
-          });
-      }
-                             */
+                  
                             if (value.isEmpty) {
                              
                               return "Please Enter First Name";
@@ -310,7 +438,7 @@ isEmpty(){
                     child: Container(
                       alignment: Alignment.center,
                       // height: 60.0,
-                      width: MediaQuery.of(context).size.width - 100,
+                      width: MediaQuery.of(context).size.width - 50,
                       //width: 300.0,
                       decoration: new BoxDecoration(
                           color: Colors.black12,
@@ -355,13 +483,14 @@ isEmpty(){
                   ),
 
                   Align(
-                   // alignment: Alignment(-.100, 0),
+                    alignment: Alignment(-.100, 0),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
 
                         CountryPickerDropdown(
+            //initialValue: 'us',
             initialValue: 'in',
             itemBuilder: _buildDropdownItem,
             onValuePicked: (country) {
@@ -374,7 +503,7 @@ isEmpty(){
                        Container(
                           alignment: Alignment.center,
                          width: 200.0,
-                         // width: MediaQuery.of(context).size.width - 100,
+                          //width: MediaQuery.of(context).size.width - 50,
                           decoration: new BoxDecoration(
                               color: Colors.black12,
                               borderRadius: new BorderRadius.circular(12.0)),
@@ -394,7 +523,7 @@ isEmpty(){
                                 mobile = val;
                               },
                               decoration: InputDecoration(
-                                hintText: "e.g. +44 7911 123456",
+                                hintText: "123 456 7890",
                                 fillColor: Color(0xffC8C3D4),
                                 contentPadding: EdgeInsets.all(20),
                               )),
@@ -479,7 +608,9 @@ isEmpty(){
                                 });
                               }
                               setState(() {
-                                addUser();
+                              //  addUser();
+                            //  verifyPhone();
+                              navigateotp();
                               });
                               formKey.currentState.save();
                               scaffoldkey.currentState.showSnackBar(SnackBar(
@@ -505,15 +636,15 @@ isEmpty(){
     );
   }
    Widget _buildDropdownItem(country) => Container(
+     //width:22,
         child: Row(
           children: <Widget>[
-            CountryPickerUtils.getDefaultFlagImage(country),
+          //  CountryPickerUtils.getDefaultFlagImage(country),
             SizedBox(
-              //width: 15.0,
+              width: 1.0,
             ),
             //Text("+${country.phoneCode}(${country.isoCode})"),
              Text("+${country.phoneCode}",style: TextStyle(color: Colors.black, fontSize: 15.0),),
-             
           ],
         ),
       );
