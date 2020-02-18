@@ -8,10 +8,7 @@ import 'package:flutter/services.dart';
 //import 'package:guestapptest/Model/umodel.dart';
 import 'dart:async' show Future;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hostapp/src/screen/verifyotp.dart';
 import 'signupcomplete.dart';
-import 'package:country_pickers/country_pickers.dart';  //for country code
-
 
 class LoginPage extends StatefulWidget {
   final String email, existingemail;
@@ -33,18 +30,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   TextEditingController phone = new TextEditingController();
   TextEditingController propertiesname = new TextEditingController();
   TextEditingController role = new TextEditingController();
-    var phoneCode;
-  //bool _btnEnabled = false;
+
   var hostProperty, hostrole;
   List host1;
-  bool isButtonEnabled = true;
-  bool  errorflag = false;
-  var buttoncolor;
-   String phoneNo;
-  String smsOTP;
-  String verificationId;
-  String errorMessage = '';
-  FirebaseAuth _auth = FirebaseAuth.instance;
+
   void initState() {
     super.initState();
 
@@ -53,36 +42,9 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     //hosts = List();
     email1 = "${widget.existingemail}";
     print(email1);
-   
-
     WidgetsBinding.instance.addObserver(this);
   }
-isEmpty(){
-   /*if ((name.text == "") &&
-        (lastname.text == "") &&
-        (phone.text == "")) {
-          print(" isButtonEnabled = true;");
-        setState(() {
-             isButtonEnabled = true;
-        });
-           
-    } */
-    if(name.text != "" && lastname.text != "" && phone.text != ""){
-      setState(() {
-         print(" isButtonEnabled = false;");
-        isButtonEnabled =false;
-      });
-    }
-    else {
-             print(" isButtonEnabled = false;");
-        
-       setState(() {
-         isButtonEnabled = true;
-       });
 
-    }
-    
-}
   getData() async {
     return Firestore.instance.collection('users').snapshots();
   }
@@ -115,7 +77,7 @@ isEmpty(){
                   'name': name.text,
                   'lastname': lastname.text,
                   'email': email1.toLowerCase(),
-                   'phone': "+"+"${phoneCode}"+"-"+"${phone.text}",                                
+                  'phone': phone.text,
                   'host': [],
                 },
               );
@@ -178,156 +140,15 @@ isEmpty(){
     print(qn.documents.toList());
     return qn.documents;
   }
-  void navigateotp(){
-    print("inside navigate otp");
-       Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return Verifyotp(
-           phoneNumber :"+""${phoneCode}"+"${phone.text}", 
-           name:name.text,
-           lastname:lastname.text,
-           email: email1,
-          );
-        },
-      ),
-    );
-  }
-   Future<void> verifyPhone() async {
-    final PhoneCodeSent smsOTPSent = (String verId, [int forceCodeResend]) {
-      this.verificationId = verId;
-      smsOTPDialog(context).then((value) {
-        print('sign in');
-        addUser();
-      });
-      //navigateotp();
-      
-    };
-    try {
-             print("phone number to send otp ");
-             print("+"+"${phoneCode}"+"${phone.text}");
-      await _auth.verifyPhoneNumber(
-          //phoneNumber: this.phoneNo, // PHONE NUMBER TO SEND OTP
-            phoneNumber: "+""${phoneCode}"+"${phone.text}", 
-             //phoneNumber: "+"+"${phoneCode}"+"${phone.text}", 
-               codeAutoRetrievalTimeout: (String verId) {
-            //Starts the phone number verification process for the given phone number.
-            //Either sends an SMS with a 6 digit code to the phone number specified, or sign's the user in and [verificationCompleted] is called.
-            this.verificationId = verId;
-          },
-          codeSent:
-              smsOTPSent, // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
-          timeout: const Duration(seconds: 20),
-          verificationCompleted: (AuthCredential phoneAuthCredential) {
-            print("phoneAuthCredential"+phoneAuthCredential.toString());
-          },
-          verificationFailed: (AuthException exceptio) {
-            print('exceptio.message+ ${exceptio.message}');
-          });
-    } catch (e) {
-      handleError(e);
-    }
-  }
-  Future<bool> smsOTPDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: Text('Enter SMS Code'),
-            content: Container(
-              height: 85,
-              child: Column(children: [
-                TextField(
-                  onChanged: (value) {
-                    this.smsOTP = value;
-                  },
-                ),
-                (errorMessage != ''
-                    ? Text(
-                        errorMessage,
-                        style: TextStyle(color: Colors.red),
-                      )
-                    : Container())
-              ]),
-            ),
-            contentPadding: EdgeInsets.all(10),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('Done'),
-                onPressed: () {
-                  _auth.currentUser().then((user) {
-                    if (user != null) {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pushReplacementNamed('/homepage');
-                    } else {
-                      signIn();
-                    }
-                  });
-                },
-              )
-            ],
-          );
-        });
-  }
-    signIn() async {
-    try {
-      final AuthCredential credential = PhoneAuthProvider.getCredential(
-        verificationId: verificationId,
-        smsCode: smsOTP,
-      );
-            // final FirebaseUser user = (await _auth.signInWithCredential(credential)) as FirebaseUser;
-          final AuthResult user = await _auth.signInWithCredential(credential);
-      final FirebaseUser currentUser = await _auth.currentUser();
-      //assert(user.uid == currentUser.uid);
-addUser();
-     Navigator.of(context).pop();
-      //Navigator.of(context).pushReplacementNamed('/homepage');
-     // .whenComplete(() => addDevicedetails());
-     
-    }
-    catch (e) {
-      handleError(e);
-    }
-  }
-    handleError(PlatformException error) {
-    print("error inside handle error function"+error.toString());
-    switch (error.code) {
-      case 'ERROR_INVALID_VERIFICATION_CODE':
-        FocusScope.of(context).requestFocus(new FocusNode());
-        setState(() {
-          errorMessage = 'Invalid Code';
-        });
-        Navigator.of(context).pop();
-        smsOTPDialog(context).then((value) {
-          print('sign in');
-        });
-        break;
-      default:
-        setState(() {
-          errorMessage = error.message;
-        });
 
-        break;
-    }
-  }
   void dispose() {
     super.dispose();
   }
 
   @override
-  
   Widget build(BuildContext context) {
-   // print(isButtonEnabled);
-   
-   if (isButtonEnabled == false) {
-     buttoncolor = Colors.cyanAccent;
-   } else {
-     buttoncolor = Colors.black12;
-   }
     return Scaffold(
       //backgroundColor: Color(0xff151232),
-           
       backgroundColor: Colors.white,
       key: scaffoldkey,
       body: Container(
@@ -346,15 +167,6 @@ addUser();
                   // const Text("You are not currently signed in."),
                   new SizedBox(
                     height: 1.0,
-                  ),
-                  Visibility(child:  Text(
-                    "one or more fields are incomplete",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30.0),
-                  ),
-                  visible: errorflag,
                   ),
                   Text(
                     "Create your profile",
@@ -391,21 +203,15 @@ addUser();
                     child: Container(
                       alignment: Alignment.center,
                       // height: 60.0,
-                      width: MediaQuery.of(context).size.width - 50,
+                      width: MediaQuery.of(context).size.width - 100,
                       //width: 300.0,
                       decoration: new BoxDecoration(
                           color: Colors.black12,
                           borderRadius: new BorderRadius.circular(12.0)),
                       child: new TextFormField(
-
                           controller: name,
-                          onChanged: (val){
-                          isEmpty();
-                        },
                           validator: (value) {
-                  
                             if (value.isEmpty) {
-                             
                               return "Please Enter First Name";
                             }
                             return null;
@@ -438,22 +244,16 @@ addUser();
                     child: Container(
                       alignment: Alignment.center,
                       // height: 60.0,
-                      width: MediaQuery.of(context).size.width - 50,
+                      width: MediaQuery.of(context).size.width - 100,
                       //width: 300.0,
                       decoration: new BoxDecoration(
                           color: Colors.black12,
                           borderRadius: new BorderRadius.circular(12.0)),
                       child: new TextFormField(
                           controller: lastname,
-                          onChanged: (val){
-                          isEmpty();
-                        },
                           validator: (value) {
                             if (value.isEmpty) {
-                               
                               return "Please Enter Last Name";
-                            } else {
-                               
                             }
                             return null;
                           },
@@ -484,51 +284,29 @@ addUser();
 
                   Align(
                     alignment: Alignment(-.100, 0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-
-                        CountryPickerDropdown(
-            //initialValue: 'us',
-            initialValue: 'in',
-            itemBuilder: _buildDropdownItem,
-            onValuePicked: (country) {
-              print("name ${country.name}");
-            
-              phoneCode = "${country.phoneCode}";
-            },
-          ),
-          
-                       Container(
-                          alignment: Alignment.center,
-                         width: 200.0,
-                          //width: MediaQuery.of(context).size.width - 50,
-                          decoration: new BoxDecoration(
-                              color: Colors.black12,
-                              borderRadius: new BorderRadius.circular(12.0)),
-                          child: new TextFormField(
-                              // initialValue: "",
-                              onChanged: (val){
-                              isEmpty();
-                            },
-                              controller: phone,
-                              //keyboardType: TextInputType.emailAddress,
-                              keyboardType: TextInputType.phone,
-                              //maxLength: 12,
-                              autofocus: false,
-                              validator: validateMobile,
-                              onSaved: (String val) {
-                                 
-                                mobile = val;
-                              },
-                              decoration: InputDecoration(
-                                hintText: "123 456 7890",
-                                fillColor: Color(0xffC8C3D4),
-                                contentPadding: EdgeInsets.all(20),
-                              )),
-                        ),
-                      ],
+                    child: Container(
+                      alignment: Alignment.center,
+                      // width: 60.0,
+                      width: MediaQuery.of(context).size.width - 100,
+                      decoration: new BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: new BorderRadius.circular(12.0)),
+                      child: new TextFormField(
+                          // initialValue: "",
+                          controller: phone,
+                          //keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.phone,
+                          //maxLength: 12,
+                          autofocus: false,
+                          validator: validateMobile,
+                          onSaved: (String val) {
+                            mobile = val;
+                          },
+                          decoration: InputDecoration(
+                            hintText: "e.g. +44 7911 123456",
+                            fillColor: Color(0xffC8C3D4),
+                            contentPadding: EdgeInsets.all(20),
+                          )),
                     ),
                   ),
 
@@ -540,92 +318,45 @@ addUser();
                     child: Align(
                       //alignment: Alignment.topLeft,
                       //     widthFactor: left
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            child:Row(
-                              children: <Widget>[
-                                Text(
-                                  "By creating an account, you agree to our",
-                                  style: TextStyle(color: Colors.black, fontSize: 12.0),
-                                ),
-                                //Text("Terms of service",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),),
-                                 //Text("and",style: TextStyle(color: Colors.black, fontSize: 12.0),),
-                              //  Text("privacy Policy ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),)
-
-
-                              ],
-                            ),
-                          ),
-                            Container(
-                            child:Row(
-                              children: <Widget>[
-                                 
-                                Text("Terms of service ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),),
-                                 Text("and ",style: TextStyle(color: Colors.black, fontSize: 12.0),),
-                                Text(" Privacy Policy ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),)
-
-
-                              ],
-                            ),
-                          ),
-                        ],
+                      child: Container(
+                        child: Text(
+                          "By creating an account, you agree to our Terms and privacy Policy ",
+                          style: TextStyle(color: Colors.black, fontSize: 12.0),
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(
                     height: 10.0,
                   ),
-        
                   new SizedBox(
                     width: 300.0,
                     height: 60.0,
-                    child: AbsorbPointer(
-                      absorbing: isButtonEnabled,
-                     //fase
-                   //  print("isButtonEnabled"),
-                // absorbing: true,
-                       child: new RaisedButton(
-                          child: const Text(
-                            'Continue',
-                            style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.bold),
-                          ),
-                          //color: Color(0xff6839ed),
-                          //color: Colors.black12,
-                          color: buttoncolor,
-                          onPressed: () {
-                            // _btnEnabled == true ? print("hai") : null;
-   
-                            if (formKey.currentState.validate()) {
-                              if (name.text == "" && phone.text == "" && lastname.text == "") {
-                                setState(() {
-                                  errorflag = true;
-                                });
-                              } else {
-                                setState(() {
-                                  errorflag = false;
-                                });
-                              }
-                              setState(() {
-                              //  addUser();
-                            //  verifyPhone();
-                              navigateotp();
-                              });
-                              formKey.currentState.save();
-                              scaffoldkey.currentState.showSnackBar(SnackBar(
-                                content: Text("Start adding user details"),
-                              ));
-                            } else {
-                              // validation error
-                              scaffoldkey.currentState.showSnackBar(SnackBar(
-                                content: Text("Failed to Add user details"),
-                              ));
-                            }
+                    child: new RaisedButton(
+                        child: const Text(
+                          'Next',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        //color: Color(0xff6839ed),
+                        color: Colors.black26,
+                        onPressed: () {
+                          //  addUser();
+                          if (formKey.currentState.validate()) {
+                            setState(() {
+                              addUser();
+                            });
+                            formKey.currentState.save();
+                            scaffoldkey.currentState.showSnackBar(SnackBar(
+                              content: Text("Start adding user details"),
+                            ));
+                          } else {
+                            // validation error
+                            scaffoldkey.currentState.showSnackBar(SnackBar(
+                              content: Text("Failed to Add user details"),
+                            ));
                           }
-                          //_btnEnabled:true
-                          ),
-                    ),
+                        }),
                   ),
                 ],
               ),
@@ -635,19 +366,6 @@ addUser();
       ),
     );
   }
-   Widget _buildDropdownItem(country) => Container(
-     //width:22,
-        child: Row(
-          children: <Widget>[
-          //  CountryPickerUtils.getDefaultFlagImage(country),
-            SizedBox(
-              width: 1.0,
-            ),
-            //Text("+${country.phoneCode}(${country.isoCode})"),
-             Text("+${country.phoneCode}",style: TextStyle(color: Colors.black, fontSize: 15.0),),
-          ],
-        ),
-      );
 }
 
 String validateMobile(String value) {
