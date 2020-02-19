@@ -44,6 +44,8 @@ class AppColor {
   static const Color nearlyWhite = Color(0xFFFEFEFE);
   static const Color nearlyBlack = Color(0xFF213333);
   static const Color dark_grey = Color(0xFF313A44);
+  static const Color borderColor = Color(0xFFC6DEE9);
+  static const Color fieldDecoration = Color(0xFFededed);
 
 //  static const Color darkText = Color(0xFF253840);
 //  static const Color darkerText = Color(0xFF17262A);

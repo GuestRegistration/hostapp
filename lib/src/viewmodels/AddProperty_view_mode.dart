@@ -22,8 +22,8 @@ final CloudStorageService _cloudStorageService = locator<CloudStorageService>();
 int pageIndex = 0;
 File _image;
 File get selectedImage => _image;
-    CloudStorageResult storageResult;
-    String _propertyName, _address, _contactEmail, _phoneN;
+CloudStorageResult storageResult;
+String _propertyName, _address, _contactEmail, _phoneN;
  
  
 
@@ -59,9 +59,16 @@ movetoScreen2({
   @required String address,
   @required String contactEmail,
   @required String phoneN,
+   @required String country,
 }){
   
-  if(propertyName.length == 0 || address.length == 0 || contactEmail.length == 0 || phoneN.length == 0){
+  if(propertyName.length == 0 || address.length == 0 || contactEmail.length == 0 || phoneN.length == 0 || country == null){
+    print(propertyName);
+    print(address);
+    print(contactEmail);
+    print(phoneN);
+    print(country);
+
        _dialogService.showDialog(
               title: 'Error!',
               description: 'Empty field Detected',

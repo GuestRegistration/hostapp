@@ -1,4 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/screen/Mobile/AddPropertyMobile.dart';
 import 'package:hostapp/src/style/AppColor.dart';
@@ -9,12 +10,12 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hostapp/src/viewmodels/AddProperty_view_mode.dart';
 import 'package:hostapp/src/widget/busy_button.dart';
 import 'package:hostapp/src/widget/input_field.dart';
+import 'package:hostapp/src/widget/CollectText.dart';
 import 'package:hostapp/src/widget/propertButton.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-
 
 
 class AddPropertyView extends StatelessWidget {
@@ -44,6 +45,8 @@ class AddProprtyUI extends StatelessWidget {
    TextEditingController emailcontroller = TextEditingController();
     TextEditingController phoneNumber = TextEditingController();
     TextEditingController rulesController = TextEditingController();
+    String country;
+   
   
  
 
@@ -53,62 +56,23 @@ final AddPropertyViewModel model;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Add Property', style: GoogleFonts.alice(
-          textStyle: TextStyle(
-            color: AppColor.black,
-            fontSize: AppFontSizes.large,
-          )
-        ),),
-        backgroundColor: AppColor.white,
-        actions: <Widget>[
-          // Padding(
-          //   padding: const EdgeInsets.only(right: 15.0),
-          //   child: GestureDetector(child: Icon(FontAwesome.sign_out, size: 30, color: Colors.red), 
-          //   onTap: (){
-          //    // authService.signOut(context: context);
-          //   },
-          //   ),
-          // ),
-        ],
-      ),
       body: SingleChildScrollView(
               child: Column(
           children: <Widget>[
-            horizontalSpaceSmall,
+              horizontalSpaceLarge,
+                    horizontalSpaceLarge,
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(top: 50.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  PropertyButton(
-                    text: '1',
-                    background: AppColor.black,
-                    onpress: (){
-                    
-                    },
-                  ),
-                  horizontalSpaceSmall,
-                  PropertyButton(
-                    text: '2',
-                    background: (model.pageIndex == 2 || model.pageIndex == 3 ? AppColor.black
-                    : AppColor.kGrey200),
-                    onpress: (){
-                    //print('Hi');
-                    },
-                  ),
-
-                   horizontalSpaceSmall,
-                  PropertyButton(
-                    text: '3',
-                    background: (model.pageIndex == 3 ? AppColor.black
-                    : AppColor.kGrey200),
-                    onpress: (){
-                    //print('Hi');
-                    },
-                  )
-              ],),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: Text('Add Property', style:  TextStyle(
+            color: AppColor.black,
+            fontSize: AppFontSizes.largest,
+          )
+        ),), ],),
             ),
             SingleChildScrollView(
           child: swtichScreen(model, context)
@@ -139,63 +103,133 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             children: <Widget>[
-                 verticalSpaceMedium,
+                 verticalSpaceSmall,
+               CollectText(ttile: 'Property Name',),
                   InputField(
-                    placeholder: 'Property Name',
+                    placeholder: 'h',
+                    isReadOnly: false,
+                    decoration: null,
                     controller: propertyNameController,
                   ),
                   verticalSpaceSmall,
+                   CollectText(ttile: 'Property Address',),
                   InputField(
-                    placeholder: 'Property Address',
+                    placeholder: '',
                     controller: addressController,
                   ),
-
+                   verticalSpaceSmall,
+                    CollectText(ttile: 'Country',),
+                  Row(children: <Widget>[
+Expanded(
+     child: Container(
+                          decoration: new BoxDecoration(
+                        color: AppColor.fieldDecoration,
+                     borderRadius: new BorderRadius.only(
+                          topLeft: const Radius.circular(8.0),
+                          topRight: const Radius.circular(8.0),
+                          bottomLeft: const Radius.circular(8.0),
+                          bottomRight: const Radius.circular(8.0),
+                          ),
+                          ),
+                         child: CountryListPick(
+                          isShowFlag: true,
+                          isShowTitle: true,
+                          isDownIcon: true,
+                          initialSelection: '+1',
+                          onChanged: (code) {
+                            country = code.name;
+                          //  print(code.name); //country
+                            // print(code.code); //AD
+                            // print(code.dialCode); //+376
+                            // print(code.flagUri);
+                          },
+                        ),
+                        ),
+                      ),
+                  ],),
                     verticalSpaceSmall,
+                     CollectText(ttile: 'Contact Email',),
                   InputField(
-                    placeholder: 'Contact Email',
+                    placeholder: '',
                     controller: emailcontroller,
                     textInputType: TextInputType.emailAddress,
                   ),
 
                    verticalSpaceSmall,
-                  InputField(
-                    placeholder: 'PhoneNumber',
+                    CollectText(ttile: 'PhoneNumber',),
+                    InputField(
+                    placeholder: '',
                     controller: phoneNumber,
                     textInputType: TextInputType.number,
                     decoration:  InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: "xxxxxx",
-                                          hintStyle: AppTextStyle.inputHint(context),
-                                          icon: CountryCodePicker(
-                                         onChanged: (value){
-                                           
-                                         },
-                                        initialSelection: '+1',
-                                        favorite: ['+39','FR'],
-                                        showCountryOnly: false,
-                                        alignLeft: false,
-                                      ),
-                                        ),
+                      enabledBorder: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor,
+                      ),
+                  ),
+                    border: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor
+                      ),
+                  ),
+                    hintText: "xxxxxx",
+                    hintStyle: AppTextStyle.inputHint(context),
+                    prefixIcon: ClipRRect(
+                       borderRadius: BorderRadius.circular(8.0),
+                      child: Container(
+                        decoration: new BoxDecoration(
+                      color: AppColor.fieldDecoration,
+                     borderRadius: new BorderRadius.only(
+                        topLeft: const Radius.circular(8.0),
+                        topRight: const Radius.circular(8.0),
+                        bottomLeft: const Radius.circular(8.0),
+                        bottomRight: const Radius.circular(8.0),
+                        ),
+                        
+                        ),
+                       child: CountryCodePicker(
+                  onChanged: (value){
                     
+                  },
+                  initialSelection: '+1',
+                  favorite: ['+39','FR'],
+                  showCountryOnly: false,
+                  alignLeft: false,
+                ),
+                      ),
+                    ),
                     
+                  ),
                   ),
  verticalSpaceSmall,
  verticalSpaceSmall,
-                  MaterialButton(
-                  child: Text('Continue',
-                  style: TextStyle(
-                    color: AppColor.white,
-                    fontSize: 17.0,
-                    fontWeight: FontWeight.bold
-                  ),),
-                  color: AppColor.black,
-                  onPressed: () => model.movetoScreen2(
-                    address: addressController.text.trim(),
-                    contactEmail: emailcontroller.text.trim(),
-                    phoneN: phoneNumber.text.trim(),
-                    propertyName: propertyNameController.text.trim()
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      child: MaterialButton(
+                      child: Text('Continue',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.bold
+                      ),),
+                      color: Color(0xFF45A1C9),
+                      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: AppColor.borderColor)
+    ),
+                      onPressed: () => model.movetoScreen2(
+                        address: addressController.text.trim(),
+                        contactEmail: emailcontroller.text.trim(),
+                        phoneN: phoneNumber.text.trim(),
+                        country: country,
+                        propertyName: propertyNameController.text.trim()
+                      )
+                ),
+                    ),
                   )
-                )
 
             ],
           ),

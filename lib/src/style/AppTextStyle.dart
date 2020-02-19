@@ -10,7 +10,8 @@ class AppTextStyle{
   // Box Decorations
 
 static BoxDecoration fieldDecortaion = BoxDecoration(
-    borderRadius: BorderRadius.circular(5), color: Colors.grey[200]);
+    borderRadius: BorderRadius.circular(10), 
+    color: Color(0xFFededed)); //
 
 static BoxDecoration disabledFieldDecortaion = BoxDecoration(
     borderRadius: BorderRadius.circular(5), color: Colors.grey[100]);

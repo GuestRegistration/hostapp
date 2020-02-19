@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/widget/note_text.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
@@ -58,41 +59,50 @@ class _InputFieldState extends State<InputField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          height: widget.smallVersion ? 40 : fieldHeight,
-          alignment: Alignment.centerLeft,
-          padding: AppTextStyle.fieldPadding,
-          decoration:
-              widget.isReadOnly ? AppTextStyle.disabledFieldDecortaion : AppTextStyle.fieldDecortaion,
-          child: Row(
+        Row(
             children: <Widget>[
               Expanded(
-                child: TextFormField(
-                  controller: widget.controller,
-                  keyboardType: widget.textInputType,
-                  focusNode: widget.fieldFocusNode,
-                  textInputAction: widget.textInputAction,
-                  onChanged: widget.onChanged,
-                  inputFormatters:
-                      widget.formatter != null ? [widget.formatter] : null,
-                  onEditingComplete: () {
-                    if (widget.enterPressed != null) {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      widget.enterPressed();
-                    }
-                  },
-                  onFieldSubmitted: (value) {
-                    if (widget.nextFocusNode != null) {
-                      widget.nextFocusNode.requestFocus();
-                    }
-                  },
-                  obscureText: isPassword,
-                  readOnly: widget.isReadOnly,
-                  decoration: (widget.decoration == null ? InputDecoration.collapsed(
-                      hintText: widget.placeholder,
-                      hintStyle:
-                          TextStyle(fontSize: widget.smallVersion ? 12 : 15)) : 
-                        widget.decoration)
+                child: Theme(
+                  data: new ThemeData(
+            primaryColor: AppColor.borderColor,
+            primaryColorDark: AppColor.borderColor,
+          ),
+           child: TextFormField(
+                    controller: widget.controller,
+                    keyboardType: widget.textInputType,
+                    focusNode: widget.fieldFocusNode,
+                    textInputAction: widget.textInputAction,
+                    onChanged: widget.onChanged,
+                    inputFormatters: widget.formatter != null ? [widget.formatter] : null,
+                    onEditingComplete: () {
+                      if (widget.enterPressed != null) {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        widget.enterPressed();
+                      }
+                    },
+                    onFieldSubmitted: (value) {
+                      if (widget.nextFocusNode != null) {
+                        widget.nextFocusNode.requestFocus();
+                      }
+                    },
+                    obscureText: isPassword,
+                    readOnly: widget.isReadOnly,
+                    
+                    decoration: (widget.decoration == null ? InputDecoration(
+                    
+                        border: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: new BorderSide(color: AppColor.borderColor,
+                                  ),
+                              ),
+                               enabledBorder: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: new BorderSide(color: AppColor.borderColor,
+                                  ),
+                              ),
+                        hintStyle:TextStyle(fontSize: widget.smallVersion ? 12 : 15)) : 
+                          widget.decoration)
+                  ),
                 ),
               ),
               GestureDetector(
@@ -111,15 +121,6 @@ class _InputFieldState extends State<InputField> {
               ),
             ],
           ),
-        ),
-        if (widget.validationMessage != null)
-          NoteText(
-            widget.validationMessage,
-            color: Colors.red,
-          ),
-        if (widget.additionalNote != null) verticalSpace(5),
-        if (widget.additionalNote != null) NoteText(widget.additionalNote),
-        verticalSpaceSmall
       ],
     );
   }

@@ -29,39 +29,42 @@ class _DashboardState extends State<Dashboard>{
             items: <BottomNavigationBarItem>[  
 //Home
               BottomNavigationBarItem(
-                icon:  Icon(FontAwesome.building,  color: Colors.black, size: 30,),
+                icon:  Icon(FontAwesome.building,  color: Colors.grey, size: 30,),
                 title: new Text("Properties",
                   style: TextStyle(
-                      color: Colors.black
+                      color: Colors.black87,
+                      fontSize: 17,
                   ),
               
                 ),
+                activeIcon:  Icon(FontAwesome.building,  color: Colors.blue, size: 30,),
               ),
               //Order List
               BottomNavigationBarItem(
-                icon: Icon(Icons.local_airport,  color: Colors.black, size: 30,),
+                icon: Icon(Icons.local_airport,  color: Colors.grey, size: 30,),
                 title: new Text("Reservation",
-                  
                   style: TextStyle(
-                    color: Colors.black,
-
+                     color: Colors.black87,
+                      fontSize: 17,
                   ),
                 ),
+                 activeIcon:  Icon(FontAwesome.building,  color: Colors.blue, size: 30,),
+                 backgroundColor: Colors.red,
               ),
-
               //Section
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.settings,
-                  color: Colors.black, size: 30,),
+                  color: Colors.grey, size: 30,),
                 title: new Text("Settings",
                   style: GoogleFonts.alice(
                     textStyle: TextStyle(
-                      color: Colors.black
+                      color: Colors.black87,
+                      fontSize: 17,
                   ),
-                  )
+                  ),
                 ),
-
+                    activeIcon:  Icon(FontAwesome.building,  color: Colors.blue, size: 30,),
               ),
                     //Profile
               // BottomNavigationBarItem(
@@ -74,7 +77,6 @@ class _DashboardState extends State<Dashboard>{
               //   ),
               // ),
             ]
-
         ),
     );
   }
