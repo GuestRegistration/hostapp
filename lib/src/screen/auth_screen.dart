@@ -29,6 +29,7 @@ class AuthScreenState extends State<AuthScreen> {
   FirebaseUser user;
   var existingemail;
   bool signupcheck = false;
+  bool isLoading = false;
   TextEditingController textemail = new TextEditingController();
   bool supportsAppleSignIn = false;
   @override
@@ -72,7 +73,14 @@ class AuthScreenState extends State<AuthScreen> {
           .whenComplete(() => _authCompleted());
     }
   }
+/*Future<bool> loginAction() async {
+    //replace the below line of code with your login request
+    await new Future.delayed(const Duration(seconds: 3));
+    //Navigator.pop();
 
+    return false;    
+    
+  }*/
   void _authCompleted() async {
     // _authCompleted function is used to
     var email = await _bloc.getUserEmailFromStorage();
@@ -128,6 +136,25 @@ class AuthScreenState extends State<AuthScreen> {
 //          sharedPreferences.clear();
     });
   }*/
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 5), child: Text("Loading")),
+
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   /// Function start for handling apple signup
 
   Future signInWithApple() async {
@@ -276,11 +303,12 @@ class AuthScreenState extends State<AuthScreen> {
     //print("appleSignInAvailable" + appleSignInAvailable.toString());
     //print(appleSignInAvailable.toString());
     return Scaffold(
-        body: Container(
-      padding: EdgeInsets.all(32),
+        body: Center(
+      //padding: EdgeInsets.all(32),
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             StreamBuilder(
                 stream: _bloc.authStatus,
@@ -366,215 +394,56 @@ class AuthScreenState extends State<AuthScreen> {
                 }
 
                 return SingleChildScrollView(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                         /*comment start for passwordless login*/
-                       // _emailInputField(snapshot.error),
-                        /*comment end for passwordless login*/
-                        SizedBox(
-                          height: 150.0,
-                        ),
-                        Text("Let's get started", style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,fontSize: 32.0),
-                            ),
-                           SizedBox(
-                          height: 20.0,
-                        ),
-                            SizedBox(
-                              width: 100.0,
-                                                          child: Text("Select a method to begin using", 
-                              style: TextStyle(color:Colors.black26,fontSize: 14.0),),
-                            ),
-                            SizedBox(
-                                                          child: Text("Guest Registration", 
-                              style: TextStyle(color:Colors.black26,fontSize: 14.0),),
-                            ),
-                               SizedBox(
-                          height: 50.0,),
-                        /*comment start for passwordless login*/
-                      /*  SizedBox(
-                          width: 300.0,
-                          height: 60.0,
-                          child: RaisedButton(
-                            onPressed: () async {
-                              var did;
-                              //...Start code block to check connected device is android or iOS
-                              DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-                              if (Theme.of(context).platform ==
-                                  TargetPlatform.iOS) {
-                                IosDeviceInfo iosDeviceInfo =
-                                    await deviceInfo.iosInfo;
-                                // unique ID on iOS
-                                did = iosDeviceInfo.identifierForVendor;
-                                print("DeviceId for ios" + did);
-                              } else {
-                                AndroidDeviceInfo androidDeviceInfo =
-                                    await deviceInfo.androidInfo;
-                                did = androidDeviceInfo.androidId;
-                                // unique ID on android
-                                print("DeviceId for android" + did);
-                              }
-                              //...End code block to check connected device is android or iOS
-                              print("DeviceId" + did);
-                              print("textemail" + textemail.text.toLowerCase());
-                              //... code for check email id is already available in the device table
-                              Firestore.instance
-                                  .collection("device")
-                                  .where("email",
-                                      isEqualTo: textemail.text.toLowerCase())
-                                  .getDocuments()
-                                  .then((email) {
-                                print(
-                                    'Firestore length: , ${email.documents.length}');
-                                email.documents.forEach((doc) =>
-                                    //... code for check DeviceId is already available in the device table
-                                    Firestore.instance
-                                        .collection("device")
-                                        .where("DeviceId",
-                                            isEqualTo: doc.documentID)
-                                        .getDocuments()
-                                        .then((string) {
-                                      string.documents.forEach(
-                                        (doc) => print(string.documents.length),
-                                      );
-                                      if (did == doc.data['DeviceId']) {
-                                        // DeviceId was same so sent mail
-                                        print("same device send mail");
-                                        if (snapshot.hasData) {
-                                          var currentemail = snapshot.data;
-                                          print(currentemail);
-                                          existingemail = snapshot2.data;
-                                          if (existingemail == null) {
-                                            print(
-                                                "Not an existingemail first time login");
-                                            _authenticateUserWithEmail();
-                                          } else {
-                                            print("existingemail");
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        WelcomeScreen(
-                                                          email: existingemail
-                                                              .email,
-                                                        )));
-                                          }
-                                        }
-                                      } else if (doc.data['DeviceId'] == "") {
-                                        //....user signout form the device
-                                        print("user signout form the device");
-                                        print("doc.data['DeviceId']" +
-                                            doc.data['DeviceId']);
-                                        print(did);
-                                        //....update the device id in device table
-                                        Firestore.instance.runTransaction(
-                                          (Transaction transaction) async {
-                                            Firestore.instance
-                                                .collection('device')
-                                                .document(did)
-                                                .setData(
-                                              {
-                                                'email': textemail.text
-                                                    .toLowerCase(),
-                                                'DeviceId': did,
-                                              },
-                                            );
-                                          },
-                                        );
-                                        if (snapshot.hasData) {
-                                          var currentemail = snapshot.data;
-                                          print(currentemail);
-                                          existingemail = snapshot2.data;
-                                          if (existingemail == null) {
-                                            print(
-                                                "Not an existingemail first time login");
-                                            _authenticateUserWithEmail();
-                                          } else {
-                                            print("existingemail");
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        WelcomeScreen(
-                                                          email: existingemail
-                                                              .email,
-                                                        )));
-                                          }
-                                        }
-                                      } else {
-                                        print("Email is already signIn");
-                                        //Email is already signIn dont allow to signup
-                                        setState(() {
-                                          signupcheck = true;
-                                          //set the signupcheck flag true to display the error message
-                                        });
-                                      }
-                                    }));
-                                if (email.documents.length == 0) {
-                                  //new user allow to sent an email
-                                  print("new user allow to sent an email");
-                                  if (snapshot.hasData) {
-                                    var currentemail = snapshot.data;
-                                    print(currentemail);
-                                    existingemail = snapshot2.data;
-                                    if (existingemail == null) {
-                                      print(
-                                          "Not an existingemail first time login");
-                                      _authenticateUserWithEmail();
-                                    } else {
-                                      print("existingemail");
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  WelcomeScreen(
-                                                    email: existingemail.email,
-                                                  )));
-                                    }
-                                  }
-                                }
-                              });
-                            },
-                            child: const Text(
-                              'Email me a Login Link',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            color: Colors.white12,
-                          ),
-                        ),*/
-                        /*Center(
-                          child: Text(
-                            'OR',
+                  child: Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          /*comment start for passwordless login*/
+                          // _emailInputField(snapshot.error),
+                          /*comment end for passwordless login*/
+                          /*SizedBox(
+                            height: 150.0,
+                          ),*/
+                          Text(
+                            "Let's get started",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 25.0),
+                                fontSize: 32.0),
                           ),
-                        ),*/
-                         /*comment end for passwordless login*/
-                        SizedBox(
-                          width: 300.0,
-                          height: 60.0,
-                          //child: RaisedButton(
-                          child: SignInButton(
-                            Buttons.Google,
-                            text: "Continue with Google",
-                            onPressed: () async {
-                              signInWithGoogle().whenComplete(() async {
-                                //_authCompletedgoogle();
-
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Center(
+                            child: SizedBox(
+                              //width: 1.0,
+                              child: Text(
+                                "Select a method to begin using",
+                                style: TextStyle(
+                                    color: Colors.black26, fontSize: 14.0),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            child: Text(
+                              "Guest Registration.",
+                              style: TextStyle(
+                                  color: Colors.black26, fontSize: 14.0),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50.0,
+                          ),
+                          /*comment start for passwordless login*/
+                          /*  SizedBox(
+                            width: 300.0,
+                            height: 60.0,
+                            child: RaisedButton(
+                              onPressed: () async {
                                 var did;
                                 //...Start code block to check connected device is android or iOS
-                                DeviceInfoPlugin deviceInfo =
-                                    DeviceInfoPlugin();
+                                DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
                                 if (Theme.of(context).platform ==
                                     TargetPlatform.iOS) {
                                   IosDeviceInfo iosDeviceInfo =
@@ -591,12 +460,12 @@ class AuthScreenState extends State<AuthScreen> {
                                 }
                                 //...End code block to check connected device is android or iOS
                                 print("DeviceId" + did);
-                                print("hai email " + email);
+                                print("textemail" + textemail.text.toLowerCase());
                                 //... code for check email id is already available in the device table
                                 Firestore.instance
                                     .collection("device")
                                     .where("email",
-                                        isEqualTo: email.toLowerCase())
+                                        isEqualTo: textemail.text.toLowerCase())
                                     .getDocuments()
                                     .then((email) {
                                   print(
@@ -608,34 +477,40 @@ class AuthScreenState extends State<AuthScreen> {
                                           .where("DeviceId",
                                               isEqualTo: doc.documentID)
                                           .getDocuments()
-                                          .then((string) async {
+                                          .then((string) {
                                         string.documents.forEach(
-                                          (doc) =>
-                                              print(string.documents.length),
+                                          (doc) => print(string.documents.length),
                                         );
                                         if (did == doc.data['DeviceId']) {
                                           // DeviceId was same so sent mail
-                                          print(
-                                              "same device so allow to log in");
-                                          print("email for login" +
-                                              email.toString());
-
-                                          _authCompletedgoogle();
+                                          print("same device send mail");
+                                          if (snapshot.hasData) {
+                                            var currentemail = snapshot.data;
+                                            print(currentemail);
+                                            existingemail = snapshot2.data;
+                                            if (existingemail == null) {
+                                              print(
+                                                  "Not an existingemail first time login");
+                                              _authenticateUserWithEmail();
+                                            } else {
+                                              print("existingemail");
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          WelcomeScreen(
+                                                            email: existingemail
+                                                                .email,
+                                                          )));
+                                            }
+                                          }
                                         } else if (doc.data['DeviceId'] == "") {
                                           //....user signout form the device
                                           print("user signout form the device");
                                           print("doc.data['DeviceId']" +
                                               doc.data['DeviceId']);
-
-                                          //print();
+                                          print(did);
                                           //....update the device id in device table
-                                          final FirebaseAuth auth =
-                                              FirebaseAuth.instance;
-
-                                          final FirebaseUser user1 =
-                                              await auth.currentUser();
-
-                                          print("user1.email" + user1.email);
                                           Firestore.instance.runTransaction(
                                             (Transaction transaction) async {
                                               Firestore.instance
@@ -643,121 +518,311 @@ class AuthScreenState extends State<AuthScreen> {
                                                   .document(did)
                                                   .setData(
                                                 {
-                                                  'email': user1.email
-                                                      .toLowerCase()
-                                                      .toString(),
+                                                  'email': textemail.text
+                                                      .toLowerCase(),
                                                   'DeviceId': did,
                                                 },
                                               );
                                             },
                                           );
-                                          _authCompletedgoogle();
+                                          if (snapshot.hasData) {
+                                            var currentemail = snapshot.data;
+                                            print(currentemail);
+                                            existingemail = snapshot2.data;
+                                            if (existingemail == null) {
+                                              print(
+                                                  "Not an existingemail first time login");
+                                              _authenticateUserWithEmail();
+                                            } else {
+                                              print("existingemail");
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          WelcomeScreen(
+                                                            email: existingemail
+                                                                .email,
+                                                          )));
+                                            }
+                                          }
                                         } else {
-                                          print("Email is already signIn for google");
-                                          final FirebaseAuth auth =
-                                              FirebaseAuth.instance;
-                                          final FirebaseUser user1 =
-                                              await auth.currentUser();
-
-                                          print("uid for user1 " + user1.uid);
+                                          print("Email is already signIn");
                                           //Email is already signIn dont allow to signup
-
-                                          setState(()  {
+                                          setState(() {
                                             signupcheck = true;
                                             //set the signupcheck flag true to display the error message
                                           });
-                                      await googleSignIn.signOut();
-
                                         }
                                       }));
                                   if (email.documents.length == 0) {
                                     //new user allow to sent an email
-                                    print("new user allow to login");
-                                    signInWithGoogle().whenComplete(() {
-                                      _authCompletedgoogle();
-                                      // print("hai"+email);
-                                    });
+                                    print("new user allow to sent an email");
+                                    if (snapshot.hasData) {
+                                      var currentemail = snapshot.data;
+                                      print(currentemail);
+                                      existingemail = snapshot2.data;
+                                      if (existingemail == null) {
+                                        print(
+                                            "Not an existingemail first time login");
+                                        _authenticateUserWithEmail();
+                                      } else {
+                                        print("existingemail");
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    WelcomeScreen(
+                                                      email: existingemail.email,
+                                                    )));
+                                      }
+                                    }
                                   }
                                 });
-                              });
-
-                              /*
-                               signInWithGoogle().whenComplete(() {
-                                //_authCompletedgoogle();
-                               print("hai"+email);
-                               
-                              }); */
-                            },
-                            /*child: const Text(
-                              'Google',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),*/
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            // color: Colors.white12,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 32.0,
-                        ),
-                        SizedBox(
-                          width: 300.0,
-                          height: 60.0,
-                          child: SignInButton(
-                            Buttons.AppleDark,
-                               text: "Continue with Apple",
-                            onPressed: () {
-                              //function call for apple sign up
-                              // _signInWithApple(context);
-                              signInWithApple().whenComplete(() {
-                                _authCompleteapple();
-                                // print("hai"+email);
-                              });
-                              //function call for apple sign up
-                            },
-                            /* child: const Text(
-                              'Apple',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),*/
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            // color: Colors.white12,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 32.0,
-                        ),
-                         /*comment start for create new account*/
-                        /*SizedBox(
-                          width: 300.0,
-                          height: 60.0,
-                          child: RaisedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return CreatenewaccountScreen();
-                                  },
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              'Create a new account',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                              },
+                              child: const Text(
+                                'Email me a Login Link',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12))),
+                              color: Colors.white12,
                             ),
-                            color: Colors.white12,
+                          ),*/
+                          /*Center(
+                            child: Text(
+                              'OR',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25.0),
+                            ),
+                          ),*/
+                          /*comment end for passwordless login*/
+                          SizedBox(
+                            width: 300.0,
+                            height: 60.0,
+                            //child: RaisedButton(
+
+                            child: SignInButton(
+                              Buttons.Google,
+                              text: "Continue with Google",
+                              onPressed: () async {
+                                //  signInWithGoogle().then((value) => CircularProgressIndicator()).whenComplete(() async {
+                                // showAlertDialog(context);
+                                //Navigator.pop(context);
+                    
+                                signInWithGoogle().whenComplete(() async {
+                                  //_authCompletedgoogle();
+                                           /*  showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Center(child: CircularProgressIndicator(),);
+                  });
+                   await loginAction();
+              Navigator.pop(context);*/
+                                  var did;
+                                  print("useremail");
+                                  //...Start code block to check connected device is android or iOS
+                                  DeviceInfoPlugin deviceInfo =
+                                      DeviceInfoPlugin();
+                                  if (Theme.of(context).platform ==
+                                      TargetPlatform.iOS) {
+                                    IosDeviceInfo iosDeviceInfo =
+                                        await deviceInfo.iosInfo;
+                                    // unique ID on iOS
+                                    did = iosDeviceInfo.identifierForVendor;
+                                    print("DeviceId for ios" + did);
+                                  } else {
+                                    AndroidDeviceInfo androidDeviceInfo =
+                                        await deviceInfo.androidInfo;
+                                    did = androidDeviceInfo.androidId;
+                                    // unique ID on android
+                                    print("DeviceId for android" + did);
+                                  }
+                                  //...End code block to check connected device is android or iOS
+                                  print("DeviceId" + did);
+                                  print("hai email " + email);
+                                  //... code for check email id is already available in the device table
+                                  Firestore.instance
+                                      .collection("device")
+                                      .where("email",
+                                          isEqualTo: email.toLowerCase())
+                                      .getDocuments()
+                                      .then((email) {
+                                    print('Firestore length: , ${email.documents.length}');
+                                    email.documents.forEach((doc) =>
+                                        //... code for check DeviceId is already available in the device table
+                                        Firestore.instance
+                                            .collection("device")
+                                            .where("DeviceId",
+                                                isEqualTo: doc.documentID)
+                                            .getDocuments()
+                                            .then((string) async {
+                                          string.documents.forEach(
+                                            (doc) =>
+                                                print(string.documents.length),
+                                          );
+                                          if (did == doc.data['DeviceId']) {
+                                            // DeviceId was same so sent mail
+                                            print(
+                                                "same device so allow to log in");
+                                            print("email for login" +
+                                                email.toString());
+
+                                             _authCompletedgoogle();
+                                          } else if (doc.data['DeviceId'] ==
+                                              "") {
+                                            //....user signout form the device
+                                            print(
+                                                "user signout form the device");
+                                            print("doc.data['DeviceId']" +
+                                                doc.data['DeviceId']);
+
+                                            //print();
+                                            //....update the device id in device table
+                                            final FirebaseAuth auth =
+                                                FirebaseAuth.instance;
+
+                                            final FirebaseUser user1 =
+                                                await auth.currentUser();
+
+                                            print("user1.email" + user1.email);
+                                            Firestore.instance.runTransaction(
+                                              (Transaction transaction) async {
+                                                Firestore.instance
+                                                    .collection('device')
+                                                    .document(did)
+                                                    .setData(
+                                                  {
+                                                    'email': user1.email
+                                                        .toLowerCase()
+                                                        .toString(),
+                                                    'DeviceId': did,
+                                                  },
+                                                );
+                                              },
+                                            );
+                                            _authCompletedgoogle();
+                                          } else {
+                                            print(
+                                                "Email is already signIn for google");
+                                            final FirebaseAuth auth =
+                                                FirebaseAuth.instance;
+                                            final FirebaseUser user1 =
+                                                await auth.currentUser();
+
+                                            print("uid for user1 " + user1.uid);
+                                            //Email is already signIn dont allow to signup
+
+                                            setState(() {
+                                              signupcheck = true;
+                                              //set the signupcheck flag true to display the error message
+                                            });
+                                            await googleSignIn.signOut();
+                                          }
+                                        }));
+                                    if (email.documents.length == 0) {
+                                      //new user allow to sent an email
+                                      print("new user allow to login");
+                                      signInWithGoogle().whenComplete(() {
+                                        _authCompletedgoogle();
+                                        // print("hai"+email);
+                                      });
+                                    }
+                                  });
+                                });
+
+                                /*
+                                 signInWithGoogle().whenComplete(() {
+                                  //_authCompletedgoogle();
+                                 print("hai"+email);
+                                 
+                                }); */
+                              },
+                              /*child: const Text(
+                                'Google',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),*/
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12))),
+                              // color: Colors.white12,
+                            ),
                           ),
-                        ),*/
-                         /*comment start for create new account*/
-                      ]),
+                          SizedBox(
+                            height: 32.0,
+                          ),
+                           Visibility(
+              child: Text(
+                "You are already logged in. Please sign out of your other device first",
+                style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0),
+              ),
+              visible: signupcheck,
+            ),
+                          SizedBox(
+                            width: 300.0,
+                            height: 60.0,
+                            child: SignInButton(
+                              Buttons.AppleDark,
+                              text: "Continue with Apple",
+                              onPressed: () {
+                                //function call for apple sign up
+                                // _signInWithApple(context);
+                                signInWithApple().whenComplete(() {
+                                  _authCompleteapple();
+                                  // print("hai"+email);
+                                });
+                                //function call for apple sign up
+                              },
+                              /* child: const Text(
+                                'Apple',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),*/
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12))),
+                              // color: Colors.white12,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 32.0,
+                          ),
+                          /*comment start for create new account*/
+                          /*SizedBox(
+                            width: 300.0,
+                            height: 60.0,
+                            child: RaisedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return CreatenewaccountScreen();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'Create a new account',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              color: Colors.white12,
+                            ),
+                          ),*/
+                          /*comment start for create new account*/
+                        ]),
+                  ),
                 );
                 //);
               });
@@ -765,8 +830,8 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   /// The method takes in an [error] message from our validator.
- /*comment start for passwordless login*/
- /* Widget _emailInputField(String error) {
+  /*comment start for passwordless login*/
+  /* Widget _emailInputField(String error) {
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -849,12 +914,12 @@ class AuthScreenState extends State<AuthScreen> {
     );
   }*/
 
-   /*void _authenticateUserWithEmail() {
+  /*void _authenticateUserWithEmail() {
     _bloc.sendSignInWithEmailLink().whenComplete(() => _bloc
         .storeUserEmail()
         .whenComplete(() => _bloc.changeAuthStatus(AuthStatus.emailLinkSent)));
   }*/
-   /*comment end for passwordless login*/
+  /*comment end for passwordless login*/
 
   _showSnackBar(String error) {
     final snackBar = SnackBar(content: Text(error));
