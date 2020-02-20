@@ -57,42 +57,29 @@ final AddPropertyViewModel model;
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-              child: Column(
+              child: Column(children: <Widget>[
+                Column(
           children: <Widget>[
               horizontalSpaceLarge,
-                    horizontalSpaceLarge,
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                 Padding(
-                   padding: const EdgeInsets.all(8.0),
-                   child: Text('Add Property', style:  TextStyle(
-            color: AppColor.black,
-            fontSize: AppFontSizes.largest,
-          )
-        ),), ],),
-            ),
-            SingleChildScrollView(
-          child: swtichScreen(model, context)
-        ),
+            horizontalSpaceLarge,
+           screen2(context, model)
           ],
         ),
+              ],)
       )
    
     );
   }
 
 swtichScreen( AddPropertyViewModel model, BuildContext context){
-  if(model.pageIndex == 1){
+  if(model.pageIndex == 0){
     return screen1(context, model);
 
-  }else if(model.pageIndex == 2){
-     return screen2(context, model);
+  // }else if(model.pageIndex == 2){ //Not in MVP
+  //    return screen2(context, model);
 
-  }else if(model.pageIndex == 3){
-     return screen3(context, model);
+  }else if(model.pageIndex == 1){
+     return screen2(context, model);
 
   }
 }
@@ -103,6 +90,20 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             children: <Widget>[
+               Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: Text('Add Property', style:  TextStyle(
+            color: AppColor.black,
+            fontSize: AppFontSizes.largest,
+            fontWeight: FontWeight.bold
+          )
+        ),), ],),
+            ),
                  verticalSpaceSmall,
                CollectText(ttile: 'Property Name',),
                   InputField(
@@ -237,117 +238,33 @@ Expanded(
      
   }
 
-//Index 2
- screen2(BuildContext context, AddPropertyViewModel model, ){
-      return  Center(
-        child: Padding(
-            padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-            child: Column(
-              children: <Widget>[
-                   Container(
-                     height: 300,
-                     width: 300,
-                     child: (model.selectedImage == null
-                     ? GestureDetector(child:
-                       Padding(
-                           padding: EdgeInsets.only(top: 10.0),
-                           child: Center(
-                             child: Column(
-                       children: <Widget>[
-                         Image.asset(AppImage.uploadImage),
-                         Padding(
-                           padding: EdgeInsets.only(top: 10.0),
-                           child: Center(
-                             child: Text('No image selected.', 
-                                 style: AppTextStyle.error(context, AppColor.kErrorRed),)
-                           ),
-                         ),
-                       ],
-                     ) ),
-                         ),
-                     onTap: (){
-                       //TODO Select Image from Gallery.
-                       model.pickImage();
-                     },)
-                     : GestureDetector(
-                                            child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text('Tap to replace', 
-                                 style: AppTextStyle.error(context, AppColor.black),),
-                                        verticalSpaceSmall,
-                                     Flexible(child:  Image.file(model.selectedImage, fit: BoxFit.fill,),)
-                                    ],
-                                  )
-                                 ),
-                                 onTap: (){
-                                    //TODO Replace Previous Image.
-                                           model.pickImage();
-                                 }
-                     )),
-
-
-                     decoration: ShapeDecoration(
-                color: AppColor.kGrey200,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft:  const  Radius.circular(30.0),
-                      topRight: const  Radius.circular(30.0),
-                      bottomLeft:const  Radius.circular(30.0),
-                      bottomRight: const  Radius.circular(30.0),
-                    )),
-
-              ),
-                   ),
-                   verticalSpaceLarge,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        MaterialButton(
-                    child: Text('Back',
-                    style: TextStyle(
-                      color: AppColor.white,
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.bold
-                    ),),
-                    color: AppColor.black,
-                    onPressed: () =>  model.goback()
-                  ),
-                  horizontalSpaceLarge,
-                  MaterialButton(
-                    child: Text('Skip',
-                    style: TextStyle(
-                      color: AppColor.white,
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.bold
-                    ),),
-                    color: AppColor.black,
-                    onPressed: () =>  model.nextPage()
-                  )
-                      ],
-                    )
-
-              ],
-            ),
-          ),
-      );
-     
-  }
-
 //Index 3
- screen3(BuildContext context, AddPropertyViewModel model, ){
+ screen2(BuildContext context, AddPropertyViewModel model, ){
       return  Padding(
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             children: <Widget>[
-               verticalSpaceSmall,
-               Text('Tell People what to expect', style: GoogleFonts.alice(
-          textStyle: TextStyle(
+              Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: Text('Property Rules', style:  TextStyle(
             color: AppColor.black,
-            fontSize: AppFontSizes.large,
+            fontSize: AppFontSizes.largest,
+            fontWeight: FontWeight.bold
           )
-        ),),
+        ),), ],),
+            ),
+               verticalSpaceSmall,
+               Text('Tell People what to expect', style: TextStyle(
+            color: Colors.grey,
+            fontSize: AppFontSizes.medium,
+            fontWeight: FontWeight.bold
+          )
+        ),
         verticalSpaceMedium,
                TextField(
                   keyboardType: TextInputType.multiline,
@@ -357,6 +274,7 @@ Expanded(
                     border: OutlineInputBorder(),
                     labelText: 'Paste your property rules here..',
                     labelStyle: GoogleFonts.abel(
+                      
                     )
                   ),
                 ),
@@ -364,33 +282,71 @@ Expanded(
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        MaterialButton(
-                    child: Text('Back',
-                    style: TextStyle(
-                      color: AppColor.white,
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.bold
-                    ),),
-                    color: AppColor.black,
-                    onPressed: () =>  model.goback()
-                  ),
-                  horizontalSpaceLarge,
-                  BusyButton(
-                      title: 'Skip',
-                      busy: model.busy,
-                      onPressed: () {
-                         //TODO Submit all to Firestore
-                      model.lastScreenbutton(
-                       propertyName: propertyNameController.text.trim(),
-                      address: addressController.text.trim(),
-                      contactEmail: emailcontroller.text.trim(),
+                        Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      child: MaterialButton(
+                      child: Text('Cancel',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.bold
+                      ),),
+                      color: Color(0xFF45A1C9),
+                      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: AppColor.borderColor)
+    ),
+                      onPressed: () => model.movetoScreen2(
+                        address: addressController.text.trim(),
+                        contactEmail: emailcontroller.text.trim(),
                         phoneN: phoneNumber.text.trim(),
-                        image: model.selectedImage,
-                        propertyRule: rulesController.text.trim()
-                    );
-                    print(propertyNameController.text);
-                      },
-                    )
+                        country: country,
+                        propertyName: propertyNameController.text.trim()
+                      )
+                ),
+                    ),
+                  ),
+                  horizontalSpaceSmall,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      child: MaterialButton(
+                      child: Text('Skip',
+                      style: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.bold
+                      ),),
+                      color: Color(0xFF45A1C9),
+                      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: AppColor.borderColor)
+    ),
+                      onPressed: () => model.nextPage()
+                ),
+                    ),
+                  ),
+                  // BusyButton(
+                  //     title: 'Skip',
+                  //     busy: model.busy,
+                  //     onPressed: () {
+                  //        //TODO Submit all to Firestore
+                  //     model.lastScreenbutton(
+                  //      propertyName: propertyNameController.text.trim(),
+                  //     address: addressController.text.trim(),
+                  //     contactEmail: emailcontroller.text.trim(),
+                  //       phoneN: phoneNumber.text.trim(),
+                  //       image: model.selectedImage,
+                  //       propertyRule: rulesController.text.trim()
+                  //   );
+                  //   print(propertyNameController.text);
+                  //     },
+                  //   )
                       ],
                     )
 
@@ -401,6 +357,156 @@ Expanded(
      
   }
 
-
-
 }
+
+
+
+
+
+
+
+ //Index 2  NOT IN MVP
+//  screen2(BuildContext context, AddPropertyViewModel model, ){
+//       return  Center(
+//         child: Padding(
+//             padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+//             child: Column(
+//               children: <Widget>[
+//                    Container(
+//                      height: 300,
+//                      width: 300,
+//                      child: (model.selectedImage == null
+//                      ? GestureDetector(child:
+//                        Padding(
+//                            padding: EdgeInsets.only(top: 10.0),
+//                            child: Center(
+//                              child: Column(
+//                        children: <Widget>[
+//                          Image.asset(AppImage.uploadImage),
+//                          Padding(
+//                            padding: EdgeInsets.only(top: 10.0),
+//                            child: Center(
+//                              child: Text('No image selected.', 
+//                                  style: AppTextStyle.error(context, AppColor.kErrorRed),)
+//                            ),
+//                          ),
+//                        ],
+//                      ) ),
+//                          ),
+//                      onTap: (){
+//                        //TODO Select Image from Gallery.
+//                        model.pickImage();
+//                      },)
+//                      : GestureDetector(
+//                                             child: Padding(
+//                                   padding: const EdgeInsets.all(5.0),
+//                                   child: Column(
+//                                     children: <Widget>[
+//                                       Text('Tap to replace', 
+//                                  style: AppTextStyle.error(context, AppColor.black),),
+//                                         verticalSpaceSmall,
+//                                      Flexible(child:  Image.file(model.selectedImage, fit: BoxFit.fill,),)
+//                                     ],
+//                                   )
+//                                  ),
+//                                  onTap: (){
+//                                     //TODO Replace Previous Image.
+//                                            model.pickImage();
+//                                  }
+//                      )),
+
+
+//                      decoration: ShapeDecoration(
+//                 color: AppColor.kGrey200,
+//                 shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.only(
+//                       topLeft:  const  Radius.circular(30.0),
+//                       topRight: const  Radius.circular(30.0),
+//                       bottomLeft:const  Radius.circular(30.0),
+//                       bottomRight: const  Radius.circular(30.0),
+//                     )),
+
+//               ),
+//                    ),
+//                    verticalSpaceLarge,
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                           Padding(
+//                     padding: const EdgeInsets.all(8.0),
+//                     child: Container(
+//                       width: 150,
+//                       height: 50,
+//                       child: MaterialButton(
+//                       child: Text('Cancel',
+//                       style: TextStyle(
+//                         color: AppColor.white,
+//                         fontSize: 17.0,
+//                         fontWeight: FontWeight.bold
+//                       ),),
+//                       color: Color(0xFF45A1C9),
+//                       shape: RoundedRectangleBorder(
+//         borderRadius: new BorderRadius.circular(18.0),
+//             side: BorderSide(color: AppColor.borderColor)
+//     ),
+//                       onPressed: () => model.movetoScreen2(
+//                         address: addressController.text.trim(),
+//                         contactEmail: emailcontroller.text.trim(),
+//                         phoneN: phoneNumber.text.trim(),
+//                         country: country,
+//                         propertyName: propertyNameController.text.trim()
+//                       )
+//                 ),
+//                     ),
+//                   ),
+//                   //       MaterialButton(
+//                   //   child: Text('Back',
+//                   //   style: TextStyle(
+//                   //     color: AppColor.white,
+//                   //     fontSize: 17.0,
+//                   //     fontWeight: FontWeight.bold
+//                   //   ),),
+//                   //   color: AppColor.black,
+//                   //   onPressed: () =>  model.goback()
+//                   // ),
+//                   horizontalSpaceLarge,
+//                   // MaterialButton(
+//                   //   child: Text('Skip',
+//                   //   style: TextStyle(
+//                   //     color: AppColor.white,
+//                   //     fontSize: 17.0,
+//                   //     fontWeight: FontWeight.bold
+//                   //   ),),
+//                   //   color: AppColor.black,
+//                   //   onPressed: () =>  model.nextPage()
+//                   // ),
+//                    Padding(
+//                     padding: const EdgeInsets.all(8.0),
+//                     child: Container(
+//                       width: 150,
+//                       height: 50,
+//                       child: MaterialButton(
+//                       child: Text('Skip',
+//                       style: TextStyle(
+//                         color: AppColor.white,
+//                         fontSize: 17.0,
+//                         fontWeight: FontWeight.bold
+//                       ),),
+//                       color: Color(0xFF45A1C9),
+//                       shape: RoundedRectangleBorder(
+//         borderRadius: new BorderRadius.circular(18.0),
+//             side: BorderSide(color: AppColor.borderColor)
+//     ),
+//                       onPressed: () => model.nextPage()
+//                 ),
+//                     ),
+//                   ),
+//                       ],
+//                     )
+
+//               ],
+//             ),
+//           ),
+//       );
+     
+//   }

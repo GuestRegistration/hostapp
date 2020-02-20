@@ -12,6 +12,8 @@ class AppText{
   static const String skip = "Skip";
   static const String next = "Next";
   static const String done = "Done";
+  static const String addPHoldOn = "Hold on while we create your property... It will only take a few seconds";
+
 
   /// the welcome screen data
   static const List onBoardingData = [

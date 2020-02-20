@@ -28,14 +28,14 @@ String _propertyName, _address, _contactEmail, _phoneN;
  
 
  void initialize(){
-pageIndex = 1;
+pageIndex = 0;
 notifyListeners(); //To Notify changes
 }
 
  void nextPage(){
    //I don't want it be more that 3 index since we have 3  //0, 1, 2
-  if(pageIndex > 2){  
-    pageIndex = 2;
+  if(pageIndex > 1){  
+    pageIndex = 1;
     notifyListeners();
   }else{
     pageIndex++;

@@ -4,13 +4,13 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  static const Color rimary = Color(0xFff6f00);
+  static const Color rimary = Color(0xFF45A1C9);
   static const Color teal = Color(0xFFff1744);
   static const Color accents = Color(0xFFd81b60);
   static const Color CircleYellow = Color(0xFFb71c1c);
   static const Color deep00 = Color(0xFFEE6E73);
   static const Color colorDark = Color(0xFFff1744);
-  static const Color primary = const Color(0xFFA11C3E);
+  static const Color primary = const Color(0xFF45A1C9);
   static const Color colorassence = const Color(0xFFff1744);
   static const Color primaryLight = const Color(0xFFEE6E73); // CB027A
   static const Color colordark = const Color(0xFFb71c1 ); // CB027A

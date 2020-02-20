@@ -4,7 +4,7 @@ import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/managers/dialog_manager.dart';
 import 'package:hostapp/src/route.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
-import 'package:hostapp/src/screen/WrapperScreen.dart';
+import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'HandyWorker',
+      title: 'HostApp',
       debugShowCheckedModeBanner: false,
       builder: (context, child) => Navigator(
         key: locator<DialogService>().dialogNavigationKey,
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: Dashboard(),
+      home: Dashboard(), //AddProprtyLoadingScreen(),//
       onGenerateRoute: generateRoute,
     );
   }
