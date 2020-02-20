@@ -158,7 +158,7 @@ class _VerifyotpState extends State<Verifyotp> {
         builder: (context) {
           return Signupcomplete(
             email: "${widget.email}",
-          );
+                      );
         },
       ),
     );
@@ -215,7 +215,7 @@ class _VerifyotpState extends State<Verifyotp> {
         smsCode: smsOTP,
       );
       // final FirebaseUser user = (await _auth.signInWithCredential(credential)) as FirebaseUser;
-      final AuthResult user = await _auth.signInWithCredential(credential);
+      //final AuthResult user = await _auth.signInWithCredential(credential);
       final FirebaseUser currentUser = await _auth.currentUser();
       //assert(user.uid == currentUser.uid);
 //addUser();

@@ -176,10 +176,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   }
 
   Future<void> navigateotp() async {
-      //  print("New Country selected: " + countryCode.toString());
-     
+    //  print("New Country selected: " + countryCode.toString());
+
     print("inside navigate otp");
-        print(print);
+    print(print);
 
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user1 = await auth.currentUser();
@@ -199,29 +199,25 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       ),
     );
   }
- 
 
-  
- 
-
-  
-void _onCountryChange(countryCode) {
+  void _onCountryChange(countryCode) {
     //Todo : manipulate the selected country code here
     phoneCode = countryCode.toString();
     print("New Country selected: " + countryCode.toString());
   }
+
   void dispose() {
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-     print(isButtonEnabled);
+    print(isButtonEnabled);
 
     if (isButtonEnabled == false) {
-      buttoncolor = Colors.cyan[200];
+      buttoncolor = Color(0xff45A1C9);
     } else {
-      buttoncolor = Colors.cyan[50];
+      buttoncolor = Color(0xffC7E3EF);
     }
     return Scaffold(
       //backgroundColor: Color(0xff151232),
@@ -243,7 +239,7 @@ void _onCountryChange(countryCode) {
                 children: <Widget>[
                   // const Text("You are not currently signed in."),
                   new SizedBox(
-                    height: 1.0,
+                    height: 22.0,
                   ),
                   Visibility(
                     child: Text(
@@ -255,18 +251,24 @@ void _onCountryChange(countryCode) {
                     ),
                     visible: errorflag,
                   ),
+
                   Text(
                     "Create your profile",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 30.0),
+                        fontSize: 34.0),
                   ),
-                  SizedBox(height: 10.0,),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   Text(
                     "Secure your activity and validate your account",
                     //  style: TextStyle(color: Color(0xffD6C9F5), fontSize: 15.0),
-                    style: TextStyle(color: Colors.black38, fontSize: 12.0,fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Color(0xff8F8F8F),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
                     height: 32.0,
@@ -278,27 +280,27 @@ void _onCountryChange(countryCode) {
                       // color: Color(0xffD6C9F5),
                       child: Text(
                         "First Name*",
-                        style: TextStyle(color: Colors.black, fontSize: 15.0),
+                        style:
+                            TextStyle(color: Color(0xffB8B8B8), fontSize: 15.0),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: 20.0,
                   ),
 
                   Align(
                     alignment: Alignment(-.100, 0),
                     child: Container(
                       alignment: Alignment.center,
-                      // height: 60.0,
-                      width: MediaQuery.of(context).size.width - 50,
-                      //width: 300.0,
-                      
+                      height: 50.0,
+                      width: 320.0,
                       decoration: new BoxDecoration(
                           color: Colors.white,
-                          borderRadius: new BorderRadius.circular(12.0,),
-                              border: Border.all(color: Colors.cyanAccent)
+                          borderRadius: new BorderRadius.circular(
+                            10.0,
                           ),
+                          border: Border.all(color: Color(0xffC6DEE9))),
                       child: new TextFormField(
                           controller: name,
                           onChanged: (val) {
@@ -311,8 +313,14 @@ void _onCountryChange(countryCode) {
                             return null;
                           },
                           decoration: InputDecoration(
-                            hintText: "Joe ",
-                            contentPadding: EdgeInsets.all(20),
+                            hintText: "John",
+                            hintStyle: TextStyle(
+                                color: Color(
+                              0xff63A5C0,
+                            )),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                            border: InputBorder.none,
                           )),
                     ),
                   ),
@@ -326,25 +334,24 @@ void _onCountryChange(countryCode) {
                       // color: Color(0xffD6C9F5),
                       child: Text(
                         "Last Name*",
-                        style: TextStyle(color: Colors.black, fontSize: 15.0),
+                        style:
+                            TextStyle(color: Color(0xffB8B8B8), fontSize: 15.0),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: 20.0,
                   ),
                   Align(
                     alignment: Alignment(-.100, 0),
                     child: Container(
                       alignment: Alignment.center,
-                      // height: 60.0,
-                      width: MediaQuery.of(context).size.width - 50,
-                      //width: 300.0,
+                      height: 50.0,
+                      width: 320.0,
                       decoration: new BoxDecoration(
                           color: Colors.white,
-                               border: Border.all(color: Colors.cyanAccent),
-                          borderRadius: new BorderRadius.circular(12.0)
-                          ),
+                          border: Border.all(color: Color(0xffC6DEE9)),
+                          borderRadius: new BorderRadius.circular(10.0)),
                       child: new TextFormField(
                           controller: lastname,
                           onChanged: (val) {
@@ -357,8 +364,14 @@ void _onCountryChange(countryCode) {
                             return null;
                           },
                           decoration: InputDecoration(
-                            hintText: " Bloggs",
-                            contentPadding: EdgeInsets.all(20),
+                            hintText: "Doe",
+                            hintStyle: TextStyle(
+                                color: Color(
+                              0xff63A5C0,
+                            )),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                            border: InputBorder.none,
                           )),
                     ),
                   ),
@@ -373,12 +386,13 @@ void _onCountryChange(countryCode) {
                       // color: Color(0xffD6C9F5),
                       child: Text(
                         "Mobile Phone*",
-                        style: TextStyle(color: Colors.black, fontSize: 15.0),
+                        style:
+                            TextStyle(color: Color(0xffB8B8B8), fontSize: 15.0),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: 20.0,
                   ),
 
                   Align(
@@ -387,57 +401,71 @@ void _onCountryChange(countryCode) {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                           new CountryCodePicker(
-         //onChanged: print,
-         onChanged: _onCountryChange,
-         // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-         initialSelection: 'US',
-         favorite: ['+1','US'],
-         // optional. Shows only country name and flag
-         showCountryOnly: false,
-         // optional. Shows only country name and flag when popup is closed.
-         showOnlyCountryWhenClosed: false,
-         // optional. aligns the flag and the Text left
-         alignLeft: false,
-         //itemBuilder: _buildDropdownItem,
-       ),
-                       /* CountryPickerDropdown(
-                          //initialValue: 'us',
-                          initialValue: 'in',
-                          itemBuilder: _buildDropdownItem,
-                          onValuePicked: (country) {
-                            print("name ${country.name}");
-
-                            phoneCode = "${country.phoneCode}";
-                          },
-                        ),*/
                         Container(
-                          alignment: Alignment.center,
-                          width: 200.0,
-                          //width: MediaQuery.of(context).size.width - 50,
                           decoration: new BoxDecoration(
                               color: Colors.white,
-                                   border: Border.all(color: Colors.cyanAccent),
-                              borderRadius: new BorderRadius.circular(12.0)),
-                          child: new TextFormField(
-                              // initialValue: "",
-                              onChanged: (val) {
-                                isEmpty();
-                              },
-                              controller: phone,
-                              //keyboardType: TextInputType.emailAddress,
-                              keyboardType: TextInputType.phone,
-                              //maxLength: 12,
-                              autofocus: false,
-                              validator: validateMobile,
-                              onSaved: (String val) {
-                                mobile = val;
-                              },
-                              decoration: InputDecoration(
-                                hintText: "123 456 7890",
-                                fillColor: Color(0xffC8C3D4),
-                                contentPadding: EdgeInsets.all(20),
-                              )),
+                              border: Border.all(color: Color(0xffC6DEE9)),
+                              borderRadius: new BorderRadius.circular(10.0)),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height: 50.0,
+                                decoration: new BoxDecoration(
+                                    color: Colors.white,
+                                    border:
+                                        Border.all(color: Color(0xffC6DEE9)),
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0)),
+                                child: new CountryCodePicker(
+                                  //onChanged: print,
+                                  onChanged: _onCountryChange,
+                                  /*textStyle: TextStyle(
+                                          color: Color(
+                                        0xff63A5C0,
+                                      )),*/
+                                  // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                                  initialSelection: 'US',
+                                  favorite: ['+1', 'US'],
+                                  // optional. Shows only country name and flag
+                                  showCountryOnly: false,
+                                  // optional. Shows only country name and flag when popup is closed.
+                                  showOnlyCountryWhenClosed: false,
+                                  // optional. aligns the flag and the Text left
+                                  alignLeft: false,
+                                  //itemBuilder: _buildDropdownItem,
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                width: 220.0,
+                                child: new TextFormField(
+                                    // initialValue: "",
+                                    onChanged: (val) {
+                                      isEmpty();
+                                    },
+                                    controller: phone,
+                                    //keyboardType: TextInputType.emailAddress,
+                                    keyboardType: TextInputType.phone,
+                                    //maxLength: 12,
+                                    autofocus: false,
+                                    validator: validateMobile,
+                                    onSaved: (String val) {
+                                      mobile = val;
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: "(123) 456-7890",
+                                      fillColor: Color(0xffC8C3D4),
+                                      hintStyle: TextStyle(
+                                          color: Color(
+                                        0xff63A5C0,
+                                      )),
+                                      contentPadding: EdgeInsets.fromLTRB(
+                                          20.0, 10.0, 20.0, 10.0),
+                                      border: InputBorder.none,
+                                    )),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -446,79 +474,15 @@ void _onCountryChange(countryCode) {
                   SizedBox(
                     height: 10.0,
                   ),
-               
-       
-                  SizedBox(
-                    width: 300.0,
-                    child: Align(
-                      //alignment: Alignment.topLeft,
-                      //     widthFactor: left
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            child: Row(
-                              children: <Widget>[
-                                Text(
-                                  "By creating an account, you agree to our",
-                                  style: TextStyle(
-                                      color: Colors.black38, fontSize: 11.0,fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  "Terms of ",
-                                  style: TextStyle(
-                                      color: Colors.black38, fontSize: 11.0, decoration: TextDecoration.underline,fontWeight: FontWeight.bold),
-                                ),
-                                //Text("Terms of service",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),),
-                                //Text("and",style: TextStyle(color: Colors.black, fontSize: 12.0),),
-                                //  Text("privacy Policy ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),)
-                              ],
-                            ),
-                          ),
-                          Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                //  crossAxisAlignment: CrossAxisAlignment.center,
 
-                                //    Text("Terms of  ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),),
-                                //    Text("and ",style: TextStyle(color: Colors.black, fontSize: 12.0),),
-                                
-                                    Text(
-                                  "Service",
-                                  style: TextStyle(
-                                      color: Colors.black38,
-                                      fontSize: 11.0,
-                                      decoration: TextDecoration.underline,fontWeight: FontWeight.bold),
-                                ),
-                                   Text(
-                                  " and",
-                                  style: TextStyle(
-                                      color: Colors.black38,
-                                      fontSize: 11.0,fontWeight: FontWeight.bold
-                                    ),
-                                ),
-                                   Text(
-                                  " Privacy Policy ",
-                                  style: TextStyle(
-                                      color: Colors.black38,
-                                      fontSize: 11.0,fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                 
                   SizedBox(
                     height: 10.0,
                   ),
 
                   new SizedBox(
                     width: 300.0,
-                    height: 60.0,
+                    height: 47.0,
                     child: AbsorbPointer(
                       absorbing: isButtonEnabled,
                       //fase
@@ -529,15 +493,16 @@ void _onCountryChange(countryCode) {
                             'Continue',
                             style: TextStyle(
                                 color: Colors.white,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.bold),
                           ),
-                          
+
                           //color: Color(0xff6839ed),
                           //color: Colors.black12,
                           color: buttoncolor,
-                           shape: new RoundedRectangleBorder(
-      borderRadius: new BorderRadius.circular(20.0),
-    ),
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(13.0),
+                          ),
                           onPressed: () {
                             // _btnEnabled == true ? print("hai") : null;
 
@@ -573,8 +538,84 @@ void _onCountryChange(countryCode) {
                           ),
                     ),
                   ),
+                   SizedBox(
+                   height: 20.0,),
+                   SizedBox(
+                    width: 321.0,
+                    child: Align(
+                      //alignment: Alignment.topLeft,
+                      //     widthFactor: left
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            child: Center(
+                              child: Row(
+                                children: <Widget>[
+                                  Text(
+                                    "By creating an account, you agree to our",
+                                    style: TextStyle(
+                                         color: Color(0xff8F8F8F),
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Text(
+                                    " Terms of ",
+                                    style: TextStyle(
+                                         color: Color(0xff8F8F8F),
+                                        fontSize: 12.0,
+                                        decoration: TextDecoration.underline,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  //Text("Terms of service",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),),
+                                  //Text("and",style: TextStyle(color: Colors.black, fontSize: 12.0),),
+                                  //  Text("privacy Policy ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),)
+                                ],
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                //  crossAxisAlignment: CrossAxisAlignment.center,
+
+                                //    Text("Terms of  ",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black, fontSize: 12.0),),
+                                //    Text("and ",style: TextStyle(color: Colors.black, fontSize: 12.0),),
+
+                                Text(
+                                  "Service",
+                                  style: TextStyle(
+                                      color: Color(0xff8F8F8F),
+                                      fontSize: 12.0,
+                                      decoration: TextDecoration.underline,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  " and",
+                                  style: TextStyle(
+                                        color: Color(0xff8F8F8F),
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  " Privacy Policy ",
+                                  style: TextStyle(
+                                       color: Color(0xff8F8F8F),
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w600,
+                                      decoration: TextDecoration.underline),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
+              
             ),
           ),
         ),
@@ -588,7 +629,7 @@ String validateMobile(String value) {
   RegExp regExp = new RegExp(patttern);
   if (value.length == 0) {
     return "Mobile is Required";
-  } else if (value.length >=15) {
+  } else if (value.length >= 15) {
     return "Mobile number can't be more than 15 digits";
   } else if (!regExp.hasMatch(value)) {
     return "Mobile Number must be digits";

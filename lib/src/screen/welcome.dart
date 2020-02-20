@@ -46,10 +46,40 @@ Future<void> provider() async {
         // print(user1.providerId);
         // print(user1.)
           
-          print("uid"+user1.uid);
+         // print("uid"+user1.uid);
         // update();
          await FirebaseAuth.instance.signOut().whenComplete(() => navigate());
      await googleSignIn.signOut().whenComplete(() => navigate());
+  }
+    void deleteuser() {
+    print("inside deleteuser function");
+    //print("uid" + widget.uid);
+    //var propertyid1 = int.parse(propertyid);
+    var email = widget.email;
+    print("email inside delete user"+email);
+    Firestore.instance
+        .collection("users")
+        .where("email", isEqualTo: email)
+        .getDocuments()
+        .then((string) {
+      print('Firestore response: , ${string.documents.length}');
+      string.documents.forEach(
+        (doc) => Firestore.instance
+            .collection("users")
+            .document("${doc.documentID.toString()}")
+            .delete()
+            .whenComplete(() {
+                                     /*   Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (contex)=> PropertyListdbScreen(
+                          email: "${widget.email}",
+                        )
+                      ));*/
+                          
+            
+          print('Deleted successfully');
+        }),
+      );
+    });
   }
   void update() async {
     print("inside update function");
@@ -176,6 +206,29 @@ var did;
                     ),
                   ),
                 ),
+                SizedBox(
+                   
+                  height: 30.0,),
+             SizedBox(
+                  width: 150.0,
+                  height: 60.0,
+                  child: Container(
+                    color: Colors.black,
+                    child: RaisedButton(
+                      onPressed: () {
+                      deleteuser();
+                      },
+                      child: const Text(
+                        'Delete user',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(2))),
+                      color: Colors.white12,
+                    ),
+                  ),
+                )
          ],
       ))),
     );

@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hostapp/src/screen/createnewaccount.dart';
 import 'package:hostapp/src/service/auth_bloc.dart';
 import 'package:hostapp/src/service/auth_bloc_provider.dart';
 import 'package:hostapp/src/service/repository.dart';
@@ -14,7 +13,6 @@ import 'welcome.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'sign_in.dart';
 import 'login_page.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -391,8 +389,15 @@ class AuthScreenState extends State<AuthScreen> {
               builder: (context, snapshot2) {
                 if (snapshot2.connectionState == ConnectionState.active) {
                   user = snapshot2.data;
+                    /*if (user == null) {
+                   return AuthScreen(); //Start from the beginning
+                 }else{
+                   return Signupcomplete();
+                 }*/
                 }
-
+/*else {
+                // return SignUpCompleteScreen(); //Start in dashboard
+               }*/
                 return SingleChildScrollView(
                   child: Center(
                     child: Column(
@@ -405,12 +410,19 @@ class AuthScreenState extends State<AuthScreen> {
                           /*SizedBox(
                             height: 150.0,
                           ),*/
-                          Text(
-                            "Let's get started",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 32.0),
+                          Center(
+                            child: Container(
+                              //height: 59.0,
+                              //width: 330.0,
+
+                              child: Text(
+                                "Let's get started",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 34.0),
+                              ),
+                            ),
                           ),
                           SizedBox(
                             height: 20.0,
@@ -421,7 +433,7 @@ class AuthScreenState extends State<AuthScreen> {
                               child: Text(
                                 "Select a method to begin using",
                                 style: TextStyle(
-                                    color: Colors.black26, fontSize: 14.0),
+                                   color: Color(0xff8F8F8F), fontSize: 14.0, fontWeight: FontWeight.w600,),
                               ),
                             ),
                           ),
@@ -429,7 +441,7 @@ class AuthScreenState extends State<AuthScreen> {
                             child: Text(
                               "Guest Registration.",
                               style: TextStyle(
-                                  color: Colors.black26, fontSize: 14.0),
+                                  color: Color(0xff8F8F8F), fontSize: 14.0,fontWeight: FontWeight.w600,),
                             ),
                           ),
                           SizedBox(
@@ -601,15 +613,37 @@ class AuthScreenState extends State<AuthScreen> {
                             ),
                           ),*/
                           /*comment end for passwordless login*/
-                          SizedBox(
-                            width: 300.0,
-                            height: 60.0,
-                            //child: RaisedButton(
-
-                            child: SignInButton(
+         
+                          Container(
+                              width: 318.0,
+                            height: 47.0,
+                              decoration: new BoxDecoration(
+                          
+                          borderRadius: new BorderRadius.circular(
+                            13.0,
+                          ),
+                        ),
+                            child: RaisedButton(
+                                   color: const Color(0xffF1F1F1),
+                            /*child: SignInButton(
                               Buttons.Google,
-                              text: "Continue with Google",
+                                
+                              text: "Continue with Google",*/
+                               child: new Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            new Image.asset('assets/images/google.png',
+              width: 27.0,
+              height: 28.0,
+            ),
+            new Container(
+              padding: EdgeInsets.only(left: 10.0,right: 10.0),
+                child: new Text("Continue with Google",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16.0),)
+            ),
+          ],
+        ),
                               onPressed: () async {
+                                
                                 //  signInWithGoogle().then((value) => CircularProgressIndicator()).whenComplete(() async {
                                 // showAlertDialog(context);
                                 //Navigator.pop(context);
@@ -735,19 +769,9 @@ class AuthScreenState extends State<AuthScreen> {
                                   });
                                 });
 
-                                /*
-                                 signInWithGoogle().whenComplete(() {
-                                  //_authCompletedgoogle();
-                                 print("hai"+email);
-                                 
-                                }); */
+                              
                               },
-                              /*child: const Text(
-                                'Google',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),*/
+                               
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(12))),
@@ -767,12 +791,41 @@ class AuthScreenState extends State<AuthScreen> {
               ),
               visible: signupcheck,
             ),
-                          SizedBox(
-                            width: 300.0,
-                            height: 60.0,
+                      /*    SizedBox(
+                            width: 318.0,
+                            height: 47.0,
                             child: SignInButton(
                               Buttons.AppleDark,
-                              text: "Continue with Apple",
+                              text: "Continue with Apple",*/
+                             Container(
+                              width: 318.0,
+                            height: 47.0,
+                           
+                              decoration: new BoxDecoration(
+                          
+                          borderRadius: new BorderRadius.circular(
+                            13.0,
+                          ),
+                        ),
+                            child: RaisedButton(
+                               color: Colors.black,
+                                child: new Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            new Image.asset('assets/images/applelogo.png',
+              width: 30.0,
+              height: 30.0,
+            ),
+            new Container(
+              padding: EdgeInsets.only(left: 10.0,right: 10.0),
+                child: new Text("Continue with Apple",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16.0),)
+            ),
+          ],
+        ),
+                              /*textstyle:TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),*/
+                              
                               onPressed: () {
                                 //function call for apple sign up
                                 // _signInWithApple(context);
