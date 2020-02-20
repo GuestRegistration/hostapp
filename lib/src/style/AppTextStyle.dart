@@ -58,6 +58,22 @@ static BoxDecoration disabledFieldDecortaion = BoxDecoration(
         fontWeight: FontWeight.w700,
         color: AppColor.black);
   }
+   static TextStyle title(BuildContext context) {
+    return TextStyle(
+        fontFamily: "Metropolis",
+        fontFamilyFallback: ["RobotoRegular"],
+        fontSize: AppFontSizes.small,
+        fontWeight: FontWeight.w700,
+        color: AppColor.black);
+  }
+   static TextStyle subtitle(BuildContext context) {
+    return TextStyle(
+        fontFamily: "Metropolis",
+        fontFamilyFallback: ["RobotoRegular"],
+        fontSize: AppFontSizes.small,
+        fontWeight: FontWeight.normal,
+        color: Colors.grey);
+  }
 
   // For small headers
   static TextStyle editTextSmall(BuildContext context) {

@@ -47,6 +47,7 @@ class InputField extends StatefulWidget {
 class _InputFieldState extends State<InputField> {
   bool isPassword;
   double fieldHeight = 55;
+  bool get wantKeepAlive => widget.controller?.text?.isNotEmpty == true;
 
   @override
   void initState() {
@@ -124,4 +125,11 @@ class _InputFieldState extends State<InputField> {
       ],
     );
   }
+   @override
+  void dispose() {
+     widget.controller.dispose();
+    super.dispose();
+  }
+
+  
 }

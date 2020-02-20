@@ -76,6 +76,20 @@ return SnackBar(content: Text(message));
     );
   }
 
+  errorUimessage({String errorMessage}){
+   return  (errorMessage == null ? SizedBox.shrink() : Row(children: <Widget>[
+              Icon(Icons.error, color: Colors.red,),
+              SizedBox(width: 10,),
+              Text(errorMessage,
+                      style: TextStyle(
+                        color: AppColor.kErrorRed,
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.normal
+                      ),),
+
+            ],));
+  }
+
 void util(){
     final key = Key.Key.fromLength(32);
      iv = IV.fromLength(16);
@@ -92,7 +106,15 @@ void util(){
      print(decrypted);
      return decrypted;
   }
-
+String validateEmail(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Error';
+    else
+      return null;
+  }
 
 
 }

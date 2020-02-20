@@ -95,7 +95,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
            ListView.builder(
           itemCount: model.properties.length,
           shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
+          scrollDirection: Axis.vertical,
           itemBuilder: (BuildContext context , int index){
             if(model.properties.length == 0){
               return Center(child: Text('No Property Available', style: AppTextStyle.error(context, Colors.redAccent),),);

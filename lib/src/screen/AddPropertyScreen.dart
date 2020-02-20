@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hostapp/src/screen/Mobile/AddPropertyMobile.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
@@ -16,6 +17,8 @@ import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:hostapp/src/locator.dart';
+import 'package:hostapp/src/util/customFunctions.dart';
 
 
 class AddPropertyView extends StatelessWidget {
@@ -40,15 +43,15 @@ class AddPropertyView extends StatelessWidget {
 }
 
 class AddProprtyUI extends StatelessWidget {
-    TextEditingController propertyNameController = TextEditingController();
+    TextEditingController propertyNameController =  TextEditingController();
    TextEditingController addressController = TextEditingController();
-   TextEditingController emailcontroller = TextEditingController();
-    TextEditingController phoneNumber = TextEditingController();
-    TextEditingController rulesController = TextEditingController();
-    String country;
+   TextEditingController emailcontroller = new TextEditingController();
+    TextEditingController phoneNumber = new TextEditingController();
+    TextEditingController rulesController = new TextEditingController();
+    final CustomFuntion _customFuntion = locator<CustomFuntion>();
+    String defaultCountry = 'United State';
    
   
- 
 
 final AddPropertyViewModel model;
 
@@ -62,7 +65,7 @@ final AddPropertyViewModel model;
           children: <Widget>[
               horizontalSpaceLarge,
             horizontalSpaceLarge,
-           screen2(context, model)
+           swtichScreen(model, context)
           ],
         ),
               ],)
@@ -104,20 +107,26 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
           )
         ),), ],),
             ),
+           _customFuntion.errorUimessage(errorMessage: model.errorM),
                  verticalSpaceSmall,
                CollectText(ttile: 'Property Name',),
                   InputField(
-                    placeholder: 'h',
-                    isReadOnly: false,
+                    placeholder: 'PropertyName',
                     decoration: null,
                     controller: propertyNameController,
                   ),
                   verticalSpaceSmall,
                    CollectText(ttile: 'Property Address',),
-                  InputField(
-                    placeholder: '',
-                    controller: addressController,
+                  // InputField(
+                  //   placeholder: 'Address',
+                  //   controller: addressController,
+                  // ),
+                   textInputField(
+                      placeholder: 'Address',
+                    controller: addressController, 
                   ),
+
+
                    verticalSpaceSmall,
                     CollectText(ttile: 'Country',),
                   Row(children: <Widget>[
@@ -138,7 +147,7 @@ Expanded(
                           isDownIcon: true,
                           initialSelection: '+1',
                           onChanged: (code) {
-                            country = code.name;
+                             model.setCountry(selectedcountry:code.name.toString());
                           //  print(code.name); //country
                             // print(code.code); //AD
                             // print(code.dialCode); //+376
@@ -159,7 +168,7 @@ Expanded(
                    verticalSpaceSmall,
                     CollectText(ttile: 'PhoneNumber',),
                     InputField(
-                    placeholder: '',
+                   placeholder: 'PhoneNumber',
                     controller: phoneNumber,
                     textInputType: TextInputType.number,
                     decoration:  InputDecoration(
@@ -175,28 +184,31 @@ Expanded(
                   ),
                     hintText: "xxxxxx",
                     hintStyle: AppTextStyle.inputHint(context),
-                    prefixIcon: ClipRRect(
-                       borderRadius: BorderRadius.circular(8.0),
-                      child: Container(
-                        decoration: new BoxDecoration(
-                      color: AppColor.fieldDecoration,
-                     borderRadius: new BorderRadius.only(
-                        topLeft: const Radius.circular(8.0),
-                        topRight: const Radius.circular(8.0),
-                        bottomLeft: const Radius.circular(8.0),
-                        bottomRight: const Radius.circular(8.0),
-                        ),
-                        
-                        ),
-                       child: CountryCodePicker(
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: ClipRRect(
+                         borderRadius: BorderRadius.circular(8.0),
+                        child: Container(
+                          decoration: new BoxDecoration(
+                        color: AppColor.fieldDecoration,
+                       borderRadius: new BorderRadius.only(
+                          topLeft: const Radius.circular(8.0),
+                          topRight: const Radius.circular(8.0),
+                          bottomLeft: const Radius.circular(8.0),
+                          bottomRight: const Radius.circular(8.0),
+                          ),
+                          
+                          ),
+                         child: CountryCodePicker(
                   onChanged: (value){
-                    
+                      
                   },
                   initialSelection: '+1',
                   favorite: ['+39','FR'],
                   showCountryOnly: false,
                   alignLeft: false,
                 ),
+                        ),
                       ),
                     ),
                     
@@ -204,38 +216,47 @@ Expanded(
                   ),
  verticalSpaceSmall,
  verticalSpaceSmall,
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: 150,
-                      height: 50,
-                      child: MaterialButton(
-                      child: Text('Continue',
-                      style: TextStyle(
-                        color: AppColor.white,
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.bold
-                      ),),
-                      color: Color(0xFF45A1C9),
-                      shape: RoundedRectangleBorder(
+                  GestureDetector(
+                 child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 150,
+                        height: 50,
+                        child: Material(
+                        child: Center(
+                          child: Text('Continue',
+                          style: TextStyle(
+                            color: AppColor.white,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold
+                          ),),
+                        ),
+                        color: Color(0xFF45A1C9),
+                        shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(18.0),
             side: BorderSide(color: AppColor.borderColor)
     ),
-                      onPressed: () => model.movetoScreen2(
+                      
+                ),
+                      ),
+                    
+                    ),onTap: (){
+        if(model.getCountry == null){
+                      model.setCountry(selectedcountry: defaultCountry);
+                            }
+                        model.movetoScreen2(
                         address: addressController.text.trim(),
                         contactEmail: emailcontroller.text.trim(),
                         phoneN: phoneNumber.text.trim(),
-                        country: country,
+                        country: model.getCountry,
                         propertyName: propertyNameController.text.trim()
-                      )
-                ),
-                    ),
+                      );
+                    },
                   )
 
             ],
           ),
         );
-     
   }
 
 //Index 3
@@ -282,54 +303,70 @@ Expanded(
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Padding(
+                        GestureDetector(
+                                                  child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: Container(
                       width: 150,
                       height: 50,
-                      child: MaterialButton(
-                      child: Text('Cancel',
-                      style: TextStyle(
-                        color: AppColor.white,
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.bold
-                      ),),
+                      child: Material(
+                      child: Center(
+                          child: Text('Cancel',
+                          style: TextStyle(
+                            color: AppColor.white,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold
+                          ),),
+                      ),
                       color: Color(0xFF45A1C9),
                       shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(18.0),
             side: BorderSide(color: AppColor.borderColor)
     ),
-                      onPressed: () => model.movetoScreen2(
-                        address: addressController.text.trim(),
-                        contactEmail: emailcontroller.text.trim(),
-                        phoneN: phoneNumber.text.trim(),
-                        country: country,
-                        propertyName: propertyNameController.text.trim()
-                      )
+                   
                 ),
                     ),
                   ),
+                  onTap: (){
+                      model.goback();
+                  },
+                        ),
+                        
                   horizontalSpaceSmall,
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: 150,
-                      height: 50,
-                      child: MaterialButton(
-                      child: Text('Skip',
-                      style: TextStyle(
-                        color: AppColor.white,
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.bold
-                      ),),
-                      color: Color(0xFF45A1C9),
-                      shape: RoundedRectangleBorder(
+                  GestureDetector(
+                                      child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 150,
+                        height: 50,
+                        child: Material(
+                        child: Center(
+                          child: Text('Skip',
+                          style: TextStyle(
+                            color: AppColor.white,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold
+                          ),),
+                        ),
+                        color: Color(0xFF45A1C9),
+                        shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(18.0),
             side: BorderSide(color: AppColor.borderColor)
     ),
-                      onPressed: () => model.nextPage()
+                       
                 ),
+                      ),
                     ),
+                    onTap: (){
+                       model.lastScreenbutton(
+                       propertyName: propertyNameController.text.trim(),
+                      address: addressController.text.trim(),
+                      contactEmail: emailcontroller.text.trim(),
+                        phoneN: phoneNumber.text.trim(),
+                        image: model.selectedImage,
+                        propertyRule: rulesController.text.trim()
+                    );
+                    },
                   ),
                   // BusyButton(
                   //     title: 'Skip',
@@ -357,6 +394,84 @@ Expanded(
      
   }
 
+  textInputField(
+ {
+      final TextEditingController controller,
+  final TextInputType textInputType,
+  final bool password = false,
+  final bool isReadOnly = false,
+  final String placeholder,
+  final String validationMessage,
+  final Function enterPressed,
+  final bool smallVersion = false,
+  final FocusNode fieldFocusNode,
+  final FocusNode nextFocusNode,
+  final TextInputAction textInputAction,
+  final String additionalNote,
+  final Function(String) onChanged,
+  final InputDecoration decoration,
+  final TextInputFormatter formatter,
+  final BuildContext context
+ }
+  ){
+
+
+  double fieldHeight = 55;
+
+   return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+            children: <Widget>[
+              Expanded(
+                child: Theme(
+                  data: new ThemeData(
+            primaryColor: AppColor.borderColor,
+            primaryColorDark: AppColor.borderColor,
+          ),
+           child: TextFormField(
+                    controller: controller,
+                    keyboardType: textInputType,
+                    focusNode: fieldFocusNode,
+                    textInputAction: textInputAction,
+                    onChanged: onChanged,
+                    inputFormatters: formatter != null ? [formatter] : null,
+                    onEditingComplete: () {
+                      if (enterPressed != null) {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        enterPressed();
+                      }
+                    },
+                    onFieldSubmitted: (value) {
+                      if (nextFocusNode != null) {
+                        nextFocusNode.requestFocus();
+                      }
+                    },
+                    obscureText: password,
+                    readOnly: isReadOnly,
+                    
+                    decoration: (decoration == null ? InputDecoration(
+                    
+                        border: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: new BorderSide(color: AppColor.borderColor,
+                                  ),
+                              ),
+                               enabledBorder: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: new BorderSide(color: AppColor.borderColor,
+                                  ),
+                              ),
+                        hintStyle:TextStyle(fontSize: smallVersion ? 12 : 15)) : 
+                          decoration)
+                  ),
+                ),
+              ),
+            ],
+          ),
+      ],
+    );
+}
 }
 
 

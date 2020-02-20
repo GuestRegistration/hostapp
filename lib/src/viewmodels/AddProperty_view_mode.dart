@@ -12,6 +12,8 @@ import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:hostapp/src/util/customFunctions.dart';
+
 
 class AddPropertyViewModel extends BaseModel{
     final AuthService _authService = locator<AuthService>();
@@ -19,11 +21,16 @@ final DialogService _dialogService = locator<DialogService>();
 final NavigationService _navigationService = locator<NavigationService>();
 final FirestoreService _firestoreService = locator<FirestoreService>();
 final CloudStorageService _cloudStorageService = locator<CloudStorageService>();
+ final CustomFuntion _customFuntion = locator<CustomFuntion>();
 int pageIndex = 0;
 File _image;
 File get selectedImage => _image;
 CloudStorageResult storageResult;
 String _propertyName, _address, _contactEmail, _phoneN;
+String _errorMessage;
+String get errorM => _errorMessage;
+String _country;
+String get getCountry => _country;
  
  
 
@@ -42,6 +49,14 @@ notifyListeners(); //To Notify changes
   notifyListeners();
   }
 }
+//Saving to Firestore
+void savedData(){
+
+}
+void setCountry({String selectedcountry}){
+  _country = selectedcountry;
+   notifyListeners();
+}
 
 void goback(){
   //I don't want it be be -1, -2 etc so, i retrict if from that
@@ -54,6 +69,11 @@ void goback(){
   }
 }
 
+showMessage({String error}){
+_errorMessage = error;
+notifyListeners();
+}
+
 movetoScreen2({
   @required String propertyName,
   @required String address,
@@ -61,26 +81,35 @@ movetoScreen2({
   @required String phoneN,
    @required String country,
 }){
-  
+ 
   if(propertyName.length == 0 || address.length == 0 || contactEmail.length == 0 || phoneN.length == 0 || country == null){
     print(propertyName);
     print(address);
     print(contactEmail);
     print(phoneN);
     print(country);
+   
+showMessage(error: 'Empty field Detected');
 
-       _dialogService.showDialog(
-              title: 'Error!',
-              description: 'Empty field Detected',
-            );
+nextPage();
+
+  }else if(contactEmail != null){
+     String check = _customFuntion.validateEmail(contactEmail);
+
+     if(check != null){
+        showMessage(error: 'The email you entered is invalid');
+       }
+
+    
   }else{
-      _propertyName = propertyName;
-       _address = address;
-        _contactEmail = contactEmail;
-         _phoneN = phoneN;
+    print('Am here');
+    //   _propertyName = propertyName;
+    //    _address = address;
+    //     _contactEmail = contactEmail;
+    //      _phoneN = phoneN;
 
-    //print('$propertyName, $address $contactEmail $phoneN');
-    nextPage();
+    // //print('$propertyName, $address $contactEmail $phoneN');
+     nextPage();
   }
 }
 
@@ -99,32 +128,33 @@ movetoScreen2({
   File image,
 String propertyRule})async{
 
-    setBusy(true);
-     storageResult = await _cloudStorageService.uploadImage(imageToUpload: image, title: _propertyName);
-     var result = await _firestoreService.addProperty(
-      PropertyModel(
-        propertyAddress: _address,
-        propertyEmail: _contactEmail,
-        propertyImage: storageResult.imageUrl,
-        imageFileName : storageResult.imageFileName,
-        propertyPhone: _phoneN,
-        propertyName: _propertyName,
-        propertyRules: propertyRule,
-      )
-    );
-    setBusy(false);
+    // setBusy(true);
+    //  storageResult = await _cloudStorageService.uploadImage(imageToUpload: image, title: _propertyName);
+    //  var result = await _firestoreService.addProperty(
+    //   PropertyModel(
+    //     propertyAddress: _address,
+    //     propertyEmail: _contactEmail,
+    //     propertyImage: storageResult.imageUrl,
+    //     imageFileName : storageResult.imageFileName,
+    //     propertyPhone: _phoneN,
+    //     propertyName: _propertyName,
+    //     propertyRules: propertyRule,
+    //   )
+    // );
+    // setBusy(false);
 
-    if(result is String){
-      await _dialogService.showDialog(
-        title: 'Unable to Create Property',
-        description: result
-      );
-    }else{
-      await _dialogService.showDialog(
-        title: 'Success',
-        description: 'Property Successfully Upload'
-      );
-    }
+    // if(result is String){
+    //   await _dialogService.showDialog(
+    //     title: 'Unable to Create Property',
+    //     description: result
+    //   );
+    // }else{
+    //   await _dialogService.showDialog(
+    //     title: 'Success',
+    //     description: 'Property Successfully Upload'
+    //   );
+    // }
+     _navigationService.navigateTo(addpropertyloadingRoute);
 
  }
 

@@ -28,3 +28,4 @@ const String dashboardRoute = '/dashboard';
 const String addPropertyRoute = '/addProperty';
 const String signUpViewRoute = '/signUp';
 const String signInViewRoute = '/signIn';
+const String addpropertyloadingRoute = '/propertyloding';

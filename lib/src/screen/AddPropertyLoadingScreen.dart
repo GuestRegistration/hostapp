@@ -27,33 +27,37 @@ class AddProprtyLoadingScreen extends StatefulWidget {
 class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              height: 60,
-              width: 60,
-
-              child: CircularProgressIndicator(
-              strokeWidth: 8,
-                    valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
-                    backgroundColor: AppColor.borderColor,
-                    
+    return ViewModelProvider<AddPropertyViewModel>.withoutConsumer(
+      viewModel: AddPropertyViewModel(),
+      onModelReady: (model) => model.savedData(),
+      builder: (context, model, child) =>
+          Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                height: 60,
+                width: 60,
+                child: CircularProgressIndicator(
+                strokeWidth: 8,
+                      valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
+                      backgroundColor: AppColor.borderColor,
+                ),
               ),
-            ),
-            Center(
-              child: Text(AppText.addPHoldOn,
-              // textAlign:,
-                style: TextStyle(
-                  color: Colors.grey,
-              fontSize: AppFontSizes.medium,
-              fontWeight: FontWeight.bold
-                        ),),
-            ),
+              SizedBox(height: 30,),
+              Center(
+                child: Text(AppText.addPHoldOn,
+                 textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                fontSize: AppFontSizes.medium,
+                fontWeight: FontWeight.bold
+                          ),),
+              ),
 
-          ],
+            ],
+          ),
         ),
       ),
     );
