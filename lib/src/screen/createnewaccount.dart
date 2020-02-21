@@ -4,7 +4,6 @@ import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_view.dart';
 import 'package:hostapp/src/service/auth_bloc.dart';
 import 'package:hostapp/src/service/auth_bloc_provider.dart';
 import 'package:hostapp/src/service/repository.dart';
@@ -12,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'welcome.dart';
 import 'sign_in.dart';
 import 'login_page.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class CreatenewaccountScreen extends StatefulWidget {
   @override
@@ -538,8 +536,8 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
                         SizedBox(
                           width: 300.0,
                           height: 60.0,
-                          child: SignInButton(
-                            Buttons.GoogleDark,
+                          child: RaisedButton(
+                            //Buttons.GoogleDark,
                             //text: "Google",
                             onPressed: () async {
                               signInWithGoogle().whenComplete(() async {
@@ -671,8 +669,8 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
                         SizedBox(
                           width: 300.0,
                           height: 60.0,
-                          child: SignInButton(
-                  Buttons.AppleDark,
+                          child: RaisedButton(
+                  //Buttons.AppleDark,
                   //text: "Apple",
                             onPressed: () {
                               //function call for apple sign up

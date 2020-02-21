@@ -56,15 +56,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   }
 
   isEmpty() {
-    /*if ((name.text == "") &&
-        (lastname.text == "") &&
-        (phone.text == "")) {
-          print(" isButtonEnabled = true;");
-        setState(() {
-             isButtonEnabled = true;
-        });
-           
-    } */
+  
     if (name.text != "" && lastname.text != "" && phone.text != "") {
       setState(() {
         print(" isButtonEnabled = false;");
@@ -475,7 +467,6 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                     height: 10.0,
                   ),
 
-                 
                   SizedBox(
                     height: 10.0,
                   ),
@@ -538,9 +529,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                           ),
                     ),
                   ),
-                   SizedBox(
-                   height: 20.0,),
-                   SizedBox(
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  SizedBox(
                     width: 321.0,
                     child: Align(
                       //alignment: Alignment.topLeft,
@@ -554,14 +546,14 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                   Text(
                                     "By creating an account, you agree to our",
                                     style: TextStyle(
-                                         color: Color(0xff8F8F8F),
+                                        color: Color(0xff8F8F8F),
                                         fontSize: 12.0,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Text(
                                     " Terms of ",
                                     style: TextStyle(
-                                         color: Color(0xff8F8F8F),
+                                        color: Color(0xff8F8F8F),
                                         fontSize: 12.0,
                                         decoration: TextDecoration.underline,
                                         fontWeight: FontWeight.w600),
@@ -594,14 +586,14 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                 Text(
                                   " and",
                                   style: TextStyle(
-                                        color: Color(0xff8F8F8F),
+                                      color: Color(0xff8F8F8F),
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 Text(
                                   " Privacy Policy ",
                                   style: TextStyle(
-                                       color: Color(0xff8F8F8F),
+                                      color: Color(0xff8F8F8F),
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w600,
                                       decoration: TextDecoration.underline),
@@ -615,7 +607,6 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                   ),
                 ],
               ),
-              
             ),
           ),
         ),

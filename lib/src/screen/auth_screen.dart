@@ -3,17 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hostapp/src/screen/terms&conditions.dart';
 import 'package:hostapp/src/service/auth_bloc.dart';
 import 'package:hostapp/src/service/auth_bloc_provider.dart';
 import 'package:hostapp/src/service/repository.dart';
 
+import 'createnewaccount.dart';
 /// start import for handling apple signup
 
 import 'welcome.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'sign_in.dart';
 import 'login_page.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -410,6 +411,9 @@ class AuthScreenState extends State<AuthScreen> {
                           /*SizedBox(
                             height: 150.0,
                           ),*/
+                          SizedBox(
+                            height: 50.0,
+                          ),
                           Center(
                             child: Container(
                               //height: 59.0,
@@ -848,8 +852,32 @@ class AuthScreenState extends State<AuthScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 32.0,
+                            height: 150.0,
                           ),
+                          SizedBox(
+                            width: 300.0,
+                            height: 60.0,
+                            child: FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Termconditions();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'Terms & Conditions',
+                                style: TextStyle(
+                                    color: Color(0xff8F8F8F),
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w600,
+                                     decoration: TextDecoration.underline,
+                                    ),
+                              ),
+                             
+                            ),
                           /*comment start for create new account*/
                           /*SizedBox(
                             width: 300.0,
@@ -874,7 +902,7 @@ class AuthScreenState extends State<AuthScreen> {
                             ),
                           ),*/
                           /*comment start for create new account*/
-                        ]),
+                      ),  ]),
                   ),
                 );
                 //);
