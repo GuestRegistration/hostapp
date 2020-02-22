@@ -1,1 +1,0 @@
-{"isEntrypoint":false,"deps":["flutter|lib/material.dart","hostapp|lib/src/style/AppColor.dart","hostapp|lib/src/style/AppFontSizes.dart","google_fonts|lib/google_fonts.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

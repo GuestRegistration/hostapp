@@ -29,9 +29,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: AddPropertyView()
       );
     case dashboardRoute:
+     var index = settings.arguments as int; //Index to show when going to this page
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: Dashboard(),
+        viewToShow: Dashboard(showIndex: index,),
       );
 
       case addpropertyloadingRoute:
@@ -39,6 +40,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: AddProprtyLoadingScreen(),
       );
+      
+
+       
     default:
       return MaterialPageRoute(
           builder: (_) => Scaffold(

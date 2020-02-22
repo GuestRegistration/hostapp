@@ -1,1 +1,0 @@
-{"isEntrypoint":false,"deps":["js|lib/js.dart","meta|lib/meta.dart","google_sign_in_web|lib/src/generated/gapi.dart","google_sign_in_web|lib/src/utils.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async"],"hasMain":false}

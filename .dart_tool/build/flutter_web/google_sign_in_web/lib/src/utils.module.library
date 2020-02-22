@@ -1,1 +1,0 @@
-{"isEntrypoint":false,"deps":["google_sign_in_platform_interface|lib/google_sign_in_platform_interface.dart","google_sign_in_web|lib/src/generated/gapiauth2.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async","html"],"hasMain":false}

@@ -1,1 +1,0 @@
-{"isEntrypoint":false,"deps":["firebase_auth|lib/firebase_auth.dart","hostapp|lib/src/util/auth_validators.dart","hostapp|lib/src/util/constants.dart","hostapp|lib/src/service/repository.dart","rxdart|lib/rxdart.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async"],"hasMain":false}

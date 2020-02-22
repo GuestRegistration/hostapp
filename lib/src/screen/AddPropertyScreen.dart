@@ -13,8 +13,10 @@ import 'package:hostapp/src/widget/busy_button.dart';
 import 'package:hostapp/src/widget/input_field.dart';
 import 'package:hostapp/src/widget/CollectText.dart';
 import 'package:hostapp/src/widget/propertButton.dart';
+import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:international_phone_input/international_phone_input.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:hostapp/src/locator.dart';
@@ -42,20 +44,56 @@ class AddPropertyView extends StatelessWidget {
   }
 }
 
-class AddProprtyUI extends StatelessWidget {
-    TextEditingController propertyNameController =  TextEditingController();
-   TextEditingController addressController = TextEditingController();
-   TextEditingController emailcontroller = new TextEditingController();
-    TextEditingController phoneNumber = new TextEditingController();
-    TextEditingController rulesController = new TextEditingController();
-    final CustomFuntion _customFuntion = locator<CustomFuntion>();
-    String defaultCountry = 'United State';
-   
-  
-
+class AddProprtyUI extends StatefulWidget {
 final AddPropertyViewModel model;
 
    AddProprtyUI(this.model);
+
+  @override
+  _AddProprtyUIState createState() => _AddProprtyUIState();
+}
+
+class _AddProprtyUIState extends State<AddProprtyUI> {
+    TextEditingController propertyNameController =  TextEditingController();
+
+   TextEditingController addressController = TextEditingController();
+
+   TextEditingController emailcontroller = new TextEditingController();
+
+    TextEditingController phoneNumber = new TextEditingController();
+
+ 
+    final CustomFuntion _customFuntion = locator<CustomFuntion>();
+    FocusNode focusNode = new FocusNode();
+    String defaultCountry = 'United State';
+    TextEditingController rulesController = new TextEditingController();
+    TextEditingController docuemntController = new TextEditingController(text: '');
+//     String phoNumber;
+// String phoneIsoCode = 'NG', confirmedNumber;
+
+    @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    listener(propertyNameController);
+    listener(addressController);
+    listener(emailcontroller);
+    listener(phoneNumber);
+    listenerScreen2(rulesController);
+     listenerScreen2(docuemntController);
+     widget.model.setCountry(selectedcountry: defaultCountry);
+  }
+  
+// void onPhoneNumberChange(String number, String internationalizedPhoneNumber, String isoCode) {
+//     setState(() {
+//        phoNumber = number;
+//        phoneIsoCode = isoCode;
+//        print('******Phone Number: ${phoNumber}');
+//        print('*****ISO CODE: $phoneIsoCode');
+//     });
+// }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,34 +103,31 @@ final AddPropertyViewModel model;
           children: <Widget>[
               horizontalSpaceLarge,
             horizontalSpaceLarge,
-           swtichScreen(model, context)
+           swtichScreen(widget.model, context)
           ],
         ),
               ],)
       )
-   
     );
   }
 
 swtichScreen( AddPropertyViewModel model, BuildContext context){
   if(model.pageIndex == 0){
     return screen1(context, model);
-
   // }else if(model.pageIndex == 2){ //Not in MVP
   //    return screen2(context, model);
 
   }else if(model.pageIndex == 1){
      return screen2(context, model);
-
   }
 }
 
-//Index 1
   screen1(BuildContext context, AddPropertyViewModel model, ){
       return  Padding(
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             children: <Widget>[
+             
                Padding(
               padding: const EdgeInsets.only(top: 50.0),
               child: Row(
@@ -109,24 +144,21 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
             ),
            _customFuntion.errorUimessage(errorMessage: model.errorM),
                  verticalSpaceSmall,
+               
                CollectText(ttile: 'Property Name',),
                   InputField(
                     placeholder: 'PropertyName',
                     decoration: null,
                     controller: propertyNameController,
                   ),
+                
                   verticalSpaceSmall,
                    CollectText(ttile: 'Property Address',),
-                  // InputField(
-                  //   placeholder: 'Address',
-                  //   controller: addressController,
-                  // ),
-                   textInputField(
-                      placeholder: 'Address',
-                    controller: addressController, 
+                  InputField(
+                    placeholder: 'Address',
+                    decoration: null,
+                    controller: addressController,
                   ),
-
-
                    verticalSpaceSmall,
                     CollectText(ttile: 'Country',),
                   Row(children: <Widget>[
@@ -163,10 +195,21 @@ Expanded(
                     placeholder: '',
                     controller: emailcontroller,
                     textInputType: TextInputType.emailAddress,
+                    onChanged: (value){
+                      
+                     
+                    },
                   ),
 
                    verticalSpaceSmall,
                     CollectText(ttile: 'PhoneNumber',),
+                      // InternationalPhoneInput(
+                      // onPhoneNumberChange: onPhoneNumberChange, 
+                      // initialPhoneNumber: phoNumber,
+                      // initialSelection: phoneIsoCode,
+                      
+                      
+                      //      ),
                     InputField(
                    placeholder: 'PhoneNumber',
                     controller: phoneNumber,
@@ -216,50 +259,98 @@ Expanded(
                   ),
  verticalSpaceSmall,
  verticalSpaceSmall,
+                   Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        GestureDetector(
+                                                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      child: Material(
+                      child: Center(
+                          child: Text('Cancel',
+                          style: TextStyle(
+                            color: AppColor.white,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold
+                          ),),
+                      ),
+                      color: (model.isDataEntered ? Color(0xFF45A1C9) : AppColor.disableButton),
+                      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: AppColor.borderColor)
+    ),
+                   
+                ),
+                    ),
+                  ),
+                  onTap: (){
+                    if(model.isDataEntered){
+                           return showDialog(
+                      context: context,
+                      builder: (context) {
+                       return errasedAll(context);
+                      }
+                  );
+                  
+                    }
+                  },
+                        ),
+                        
+                  horizontalSpaceSmall,
                   GestureDetector(
-                 child: Padding(
+                       child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         width: 150,
                         height: 50,
                         child: Material(
                         child: Center(
-                          child: Text('Continue',
+                          child: Text('Continue', //If all field is entered, Display complete else Skip
                           style: TextStyle(
                             color: AppColor.white,
                             fontSize: 17.0,
                             fontWeight: FontWeight.bold
                           ),),
                         ),
-                        color: Color(0xFF45A1C9),
+                        color:  (model.continueButton ? Color(0xFF45A1C9) : AppColor.disableButton),
                         shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(18.0),
             side: BorderSide(color: AppColor.borderColor)
     ),
-                      
+                       
                 ),
                       ),
-                    
-                    ),onTap: (){
-        if(model.getCountry == null){
-                      model.setCountry(selectedcountry: defaultCountry);
+                    ),
+                    onTap: (){
+                      // if(model.continueButton == false){
+                      //   //DO Nothing
+                      // }else{
+                        if(model.getCountry == null){
+                        model.setCountry(selectedcountry: defaultCountry);
                             }
                         model.movetoScreen2(
                         address: addressController.text.trim(),
                         contactEmail: emailcontroller.text.trim(),
                         phoneN: phoneNumber.text.trim(),
+                       // isoCod: phoneIsoCode,
                         country: model.getCountry,
                         propertyName: propertyNameController.text.trim()
                       );
+                     // }
                     },
-                  )
+                  ),
+                      ],
+                    )
+
 
             ],
           ),
         );
   }
 
-//Index 3
  screen2(BuildContext context, AddPropertyViewModel model, ){
       return  Padding(
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
@@ -272,7 +363,7 @@ Expanded(
                 children: <Widget>[
                  Padding(
                    padding: const EdgeInsets.all(8.0),
-                   child: Text('Property Rules', style:  TextStyle(
+                   child: Text('Add a Property ', style:  TextStyle( //Property Rules
             color: AppColor.black,
             fontSize: AppFontSizes.largest,
             fontWeight: FontWeight.bold
@@ -280,7 +371,7 @@ Expanded(
         ),), ],),
             ),
                verticalSpaceSmall,
-               Text('Tell People what to expect', style: TextStyle(
+               Text('Property Rules and T&C Document', style: TextStyle(
             color: Colors.grey,
             fontSize: AppFontSizes.medium,
             fontWeight: FontWeight.bold
@@ -295,16 +386,58 @@ Expanded(
                     border: OutlineInputBorder(),
                     labelText: 'Paste your property rules here..',
                     labelStyle: GoogleFonts.abel(
-                      
                     )
                   ),
+                  // onChanged: (value){
+                  //     if(model.selectedDocument == null && rulesController.text.isEmpty){
+                  //         model.setPropertyRulesButtonStatus(false);
+                        
+                  //     }else{
+                  //       model.setPropertyRulesButtonStatus(true);
+                  //     }
+                  //   },
                 ),
+                      verticalSpaceLarge,
+Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: <Widget>[
+     Text('Terms & Conditions', textAlign: TextAlign.left, style: TextStyle(
+                     fontSize: AppFontSizes.medium,
+                   ),),
+                    ],
+                    
+                  ),
+                ),
+                //  textInputField(
+                //       placeholder: 'Attached document here',
+                //     controller: rulesController,
+                //   ),
+                 GestureDetector(
+                       child: TextField(
+                  //  obscureText: false,
+                    controller: docuemntController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText:   (model.selectedDocument == null ? 'Attached document here' : 'Document attached'),
+                      suffixIcon: Icon(Icons.attachment)
+                    ),
+                    onTap: (){
+                        //TODO Select Document from Gallery.
+                      model.pickDocument(docuemntController);
+                       if(docuemntController.text.isNotEmpty && rulesController.text.isNotEmpty){
+                        model.setPropertyRulesButtonStatus(true);
+                      }else{
+                          model.setPropertyRulesButtonStatus(false);
+                      }
+                    },
+                ),
+                 ),
   verticalSpaceLarge,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        GestureDetector(
-                                                  child: Padding(
+                        GestureDetector(child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: Container(
                       width: 150,
@@ -328,20 +461,20 @@ Expanded(
                     ),
                   ),
                   onTap: (){
-                      model.goback();
+                      //model.goback();
                   },
                         ),
                         
                   horizontalSpaceSmall,
                   GestureDetector(
-                                      child: Padding(
+                    child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         width: 150,
                         height: 50,
                         child: Material(
                         child: Center(
-                          child: Text('Skip',
+                          child: Text((model.isPropertyRulesSet ? 'Complete' : 'Skip'), //If all field is entered, Display complete else Skip
                           style: TextStyle(
                             color: AppColor.white,
                             fontSize: 17.0,
@@ -352,19 +485,12 @@ Expanded(
                         shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(18.0),
             side: BorderSide(color: AppColor.borderColor)
-    ),
-                       
-                ),
+    ),  ),
                       ),
                     ),
                     onTap: (){
                        model.lastScreenbutton(
-                       propertyName: propertyNameController.text.trim(),
-                      address: addressController.text.trim(),
-                      contactEmail: emailcontroller.text.trim(),
-                        phoneN: phoneNumber.text.trim(),
-                        image: model.selectedImage,
-                        propertyRule: rulesController.text.trim()
+                       rules: rulesController.text.trim(),
                     );
                     },
                   ),
@@ -386,16 +512,13 @@ Expanded(
                   //   )
                       ],
                     )
-
-
             ],
           ),
         );
      
   }
 
-  textInputField(
- {
+  textInputField({
       final TextEditingController controller,
   final TextInputType textInputType,
   final bool password = false,
@@ -472,6 +595,165 @@ Expanded(
       ],
     );
 }
+
+ listener(TextEditingController controller){
+   controller.addListener(() {
+      if(controller.text.isNotEmpty){
+                    widget.model.setdataEnterdStatus(true);
+                      }else{
+                        widget.model.setdataEnterdStatus(false);
+                      }
+
+      if(propertyNameController.text.isNotEmpty && addressController.text.isNotEmpty && widget.model.getCountry != null &&
+      emailcontroller.text.isNotEmpty && phoneNumber.text.isNotEmpty){
+        widget.model.setCountinueButton(true);
+      }else{
+        widget.model.setCountinueButton(false);
+      }
+      
+    });
+}
+listenerScreen2(TextEditingController controller){
+    controller.addListener(() {
+      // if(controller.text.isNotEmpty){
+      //               widget.model.setdataEnterdStatus(true);
+      //                 }else{
+      //                   widget.model.setdataEnterdStatus(false);
+      //                 }
+
+      if(rulesController.text.isNotEmpty && docuemntController.text.isNotEmpty){
+        widget.model.setPropertyRulesButtonStatus(true);
+      }else{
+        widget.model.setPropertyRulesButtonStatus(false);
+      }
+      
+    });
+}
+
+errasedAll(BuildContext contex){
+  return Center(
+        child: Dialog(
+           elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: MediaQuery.of(contex).size.height /4.6,
+            child: Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                    topLeft:Radius.circular(20),
+                    topRight: Radius.circular(20))
+),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: Column(children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10.0, right: 10, left: 10,),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                      Text('Are you sure?', style:  TextStyle(
+                                        color: AppColor.black,
+                                        fontSize: AppFontSizes.medium,
+                                        fontWeight: FontWeight.bold
+                                      )),
+                                      SizedBox(height: 10,),
+                                    Text('The information you entered will not be saved.',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: AppFontSizes.medium,
+                                      fontWeight: FontWeight.bold
+                                    )),
+                                    ],),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                    child: GestureDetector(
+                child: Padding(
+                  padding: const EdgeInsets.all(1.0),
+                  child: Container(
+                    width: 100,
+                    height: 50,
+                    child: Material(
+                    child: Center(
+                          child: Text('NO',
+                          style: TextStyle(
+                            color: AppColor.kErrorRed,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold
+                          ),),
+                    ),
+                    color: Color(0xFFffebee),
+                    shape: RoundedRectangleBorder(
+  borderRadius: new BorderRadius.circular(5.0),
+        side: BorderSide(color: AppColor.white)
+),
+                  
+                    ),
+                        ),
+                      ),
+                      onTap: (){
+                        //Navigator.pop(context);
+                        //Navigator.of(context, rootNavigator: true).pop();
+                         // Navigator.popAndPushNamed(context, addPropertyRoute);
+                        Navigator.of(contex).pop();
+                      
+                      
+                      }  
+                              ),
+                            ),
+                      Expanded(
+                       child: GestureDetector(
+                           child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: 100,
+                              height: 50,
+                              child: Material(
+                              child: Center(
+                                child: Text('YES', //If all field is entered, Display complete else Skip
+                                style: TextStyle(
+                                  color: AppColor.primary,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold
+                                ),),
+                              ),
+                              color:  Color(0xFFe3f2fd),
+                              shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(5.0),
+                                  side: BorderSide(color: AppColor.white)
+                        ),
+                             
+                    ),
+                            ),
+                          ),
+                          onTap: (){
+                              propertyNameController.clear();
+                              addressController.clear();
+                              widget.model.setCountry(selectedcountry:defaultCountry);
+                              emailcontroller.clear();
+                               phoneNumber.clear();
+                              Navigator.of(contex).pop();
+                          }
+                        ),
+                      ),
+                          ],
+                        ) ],)
+                        ),
+                      ),
+          ),
+
+        ),
+        
+      );
+}
+
 }
 
 

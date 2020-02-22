@@ -1,1 +1,0 @@
-{"isEntrypoint":true,"deps":["encrypt|lib/encrypt.dart","pointycastle|lib/asymmetric/api.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["io"],"hasMain":false}

@@ -1,1 +1,0 @@
-{"isEntrypoint":true,"deps":["provider_architecture|lib/provider_widget.dart","provider_architecture|lib/viewmodel_provider.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

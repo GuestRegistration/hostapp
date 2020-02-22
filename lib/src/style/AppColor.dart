@@ -7,6 +7,7 @@ class AppColor {
   static const Color rimary = Color(0xFF45A1C9);
   static const Color teal = Color(0xFFff1744);
   static const Color accents = Color(0xFFd81b60);
+  static const Color disableButton = Color(0xFFb3e5fc);
   static const Color CircleYellow = Color(0xFFb71c1c);
   static const Color deep00 = Color(0xFFEE6E73);
   static const Color colorDark = Color(0xFFff1744);

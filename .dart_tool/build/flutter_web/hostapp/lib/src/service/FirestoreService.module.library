@@ -1,1 +1,0 @@
-{"isEntrypoint":false,"deps":["cloud_firestore|lib/cloud_firestore.dart","firebase_auth|lib/firebase_auth.dart","flutter|lib/services.dart","hostapp|lib/src/locator.dart","hostapp|lib/src/model/UserDetails.dart","hostapp|lib/src/model/propertyModel.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async"],"hasMain":false}

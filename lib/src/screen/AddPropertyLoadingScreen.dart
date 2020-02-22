@@ -25,6 +25,7 @@ class AddProprtyLoadingScreen extends StatefulWidget {
 }
 
 class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
+
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<AddPropertyViewModel>.withoutConsumer(
@@ -54,7 +55,47 @@ class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
                 fontSize: AppFontSizes.medium,
                 fontWeight: FontWeight.bold
                           ),),
+
+                         
               ),
+               SizedBox(height: 50,),
+                 Center(
+                child: Text('Am here because, have not yet send data to GraphQl API ',
+                 textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                fontSize: AppFontSizes.small,
+                fontWeight: FontWeight.normal
+                          ),),
+              ),
+               GestureDetector(
+                                                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      child: Material(
+                      child: Center(
+                          child: Text('Proceed',
+                          style: TextStyle(
+                            color: AppColor.white,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold
+                          ),),
+                      ),
+                      color:Color(0xFF45A1C9),
+                      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: AppColor.borderColor)
+    ),
+                ),
+                    ),
+                  ),
+                  onTap: (){
+                    model.afterloading();
+                  },
+                        ),
+                      
 
             ],
           ),

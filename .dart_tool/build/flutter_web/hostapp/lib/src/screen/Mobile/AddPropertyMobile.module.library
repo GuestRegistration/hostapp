@@ -1,1 +1,0 @@
-{"isEntrypoint":false,"deps":["flutter|lib/material.dart","hostapp|lib/src/screen/AddPropertyScreen.dart","hostapp|lib/src/viewmodels/AddProperty_view_mode.dart","provider_architecture|lib/provider_architecture.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

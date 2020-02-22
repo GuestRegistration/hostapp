@@ -5,66 +5,74 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostapp/src/screen/ListOfProperty.dart';
 import 'package:hostapp/src/screen/FetchProperties.dart';
+import 'package:hostapp/src/style/AppColor.dart';
 
 class Dashboard extends StatefulWidget {
+  final int showIndex;
+
+const Dashboard({this.showIndex});
+
   @override
   _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard>{
-  int _selectedIndex = 0;
+  int _selectedIndex;
 
+@override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.showIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
     resizeToAvoidBottomPadding: true,
       body:  switchBody(),
        bottomNavigationBar:  BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            iconSize: 20.3,
-            fixedColor: Colors.white,
+            selectedItemColor: Colors.blue,
             backgroundColor: Colors.white,
              onTap: (index) => _onItemTapped(index),
             items: <BottomNavigationBarItem>[  
 //Home
               BottomNavigationBarItem(
-                icon:  Icon(FontAwesome.building,  color: Colors.grey, size: 30,),
-                title: new Text("Properties",
+                icon:  Icon(Icons.calendar_today,  color: (_selectedIndex == 0 ? AppColor.primary : Colors.grey), size: 25,),
+                title: new Text("RESERVATIONS", 
                   style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 17,
+                      color:(_selectedIndex == 0 ? AppColor.primary :  Colors.grey),
+                      fontSize: 15,
                   ),
               
                 ),
-                activeIcon:  Icon(FontAwesome.building,  color: Colors.blue, size: 30,),
+              //  activeIcon:  Icon(Icons.calendar_today,  color: Colors.blue, size: 30,),
               ),
               //Order List
               BottomNavigationBarItem(
-                icon: Icon(Icons.local_airport,  color: Colors.grey, size: 30,),
-                title: new Text("Reservation",
+                icon: Icon(MaterialIcons.domain,  color: (_selectedIndex == 1 ? AppColor.primary : Colors.grey),  size: 25,), 
+                title: new Text("PROPERTIES",
                   style: TextStyle(
-                     color: Colors.black87,
-                      fontSize: 17,
+                    color: (_selectedIndex == 1 ? AppColor.primary :  Colors.grey),
+                     fontSize: 16,
                   ),
                 ),
-                 activeIcon:  Icon(FontAwesome.building,  color: Colors.blue, size: 30,),
+                 //activeIcon:  Icon(FontAwesome.building,  color: Colors.blue, size: 30,),
                  backgroundColor: Colors.red,
               ),
               //Section
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.settings,
-                  color: Colors.grey, size: 30,),
-                title: new Text("Settings",
-                  style: GoogleFonts.alice(
-                    textStyle: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 17,
-                  ),
+                  MaterialIcons.settings,
+                  color: (_selectedIndex == 2 ? AppColor.primary : Colors.grey), size: 25,),
+                title: new Text("SETTINGS",
+                  style: TextStyle(
+                     color: (_selectedIndex == 2 ? AppColor.primary :  Colors.grey),
+                      fontSize: 16,
                   ),
                 ),
-                    activeIcon:  Icon(FontAwesome.building,  color: Colors.blue, size: 30,),
+                    //activeIcon:  Icon(FontAwesome.building,  color: Colors.blue, size: 25,),
               ),
                     //Profile
               // BottomNavigationBarItem(
@@ -85,10 +93,10 @@ class _DashboardState extends State<Dashboard>{
   switchBody(){
 
     if(_selectedIndex == 0){
-       return ListOfProperty();
+       return Text('');
 
     }else if(_selectedIndex == 1){
-     return FetchProperties(); 
+     return ListOfProperty();
    
 
     }else if(_selectedIndex == 2){ 

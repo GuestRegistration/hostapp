@@ -6,7 +6,7 @@ import 'package:provider_architecture/provider_architecture.dart';
 class AddPropertyPortrait extends ProviderWidget<AddPropertyViewModel> {
   @override
   Widget build(BuildContext context, AddPropertyViewModel model) {
-    print('AM Prostrait***************');
+    //print('AM Prostrait***************');
     return Scaffold(
       body: AddProprtyUI(model),
     );
