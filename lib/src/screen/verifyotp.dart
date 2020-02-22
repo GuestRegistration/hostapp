@@ -5,6 +5,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hostapp/src/screen/login_page.dart';
 import 'package:hostapp/src/screen/signupcomplete.dart';
 
 class Verifyotp extends StatefulWidget {
@@ -29,6 +30,7 @@ class _VerifyotpState extends State<Verifyotp> {
   TextEditingController otp = new TextEditingController();
   var phoneCode, mobile;
   var newphonenumbersplit;
+  bool phoneerror = false;
   Timer _timer;
   var buttoncolor;
   int _start = 120;
@@ -102,6 +104,27 @@ class _VerifyotpState extends State<Verifyotp> {
           },
           verificationFailed: (AuthException exceptio) {
             print('exceptio.message+ ${exceptio.message}');
+            //Navigator.of(context).pop();
+            /*setState(() {
+              phoneerror = true;
+            });*/
+            Navigator.of(context).pop(setState(() {
+              phoneerror = true;
+            }));
+            /*Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return LoginPage(
+            phoneNumber: "${phoneCode}" + "${phone.text}",
+            name: widget.name,
+            lastname: widget.lastname,
+            email: widget.email.toLowerCase(),
+            phoneerror: phoneerror,
+            //authuid: widget.uid,
+          );
+        },
+      ),
+    );*/
           });
     } catch (e) {
       handleError(e);
@@ -135,6 +158,8 @@ class _VerifyotpState extends State<Verifyotp> {
           },
           verificationFailed: (AuthException exceptio) {
             print('exceptio.message+ ${exceptio.message}');
+
+            //Navigator.of(context).pop();
           });
     } catch (e) {
       handleError(e);
@@ -304,61 +329,108 @@ class _VerifyotpState extends State<Verifyotp> {
           return Container(
             child: new AlertDialog(
               // title: Text('Enter SMS Code'),
+
               content: Container(
+                decoration: new BoxDecoration(
+                    //    color: Colors.white,
+                    //   border: Border.all(color: Color(0xffC6DEE9)),
+                    borderRadius: new BorderRadius.circular(15.0)),
                 height: 153.0,
                 width: 350.0,
                 child: Align(
                   //  alignment: Alignment(-.100, 0),
                   child: Center(
                     child: Container(
-                      decoration: new BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Color(0xffC6DEE9)),
-                          borderRadius: new BorderRadius.circular(15.0)),
-                      child: Row(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Container(
                             height: 50.0,
-                            width: 68.0,
+                            width: 320.0,
                             decoration: new BoxDecoration(
                                 color: Colors.white,
                                 border: Border.all(color: Color(0xffC6DEE9)),
                                 borderRadius: new BorderRadius.circular(10.0)),
-                            child: new CountryCodePicker(
-                              //onChanged: print,
-                              onChanged: _onCountryChange,
-                              initialSelection: 'US',
-                              favorite: ['+1', 'US'],
-                              showCountryOnly: false,
-                              showOnlyCountryWhenClosed: false,
-                              alignLeft: false,
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  height: 50.0,
+                                  width: 68.0,
+                                  decoration: new BoxDecoration(
+                                      color: Colors.white,
+                                      border:
+                                          Border.all(color: Color(0xffC6DEE9)),
+                                      borderRadius:
+                                          new BorderRadius.circular(10.0)),
+                                  child: new CountryCodePicker(
+                                    //onChanged: print,
+                                    onChanged: _onCountryChange,
+                                    initialSelection: 'US',
+                                    favorite: ['+1', 'US'],
+                                    showCountryOnly: false,
+                                    showOnlyCountryWhenClosed: false,
+                                    alignLeft: false,
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  width: 150.0,
+                                  height: 50.0,
+                                  child: new TextFormField(
+                                      controller: phone,
+                                      keyboardType: TextInputType.phone,
+                                      //maxLength: 12,
+                                      autofocus: false,
+                                      validator: validateMobile,
+                                      onSaved: (String val) {
+                                        mobile = val;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: "(123) 456-7890",
+                                        fillColor: Color(0xffC8C3D4),
+                                        hintStyle: TextStyle(
+                                            wordSpacing: 0.0,
+                                            color: Color(
+                                              0xff63A5C0,
+                                            )),
+                                        contentPadding: EdgeInsets.fromLTRB(
+                                            20.0, 10.0, 20.0, 10.0),
+                                        border: InputBorder.none,
+                                      )),
+                                ),
+                              ],
                             ),
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            width: 150.0,
-                            height: 50.0,
-                            child: new TextFormField(
-                                controller: phone,
-                                keyboardType: TextInputType.phone,
-                                //maxLength: 12,
-                                autofocus: false,
-                                validator: validateMobile,
-                                onSaved: (String val) {
-                                  mobile = val;
-                                },
-                                decoration: InputDecoration(
-                                  hintText: "(123) 456-7890",
-                                  fillColor: Color(0xffC8C3D4),
-                                  hintStyle: TextStyle(
-                                      wordSpacing: 0.0,
-                                      color: Color(
-                                        0xff63A5C0,
-                                      )),
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 10.0, 20.0, 10.0),
-                                  border: InputBorder.none,
-                                )),
+                          Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                                FlatButton(
+                                  child: Center(
+                                      child: Text(
+                                    "Resend Code",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color(0xff63A5C0),
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 16.0),
+                                  )),
+                                  onPressed: () {
+                                    resendverifyPhone();
+                                    setState(() {
+                                      resendcode = true;
+                                    });
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -366,14 +438,14 @@ class _VerifyotpState extends State<Verifyotp> {
                   ),
                 ),
               ),
-              //   contentPadding: EdgeInsets.all(10),
-                
-              actions: <Widget>[
+
+              /*   actions: <Widget>[
 
 SizedBox(
                   width:75.0,
                 ),
                 Center(
+                  
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -403,7 +475,7 @@ SizedBox(
                 SizedBox(
                   width:75.0,
                 )
-              ],
+              ],*/
             ),
           );
         });
@@ -461,7 +533,6 @@ SizedBox(
   void dispose() {
     super.dispose();
     _timer.cancel();
-
   }
 
   @override
@@ -474,7 +545,7 @@ SizedBox(
       buttoncolor = Color(0xffC7E3EF);
       //buttoncolor = Colors.red;
     }
-     /*if (enablebutton == false) {
+    /*if (enablebutton == false) {
       buttoncolor = Color(0xff45A1C9);
     } else {
       buttoncolor = Color(0xffC7E3EF);
@@ -532,7 +603,7 @@ SizedBox(
                         )),
                   ),
                   Center(
-                    child: Text("code below before it expires in 10 minutes",
+                    child: Text("code below before it expires in 2 minutes",
                         style: TextStyle(
                           color: Color(0xff8F8F8F),
                           fontWeight: FontWeight.w600,
@@ -612,8 +683,8 @@ SizedBox(
               child: FlatButton(
                   onPressed: () {
                     verifyPhone();
-                //  timer.cancel();
-                      print("enablebutton"+enablebutton.toString());
+                    //  timer.cancel();
+                    print("enablebutton" + enablebutton.toString());
                     //    print("FlatButton is enable");
                   },
                   child: Center(
@@ -629,7 +700,7 @@ SizedBox(
                               fontWeight: FontWeight.bold,
                               fontSize: 16.0),
                         ),
-                         Text(
+                        Text(
                           " in ($_start)",
                           style: TextStyle(
                               color: Color(0xff63A5C0),

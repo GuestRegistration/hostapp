@@ -11,10 +11,19 @@ import 'dart:async' show Future;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hostapp/src/screen/verifyotp.dart';
 import 'signupcomplete.dart';
+import 'package:international_phone_input/international_phone_input.dart';
 
 class LoginPage extends StatefulWidget {
   final String email, existingemail;
-  LoginPage({this.email, this.existingemail});
+  final String name, phoneNumber, lastname;
+  bool phoneerror;
+  LoginPage(
+      {this.email,
+      this.existingemail,
+      this.phoneerror,
+      this.lastname,
+      this.name,
+      this.phoneNumber});
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -44,6 +53,23 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   String verificationId;
   String errorMessage = '';
   FirebaseAuth _auth = FirebaseAuth.instance;
+  //bool phoneerror = false;
+  var interphone;
+//String internationalizedPhoneNumber;
+  String phoneNumber;
+  String phoneIsoCode;
+  var confirmedNumber;
+//String isoCode,
+  void onPhoneNumberChange(
+      String number, String internationalizedPhoneNumber, String phoneCode) {
+    print("internationalizedPhoneNumber" + internationalizedPhoneNumber);
+    setState(() {
+      phoneNumber = number;
+      phoneIsoCode = phoneCode;
+      interphone = internationalizedPhoneNumber;
+    });
+  }
+
   void initState() {
     super.initState();
 
@@ -56,7 +82,6 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   }
 
   isEmpty() {
-  
     if (name.text != "" && lastname.text != "" && phone.text != "") {
       setState(() {
         print(" isButtonEnabled = false;");
@@ -171,7 +196,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     //  print("New Country selected: " + countryCode.toString());
 
     print("inside navigate otp");
-    print(print);
+    print("internationalizedPhoneNumber" + interphone.toString());
 
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user1 = await auth.currentUser();
@@ -181,7 +206,8 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       MaterialPageRoute(
         builder: (context) {
           return Verifyotp(
-            phoneNumber: "${phoneCode}" + "${phone.text}",
+              phoneNumber: "${phoneCode}" + "${phone.text}",
+           // phoneNumber: interphone,
             name: name.text,
             lastname: lastname.text,
             email: email1.toLowerCase(),
@@ -190,6 +216,61 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
         },
       ),
     );
+  }
+
+  Future<void> verifyPhone() async {
+    print("inside verify phone");
+    final PhoneCodeSent smsOTPSent = (String verId, [int forceCodeResend]) {
+      this.verificationId = verId;
+      /* smsOTPDialog(context).then((value) {
+        print('sign in');
+      });*/
+      //navigateotp();
+    };
+    try {
+      print("phone number to send otp ");
+      //   print("+"+"${phoneCode}"+"${phone.text}");
+      await _auth.verifyPhoneNumber(
+          phoneNumber: "+" "${phoneCode}" + "${phone.text}",
+          // phoneNumber: widget.phoneNumber,
+          codeAutoRetrievalTimeout: (String verId) {
+            //Starts the phone number verification process for the given phone number.
+            //Either sends an SMS with a 6 digit code to the phone number specified, or sign's the user in and [verificationCompleted] is called.
+            this.verificationId = verId;
+          },
+          codeSent:
+              smsOTPSent, // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
+          timeout: const Duration(seconds: 120),
+          //timeout: const Duration(minutes: 10),
+          verificationCompleted: (AuthCredential phoneAuthCredential) {
+            print("phoneAuthCredential" + phoneAuthCredential.toString());
+            addUser();
+          },
+          verificationFailed: (AuthException exceptio) {
+            print('exceptio.message+ ${exceptio.message}');
+            //Navigator.of(context).pop();
+            /*  setState(() {
+              phoneerror = true;
+            });
+                  Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return Verifyotp(
+            phoneNumber: "${phoneCode}" + "${phone.text}",
+            name: widget.name,
+            lastname: widget.lastname,
+            email: widget.email.toLowerCase(),
+            phoneerror: phoneerror,
+            //authuid: widget.uid,
+          );
+        },
+      ),
+    );*/
+          });
+    } catch (e) {
+      //handleError(e);
+      print("inside catch");
+    }
   }
 
   void _onCountryChange(countryCode) {
@@ -210,6 +291,13 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       buttoncolor = Color(0xff45A1C9);
     } else {
       buttoncolor = Color(0xffC7E3EF);
+    }
+    if (widget.phoneerror == true) {
+      print("widget.phoneerror" + widget.phoneerror.toString());
+      errorMessage = "mobile number is in valid relative to country code ";
+    } else {
+      print("inside widget.phoneerror else");
+      print("widget.phoneerror else" + widget.phoneerror.toString());
     }
     return Scaffold(
       //backgroundColor: Color(0xff151232),
@@ -462,11 +550,46 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                       ],
                     ),
                   ),
-
                   SizedBox(
                     height: 10.0,
                   ),
-
+                  /*Align(
+                    alignment: Alignment(-.100, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: 320.0,
+                          //height: 100.0,
+                          decoration: new BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Color(0xffC6DEE9)),
+                              borderRadius: new BorderRadius.circular(10.0)),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                              child:  InternationalPhoneInput(
+                              
+          onPhoneNumberChange: onPhoneNumberChange, 
+          initialPhoneNumber: phoneNumber,
+          initialSelection: phoneCode,//phoneIsoCode
+       ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),*/
+                  SizedBox(
+                    height: 10.0,
+                  ),
+/*InternationalPhoneInput(
+          onPhoneNumberChange: onPhoneNumberChange, 
+          initialPhoneNumber: phoneNumber,
+          initialSelection: phoneIsoCode
+       ),*/
                   SizedBox(
                     height: 10.0,
                   ),
