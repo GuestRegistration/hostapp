@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hostapp/src/model/propertyModel.dart';
 import 'package:hostapp/src/screen/EditPropertyScreen.dart';
-import 'package:hostapp/src/style/AppColor.dart';
-import 'package:hostapp/src/style/AppImage.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
-import 'package:hostapp/src/viewmodels/AddProperty_view_mode.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 
 class PropertyWidget extends StatelessWidget{
    final PropertyModel propertyModel;
