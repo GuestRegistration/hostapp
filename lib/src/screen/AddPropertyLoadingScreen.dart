@@ -95,7 +95,6 @@ class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
                     model.afterloading();
                   },
                         ),
-                      
 
             ],
           ),

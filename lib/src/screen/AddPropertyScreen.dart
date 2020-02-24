@@ -24,7 +24,6 @@ import 'package:hostapp/src/util/customFunctions.dart';
 
 
 class AddPropertyView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<AddPropertyViewModel>.withoutConsumer(
@@ -38,7 +37,7 @@ class AddPropertyView extends StatelessWidget {
           landscape: (context) => AddPropertyLandscape(),
           portrait: (context) =>  AddPropertyPortrait()
                 ),
-  tablet: Container(color: Colors.yellow),
+  tablet: AddPropertyLandscape(),
 )
       );
   }
@@ -384,6 +383,11 @@ Expanded(
                    maxLines: 10,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
+                      enabledBorder: new OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: new BorderSide(color: AppColor.borderColor,
+                        ),
+                      ),
                     labelText: 'Paste your property rules here..',
                     labelStyle: GoogleFonts.abel(
                     )
@@ -419,6 +423,11 @@ Padding(
                     controller: docuemntController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
+                        enabledBorder: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(color: AppColor.borderColor,
+                          ),
+                        ),
                       labelText:   (model.selectedDocument == null ? 'Attached document here' : 'Document attached'),
                       suffixIcon: Icon(Icons.attachment)
                     ),

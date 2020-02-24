@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hostapp/src/model/propertyModel.dart';
+import 'package:hostapp/src/screen/EditPropertyScreen.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppImage.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
@@ -67,7 +68,18 @@ class PropertyWidget extends StatelessWidget{
                            ),
                          ),
                     onTap: (){
-                       
+                      Navigator.push( context,
+                   MaterialPageRoute(builder: (context) => EditPropertyScreen(
+                     country: propertyModel.country,
+                     pAddress: propertyModel.propertyAddress,
+                     pEmail: propertyModel.propertyEmail,
+                     pFile: propertyModel.propertyDocument,
+                     pName: propertyModel.propertyName,
+                     pNumber: propertyModel.propertyPhone,
+                     prules: propertyModel.propertyRules,
+                   )));
+
+
                     },
                   );
                

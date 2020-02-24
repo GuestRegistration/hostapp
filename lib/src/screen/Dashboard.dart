@@ -43,7 +43,7 @@ class _DashboardState extends State<Dashboard>{
                 title: new Text("RESERVATIONS", 
                   style: TextStyle(
                       color:(_selectedIndex == 0 ? AppColor.primary :  Colors.grey),
-                      fontSize: 15,
+                      fontSize: 13,
                   ),
               
                 ),

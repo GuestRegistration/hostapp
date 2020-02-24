@@ -6,7 +6,8 @@ class PropertyModel {
   String propertyImage;
   String propertyRules;
   String propertyAddress;
-  String imageFileName;
+  String propertyDocument, country;
+
 
   PropertyModel(
       {this.userId,
@@ -16,7 +17,8 @@ class PropertyModel {
       this.propertyImage,
       this.propertyRules,
       this.propertyAddress,
-      this.imageFileName});
+      this.propertyDocument,
+      this.country});
 
   PropertyModel.fromJson(Map<String, dynamic> json) {
     userId = json['userId'];
@@ -26,7 +28,8 @@ class PropertyModel {
     propertyImage = json['property_image'];
     propertyRules = json['property_rules'];
     propertyAddress = json['property_address'];
-     imageFileName = json['imageFileName'];
+    propertyDocument = json['property_document'];
+    country = json['country'];
 
   }
 
@@ -39,7 +42,8 @@ class PropertyModel {
     data['property_image'] = this.propertyImage;
     data['property_rules'] = this.propertyRules;
     data['property_address'] = this.propertyAddress;
-    data['imageFileName'] = this.imageFileName;
+    data['property_document'] = this.propertyDocument;
+    data['country'] = this.country;
     return data;
   }
 }

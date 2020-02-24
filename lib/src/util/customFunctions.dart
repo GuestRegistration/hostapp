@@ -77,17 +77,21 @@ return SnackBar(content: Text(message));
   }
 
   errorUimessage({String errorMessage}){
-   return  (errorMessage == null ? SizedBox.shrink() : Row(children: <Widget>[
-              Icon(Icons.error, color: Colors.red,),
-              SizedBox(width: 10,),
-              Text(errorMessage,
-                      style: TextStyle(
-                        color: AppColor.kErrorRed,
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.normal
-                      ),),
+   return  (errorMessage == null ? SizedBox.shrink() : Center(
+     child: Row(
+       mainAxisAlignment: MainAxisAlignment.center,
+       children: <Widget>[
+         Icon(Icons.error, color: Colors.red,),
+         SizedBox(width: 10,),
+         Text(errorMessage,
+           style: TextStyle(
+               color: AppColor.kErrorRed,
+               fontSize: 17.0,
+               fontWeight: FontWeight.normal
+           ),),
 
-            ],));
+       ],),
+   ));
   }
 
 void util(){

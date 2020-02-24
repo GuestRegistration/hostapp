@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -190,4 +189,70 @@ Future pickDocument(TextEditingController docuemntController)async{
  afterloading(){
    _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
  }
+
+
+
+//TODO********************** UPDATE/ EDIT PROPERTY *************************
+  updateDetails({@required String propertyName, @required String address, @required String contactEmail,
+    @required String phoneN, @required String country,
+  }){
+
+    //Check Address
+    if(address.isEmpty){
+      print(address);
+      showMessage(error: 'Address required');
+    }
+    //Check Phone Number
+    else if(phoneN.isEmpty){
+      print(phoneN);
+      showMessage(error: 'Invalid Phone Number');
+    }
+    //Check Country
+    else if(country == null){
+      print(country);
+      showMessage(error: 'Country required');
+    }
+
+    else if(propertyName.isEmpty){
+      print(propertyName);
+      showMessage(error: 'Property Name required');
+
+    }else if(contactEmail.isEmpty){
+      print(contactEmail);
+      showMessage(error: 'Email required');
+
+    } else if(contactEmail != null){
+      print('Am here');
+      String check = _customFuntion.validateEmail(contactEmail);
+
+      if(check != null){
+        showMessage(error: 'The email you entered is invalid');
+
+      }else if(address.isNotEmpty && propertyName.isNotEmpty  && phoneN.isNotEmpty && country.isNotEmpty && contactEmail.isNotEmpty){
+
+        //Saving to viewmodel variable in order to store and send to d server.
+        _propertyName = propertyName;
+        _phoneN = phoneN;
+        _address = address;
+        _country = country;
+        _contactEmail = contactEmail;
+
+        print(_propertyName);
+        print(_phoneN);
+        print(_address);
+        print(_country);
+        print(_contactEmail);
+
+        //TODO UPDATE CHANGES
+        _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
+      }
+    }
+  }
+
+  deleteProperty({@required String propertyName}){
+   //TODO DELETE API
+    _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
+  }
 }
+
+
