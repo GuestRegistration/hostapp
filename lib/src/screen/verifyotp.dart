@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/screen/login_page.dart';
 import 'package:hostapp/src/screen/signupcomplete.dart';
+import 'package:hostapp/src/style/AppColor.dart';
 
 class Verifyotp extends StatefulWidget {
   final String email;
@@ -31,6 +32,8 @@ class _VerifyotpState extends State<Verifyotp> {
   var phoneCode, mobile;
   var newphonenumbersplit;
   bool phoneerror = false;
+  bool _load = false;
+
   Timer _timer;
   var buttoncolor;
   int _start = 120;
@@ -550,6 +553,29 @@ SizedBox(
     } else {
       buttoncolor = Color(0xffC7E3EF);
     }*/
+    Widget loadingIndicator = _load
+        ? Center(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20.0,
+                ),
+                new Container(
+                  //color: Colors.white,
+                  width: 60.0,
+                  height: 60.0,
+                  child: new CircularProgressIndicator(
+                    strokeWidth: 8,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      AppColor.primary1,
+                    ),
+                    backgroundColor: AppColor.borderColor,
+                  ),
+                ),
+              ],
+            ),
+          )
+        : new Container();
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
@@ -659,6 +685,9 @@ SizedBox(
                     color: buttoncolor,
 
                     onPressed: () {
+                      setState(() {
+                        _load = true;
+                      });
                       signIn();
                     },
                     child: const Text(
@@ -735,6 +764,10 @@ SizedBox(
                   color: Colors.white,
                 ),
               ),
+            ),
+            new Align(
+              child: loadingIndicator,
+              alignment: FractionalOffset.center,
             ),
           ],
         ),

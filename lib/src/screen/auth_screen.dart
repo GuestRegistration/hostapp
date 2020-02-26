@@ -7,8 +7,9 @@ import 'package:hostapp/src/screen/terms&conditions.dart';
 import 'package:hostapp/src/service/auth_bloc.dart';
 import 'package:hostapp/src/service/auth_bloc_provider.dart';
 import 'package:hostapp/src/service/repository.dart';
+import 'package:hostapp/src/style/AppColor.dart';
 
-import 'createnewaccount.dart';
+
 /// start import for handling apple signup
 
 import 'welcome.dart';
@@ -16,6 +17,10 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'sign_in.dart';
 import 'login_page.dart';
 
+import 'dart:async';
+
+import 'package:firebase_auth_oauth/firebase_auth_oauth.dart';
+import 'package:flutter/services.dart';
 class AuthScreen extends StatefulWidget {
   @override
   AuthScreenState createState() => AuthScreenState();
@@ -29,6 +34,7 @@ class AuthScreenState extends State<AuthScreen> {
   var existingemail;
   bool signupcheck = false;
   bool isLoading = false;
+  bool _load = false;
   TextEditingController textemail = new TextEditingController();
   bool supportsAppleSignIn = false;
   @override
@@ -42,6 +48,18 @@ class AuthScreenState extends State<AuthScreen> {
   void initState() {
     getdeviceinfo();
     super.initState();
+  }
+ Future<void> performSignIn() async {
+   print("inside perform signin");
+    try {
+ /*FirebaseUser user = await FirebaseAuthOAuth()
+          .openSignInFlow("apple.com", ["email"], {"locale": "en"});*/
+          //print("email"+user.email);
+      await FirebaseAuthOAuth()
+          .openSignInFlow("apple.com", ["email"], {"locale": "en"});
+    } on PlatformException {
+      debugPrint("error logging in");
+    }
   }
 
   getdeviceinfo() async {
@@ -72,6 +90,7 @@ class AuthScreenState extends State<AuthScreen> {
           .whenComplete(() => _authCompleted());
     }
   }
+
 /*Future<bool> loginAction() async {
     //replace the below line of code with your login request
     await new Future.delayed(const Duration(seconds: 3));
@@ -141,7 +160,6 @@ class AuthScreenState extends State<AuthScreen> {
         children: [
           CircularProgressIndicator(),
           Container(margin: EdgeInsets.only(left: 5), child: Text("Loading")),
-
         ],
       ),
     );
@@ -382,6 +400,31 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   Widget _authForm(bool isEmail) {
+    /*
+    CircularProgressIndicator( strokeWidth: 8, valueColor:
+    AlwaysStoppedAnimation<Color>(AppColor.primary, ), backgroundColor: AppColor.borderColor, ), ),
+    */
+    Widget loadingIndicator = _load
+        ? Center(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height:20.0,
+              ),
+              new Container(
+                  //color: Colors.white,
+                  width: 60.0,
+                  height: 60.0,
+                  child: new CircularProgressIndicator(
+                    strokeWidth: 8,
+                     valueColor:
+    AlwaysStoppedAnimation<Color>(AppColor.primary1, ), backgroundColor: AppColor.borderColor, 
+                  ),
+                ),
+            ],
+          ),
+        )
+        : new Container();
     return StreamBuilder(
         stream: isEmail ? _bloc.email : _bloc.phone,
         builder: (context, snapshot) {
@@ -390,7 +433,7 @@ class AuthScreenState extends State<AuthScreen> {
               builder: (context, snapshot2) {
                 if (snapshot2.connectionState == ConnectionState.active) {
                   user = snapshot2.data;
-                    /*if (user == null) {
+                  /*if (user == null) {
                    return AuthScreen(); //Start from the beginning
                  }else{
                    return Signupcomplete();
@@ -437,7 +480,10 @@ class AuthScreenState extends State<AuthScreen> {
                               child: Text(
                                 "Select a method to begin using",
                                 style: TextStyle(
-                                   color: Color(0xff8F8F8F), fontSize: 14.0, fontWeight: FontWeight.w600,),
+                                  color: Color(0xff8F8F8F),
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
@@ -445,7 +491,10 @@ class AuthScreenState extends State<AuthScreen> {
                             child: Text(
                               "Guest Registration.",
                               style: TextStyle(
-                                  color: Color(0xff8F8F8F), fontSize: 14.0,fontWeight: FontWeight.w600,),
+                                color: Color(0xff8F8F8F),
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -617,44 +666,52 @@ class AuthScreenState extends State<AuthScreen> {
                             ),
                           ),*/
                           /*comment end for passwordless login*/
-         
+
                           Container(
-                              width: 318.0,
+                            width: 318.0,
                             height: 47.0,
-                              decoration: new BoxDecoration(
-                          
-                          borderRadius: new BorderRadius.circular(
-                            13.0,
-                          ),
-                        ),
+                            decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.circular(
+                                13.0,
+                              ),
+                            ),
                             child: RaisedButton(
-                                   color: const Color(0xffF1F1F1),
-                            /*child: SignInButton(
+                              color: const Color(0xffF1F1F1),
+                              /*child: SignInButton(
                               Buttons.Google,
                                 
                               text: "Continue with Google",*/
-                               child: new Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            new Image.asset('assets/images/google.png',
-              width: 27.0,
-              height: 28.0,
-            ),
-            new Container(
-              padding: EdgeInsets.only(left: 10.0,right: 10.0),
-                child: new Text("Continue with Google",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16.0),)
-            ),
-          ],
-        ),
+                              child: new Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Image.asset(
+                                    'assets/images/google.png',
+                                    width: 27.0,
+                                    height: 28.0,
+                                  ),
+                                  new Container(
+                                      padding: EdgeInsets.only(
+                                          left: 10.0, right: 10.0),
+                                      child: new Text(
+                                        "Continue with Google",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0),
+                                      )),
+                                ],
+                              ),
                               onPressed: () async {
-                                
+                                setState(() {
+                                  _load = true;
+                                });
                                 //  signInWithGoogle().then((value) => CircularProgressIndicator()).whenComplete(() async {
                                 // showAlertDialog(context);
                                 //Navigator.pop(context);
-                    
+
                                 signInWithGoogle().whenComplete(() async {
                                   //_authCompletedgoogle();
-                                           /*  showDialog(
+                                  /*  showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return Center(child: CircularProgressIndicator(),);
@@ -690,7 +747,8 @@ class AuthScreenState extends State<AuthScreen> {
                                           isEqualTo: email.toLowerCase())
                                       .getDocuments()
                                       .then((email) {
-                                    print('Firestore length: , ${email.documents.length}');
+                                    print(
+                                        'Firestore length: , ${email.documents.length}');
                                     email.documents.forEach((doc) =>
                                         //... code for check DeviceId is already available in the device table
                                         Firestore.instance
@@ -710,7 +768,7 @@ class AuthScreenState extends State<AuthScreen> {
                                             print("email for login" +
                                                 email.toString());
 
-                                             _authCompletedgoogle();
+                                            _authCompletedgoogle();
                                           } else if (doc.data['DeviceId'] ==
                                               "") {
                                             //....user signout form the device
@@ -771,11 +829,10 @@ class AuthScreenState extends State<AuthScreen> {
                                       });
                                     }
                                   });
+                                  //return CircularProgressIndicator(); //add for loading
                                 });
-
-                              
                               },
-                               
+
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(12))),
@@ -785,51 +842,56 @@ class AuthScreenState extends State<AuthScreen> {
                           SizedBox(
                             height: 32.0,
                           ),
-                           Visibility(
-              child: Text(
-                "You are already logged in. Please sign out of your other device first",
-                style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0),
-              ),
-              visible: signupcheck,
-            ),
-                      /*    SizedBox(
+                          Visibility(
+                            child: Text(
+                              "You are already logged in. Please sign out of your other device first",
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.0),
+                            ),
+                            visible: signupcheck,
+                          ),
+                          /*    SizedBox(
                             width: 318.0,
                             height: 47.0,
                             child: SignInButton(
                               Buttons.AppleDark,
                               text: "Continue with Apple",*/
-                             Container(
-                              width: 318.0,
+                          Container(
+                            width: 318.0,
                             height: 47.0,
-                           
-                              decoration: new BoxDecoration(
-                          
-                          borderRadius: new BorderRadius.circular(
-                            13.0,
-                          ),
-                        ),
+                            decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.circular(
+                                13.0,
+                              ),
+                            ),
                             child: RaisedButton(
-                               color: Colors.black,
-                                child: new Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            new Image.asset('assets/images/applelogo.png',
-              width: 30.0,
-              height: 30.0,
-            ),
-            new Container(
-              padding: EdgeInsets.only(left: 10.0,right: 10.0),
-                child: new Text("Continue with Apple",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16.0),)
-            ),
-          ],
-        ),
+                              color: Colors.black,
+                              child: new Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Image.asset(
+                                    'assets/images/applelogo.png',
+                                    width: 30.0,
+                                    height: 30.0,
+                                  ),
+                                  new Container(
+                                      padding: EdgeInsets.only(
+                                          left: 10.0, right: 10.0),
+                                      child: new Text(
+                                        "Continue with Apple",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0),
+                                      )),
+                                ],
+                              ),
                               /*textstyle:TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),*/
-                              
+
                               onPressed: () {
                                 //function call for apple sign up
                                 // _signInWithApple(context);
@@ -851,6 +913,55 @@ class AuthScreenState extends State<AuthScreen> {
                               // color: Colors.white12,
                             ),
                           ),
+                          //SizedBox(height:30.0),
+                          /* Container(
+                            width: 318.0,
+                            height: 47.0,
+                            decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.circular(
+                                13.0,
+                              ),
+                            ),
+                            child: RaisedButton(
+                              color: Colors.black,
+                              child: new Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Image.asset(
+                                    'assets/images/applelogo.png',
+                                    width: 30.0,
+                                    height: 30.0,
+                                  ),
+                                  new Container(
+                                      padding: EdgeInsets.only(
+                                          left: 10.0, right: 10.0),
+                                      child: new Text(
+                                        "Continue with Apple",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0),
+                                      )),
+                                ],
+                       
+
+                              onPressed: () async {
+                                
+                                await performSignIn();
+                                
+                                //function call for apple sign up
+                              },
+                             
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12))),
+                              // color: Colors.white12,
+                            ),
+                          ),*/
+                          new Align(
+                            child: loadingIndicator,
+                            alignment: FractionalOffset.center,
+                          ),
                           SizedBox(
                             height: 150.0,
                           ),
@@ -870,16 +981,15 @@ class AuthScreenState extends State<AuthScreen> {
                               child: const Text(
                                 'Terms & Conditions',
                                 style: TextStyle(
-                                    color: Color(0xff8F8F8F),
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w600,
-                                     decoration: TextDecoration.underline,
-                                    ),
+                                  color: Color(0xff8F8F8F),
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w600,
+                                  decoration: TextDecoration.underline,
+                                ),
                               ),
-                             
                             ),
-                          /*comment start for create new account*/
-                          /*SizedBox(
+                            /*comment start for create new account*/
+                            /*SizedBox(
                             width: 300.0,
                             height: 60.0,
                             child: RaisedButton(
@@ -901,8 +1011,9 @@ class AuthScreenState extends State<AuthScreen> {
                               color: Colors.white12,
                             ),
                           ),*/
-                          /*comment start for create new account*/
-                      ),  ]),
+                            /*comment start for create new account*/
+                          ),
+                        ]),
                   ),
                 );
                 //);
