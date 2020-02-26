@@ -17,11 +17,11 @@ class AuthBloc with AuthValidators {
   final _verificationId = BehaviorSubject<String>();
 
 // Add data to stream, validate inputs
-  Observable<String> get email => _email.stream.transform(validateEmail);
-  Observable<String> get phone => _phone.stream.transform(validatePhone);
-  Observable<String> get dialCode => _dialCode.stream;
-  Observable<String> get verificationID => _verificationId.stream;
-  Observable<AuthStatus> get authStatus => _authStatus.stream;
+//  Observable<String> get email => _email.stream.transform(validateEmail);
+//  Observable<String> get phone => _phone.stream.transform(validatePhone);
+//  Observable<String> get dialCode => _dialCode.stream;
+//  Observable<String> get verificationID => _verificationId.stream;
+//  Observable<AuthStatus> get authStatus => _authStatus.stream;
 
 // get value
   String get getEmail => _email.value;

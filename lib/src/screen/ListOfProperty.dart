@@ -34,21 +34,6 @@ class _ListOfPropertyState extends State<ListOfProperty>{
       builder: (context, model, child) =>
        Scaffold(
     resizeToAvoidBottomPadding: true,
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   backgroundColor: AppColor.white,
-      //   title: Text('Properties'),
-      //   actions: <Widget>[
-      //     // Padding(
-      //     //   padding: const EdgeInsets.only(right: 15.0),
-      //     //   child: GestureDetector(child: Icon(FontAwesome.sign_out, size: 30, color: Colors.red), 
-      //     //   onTap: (){
-      //     //   },
-      //     //   ),
-      //     // ),
-      //   ],
-
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -68,43 +53,6 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                 ],
               )
             ),
-              // Padding(
-              //     padding: const EdgeInsets.all(8.0),
-              //     child: GestureDetector(
-              //            child: Center(
-              //         child: Container(
-              //           height: 60,
-              //           width: double.infinity,
-              //            decoration: BoxDecoration(
-              //               borderRadius: BorderRadius.circular(10.0),
-              //               shape: BoxShape.rectangle,
-              //               color: Colors.red,
-              //             ),
-              //           child: Material(
-              //             color: Colors.white,
-              //             elevation: 20,
-              //            shadowColor: AppColor.primary,
-              //            child: Padding(
-              //              padding: const EdgeInsets.all(8.0),
-              //              child: Row(
-              //                mainAxisAlignment: MainAxisAlignment.center,
-              //                children: <Widget>[
-              //                  Icon(Icons.add_circle),
-              //                  SizedBox(width: 10,),
-              //                  Text('Add a new Property', style: AppTextStyle.subTitle(context),)
-              //                ],
-              //              ),
-              //            ),
-
-              //           ),
-              //         ),
-              //       ),
-              //       onTap: (){
-              //          model.addproperty();
-              //       },
-              //     ),
-              //   ),
-            
             Expanded(
            child: model.properties != null ?
            ListView.builder(
@@ -113,7 +61,15 @@ class _ListOfPropertyState extends State<ListOfProperty>{
           scrollDirection: Axis.vertical,
           itemBuilder: (BuildContext context , int index){
             if(model.properties.length == 0){
-              return Center(child: Text('No Property Available', style: AppTextStyle.error(context, Colors.redAccent),),);
+              return Center(child: Text('You do not have any registered property. '
+                  'Click on the ‘’Add Property’’ button below to add one property for free.',
+                style:  TextStyle(
+                  color: Colors.grey,
+                  fontStyle: FontStyle.normal,
+                  fontSize: 16,
+                )
+              ),
+              );
             }
             return  PropertyWidget(
                   propertyModel: model.properties[index],
@@ -125,7 +81,41 @@ class _ListOfPropertyState extends State<ListOfProperty>{
             ),
           ],),
       ),
-    )
+         floatingActionButton: GestureDetector(
+           child: Container(
+             width: 150,
+             height: 50,
+             child: Material(
+               elevation: 5,
+               shadowColor: Colors.red,
+               child: Center(
+                 child: Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: Row(
+                     children: <Widget>[
+                       Icon(Icons.add, size: 25, color: Colors.white,),
+                       SizedBox(width: 5,),
+                       Text('Add Property',
+                         style: TextStyle(
+                             color: AppColor.white,
+                             fontSize: 16.0,
+                             fontWeight: FontWeight.bold
+                         ),)
+                     ],
+                   ),
+                 ),
+               ),
+               color: Color(0xFF45A1C9),
+               shape: RoundedRectangleBorder(
+                   borderRadius: new BorderRadius.circular(18.0),
+                   side: BorderSide(color: AppColor.borderColor)
+               ),
+
+             ),
+           ),
+           onTap: ()=> model.addproperty(),
+         ),
+    ),
       );
   
   

@@ -106,7 +106,8 @@ class _AddProprtyUIState extends State<AddProprtyUI> {
           ],
         ),
               ],)
-      )
+      ),
+
     );
   }
 

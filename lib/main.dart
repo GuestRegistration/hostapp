@@ -4,6 +4,7 @@ import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/managers/dialog_manager.dart';
 import 'package:hostapp/src/route.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
+import 'package:hostapp/src/GraphQLDemo/graphTexter.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: Dashboard(),//AddPropertyView(), //244344
+      home:GraphTester(),//Dashboard(),//AddPropertyView(), //244344  //
       onGenerateRoute: generateRoute,
     );
   }
