@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:hostapp/src/locator.dart';
-import 'package:hostapp/src/model/propertyModel.dart';
+import 'package:hostapp/src/service/graphQlQuery.dart';
 import 'package:hostapp/src/service/FirestoreService.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/service/authentication.dart';
 import 'package:hostapp/src/service/CloudStorageService.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
@@ -14,6 +14,7 @@ import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 
 class AddPropertyViewModel extends BaseModel{
@@ -23,6 +24,8 @@ final NavigationService _navigationService = locator<NavigationService>();
 final FirestoreService _firestoreService = locator<FirestoreService>();
 final CloudStorageService _cloudStorageService = locator<CloudStorageService>();
  final CustomFuntion _customFuntion = locator<CustomFuntion>();
+  final GraphQLConfiguration _graphQlConfiq = locator<GraphQLConfiguration>();
+
 int pageIndex = 0;
 File _image, _file;
 File get selectedImage => _image; //Property Image
@@ -34,6 +37,15 @@ String _errorMessage;
 String get errorM => _errorMessage;
 String _country;
 String get getCountry => _country;
+MutationOptions _addpropertyOption;
+MutationOptions get  getaddPropertyOption => _addpropertyOption;
+RunMutation _runMutation;
+RunMutation get getRunMutation => _runMutation;
+
+QueryResult _result;
+QueryResult get getResult => _result;
+
+
 bool isDataEntered = false, continueButton = false, erasseData = false; //Is any complusory data entered by User in Add Propery
 
  
@@ -83,7 +95,7 @@ movetoScreen2({
   @required String contactEmail,
   @required String phoneN,
    @required String country,
-    // @required String isoCod,
+   @required String isoCod,
 }){
 
  //Check Address
@@ -123,17 +135,12 @@ showMessage(error: 'Email required');
          
          //Saving to viewmodel variable in order to store and send to d server.
       _propertyName = propertyName;
-      _phoneN = phoneN; 
+      _phoneN = isoCod+phoneN; 
       _address = address;
       _country = country;
      _contactEmail = contactEmail;
- 
-   print(_propertyName);
-    print(_phoneN);
-     print(_address);
-    print(_country);
-        print(_contactEmail);
-        nextPage();
+    
+nextPage();
   }
   }
 }
@@ -158,15 +165,17 @@ Future pickDocument(TextEditingController docuemntController)async{
   if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am not compulosry to be filled.
   //    print(rules);
   //  print(_file.path);
-    _navigationService.navigateTo(addpropertyloadingRoute);
+
+  List<String> datalist = new List<String>();
+  datalist.add(_propertyName);  datalist.add(_address);   datalist.add(_phoneN);
+  datalist.add(_country);   datalist.add(_contactEmail); //datalist.add();
+
+
+   
+    _navigationService.navigateTo(addpropertyloadingRoute, arguments: datalist);
+  
   }
   
- }
-
- logout()async{
-   await _authService.signOut();
-   _navigationService.navigateTo(signInViewRoute);
-
  }
 
  setPropertyRulesButtonStatus(bool value){
@@ -192,9 +201,9 @@ Future pickDocument(TextEditingController docuemntController)async{
 
 
 
-//TODO********************** UPDATE/ EDIT PROPERTY *************************
+//TODO********************** UPDATE/ EDIT/ ADD PROPERTY *************************
   updateDetails({@required String propertyName, @required String address, @required String contactEmail,
-    @required String phoneN, @required String country,
+    @required String phoneN, @required String country, pID
   }){
 
     //Check Address
@@ -229,30 +238,73 @@ Future pickDocument(TextEditingController docuemntController)async{
         showMessage(error: 'The email you entered is invalid');
 
       }else if(address.isNotEmpty && propertyName.isNotEmpty  && phoneN.isNotEmpty && country.isNotEmpty && contactEmail.isNotEmpty){
+          //DEBUG ONLY
+        // print(propertyName);
+        // print(phoneN);
+        // print(address);
+        // print(country);
+        // print(contactEmail);
 
-        //Saving to viewmodel variable in order to store and send to d server.
-        _propertyName = propertyName;
-        _phoneN = phoneN;
-        _address = address;
-        _country = country;
-        _contactEmail = contactEmail;
+         updateAPI(address: address, contactEmail: contactEmail, country: country, phoneN: phoneN,
+         propertyName: propertyName, id: pID);
+        
 
-        print(_propertyName);
-        print(_phoneN);
-        print(_address);
-        print(_country);
-        print(_contactEmail);
-
+      
         //TODO UPDATE CHANGES
-        _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
+      
       }
     }
   }
 
   deleteProperty({@required String propertyName}){
+
    //TODO DELETE API
     _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
   }
+
+
+  updateAPI({@required String propertyName, @required String address, @required String contactEmail,
+    @required String phoneN, @required String country, id})async{
+        setBusy(true);
+     GraphQLClient _client = _graphQlConfiq.clientToQuery();
+    QueryResult result = await _client.mutate(
+      MutationOptions(
+          documentNode: gql(updatePropertyQuery),
+          onError: (error) {
+            print('******************Error Occur: ${error.toString()}');
+          },
+          onCompleted: (data) {
+            //Note: Don't compare data here or do anything that's pertaining to returened Data, 
+            //This will definately return even if it's error
+           
+          },
+          //Later (Rules and document)
+          variables: <String, dynamic>{
+            "id": id,
+            "user_id": Constants().dummyUseriD,
+            "name": propertyName,
+            "phone": phoneN,
+            "email": contactEmail,
+            "street": address,
+            "state": "Not include",
+            "postal_code": 0,
+            "city": "Not include",
+            "country": country
+          }
+      )
+    );
+     if (result.data == null) {
+        setBusy(false);
+             print('Result is Null');
+         }else{
+            setBusy(false);
+            print('Result is not Null');
+            print(result.data['updateProperty']['name']);
+             _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
+         }
+  }
+  
+ 
 }
 
 

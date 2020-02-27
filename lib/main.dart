@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/managers/dialog_manager.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/route.dart';
+import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
+import 'package:hostapp/src/screen/AddPropertyScreen.dart';
 import 'package:hostapp/src/GraphQLDemo/graphTexter.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
+import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,9 +25,12 @@ void main()async{
 }
 
 class MyApp extends StatelessWidget {
+  var _graphQlConfiq = locator<GraphQLConfiguration>();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+  
+    return GraphQLProvider(
+      child:  MaterialApp(
       title: 'HostApp',
       debugShowCheckedModeBanner: false,
       builder: (context, child) => Navigator(
@@ -39,8 +46,30 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home:GraphTester(),//Dashboard(),//AddPropertyView(), //244344  //
+      home:Dashboard(),//AddProprtyLoadingScreen(),//Dashboard(),//, //244344  //
       onGenerateRoute: generateRoute,
+    ),
+      client: _graphQlConfiq.client,
     );
+    //  return MaterialApp(
+    //   title: 'HostApp',
+    //   debugShowCheckedModeBanner: false,
+    //   builder: (context, child) => Navigator(
+    //     key: locator<DialogService>().dialogNavigationKey,
+    //     onGenerateRoute: (settings) => MaterialPageRoute(
+    //         builder: (context) => DialogManager(child: child)),
+    //   ),
+    //   navigatorKey: locator<NavigationService>().navigationKey,
+    //   theme: ThemeData(
+    //     primaryColor: Color.fromARGB(255, 9, 202, 172),
+    //     backgroundColor: Color.fromARGB(255, 26, 27, 30),
+    //     textTheme: Theme.of(context).textTheme.apply(
+    //       fontFamily: 'Open Sans',
+    //     ),
+    //   ),
+    //   home:GraphTester(),//AddProprtyLoadingScreen(),//Dashboard(),//, //244344  //
+    //   onGenerateRoute: generateRoute,
+    // );
+     
   }
 }

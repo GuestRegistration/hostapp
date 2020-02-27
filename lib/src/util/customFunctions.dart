@@ -10,6 +10,7 @@ import 'package:encrypt/encrypt.dart' as Key;
 
 class CustomFuntion{
    IV iv; Encrypter encrypter; Encrypted encrypted;
+  
 
    snackBarMessage({String message}){
 return SnackBar(content: Text(message));

@@ -35,9 +35,9 @@ import 'package:hostapp/src/util/customFunctions.dart';
 //}
 
 class EditPropertyScreen extends StatefulWidget {
-  final String pName, pAddress, pNumber,pEmail, country, prules, pFile;
+  final String pName, pAddress, pNumber,pEmail, country, prules, pFile, propertyID;
 
-  const EditPropertyScreen({this.pName, this.pAddress, this.pNumber, this.country, this.pEmail, this.prules, this.pFile});
+  const EditPropertyScreen({this.pName, this.pAddress, this.pNumber, this.country, this.pEmail, this.prules, this.pFile, this.propertyID});
 
   @override
   _EditPropertyScreenState createState() => _EditPropertyScreenState();
@@ -376,7 +376,14 @@ side: BorderSide(color: AppColor.primaryLight)
     GestureDetector(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
+                      child: (model.busy ? 
+                      CircularProgressIndicator(
+                  strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
+                        backgroundColor: AppColor.borderColor,
+                  )
+                       : 
+                      Container(
                         width: 150,
                         height: 35,
                         child: Material(
@@ -391,9 +398,8 @@ side: BorderSide(color: AppColor.primaryLight)
                         shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(18.0),
             side: BorderSide(color: AppColor.borderColor)
-    ),  ),
-                      ),
-                    ),
+    ),  ),)  
+                      ),),
                     onTap: (){
                     // model.showMessage(error: 'The email you entered is invalid');
                       if(changesIsMade){
@@ -405,7 +411,8 @@ side: BorderSide(color: AppColor.primaryLight)
                             contactEmail: emailcontroller.text.trim(),
                             phoneN: phoneNumber.text.trim(),
                             country: model.getCountry,
-                            propertyName: propertyNameController.text.trim()
+                            propertyName: propertyNameController.text.trim(),
+                            pID: widget.propertyID,
                         );
                       }else{
 

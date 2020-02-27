@@ -1,4 +1,5 @@
 class Constants {
+  String dummyUseriD = "Lb2kymVmU9SbfK8FiMsE";
   // Strings
  
   //static const String projectUrl = "https://passwordlessdemo.firebaseapp.com";

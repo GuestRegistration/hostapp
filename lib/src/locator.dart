@@ -3,6 +3,7 @@ import 'package:hostapp/src/service/CloudStorageService.dart';
 import 'package:hostapp/src/service/FirestoreService.dart';
 import 'package:hostapp/src/service/authentication.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
+import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:get_it/get_it.dart';
@@ -18,7 +19,8 @@ locator.registerLazySingleton(() => CustomFuntion());
 locator.registerLazySingleton(() => NavigationService());
 locator.registerLazySingleton(() => DialogService());
 locator.registerLazySingleton(() => FirestoreService());
-locator.registerLazySingleton(() => CloudStorageService());
+locator.registerLazySingleton(() => CloudStorageService()); 
+locator.registerLazySingleton(() => GraphQLConfiguration()); 
 }
 
  //Creating an injection.

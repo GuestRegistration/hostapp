@@ -1,10 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:flutter/material.dart';
+import 'package:hostapp/src/service/graphQlQuery.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hostapp/src/model/getPropertiesModel.dart';
 
 class GraphTester extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _GraphTesterState extends State<GraphTester> {
 
 
     return GraphQLProvider(
-      child:  InserDemo(),            //FetchDataDemo(),
+      child: FetchDataDemo(),
       client: client,
     );
   }
@@ -40,6 +41,7 @@ class FetchDataDemo extends StatefulWidget {
 }
 
 class _FetchDataDemoState extends State<FetchDataDemo> {
+    List<GetProperties> propertlist = List<GetProperties>();
   String d = r"""
          query GetCountinet($code: String!){
           continent(code: $code){
@@ -58,13 +60,8 @@ class _FetchDataDemoState extends State<FetchDataDemo> {
       ),
       body: Query(
         options: QueryOptions(
-          // , variables: <String, dynamic>{
-          //   "code" : "AF"
-          // }
-           documentNode: gql(d),
-    variables: <String, dynamic>{
-        "code" : "AF"
-    },
+           documentNode: gql(getProperties),
+    
         ),
         builder: (QueryResult result, {
         VoidCallback refetch,
@@ -74,16 +71,33 @@ class _FetchDataDemoState extends State<FetchDataDemo> {
             return Center(child: Text('Data is Null'));
           }
           //print(result.data['countries'][0]['name']);
+        
           return ListView.builder(
             itemBuilder: (BuildContext context, int index){
+
+              print(result.data['getProperties']);
+              propertlist.add(
+ GetProperties(
+            email: result.data["getProperties"][index]["email"],
+            id: result.data["getProperties"][index]["id"],
+            name: result.data["getProperties"][index]["name"],
+            phone: result.data["getProperties"][index]["phone"],
+            address:
+             Address(street: result.data["getProperties"][index]["address"]['street'],
+             country: result.data["getProperties"][index]["address"]['country']),
+            terms: result.data["getProperties"][index]["terms"],
+              )
+              );
+              
+
              return ListTile(
                             title: Padding(
                  padding: const EdgeInsets.all(8.0),
-                 child: Text(result.data['continent']['countries'][index]['name']),
+                 child: Text(propertlist[index].getEmail()), //[index]['name']
                ),
              );
           },
-           itemCount: result.data['continent']['countries'].length,);
+           itemCount: result.data['getProperties'].length,);
          
         }),
     );
@@ -176,7 +190,6 @@ class _InserDemoState extends State<InserDemo> {
               ],),
             );
             
-           
           },
       
         ),

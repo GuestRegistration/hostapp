@@ -61,14 +61,13 @@ class _AddProprtyUIState extends State<AddProprtyUI> {
 
     TextEditingController phoneNumber = new TextEditingController();
 
- 
+
     final CustomFuntion _customFuntion = locator<CustomFuntion>();
     FocusNode focusNode = new FocusNode();
     String defaultCountry = 'United State';
     TextEditingController rulesController = new TextEditingController();
     TextEditingController docuemntController = new TextEditingController(text: '');
-//     String phoNumber;
-// String phoneIsoCode = 'NG', confirmedNumber;
+ String phoneIsoCode = '+1';
 
     @override
   void initState() {
@@ -180,6 +179,9 @@ Expanded(
                           initialSelection: '+1',
                           onChanged: (code) {
                              model.setCountry(selectedcountry:code.name.toString());
+                             setState(() {
+                               phoneIsoCode = code.dialCode;
+                             });
                           //  print(code.name); //country
                             // print(code.code); //AD
                             // print(code.dialCode); //+376
@@ -300,6 +302,7 @@ Expanded(
                         ),
                         
                   horizontalSpaceSmall,
+                  (model.busy ? CircularProgressIndicator() :
                   GestureDetector(
                        child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -325,9 +328,9 @@ Expanded(
                       ),
                     ),
                     onTap: (){
-                      // if(model.continueButton == false){
-                      //   //DO Nothing
-                      // }else{
+                    //   // if(model.continueButton == false){
+                    //   //   //DO Nothing
+                    //   // }else{
                         if(model.getCountry == null){
                         model.setCountry(selectedcountry: defaultCountry);
                             }
@@ -335,13 +338,14 @@ Expanded(
                         address: addressController.text.trim(),
                         contactEmail: emailcontroller.text.trim(),
                         phoneN: phoneNumber.text.trim(),
-                       // isoCod: phoneIsoCode,
+                        isoCod: phoneIsoCode,
                         country: model.getCountry,
                         propertyName: propertyNameController.text.trim()
                       );
-                     // }
+                    //  // }
                     },
-                  ),
+                  ))
+                    
                       ],
                     )
 
@@ -709,9 +713,6 @@ errasedAll(BuildContext contex){
                         ),
                       ),
                       onTap: (){
-                        //Navigator.pop(context);
-                        //Navigator.of(context, rootNavigator: true).pop();
-                         // Navigator.popAndPushNamed(context, addPropertyRoute);
                         Navigator.of(contex).pop();
                       
                       

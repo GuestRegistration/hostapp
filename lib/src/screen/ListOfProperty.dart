@@ -54,13 +54,14 @@ class _ListOfPropertyState extends State<ListOfProperty>{
               )
             ),
             Expanded(
-           child: model.properties != null ?
+           child: !model.busy ?
            ListView.builder(
           itemCount: model.properties.length,
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           itemBuilder: (BuildContext context , int index){
-            if(model.properties.length == 0){
+            if(model.properties.length == 0 || model.properties == null){
+              print('Data ${model.properties}');
               return Center(child: Text('You do not have any registered property. '
                   'Click on the ‘’Add Property’’ button below to add one property for free.',
                 style:  TextStyle(
@@ -72,7 +73,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
               );
             }
             return  PropertyWidget(
-                  propertyModel: model.properties[index],
+                getProperties: model.properties[index],
                 );
              },)
                       : Center(child: CircularProgressIndicator(

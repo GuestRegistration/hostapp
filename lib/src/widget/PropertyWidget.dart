@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:hostapp/src/model/propertyModel.dart';
+import 'package:hostapp/src/model/getPropertiesModel.dart';
 import 'package:hostapp/src/screen/EditPropertyScreen.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
 
 class PropertyWidget extends StatelessWidget{
-   final PropertyModel propertyModel;
+  
+     final GetProperties getProperties;
    final Function onDeleteItem;
 
    const PropertyWidget({
     Key key,
-    this.propertyModel,
+    this.getProperties,
     this.onDeleteItem,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return   GestureDetector(
-                         child: Expanded(
-                            child: Container(
+    return GestureDetector(
+                         child: Container(
                             // height: 100,
                              decoration: new BoxDecoration(
                               gradient: new LinearGradient(
@@ -45,11 +45,11 @@ class PropertyWidget extends StatelessWidget{
                                   child: ListTile(
                                    title: Padding(
                                      padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
-                                     child: Text(propertyModel.propertyName, style: AppTextStyle.title(context),),
+                                     child: Text(getProperties.getName(), style: AppTextStyle.title(context),),
                                    ),
                                    subtitle: Padding(
                                      padding: const EdgeInsets.only(bottom: 8.0),
-                                     child: Text(propertyModel.propertyAddress, style: AppTextStyle.subtitle(context),),
+                                     child: Text(getProperties.address.street, style: AppTextStyle.subtitle(context),),
                                    ),
                                    trailing: Column(
                                      children: <Widget>[
@@ -61,20 +61,19 @@ class PropertyWidget extends StatelessWidget{
                                 ),
                              ),
                            ),
-                         ),
                     onTap: (){
+                      print(getProperties.id);
                       Navigator.push( context,
                    MaterialPageRoute(builder: (context) => EditPropertyScreen(
-                     country: propertyModel.country,
-                     pAddress: propertyModel.propertyAddress,
-                     pEmail: propertyModel.propertyEmail,
-                     pFile: propertyModel.propertyDocument,
-                     pName: propertyModel.propertyName,
-                     pNumber: propertyModel.propertyPhone,
-                     prules: propertyModel.propertyRules,
+                     country: getProperties.address.country,
+                     pAddress: getProperties.address.street,
+                     pEmail: getProperties.email,
+                     pFile: 'Am still not implement',
+                     pName: getProperties.name,
+                     pNumber: getProperties.phone,
+                     prules: getProperties.terms,
+                     propertyID: getProperties.id,
                    )));
-
-
                     },
                   );
                

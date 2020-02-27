@@ -38,7 +38,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       case addpropertyloadingRoute:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: AddProprtyLoadingScreen(),
+        viewToShow: AddProprtyLoadingScreen(data: settings.arguments,),
       );
       
 
