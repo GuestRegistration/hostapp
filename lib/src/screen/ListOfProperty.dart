@@ -81,56 +81,31 @@ class _ListOfPropertyState extends State<ListOfProperty>{
             ),
           ],),
       ),
-         floatingActionButton: GestureDetector(
-           child: (model.properties.length >= 1 ?
-            FloatingActionButton(onPressed: () { 
+         floatingActionButton:
+           (model.properties.length >= 1 
+           ? FloatingActionButton(
+             child: Text('Pro',
+                         style: TextStyle(
+                             color: AppColor.white,
+                             fontSize: 16.0,
+                             fontWeight: FontWeight.bold
+                         ),),
+             onPressed: () { 
               model.proPage();
              },
-            child: Text('Pro',
-                         style: TextStyle(
-                             color: AppColor.white,
-                             fontSize: 16.0,
-                             fontWeight: FontWeight.bold
-                         ),)) : 
-           
-           Container(
-             width: 150,
-             height: 50,
-             child: Material(
-               elevation: 5,
-               shadowColor: Colors.red,
-               child: Center(
-                 child: Padding(
-                   padding: const EdgeInsets.all(8.0),
-                   child: Row(
-                     children: <Widget>[
-                       Icon(Icons.add, size: 25, color: Colors.white,),
-                       SizedBox(width: 5,),
-                       Text('Add Property',
-                         style: TextStyle(
-                             color: AppColor.white,
-                             fontSize: 16.0,
-                             fontWeight: FontWeight.bold
-                         ),)
-                     ],
-                   ),
-                 ),
-               ),
-               color: Color(0xFF45A1C9),
-               shape: RoundedRectangleBorder(
-                   borderRadius: new BorderRadius.circular(18.0),
-                   side: BorderSide(color: AppColor.borderColor)
-               ),
+            )
+            
+             : FloatingActionButton(onPressed: () { 
+             model.addproperty();
+             },
+            child: Icon(Icons.add, size: 30,),
+              ))
 
-             ),
-           )),
-           onTap: ()=> model.addproperty(),
-         ),
-    )
-       : Center(child: CircularProgressIndicator(
+
+
+        ): Center(child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation(AppColor.primary),
-                      )
-        ));
+                      )));
   
   
   }

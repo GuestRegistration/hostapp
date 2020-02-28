@@ -2,6 +2,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:hostapp/src/screen/Mobile/AddPropertyMobile.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
@@ -159,11 +160,27 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
                 
                   verticalSpaceSmall,
                    CollectText(ttile: 'Property Address',),
-                  InputField(
-                    placeholder: 'Address',
-                    decoration: null,
-                    controller: addressController,
-                  ),
+                  GooglePlaceAutoCompleteTextField(
+        textEditingController: addressController,
+        googleAPIKey: Constants().apiKey,
+        inputDecoration :InputDecoration(
+      border: new OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: new BorderSide(color: AppColor.secondaryDeep,
+                ),
+            ),
+      enabledBorder: new OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: new BorderSide(color: AppColor.inputTextCorderColor,
+                ),
+            ),
+              ),
+        debounceTime: 200, // default 600 ms,
+        itmClick: (prediction) {
+         addressController.text=prediction.description;
+          addressController.selection = TextSelection.fromPosition(TextPosition(offset: prediction.description.length));
+        }
+    ),
                    verticalSpaceSmall,
                     CollectText(ttile: 'Country',),
                   Row(children: <Widget>[

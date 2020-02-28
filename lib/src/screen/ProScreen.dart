@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
@@ -10,6 +11,8 @@ class ProScreen extends StatefulWidget {
 }
 
 class _ProScreenState extends State<ProScreen> {
+  TextEditingController controller = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
    return ViewModelProvider<ProViewModel>.withConsumer(
@@ -32,6 +35,7 @@ class _ProScreenState extends State<ProScreen> {
               fontWeight: FontWeight.bold
             )
           ),), 
+    
           ],),
       ),
     ),

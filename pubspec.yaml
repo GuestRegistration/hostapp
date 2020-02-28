@@ -61,6 +61,8 @@ dependencies:
   international_phone_input: ^1.0.2
   rxdart: 0.23.1
   graphql_flutter: ^3.0.0
+  # flutter_places_dialog: ^1.0.5
+  google_places_flutter: ^1.0.5
 
 dev_dependencies:
   flutter_test:

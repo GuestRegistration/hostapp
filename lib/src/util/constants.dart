@@ -1,5 +1,6 @@
 class Constants {
   String dummyUseriD = "Lb2kymVmU9SbfK8FiMsE";
+  String apiKey = 'AIzaSyCBRhAT9zrldvx7CMcdDgPt0VlCNLPtKpM';
   // Strings
  
   //static const String projectUrl = "https://passwordlessdemo.firebaseapp.com";
