@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
+import 'package:hostapp/src/screen/ProScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/screen/WrapperScreen.dart';
 import 'package:hostapp/src/util/constants.dart';
@@ -39,6 +40,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: AddProprtyLoadingScreen(data: settings.arguments,),
+      );
+       case proRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ProScreen(),
       );
       
 

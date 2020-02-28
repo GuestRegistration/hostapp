@@ -30,3 +30,4 @@ const String addPropertyRoute = '/addProperty';
 const String signUpViewRoute = '/signUp';
 const String signInViewRoute = '/signIn';
 const String addpropertyloadingRoute = '/propertyloding';
+const String proRoute ='/pro';

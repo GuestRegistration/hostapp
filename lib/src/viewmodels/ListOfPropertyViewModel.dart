@@ -44,6 +44,7 @@ QueryResult result = await _client.query(
                     )
               );
       }
+      print(_propertlist.length);
        setBusy(false);
          }
 }
@@ -51,5 +52,9 @@ QueryResult result = await _client.query(
 
 void addproperty(){
   _navigationService.navigateTo(addPropertyRoute);
+}
+
+void proPage(){
+    _navigationService.navigateTo(proRoute);
 }
 }

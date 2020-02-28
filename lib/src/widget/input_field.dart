@@ -65,8 +65,8 @@ class _InputFieldState extends State<InputField> {
               Expanded(
                 child: Theme(
                   data: new ThemeData(
-            primaryColor: AppColor.borderColor,
-            primaryColorDark: AppColor.borderColor,
+            primaryColor: AppColor.primary,
+            primaryColorDark: AppColor.primary,
           ),
            child: TextFormField(
                     controller: widget.controller,
@@ -93,12 +93,12 @@ class _InputFieldState extends State<InputField> {
                     
                         border: new OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: new BorderSide(color: AppColor.borderColor,
+                                  borderSide: new BorderSide(color: AppColor.primary,
                                   ),
                               ),
                                enabledBorder: new OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: new BorderSide(color: AppColor.borderColor,
+                                  borderSide: new BorderSide(color: AppColor.inputTextCorderColor,
                                   ),
                               ),
                         hintStyle:TextStyle(fontSize: widget.smallVersion ? 12 : 15)) : 

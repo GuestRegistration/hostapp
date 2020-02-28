@@ -141,9 +141,15 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
           )
         ),), ],),
             ),
-           _customFuntion.errorUimessage(errorMessage: model.errorM),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+             Padding(
+               padding: const EdgeInsets.only(left: 8.0),
+               child: _customFuntion.errorUimessage(errorMessage: model.errorM),
+             )
+          ],),
                  verticalSpaceSmall,
-               
                CollectText(ttile: 'Property Name',),
                   InputField(
                     placeholder: 'PropertyName',
@@ -172,22 +178,27 @@ Expanded(
                           bottomRight: const Radius.circular(8.0),
                           ),
                           ),
-                         child: CountryListPick(
-                          isShowFlag: true,
-                          isShowTitle: true,
-                          isDownIcon: true,
-                          initialSelection: '+1',
-                          onChanged: (code) {
-                             model.setCountry(selectedcountry:code.name.toString());
-                             setState(() {
-                               phoneIsoCode = code.dialCode;
-                             });
-                          //  print(code.name); //country
-                            // print(code.code); //AD
-                            // print(code.dialCode); //+376
-                            // print(code.flagUri);
-                          },
-                        ),
+                         child:  Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: <Widget>[
+                             CountryCodePicker(
+                             showFlag: true,
+                             showOnlyCountryWhenClosed: true,
+                              onChanged: (value){
+                                 model.setCountry(selectedcountry:value.name.toString());
+                              setcountry(value.dialCode);
+                              print(value.name);
+                      
+                  },
+                  initialSelection: phoneIsoCode,
+                  favorite: ['+39','FR'],
+                  showCountryOnly: false,
+                  alignLeft: false,
+                ),
+                SizedBox(width: 10,),
+                Icon(Icons.arrow_drop_down, size: 25,)
+                           ],
+                         ),
                         ),
                       ),
                   ],),
@@ -204,16 +215,9 @@ Expanded(
                   ),
 
                    verticalSpaceSmall,
-                    CollectText(ttile: 'PhoneNumber',),
-                      // InternationalPhoneInput(
-                      // onPhoneNumberChange: onPhoneNumberChange, 
-                      // initialPhoneNumber: phoNumber,
-                      // initialSelection: phoneIsoCode,
-                      
-                      
-                      //      ),
+                    CollectText(ttile: 'Contact Phone',),
                     InputField(
-                   placeholder: 'PhoneNumber',
+                   placeholder: 'ContactPhone',
                     controller: phoneNumber,
                     textInputType: TextInputType.number,
                     decoration:  InputDecoration(
@@ -246,9 +250,13 @@ Expanded(
                           ),
                          child: CountryCodePicker(
                   onChanged: (value){
+                  //  setState(() {
+                  //    = phoneIsoCode;
+                  //  });
+                   setcountry(value.dialCode);
                       
                   },
-                  initialSelection: '+1',
+                  initialSelection: phoneIsoCode,
                   favorite: ['+39','FR'],
                   showCountryOnly: false,
                   alignLeft: false,
@@ -260,75 +268,32 @@ Expanded(
                   ),
                   ),
  verticalSpaceSmall,
- verticalSpaceSmall,
-                   Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        GestureDetector(
-                                                  child: Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: Container(
-                      width: 150,
-                      height: 50,
-                      child: Material(
+  verticalSpaceLarge,
+ GestureDetector(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
+                  child: Container(
+                    height: 50,
+                    child: Material(
                       child: Center(
-                          child: Text('Cancel',
+                        child: Text('Continue',
                           style: TextStyle(
-                            color: AppColor.white,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.bold
+                              color: AppColor.white,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.bold
                           ),),
                       ),
-                      color: (model.isDataEntered ? Color(0xFF45A1C9) : AppColor.disableButton),
+                      color: (model.continueButton ? Color(0xFF45A1C9) : AppColor.disableButton),
                       shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(18.0),
-            side: BorderSide(color: AppColor.borderColor)
-    ),
-                   
-                ),
+                          borderRadius: new BorderRadius.circular(18.0),
+                          side: BorderSide(color: AppColor.borderColor)
+                      ),
+
                     ),
                   ),
-                  onTap: (){
-                    if(model.isDataEntered){
-                           return showDialog(
-                      context: context,
-                      builder: (context) {
-                       return errasedAll(context);
-                      }
-                  );
-                  
-                    }
-                  },
-                        ),
-                        
-                  horizontalSpaceSmall,
-                  (model.busy ? CircularProgressIndicator() :
-                  GestureDetector(
-                       child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: 150,
-                        height: 50,
-                        child: Material(
-                        child: Center(
-                          child: Text('Continue', //If all field is entered, Display complete else Skip
-                          style: TextStyle(
-                            color: AppColor.white,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.bold
-                          ),),
-                        ),
-                        color:  (model.continueButton ? Color(0xFF45A1C9) : AppColor.disableButton),
-                        shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(18.0),
-            side: BorderSide(color: AppColor.borderColor)
-    ),
-                       
                 ),
-                      ),
-                    ),
-                    onTap: (){
-                    //   // if(model.continueButton == false){
+                onTap: (){
+                  //   // if(model.continueButton == false){
                     //   //   //DO Nothing
                     //   // }else{
                         if(model.getCountry == null){
@@ -343,16 +308,21 @@ Expanded(
                         propertyName: propertyNameController.text.trim()
                       );
                     //  // }
-                    },
-                  ))
-                    
-                      ],
-                    )
+                },
+              )
 
 
             ],
           ),
         );
+  
+ 
+  
+  }
+   setcountry(String code){
+setState(() {
+  phoneIsoCode = code;
+});
   }
 
  screen2(BuildContext context, AddPropertyViewModel model, ){
@@ -381,6 +351,15 @@ Expanded(
             fontWeight: FontWeight.bold
           )
         ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: _customFuntion.errorUimessage(errorMessage: model.errorM),
+          ),
+            ],
+          ),
         verticalSpaceMedium,
                TextField(
                   keyboardType: TextInputType.multiline,
@@ -436,14 +415,17 @@ Padding(
                       labelText:   (model.selectedDocument == null ? 'Attached document here' : 'Document attached'),
                       suffixIcon: Icon(Icons.attachment)
                     ),
+                    onChanged: (value) {
+                      
+                    },
                     onTap: (){
-                        //TODO Select Document from Gallery.
-                      model.pickDocument(docuemntController);
-                       if(docuemntController.text.isNotEmpty && rulesController.text.isNotEmpty){
-                        model.setPropertyRulesButtonStatus(true);
-                      }else{
-                          model.setPropertyRulesButtonStatus(false);
-                      }
+                      //   //TODO Select Document from Gallery.
+                      // model.pickDocument(docuemntController);
+                      //  if(docuemntController.text.isNotEmpty && rulesController.text.isNotEmpty){
+                      //   model.setPropertyRulesButtonStatus(true);
+                      // }else{
+                      //     model.setPropertyRulesButtonStatus(false);
+                      // }
                     },
                 ),
                  ),
@@ -458,7 +440,7 @@ Padding(
                       height: 50,
                       child: Material(
                       child: Center(
-                          child: Text('Cancel',
+                          child: Text('Skip',
                           style: TextStyle(
                             color: AppColor.white,
                             fontSize: 17.0,
@@ -475,7 +457,11 @@ Padding(
                     ),
                   ),
                   onTap: (){
-                      //model.goback();
+                     model.lastScreenbutton(
+                       rules: rulesController.text.trim(),
+                       mustSetData: false, //No, It's not a Must to set rules and document
+                       document: docuemntController.text.trim()
+                    );
                   },
                         ),
                         
@@ -488,7 +474,7 @@ Padding(
                         height: 50,
                         child: Material(
                         child: Center(
-                          child: Text((model.isPropertyRulesSet ? 'Complete' : 'Skip'), //If all field is entered, Display complete else Skip
+                          child: Text(('Complete'),  //model.isPropertyRulesSet ? 'Complete' : 'Skip' If all field is entered, Display complete else Skip
                           style: TextStyle(
                             color: AppColor.white,
                             fontSize: 17.0,
@@ -505,6 +491,8 @@ Padding(
                     onTap: (){
                        model.lastScreenbutton(
                        rules: rulesController.text.trim(),
+                       document: docuemntController.text.trim(),
+                     mustSetData: true //YES, It's  a Must to set rules and document
                     );
                     },
                   ),
@@ -629,11 +617,11 @@ Padding(
 }
 listenerScreen2(TextEditingController controller){
     controller.addListener(() {
-      // if(controller.text.isNotEmpty){
-      //               widget.model.setdataEnterdStatus(true);
-      //                 }else{
-      //                   widget.model.setdataEnterdStatus(false);
-      //                 }
+      if(controller.text.isNotEmpty){
+                    widget.model.setPropertyRulesButtonStatus(true);
+                      }else{
+                        widget.model.setPropertyRulesButtonStatus(false);
+                      }
 
       if(rulesController.text.isNotEmpty && docuemntController.text.isNotEmpty){
         widget.model.setPropertyRulesButtonStatus(true);

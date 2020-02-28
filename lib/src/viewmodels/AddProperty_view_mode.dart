@@ -161,22 +161,39 @@ Future pickDocument(TextEditingController docuemntController)async{
  } 
 
  lastScreenbutton({ 
-   @required String rules})async{
-  if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am not compulosry to be filled.
-  //    print(rules);
+   @required String rules, @required String document, @required bool mustSetData})async{
+     if(mustSetData){ //IF Skip button is press,this wull be false but if complete is press this will be true
+     if(rules.isEmpty){
+showMessage(error: 'Property rules required');
+  } 
+   //Check Phone Number
+ else if(document.isEmpty){
+    showMessage(error: 'Property Document link required');
+  }else if(rules.isNotEmpty && document.isNotEmpty){
+     //    print(rules);
   //  print(_file.path);
+  sendrulesData();
+ 
+  }
+     }else{
+if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am not compulosry to be filled.
+ sendrulesData();
 
-  List<String> datalist = new List<String>();
+  }
+     }
+
+ }
+ sendrulesData(){
+ List<String> datalist = new List<String>();
   datalist.add(_propertyName);  datalist.add(_address);   datalist.add(_phoneN);
-  datalist.add(_country);   datalist.add(_contactEmail); //datalist.add();
-
-
-   
+  datalist.add(_country);   datalist.add(_contactEmail); //datalist.add();   
     _navigationService.navigateTo(addpropertyloadingRoute, arguments: datalist);
   
-  }
-  
  }
+
+
+
+
 
  setPropertyRulesButtonStatus(bool value){
    isPropertyRulesSet = value;

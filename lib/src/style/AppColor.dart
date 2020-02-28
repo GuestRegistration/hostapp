@@ -15,6 +15,7 @@ class AppColor {
   static const Color colorassence = const Color(0xFFff1744);
   static const Color primaryLight = const Color(0xFFE7F8FF); // CB027A
   static const Color headerInputColor = const Color(0xFFA0A0A0);
+  static const Color inputTextCorderColor = const Color(0xFFC6DEE9);
 
   static const Color colordark = const Color(0xFFb71c1 ); // CB027A
   static const Color secondary  = const Color(0xFF26194B);

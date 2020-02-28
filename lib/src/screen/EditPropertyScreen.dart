@@ -322,7 +322,8 @@ TextEditingController propertyNameController =  TextEditingController();
                   );
                 },
               )
-            ],
+
+],
           ),
         )
             ],

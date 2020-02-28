@@ -32,6 +32,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
       viewModel: ListOfPropertyViewModel(),
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
+      !model.busy ?
        Scaffold(
     resizeToAvoidBottomPadding: true,
       body: Padding(
@@ -54,18 +55,18 @@ class _ListOfPropertyState extends State<ListOfProperty>{
               )
             ),
             Expanded(
-           child: !model.busy ?
+           child:
            ListView.builder(
           itemCount: model.properties.length,
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           itemBuilder: (BuildContext context , int index){
-            if(model.properties.length == 0 || model.properties == null){
-              print('Data ${model.properties}');
+            print('Data ${model.properties}');
+            if(model.properties.length == 0){
               return Center(child: Text('You do not have any registered property. '
                   'Click on the ‘’Add Property’’ button below to add one property for free.',
                 style:  TextStyle(
-                  color: Colors.grey,
+                  color: Colors.red,
                   fontStyle: FontStyle.normal,
                   fontSize: 16,
                 )
@@ -76,14 +77,23 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                 getProperties: model.properties[index],
                 );
              },)
-                      : Center(child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(AppColor.primary),
-                      ))
+                      
             ),
           ],),
       ),
          floatingActionButton: GestureDetector(
-           child: Container(
+           child: (model.properties.length >= 1 ?
+            FloatingActionButton(onPressed: () { 
+              model.proPage();
+             },
+            child: Text('Pro',
+                         style: TextStyle(
+                             color: AppColor.white,
+                             fontSize: 16.0,
+                             fontWeight: FontWeight.bold
+                         ),)) : 
+           
+           Container(
              width: 150,
              height: 50,
              child: Material(
@@ -113,11 +123,14 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                ),
 
              ),
-           ),
+           )),
            onTap: ()=> model.addproperty(),
          ),
-    ),
-      );
+    )
+       : Center(child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(AppColor.primary),
+                      )
+        ));
   
   
   }

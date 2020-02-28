@@ -43,7 +43,6 @@ class CollectTextWithout extends StatelessWidget {
             fontSize: AppFontSizes.medium,
             color: Color(0xFFA0A0A0)
           ),),
-
         ],
 
       ),
