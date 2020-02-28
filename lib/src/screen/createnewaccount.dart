@@ -274,7 +274,7 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             StreamBuilder(
-                stream: _bloc.authStatus,
+               // stream: _bloc.authStatus,
                 builder: (context, snapshot) {
                   switch (snapshot.data) {
                     case (AuthStatus.emailAuth):
@@ -347,7 +347,7 @@ class _CreatenewaccountScreenState extends State<CreatenewaccountScreen> {
 
   Widget _authForm(bool isEmail) {
     return StreamBuilder(
-        stream: isEmail ? _bloc.email : _bloc.phone,
+        //stream: isEmail ? _bloc.email : _bloc.phone,
         builder: (context, snapshot) {
           return StreamBuilder<FirebaseUser>(
               stream: FirebaseAuth.instance.onAuthStateChanged,
