@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class AppColor {
   static const Color primary = Color(0xff151232);
+    static const Color primary1 = const Color(0xFF45A1C9);
   static const Color primaryLight = Color(0xFF37378A);
   static const Color primaryDark = Color(0xFF0C0C24);
   static const Color secondary = Color(0xFFF79B25);
@@ -23,7 +24,7 @@ class AppColor {
   static const Color white10 = Color(0xFFf4f9f4);
   static Color black = Colors.black;
   static const Color surface  = const Color(0xFFD1D1D1);
-
+    static const Color borderColor = Color(0xFFC6DEE9);
   //gradients
 //  static const primaryGradient = const LinearGradient(
 //    colors: const [primary, colordark],
