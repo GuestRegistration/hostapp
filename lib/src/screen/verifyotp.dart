@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/login_page.dart';
 import 'package:hostapp/src/screen/signupcomplete.dart';
+import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 
 class Verifyotp extends StatefulWidget {
@@ -42,17 +43,20 @@ class _VerifyotpState extends State<Verifyotp> {
   bool isButtonEnabled = true;
   var phonenumbersplit;
   bool enablebutton = false;
+    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+ //$id: String!  id
     String insertData = r"""
         mutation users(     
-         $id: String!  
+          
          $phone: String!
          $email : String!
          $name: String!
          $lastname: String!){
-           createUser( id: $id,email: $email,
+           createUser( 
+             email: $email,
           phone: $phone , first_name:$name,last_name:$lastname
         ){ 
-          id
+         
           email
           phone  
           name{
@@ -132,9 +136,10 @@ class _VerifyotpState extends State<Verifyotp> {
             /*setState(() {
               phoneerror = true;
             });*/
-            Navigator.of(context).pop(setState(() {
+            /*Navigator.of(context).pop(setState(() {
               phoneerror = true;
-            }));
+            }
+            ));*/
             /*Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -255,6 +260,7 @@ class _VerifyotpState extends State<Verifyotp> {
     });
   }
 
+  
   void resendaddUser() async {
     print("inside add user");
     final uid = widget.authuid;
@@ -747,7 +753,7 @@ SizedBox(
       if (resendcode == true) {
         //resendaddUser();
                runMutation(<String, dynamic>{
-                                  "id":"${widget.authuid}",
+                                 // "id":"${widget.authuid}",
                                   "phone": "${phoneCode}" + "${phone.text}",
                                   "email": "${widget.email}",
                                   "name": "${widget.name}",
@@ -758,7 +764,7 @@ SizedBox(
       } else {
         //addUser();
          runMutation(<String, dynamic>{
-                                  "id":"${widget.authuid}",
+                                 // "id":"${widget.authuid}",
                                   "phone": "${widget.phoneNumber}",
                                   "email": "${widget.email}",
                                   "name": "${widget.name}",
