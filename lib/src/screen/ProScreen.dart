@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:google_places_flutter/google_places_flutter.dart';
+//import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:hostapp/src/style/AppColor.dart';
+import 'package:hostapp/src/style/AppImage.dart';
+import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/viewmodels/ProViewModel.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
+
+import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:flutter/material.dart';
+import 'dart:math';
+
 class ProScreen extends StatefulWidget {
   @override
   _ProScreenState createState() => _ProScreenState();
@@ -35,11 +45,87 @@ class _ProScreenState extends State<ProScreen> {
               fontWeight: FontWeight.bold
             )
           ),), 
-    
-          ],),
+
+           GestureDetector(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
+                  child: Container(
+                    height: 50,
+                    child: Material(
+                      child: Center(
+                        child: Text('Continue',
+                          style: TextStyle(
+                              color: AppColor.white,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.bold
+                          ),),
+                      ),
+                      color: Color(0xFF45A1C9),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(18.0),
+                          side: BorderSide(color: AppColor.borderColor)
+                      ),
+
+                    ),
+                  ),
+                ),
+                onTap: (){
+                 dar();
+                },
+              ),
+               GooglePlaceAutoCompleteTextField(
+        textEditingController: controller,
+        googleAPIKey: Constants().apiKey,
+        inputDecoration :InputDecoration(
+      border: new OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: new BorderSide(color: AppColor.secondaryDeep,
+                ),
+            ),
+      enabledBorder: new OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: new BorderSide(color: AppColor.inputTextCorderColor,
+                ),
+            ),
+              ),
+        debounceTime: 200, // default 600 ms,
+        itmClick: (prediction) {
+         controller.text=prediction.description;
+          controller.selection = TextSelection.fromPosition(TextPosition(offset: prediction.description.length));
+          
+          print('***************************************************');
+          print(prediction.structuredFormatting.secondaryText); //property Address Oluyole Local Government, 7up Road, Ibadan, Nigeria
+           print(prediction.structuredFormatting.mainText);//property Name  O'Bounce Technologies Ltd
+          print(prediction.description); //Full Address.  O'Bounce Technologies Ltd, Oluyole Local Government, 7up Road, Ibadan, Nigeria
+       
+        }
+    ),
+      ],),
       ),
     ),
       );
+  }
+
+  dar()async{
+    Prediction prediction = await PlacesAutocomplete.show(
+                          context: context,
+                          apiKey: Constants().apiKey,
+                          mode: Mode.fullscreen, // Mode.fullscreen
+                          sessionToken: controller.text,
+                           
+                          
+                          );
+         print('***************************************************');
+         print(controller.text);
+          // print(prediction.structuredFormatting.secondaryText);
+          //  print(prediction.structuredFormatting.mainText);
+           //print(prediction.description);
+          // print(prediction.id);
+          // print(prediction.matchedSubstrings[0].offset);
+          // print(prediction.placeId);
+          // print(prediction.reference);
+          //  print(prediction.types[0]);
+            print('***************************************************');
   }
 
   headerButton(){

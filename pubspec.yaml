@@ -63,6 +63,8 @@ dependencies:
   graphql_flutter: ^3.0.0
   # flutter_places_dialog: ^1.0.5
   google_places_flutter: ^1.0.5
+  intl: ^0.16.1
+  flutter_google_places: ^0.2.4
 
 dev_dependencies:
   flutter_test:

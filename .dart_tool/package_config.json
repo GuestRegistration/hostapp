@@ -278,6 +278,12 @@
       "languageVersion": "2.2"
     },
     {
+      "name": "flutter_google_places",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_google_places-0.2.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flutter_icons",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_icons-1.0.0+1",
       "packageUri": "lib/",
@@ -348,6 +354,12 @@
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-0.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.3"
+    },
+    {
+      "name": "google_maps_webservice",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_webservice-0.0.16",
+      "packageUri": "lib/",
+      "languageVersion": "1.20"
     },
     {
       "name": "google_places_flutter",
@@ -444,6 +456,12 @@
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/international_phone_input-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.16.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.5"
     },
     {
       "name": "intro_slider",
@@ -806,7 +824,7 @@
       "languageVersion": "2.3"
     }
   ],
-  "generated": "2020-02-28T20:25:48.478087Z",
+  "generated": "2020-02-29T09:55:08.175746Z",
   "generator": "pub",
   "generatorVersion": "2.8.0-dev.10.0.flutter-73f6d15665"
 }

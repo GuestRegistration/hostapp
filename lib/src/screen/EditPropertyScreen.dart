@@ -13,7 +13,29 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
+import 'package:hostapp/src/style/AppColor.dart';
+import 'package:hostapp/src/style/AppImage.dart';
+import 'package:hostapp/src/util/constants.dart';
+import 'package:hostapp/src/widget/ui_helpers.dart';
+import 'package:hostapp/src/style/AppFontSizes.dart';
+import 'package:hostapp/src/viewmodels/ProViewModel.dart';
+import 'package:provider_architecture/provider_architecture.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
 
+import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:hostapp/src/widget/ui_helpers.dart';
+
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:international_phone_input/international_phone_input.dart';
+import 'package:provider_architecture/provider_architecture.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:hostapp/src/locator.dart';
+import 'package:hostapp/src/util/customFunctions.dart';
 //class EditPropertyView extends StatelessWidget {
 //  @override
 //  Widget build(BuildContext context) {
@@ -35,9 +57,9 @@ import 'package:hostapp/src/util/customFunctions.dart';
 //}
 
 class EditPropertyScreen extends StatefulWidget {
-  final String pName, pAddress, pNumber,pEmail, country, prules, pFile, propertyID;
+  final String pName, pAddress, pNumber,pEmail, country, prules, pFile, propertyID, phoneIcode;
 
-  const EditPropertyScreen({this.pName, this.pAddress, this.pNumber, this.country, this.pEmail, this.prules, this.pFile, this.propertyID});
+  const EditPropertyScreen({this.pName, this.pAddress, this.pNumber, this.country, this.pEmail, this.prules, this.pFile, this.propertyID, this.phoneIcode});
 
   @override
   _EditPropertyScreenState createState() => _EditPropertyScreenState();
@@ -59,6 +81,7 @@ TextEditingController propertyNameController =  TextEditingController();
     TextEditingController rulesController = new TextEditingController();
     TextEditingController docuemntController = new TextEditingController(text: '');
     bool changesIsMade =false;
+     String defaultphoneIsoCode = '+1';
 //     String phoNumber;
 // String phoneIsoCode = 'NG', confirmedNumber;
 
@@ -73,6 +96,7 @@ TextEditingController propertyNameController =  TextEditingController();
      rulesController.text  = widget.prules;
      docuemntController.text  = widget.pFile;
      defaultCountry = widget.country;
+     defaultphoneIsoCode = widget.phoneIcode;
 
     listenertoChange(propertyNameController);
     listenertoChange(addressController);
@@ -93,6 +117,7 @@ TextEditingController propertyNameController =  TextEditingController();
       }
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -126,11 +151,40 @@ TextEditingController propertyNameController =  TextEditingController();
             children: <Widget>[
 
               CollectTextWithout(title: 'Property Name',),
-                  InputField(
-                    placeholder: 'PropertyName',
-                    decoration: null,
-                    controller: propertyNameController,
+                   GestureDetector(
+                      child:  TextFormField(
+                        controller: propertyNameController,
+                  
+                    keyboardType: TextInputType.number,
+                    decoration:  InputDecoration(
+                      enabledBorder: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor,
+                      ),
                   ),
+                    border: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor
+                      ),
+                  ),
+                    hintStyle: AppTextStyle.inputHint(context),
+                  ),
+                   onTap: ()async{
+                       Prediction prediction = await PlacesAutocomplete.show(
+                          context: context,
+                          apiKey: Constants().apiKey,
+                          mode: Mode.overlay, // Mode.fullscreen
+                          
+                          );
+         propertyNameController.text=prediction.structuredFormatting.mainText;
+          setState(() {
+            addressController.text = prediction.structuredFormatting.secondaryText;
+          });
+                    },
+                  ),  
+                   
+                  ),
+                
                   verticalSpaceSmall,
 
               CollectTextWithout(title: 'Property Address',),
@@ -154,20 +208,25 @@ TextEditingController propertyNameController =  TextEditingController();
                           bottomRight: const Radius.circular(8.0),
                           ),
                           ),
-                         child: CountryListPick(
-                          isShowFlag: true,
-                          isShowTitle: true,
-                          isDownIcon: true,
-                          initialSelection: '+1',
-                          onChanged: (code) {
-                             model.setCountry(selectedcountry:code.name.toString());
-                          //  print(code.name); //country
-                            // print(code.code); //AD
-                            // print(code.dialCode); //+376
-                            // print(code.flagUri);
-                          },
-                        ),
-                        ),
+                         child:  Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: <Widget>[
+                           CountryCodePicker(
+                  onChanged: (value){
+                  model.setCountry(selectedcountry:value.name.toString());
+                   setPhoneIcode(value.dialCode);//include icode when selecting country
+                  
+                      
+                  },
+                  initialSelection: defaultphoneIsoCode, //just same mean as default country
+                  favorite: ['+39','FR'],
+                  showCountryOnly: false,
+                  alignLeft: false,
+                ),
+                SizedBox(width: 10,),
+                Icon(Icons.arrow_drop_down, size: 25,)
+                         ],)
+                ,),
                       ),
                   ],),
 
@@ -217,10 +276,14 @@ TextEditingController propertyNameController =  TextEditingController();
                           ),
                          child: CountryCodePicker(
                   onChanged: (value){
-                      
+                       model.setCountry(selectedcountry:value.name.toString()); //switch country Name
+                       setPhoneIcode(value.dialCode);//include icode when selecting country
                   },
-                  initialSelection: '+1',
+                  initialSelection: defaultphoneIsoCode,
                   favorite: ['+39','FR'],
+                  onInit: (value) {
+                    print('Initial Value ${value.code}');
+                  },
                   showCountryOnly: false,
                   alignLeft: false,
                 ),
@@ -414,6 +477,7 @@ side: BorderSide(color: AppColor.primaryLight)
                             country: model.getCountry,
                             propertyName: propertyNameController.text.trim(),
                             pID: widget.propertyID,
+                            phoneIcode: defaultphoneIsoCode
                         );
                       }else{
 
@@ -626,7 +690,12 @@ side: BorderSide(color: AppColor.primaryLight)
     );
   }
 
-
+ setPhoneIcode(String code){
+setState(() {
+  defaultphoneIsoCode= code;
+   changesIsMade= true;
+});
+  }
 
  
 

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/viewmodels/addReservation.dart';
 import 'package:hostapp/src/widget/CollectText.dart';
 import 'package:hostapp/src/widget/input_field.dart';
+import 'package:hostapp/src/widget/ButtomPicker.dart';
+import 'package:hostapp/src/widget/Menu.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
+import 'package:intl/intl.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
@@ -21,6 +25,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
     TextEditingController bookingChannelController = new TextEditingController();
      TextEditingController checkinController = new TextEditingController();
      TextEditingController checkoutController = new TextEditingController();
+     DateTime date = DateTime.now();
 
      @override
   void initState() {
@@ -101,24 +106,29 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                         children: <Widget>[
                             verticalSpaceSmall,
                          CollectTextWithout(title: 'Check out',),
-                         Container(
-                           height: 70,
-                           width: 150,
+                         GestureDetector(
+                         child: Container(
+                             height: 70,
+                             width: 150,
                         child: TextFormField(
-                          controller: null,
-                          decoration :InputDecoration(
+                            controller: null,
+                            decoration :InputDecoration(
                         border: new OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: new BorderSide(color: AppColor.secondaryDeep,
-                                  ),
-                              ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: new BorderSide(color: AppColor.secondaryDeep,
+                                    ),
+                                ),
                         enabledBorder: new OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: new BorderSide(color: AppColor.inputTextCorderColor,
-                                  ),
-                              ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: new BorderSide(color: AppColor.inputTextCorderColor,
+                                    ),
+                                ),
                         )
-                       ),), ],
+                       ),),
+                         onTap: (){
+                           _buildDatePicker(context);
+                         },
+                         ), ],
                       ),
                         ],
                       ),
@@ -219,4 +229,34 @@ side: BorderSide(color: AppColor.primaryLight)
       
     });
 }
+
+Widget _buildDatePicker(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        showCupertinoModalPopup<void>(
+          context: context,
+          builder: (context) {
+            return BottomPicker(
+              child: CupertinoDatePicker(
+                backgroundColor:
+                    CupertinoColors.systemBackground.resolveFrom(context),
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: date,
+                onDateTimeChanged: (newDateTime) {
+                  setState(() => date = newDateTime);
+                },
+              ),
+            );
+          },
+        );
+      },
+      child: Menu(children: [
+       // Text(GalleryLocalizations.of(context).demoCupertinoPickerDate),
+        Text(
+          DateFormat.yMMMMd().format(date),
+          style: TextStyle(color: CupertinoColors.inactiveGray),
+        ),
+      ]),
+    );
+  }
 }

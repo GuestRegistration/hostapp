@@ -1,157 +1,237 @@
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:hostapp/src/screen/Mobile/AddPropertyMobile.dart';
-import 'package:hostapp/src/style/AppColor.dart';
-import 'package:hostapp/src/style/AppFontSizes.dart';
-import 'package:hostapp/src/style/AppImage.dart';
-import 'package:hostapp/src/style/AppTextStyle.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:hostapp/src/viewmodels/AddProperty_view_mode.dart';
-import 'package:hostapp/src/widget/busy_button.dart';
-import 'package:hostapp/src/widget/input_field.dart';
-import 'package:hostapp/src/widget/CollectText.dart';
-import 'package:hostapp/src/widget/propertButton.dart';
-import 'package:hostapp/src/widget/ui_helpers.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider_architecture/provider_architecture.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+// // Copyright 2019 The Flutter team. All rights reserved.
+// // Use of this source code is governed by a BSD-style license that can be
+// // found in the LICENSE file.
 
-class Tester extends StatefulWidget {
-  @override
-  _TesterState createState() => _TesterState();
-}
+// import 'package:flutter/cupertino.dart';
+// import 'package:gallery/l10n/gallery_localizations.dart';
+// import 'package:intl/intl.dart';
 
-class _TesterState extends State<Tester> {
-    TextEditingController propertyNameController = TextEditingController();
-   TextEditingController addressController = TextEditingController();
-   TextEditingController emailcontroller = TextEditingController();
-    TextEditingController phoneNumber = TextEditingController();
-    TextEditingController rulesController = TextEditingController();
-  
+// class CupertinoPickerDemo extends StatefulWidget {
+//   @override
+//   _CupertinoPickerDemoState createState() => _CupertinoPickerDemoState();
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-              child: Column(
-          children: <Widget>[
-              horizontalSpaceLarge,
-                    horizontalSpaceLarge,
-                    horizontalSpaceLarge,
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                
-                 Padding(
-                   padding: const EdgeInsets.all(8.0),
-                   child: Text('Add Property', style: GoogleFonts.abhayaLibre(
-          textStyle: TextStyle(
-            color: AppColor.black,
-            fontSize: AppFontSizes.largest,
-          )
-        ),),
-                 ), ],),
-            ),
-            SingleChildScrollView(
-          child: screen1(), //swtichScreen(model, context)
-        ),
-          ],
-        ),
-      )
-   
-    );
-  
-}
+// class _CupertinoPickerDemoState extends State<CupertinoPickerDemo> {
+//   Duration timer = const Duration();
 
-//Index 1
-  screen1(){
-      return  Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-          child: Column(
-            children: <Widget>[
-                 verticalSpaceMedium,
-               CollectText(ttile: 'Property Name',),
-                  InputField(
-                    placeholder: 'h',
-                    isReadOnly: false,
-                    decoration: null,
-                    controller: propertyNameController,
-                  ),
-                  verticalSpaceSmall,
-                   CollectText(ttile: 'Property Address',),
-                  InputField(
-                    placeholder: '',
-                    controller: addressController,
-                  ),
-                  TextField(
-                        obscureText: true,
-                        controller: null,
-                        keyboardType: TextInputType.visiblePassword,
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Color.fromRGBO(195, 33, 72,1.0),
-                        ),
-                        decoration: InputDecoration(
-                            icon: Icon(Icons.lock,
-                              color: Colors.red,),
-                          hintText: 'ادخل كلمة السر', //Enter the password
-                          border: new OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.0)
-                        ),
-                      ),
-                      ),
+//   // Value that is shown in the date picker in date mode.
+//   DateTime date = DateTime.now();
 
-                    verticalSpaceSmall,
-                     CollectText(ttile: 'Contact Email',),
-                  InputField(
-                    placeholder: '',
-                    controller: emailcontroller,
-                    textInputType: TextInputType.emailAddress,
-                  ),
+//   // Value that is shown in the date picker in time mode.
+//   DateTime time = DateTime.now();
 
-                   verticalSpaceSmall,
-                    CollectText(ttile: 'PhoneNumber',),
-                  InputField(
-                    placeholder: '',
-                    controller: phoneNumber,
-                    textInputType: TextInputType.number,
-                    decoration:  InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: "xxxxxx",
-                                          hintStyle: AppTextStyle.inputHint(context),
-                                          icon: CountryCodePicker(
-                                         onChanged: (value){
-                                           
-                                         },
-                                        initialSelection: '+1',
-                                        favorite: ['+39','FR'],
-                                        showCountryOnly: false,
-                                        alignLeft: false,
-                                      ),
-                                        ),
-                    
-                    
-                  ),
- verticalSpaceSmall,
- verticalSpaceSmall,
-                  MaterialButton(
-                  child: Text('Continue',
-                  style: TextStyle(
-                    color: AppColor.white,
-                    fontSize: 17.0,
-                    fontWeight: FontWeight.bold
-                  ),),
-                  color: AppColor.black,
-                 
-                )
+//   // Value that is shown in the date picker in dateAndTime mode.
+//   DateTime dateTime = DateTime.now();
 
-            ],
-          ),
-        );
-     
-  }
+//   Widget _buildDatePicker(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         showCupertinoModalPopup<void>(
+//           context: context,
+//           builder: (context) {
+//             return _BottomPicker(
+//               child: CupertinoDatePicker(
+//                 backgroundColor:
+//                     CupertinoColors.systemBackground.resolveFrom(context),
+//                 mode: CupertinoDatePickerMode.date,
+//                 initialDateTime: date,
+//                 onDateTimeChanged: (newDateTime) {
+//                   setState(() => date = newDateTime);
+//                 },
+//               ),
+//             );
+//           },
+//         );
+//       },
+//       child: _Menu(children: [
+//         Text(GalleryLocalizations.of(context).demoCupertinoPickerDate),
+//         Text(
+//           DateFormat.yMMMMd().format(date),
+//           style: TextStyle(color: CupertinoColors.inactiveGray),
+//         ),
+//       ]),
+//     );
+//   }
 
+//   Widget _buildTimePicker(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         showCupertinoModalPopup<void>(
+//           context: context,
+//           builder: (context) {
+//             return _BottomPicker(
+//               child: CupertinoDatePicker(
+//                 backgroundColor:
+//                     CupertinoColors.systemBackground.resolveFrom(context),
+//                 mode: CupertinoDatePickerMode.time,
+//                 initialDateTime: time,
+//                 onDateTimeChanged: (newDateTime) {
+//                   setState(() => time = newDateTime);
+//                 },
+//               ),
+//             );
+//           },
+//         );
+//       },
+//       child: _Menu(
+//         children: [
+//           Text(GalleryLocalizations.of(context).demoCupertinoPickerTime),
+//           Text(
+//             DateFormat.jm().format(time),
+//             style: TextStyle(color: CupertinoColors.inactiveGray),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 
-}
+//   Widget _buildDateAndTimePicker(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         showCupertinoModalPopup<void>(
+//           context: context,
+//           builder: (context) {
+//             return _BottomPicker(
+//               child: CupertinoDatePicker(
+//                 backgroundColor:
+//                     CupertinoColors.systemBackground.resolveFrom(context),
+//                 mode: CupertinoDatePickerMode.dateAndTime,
+//                 initialDateTime: dateTime,
+//                 onDateTimeChanged: (newDateTime) {
+//                   setState(() => dateTime = newDateTime);
+//                 },
+//               ),
+//             );
+//           },
+//         );
+//       },
+//       child: _Menu(
+//         children: [
+//           Text(GalleryLocalizations.of(context).demoCupertinoPickerDateTime),
+//           Text(
+//             DateFormat.yMMMd().add_jm().format(dateTime),
+//             style: TextStyle(color: CupertinoColors.inactiveGray),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget _buildCountdownTimerPicker(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         showCupertinoModalPopup<void>(
+//           context: context,
+//           builder: (context) {
+//             return _BottomPicker(
+//               child: CupertinoTimerPicker(
+//                 backgroundColor:
+//                     CupertinoColors.systemBackground.resolveFrom(context),
+//                 initialTimerDuration: timer,
+//                 onTimerDurationChanged: (newTimer) {
+//                   setState(() => timer = newTimer);
+//                 },
+//               ),
+//             );
+//           },
+//         );
+//       },
+//       child: _Menu(
+//         children: [
+//           Text(GalleryLocalizations.of(context).demoCupertinoPickerTimer),
+//           Text(
+//             '${timer.inHours}:'
+//             '${(timer.inMinutes % 60).toString().padLeft(2, '0')}:'
+//             '${(timer.inSeconds % 60).toString().padLeft(2, '0')}',
+//             style: TextStyle(color: CupertinoColors.inactiveGray),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return CupertinoPageScaffold(
+//       navigationBar: CupertinoNavigationBar(
+//         automaticallyImplyLeading: false,
+//         middle: Text(GalleryLocalizations.of(context).demoCupertinoPickerTitle),
+//       ),
+//       child: DefaultTextStyle(
+//         style: CupertinoTheme.of(context).textTheme.textStyle,
+//         child: ListView(
+//           children: [
+//             const SizedBox(height: 32),
+//             _buildDatePicker(context),
+//             _buildTimePicker(context),
+//             _buildDateAndTimePicker(context),
+//             _buildCountdownTimerPicker(context),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class _BottomPicker extends StatelessWidget {
+//   const _BottomPicker({
+//     Key key,
+//     @required this.child,
+//   })  : assert(child != null),
+//         super(key: key);
+
+//   final Widget child;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 216,
+//       padding: const EdgeInsets.only(top: 6),
+//       color: CupertinoColors.systemBackground.resolveFrom(context),
+//       child: DefaultTextStyle(
+//         style: TextStyle(
+//           color: CupertinoColors.label.resolveFrom(context),
+//           fontSize: 22,
+//         ),
+//         child: GestureDetector(
+//           // Blocks taps from propagating to the modal sheet and popping.
+//           onTap: () {},
+//           child: SafeArea(
+//             top: false,
+//             child: child,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class _Menu extends StatelessWidget {
+//   const _Menu({
+//     Key key,
+//     @required this.children,
+//   })  : assert(children != null),
+//         super(key: key);
+
+//   final List<Widget> children;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         border: const Border(
+//           top: BorderSide(color: CupertinoColors.inactiveGray, width: 0),
+//           bottom: BorderSide(color: CupertinoColors.inactiveGray, width: 0),
+//         ),
+//       ),
+//       height: 44,
+//       child: Padding(
+//         padding: const EdgeInsets.symmetric(horizontal: 16),
+//         child: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: children,
+//         ),
+//       ),
+//     );
+//   }
+// }

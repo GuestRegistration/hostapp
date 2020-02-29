@@ -6,12 +6,13 @@ const  String addPropertyQuery = r"""
           $street: String!
           $city: String!
           $state: String!
+          $phoneCountry_code: String!
           $country: String!
           $postal_code: Int!
         ){
         createProperty(user_id: $userID,name: $name,
-        phone: $phone, email: $email, street: $street, 
-          city: $city, state: $state,
+        phone_number: $phone, email: $email, street: $street, 
+          city: $city, state: $state, phone_country_code: $phoneCountry_code
           country: $country, postal_code: $postal_code){
           id
           name
@@ -32,13 +33,14 @@ const  String addPropertyQuery = r"""
                 $email: String!
                 $street: String!
                 $city: String!
+                $phoneCountry_code: String!
                 $state: String!
                 $country: String!
                 $postal_code: Int!
             ){
               updateProperty(id: $id, user_id: $user_id, name: $name,
-              phone: $phone, email: $email, street: $street, 
-                city: $city, state: $state,
+              phone_number: $phone, email: $email, street: $street, 
+                city: $city, state: $state, phone_country_code: $phoneCountry_code
                 country: $country, postal_code: $postal_code){
                 user_id
                 name
@@ -51,11 +53,16 @@ const String getProperties = r"""
   getProperties{
     id
     name
-    phone
+    phone{
+      country_code
+      phone_number
+      complete_phone
+    }
     address{
       street
       country
     }
+    
     email
     terms    
   }

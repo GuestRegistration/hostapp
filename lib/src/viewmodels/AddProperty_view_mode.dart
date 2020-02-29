@@ -32,7 +32,7 @@ File get selectedImage => _image; //Property Image
 File get selectedDocument => _file; //Property rules document.
 bool isPropertyRulesSet = false; //enable listerner for button in property rules
 CloudStorageResult storageResult;
-String _propertyName, _address, _contactEmail, _phoneN;
+String _propertyName, _address, _contactEmail, _phoneN, _phoneIcode;
 String _errorMessage;
 String get errorM => _errorMessage;
 String _country;
@@ -135,10 +135,11 @@ showMessage(error: 'Email required');
          
          //Saving to viewmodel variable in order to store and send to d server.
       _propertyName = propertyName;
-      _phoneN = isoCod+phoneN; 
+      _phoneN = phoneN; 
       _address = address;
       _country = country;
      _contactEmail = contactEmail;
+     _phoneIcode = isoCod;
     
 nextPage();
   }
@@ -168,11 +169,19 @@ showMessage(error: 'Property rules required');
   } 
    //Check Phone Number
  else if(document.isEmpty){
+ 
     showMessage(error: 'Property Document link required');
+
   }else if(rules.isNotEmpty && document.isNotEmpty){
+      bool _validURL = Uri.parse(document).isAbsolute;
+      if(_validURL){
+          sendrulesData();
+      }else{
+         showMessage(error: 'Invalid Document link');
+      }
      //    print(rules);
   //  print(_file.path);
-  sendrulesData();
+ 
  
   }
      }else{
@@ -186,7 +195,7 @@ if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am no
  sendrulesData(){
  List<String> datalist = new List<String>();
   datalist.add(_propertyName);  datalist.add(_address);   datalist.add(_phoneN);
-  datalist.add(_country);   datalist.add(_contactEmail); //datalist.add();   
+  datalist.add(_country);   datalist.add(_contactEmail); datalist.add(_phoneIcode);   
     _navigationService.navigateTo(addpropertyloadingRoute, arguments: datalist);
   
  }
@@ -220,7 +229,7 @@ if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am no
 
 //TODO********************** UPDATE/ EDIT/ ADD PROPERTY *************************
   updateDetails({@required String propertyName, @required String address, @required String contactEmail,
-    @required String phoneN, @required String country, pID
+    @required String phoneN, @required String country, pID, @required String phoneIcode,
   }){
 
     //Check Address
@@ -263,7 +272,7 @@ if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am no
         // print(contactEmail);
 
          updateAPI(address: address, contactEmail: contactEmail, country: country, phoneN: phoneN,
-         propertyName: propertyName, id: pID);
+         propertyName: propertyName, id: pID, phoneIcode: phoneIcode);
         
 
       
@@ -281,7 +290,7 @@ if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am no
 
 
   updateAPI({@required String propertyName, @required String address, @required String contactEmail,
-    @required String phoneN, @required String country, id})async{
+    @required String phoneN, @required String country, id, String phoneIcode})async{
         setBusy(true);
      GraphQLClient _client = _graphQlConfiq.clientToQuery();
     QueryResult result = await _client.mutate(
@@ -297,16 +306,17 @@ if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am no
           },
           //Later (Rules and document)
           variables: <String, dynamic>{
-            "id": id,
-            "user_id": Constants().dummyUseriD,
-            "name": propertyName,
-            "phone": phoneN,
-            "email": contactEmail,
-            "street": address,
-            "state": "Not include",
-            "postal_code": 0,
-            "city": "Not include",
-            "country": country
+            "user_id": Constants().apiKey,
+             "id": id,
+              "phone": phoneN,
+              "email": contactEmail,
+              "street": address,
+              "state": "Not Include",
+              "postal_code": 0,
+              "name": propertyName,
+              'phoneCountry_code': phoneIcode,
+              "city": "Not include",
+              "country": country,
           }
       )
     );

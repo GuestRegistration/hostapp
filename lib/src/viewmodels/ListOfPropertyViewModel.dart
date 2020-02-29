@@ -36,7 +36,11 @@ QueryResult result = await _client.query(
                   email: result.data["getProperties"][index]["email"],
                   id: result.data["getProperties"][index]["id"],
                   name: result.data["getProperties"][index]["name"],
-                  phone: result.data["getProperties"][index]["phone"],
+
+                  propertyPhone: PropertyPhone(
+                    completePhone: result.data["getProperties"][index]["phone"]['complete_phone'], 
+                  countryCode: result.data["getProperties"][index]["phone"]['country_code'], 
+                  phoneNumber: result.data["getProperties"][index]["phone"]['phone_number']),
                   address:
                   Address(street: result.data["getProperties"][index]["address"]['street'],
                   country: result.data["getProperties"][index]["address"]['country']),

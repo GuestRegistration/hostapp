@@ -76,18 +76,18 @@ class _FetchDataDemoState extends State<FetchDataDemo> {
             itemBuilder: (BuildContext context, int index){
 
               print(result.data['getProperties']);
-              propertlist.add(
- GetProperties(
-            email: result.data["getProperties"][index]["email"],
-            id: result.data["getProperties"][index]["id"],
-            name: result.data["getProperties"][index]["name"],
-            phone: result.data["getProperties"][index]["phone"],
-            address:
-             Address(street: result.data["getProperties"][index]["address"]['street'],
-             country: result.data["getProperties"][index]["address"]['country']),
-            terms: result.data["getProperties"][index]["terms"],
-              )
-              );
+//               propertlist.add(
+// //  GetProperties(
+// //             email: result.data["getProperties"][index]["email"],
+// //             id: result.data["getProperties"][index]["id"],
+// //             name: result.data["getProperties"][index]["name"],
+// //             phone: result.data["getProperties"][index]["phone"],
+// //             address:
+// //              Address(street: result.data["getProperties"][index]["address"]['street'],
+// //              country: result.data["getProperties"][index]["address"]['country']),
+// //             terms: result.data["getProperties"][index]["terms"],
+// //               )
+//               );
               
 
              return ListTile(

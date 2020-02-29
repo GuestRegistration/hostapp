@@ -62,7 +62,8 @@ class PropertyWidget extends StatelessWidget{
                              ),
                            ),
                     onTap: (){
-                      print(getProperties.id);
+                      print(getProperties.propertyPhone.countryCode);
+                     
                       Navigator.push( context,
                    MaterialPageRoute(builder: (context) => EditPropertyScreen(
                      country: getProperties.address.country,
@@ -70,9 +71,10 @@ class PropertyWidget extends StatelessWidget{
                      pEmail: getProperties.email,
                      pFile: 'Am still not implement',
                      pName: getProperties.name,
-                     pNumber: getProperties.phone,
+                     pNumber: getProperties.propertyPhone.phoneNumber,
                      prules: getProperties.terms,
                      propertyID: getProperties.id,
+                     phoneIcode: getProperties.propertyPhone.countryCode,
                    )));
                     },
                   );

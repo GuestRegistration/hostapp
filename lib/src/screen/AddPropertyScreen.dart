@@ -15,7 +15,25 @@ import 'package:hostapp/src/widget/input_field.dart';
 import 'package:hostapp/src/widget/CollectText.dart';
 import 'package:hostapp/src/widget/propertButton.dart';
 import 'package:hostapp/src/util/constants.dart';
+import 'package:flutter/material.dart';
+//import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:hostapp/src/style/AppColor.dart';
+import 'package:hostapp/src/style/AppImage.dart';
+import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
+import 'package:hostapp/src/style/AppFontSizes.dart';
+import 'package:hostapp/src/viewmodels/ProViewModel.dart';
+import 'package:provider_architecture/provider_architecture.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
+
+import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:hostapp/src/widget/ui_helpers.dart';
+
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:international_phone_input/international_phone_input.dart';
 import 'package:provider_architecture/provider_architecture.dart';
@@ -103,6 +121,7 @@ class _AddProprtyUIState extends State<AddProprtyUI> {
               horizontalSpaceLarge,
             horizontalSpaceLarge,
            swtichScreen(widget.model, context)
+          
           ],
         ),
               ],)
@@ -127,9 +146,9 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             children: <Widget>[
-             
+             headerButton(),
                Padding(
-              padding: const EdgeInsets.only(top: 50.0),
+              padding: const EdgeInsets.only(top: 1.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -152,73 +171,86 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
           ],),
                  verticalSpaceSmall,
                CollectText(ttile: 'Property Name',),
-                  InputField(
-                    placeholder: 'PropertyName',
-                    decoration: null,
-                    controller: propertyNameController,
+               GestureDetector(
+                      child:  TextFormField(
+                        controller: propertyNameController,
+                  
+                    keyboardType: TextInputType.number,
+                    decoration:  InputDecoration(
+                      enabledBorder: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor,
+                      ),
+                  ),
+                    border: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor
+                      ),
+                  ),
+                    hintStyle: AppTextStyle.inputHint(context),
+                  ),
+                   onTap: ()async{
+                       Prediction prediction = await PlacesAutocomplete.show(
+                          context: context,
+                          apiKey: Constants().apiKey,
+                          mode: Mode.overlay, // Mode.fullscreen
+                          
+                          );
+         propertyNameController.text=prediction.structuredFormatting.mainText;
+          //addressController.selection = TextSelection.fromPosition(TextPosition(offset: prediction.structuredFormatting.mainText.length));
+          setState(() {
+            addressController.text = prediction.structuredFormatting.secondaryText;
+          });
+                    },
+                  ),  
+                   
                   ),
                 
                   verticalSpaceSmall,
                    CollectText(ttile: 'Property Address',),
-                  GooglePlaceAutoCompleteTextField(
-        textEditingController: addressController,
-        googleAPIKey: Constants().apiKey,
-        inputDecoration :InputDecoration(
-      border: new OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: new BorderSide(color: AppColor.secondaryDeep,
-                ),
-            ),
-      enabledBorder: new OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: new BorderSide(color: AppColor.inputTextCorderColor,
-                ),
-            ),
-              ),
-        debounceTime: 200, // default 600 ms,
-        itmClick: (prediction) {
-         addressController.text=prediction.description;
-          addressController.selection = TextSelection.fromPosition(TextPosition(offset: prediction.description.length));
-        }
-    ),
+                    InputField(
+                    placeholder: 'PropertyAddress',
+                    decoration: null,
+                    controller: addressController,
+                  ), 
                    verticalSpaceSmall,
-                    CollectText(ttile: 'Country',),
-                  Row(children: <Widget>[
-Expanded(
-     child: Container(
-                          decoration: new BoxDecoration(
-                        color: AppColor.fieldDecoration,
-                     borderRadius: new BorderRadius.only(
-                          topLeft: const Radius.circular(8.0),
-                          topRight: const Radius.circular(8.0),
-                          bottomLeft: const Radius.circular(8.0),
-                          bottomRight: const Radius.circular(8.0),
-                          ),
-                          ),
-                         child:  Row(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                           children: <Widget>[
-                             CountryCodePicker(
-                             showFlag: true,
-                             showOnlyCountryWhenClosed: true,
-                              onChanged: (value){
-                                 model.setCountry(selectedcountry:value.name.toString());
-                              setcountry(value.dialCode);
-                              print(value.name);
+                    //CollectText(ttile: 'Country',),
+//                   Row(children: <Widget>[
+// Expanded(
+//      child: Container(
+//                           decoration: new BoxDecoration(
+//                         color: AppColor.fieldDecoration,
+//                      borderRadius: new BorderRadius.only(
+//                           topLeft: const Radius.circular(8.0),
+//                           topRight: const Radius.circular(8.0),
+//                           bottomLeft: const Radius.circular(8.0),
+//                           bottomRight: const Radius.circular(8.0),
+//                           ),
+//                           ),
+//                          child:  Row(
+//                            mainAxisAlignment: MainAxisAlignment.center,
+//                            children: <Widget>[
+//                              CountryCodePicker(
+//                              showFlag: true,
+//                              showOnlyCountryWhenClosed: true,
+//                               onChanged: (value){
+//                                  model.setCountry(selectedcountry:value.name.toString());
+//                               setcountry(value.dialCode);
+//                               print(value.name);
                       
-                  },
-                  initialSelection: phoneIsoCode,
-                  favorite: ['+39','FR'],
-                  showCountryOnly: false,
-                  alignLeft: false,
-                ),
-                SizedBox(width: 10,),
-                Icon(Icons.arrow_drop_down, size: 25,)
-                           ],
-                         ),
-                        ),
-                      ),
-                  ],),
+//                   },
+//                   initialSelection: phoneIsoCode,
+//                   favorite: ['+39','FR'],
+//                   showCountryOnly: false,
+//                   alignLeft: false,
+//                 ),
+//                 SizedBox(width: 10,),
+//                 Icon(Icons.arrow_drop_down, size: 25,)
+//                            ],
+//                          ),
+//                         ),
+//                       ),
+//                   ],),
                     verticalSpaceSmall,
                      CollectText(ttile: 'Contact Email',),
                   InputField(
@@ -226,8 +258,6 @@ Expanded(
                     controller: emailcontroller,
                     textInputType: TextInputType.emailAddress,
                     onChanged: (value){
-                      
-                     
                     },
                   ),
 
@@ -267,10 +297,8 @@ Expanded(
                           ),
                          child: CountryCodePicker(
                   onChanged: (value){
-                  //  setState(() {
-                  //    = phoneIsoCode;
-                  //  });
-                   setcountry(value.dialCode);
+                  model.setCountry(selectedcountry:value.name.toString());
+                   setcountry(value.dialCode);//include icode when selecting country
                       
                   },
                   initialSelection: phoneIsoCode,
@@ -327,7 +355,6 @@ Expanded(
                     //  // }
                 },
               )
-
 
             ],
           ),
@@ -429,7 +456,7 @@ Padding(
                           borderSide: new BorderSide(color: AppColor.borderColor,
                           ),
                         ),
-                      labelText:   (model.selectedDocument == null ? 'Attached document here' : 'Document attached'),
+                      labelText:   (model.selectedDocument == null ? 'Attached document link' : 'Document link'),
                       suffixIcon: Icon(Icons.attachment)
                     ),
                     onChanged: (value) {
@@ -536,6 +563,47 @@ Padding(
         );
      
   }
+  headerButton(){
+return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+         // crossAxisAlignment: Cros,
+          children: <Widget>[
+            GestureDetector(child: Padding(
+        padding: const EdgeInsets.only(left: 6.0, top: 30, bottom: 0),
+        child: Container(
+          child: Material(
+          child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: Icon(Icons.arrow_back_ios,   color: AppColor.primary,),
+                ),
+                Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Back',
+                style: TextStyle(
+                  color: AppColor.primary,
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.bold
+                ),),
+              )
+                )],
+          ),
+          color: AppColor.primaryLight,
+          shape: RoundedRectangleBorder(
+borderRadius: new BorderRadius.circular(18.0),
+side: BorderSide(color: AppColor.primaryLight)
+),
+    ),
+        ),
+      ),
+            onTap: (){
+               Navigator.pop(context);
+            },
+            ),   ],
+                    );
+}
 
   textInputField({
       final TextEditingController controller,

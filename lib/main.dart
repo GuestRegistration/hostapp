@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: Dashboard(), //AddPropertyView(),
+      home: Dashboard(),//AddReservationScreen(), //Dashboard(), //
       onGenerateRoute: generateRoute,
     ),
       client: _graphQlConfiq.client,
