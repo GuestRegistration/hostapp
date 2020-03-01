@@ -1,9 +1,10 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_icons/flutter_icons.dart'; 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostapp/src/screen/ListOfProperty.dart';
+import 'package:hostapp/src/screen/MainReservationScreen.dart';
 import 'package:hostapp/src/screen/FetchProperties.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 
@@ -93,7 +94,7 @@ class _DashboardState extends State<Dashboard>{
   switchBody(){
 
     if(_selectedIndex == 0){
-       return Text('');
+       return MainReservationScreen();
 
     }else if(_selectedIndex == 1){
      return ListOfProperty();

@@ -1,9 +1,11 @@
+import 'package:find_dropdown/find_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/style/AppColor.dart';
+import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
-import 'package:hostapp/src/viewmodels/addReservation.dart';
+import 'package:hostapp/src/viewmodels/addReservationViewModel.dart';
 import 'package:hostapp/src/widget/CollectText.dart';
 import 'package:hostapp/src/widget/input_field.dart';
 import 'package:hostapp/src/widget/ButtomPicker.dart';
@@ -11,6 +13,8 @@ import 'package:hostapp/src/widget/Menu.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:intl/intl.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:hostapp/src/model/getPropertiesModel.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
 class AddReservationScreen extends StatefulWidget {
@@ -25,7 +29,10 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
     TextEditingController bookingChannelController = new TextEditingController();
      TextEditingController checkinController = new TextEditingController();
      TextEditingController checkoutController = new TextEditingController();
+      TextEditingController inviteInLinkController = new TextEditingController();
      DateTime date = DateTime.now();
+       String _selectedProperty = '', _selectedID = ''; //
+         
 
      @override
   void initState() {
@@ -41,10 +48,17 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
   Widget build(BuildContext context) {
     return ViewModelProvider<AddReservationViewModel>.withConsumer(
       viewModel: AddReservationViewModel(),
-     // onModelReady: (model) => model.initialize(),
+      onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
-          Scaffold(
-        body: SingleChildScrollView(
+       Scaffold(
+        body: (model.busy ? Center(
+        child: CircularProgressIndicator(
+                    strokeWidth: 4,
+                          valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
+                          backgroundColor: AppColor.borderColor,
+                    ),
+      )
+      : SingleChildScrollView(
                 child: Padding(
             padding: const EdgeInsets.only(left: 15.0, right: 15.0),
             child: Column(
@@ -62,6 +76,54 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
           ),), 
              _customFuntion.errorUimessage(errorMessage: model.errorM),
                    verticalSpaceSmall,
+                    CollectTextWithout(title: 'Property',),
+                        Container(
+                            height: 50,
+                             width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(
+                                    color: AppColor.borderColor, style: BorderStyle.solid, width: 0.80),
+                              ),
+                          child: DropdownButton(
+                            isExpanded: true,
+                                underline: SizedBox(),
+                                items: model.getPropertiesList().map((GetProperties lang) {
+                                return DropdownMenuItem<GetProperties>(
+                                          value: lang,
+                                          child: Text(lang.name.toString(), 
+                                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
+                                        );
+                                            }).toList(),
+                                onChanged: (GetProperties val) {
+                                  setState(() {
+                                     _selectedProperty= val.name;
+                                     _selectedID= val.id;
+                                    //  print(_selectedID);
+                                    //  print(_selectedProperty);
+
+                                  });
+                                    },
+                              ),
+                        ),
+                  //  FindDropdown(
+                  //   items: model.properties.map((value)),
+                  //   label: "Select Property",
+                  //   onChanged:(value){
+                  //     model.selectedProperty = value[0].name;
+                  //     print(model.selectedProperty.toString());
+                  //   },
+                  //   selectedItem: '',
+                  //   validate: (item) {
+                  //     if (item == null)
+                  //       return "Required field";
+                  //     else if (item == "NO")
+                  //       return "Invalid item";
+                  //     else
+                  //       return null;
+                  //   },
+                  // ),
                  
                  CollectTextWithout(title: 'Name of Guest',),
                     InputField(
@@ -85,7 +147,6 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                       controller: bookingChannelController,
                       textInputType: TextInputType.text,
                     ),
-
                   
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,47 +154,143 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                           Column(
                         children: <Widget>[
                          CollectTextWithout(title: 'Check in',),
-                         Container(
+                          Container(
                            width: MediaQuery.of(context).size.width/2.5,
-                            child: InputField(
-                          placeholder: 'Check in',
+                            child: TextFormField(
                           controller: checkinController,
-                          textInputType: TextInputType.text,
-                    ), ), ],
+                          style: TextStyle(fontWeight: FontWeight.bold,),
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          decoration:  InputDecoration(
+                            enabledBorder: new OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: new BorderSide(color: AppColor.borderColor,
+                            ),
+                        ),
+                    border: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor
+                      ),
+
+                  ),
+                    hintStyle: AppTextStyle.inputHint(context),
+                    
+                  ),   
+                  onTap: (){
+                      DatePicker.showDatePicker(
+                     context,
+                    showTitleActions: true,
+                    onChanged: (date) {
+                      String v = '${date.day}-${date.month}-${date.year}';
+                      setCheckinDate(value: v);
+
+                    }, onConfirm: (date) {
+                       String v = '${date.day}-${date.month}-${date.year}';
+                      setCheckinDate(value: v);
+                    }, currentTime: DateTime.now(), locale: LocaleType.en);
+                  },
+                    ), ), 
+                    ],
+                       
                       ),
                      
                       Column(
                         children: <Widget>[
                             verticalSpaceSmall,
                          CollectTextWithout(title: 'Check out',),
-                         GestureDetector(
-                         child: Container(
+                         Container(
                              height: 70,
                              width: 150,
-                        child: TextFormField(
-                            controller: null,
-                            decoration :InputDecoration(
-                        border: new OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: new BorderSide(color: AppColor.secondaryDeep,
-                                    ),
-                                ),
-                        enabledBorder: new OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    borderSide: new BorderSide(color: AppColor.inputTextCorderColor,
-                                    ),
-                                ),
-                        )
-                       ),),
-                         onTap: (){
-                           _buildDatePicker(context);
-                         },
-                         ), ],
+                            child: TextFormField(
+                          controller: checkoutController,
+                          style: TextStyle(fontWeight: FontWeight.bold,),
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          decoration:  InputDecoration(
+                            enabledBorder: new OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: new BorderSide(color: AppColor.borderColor,
+                            ),
+                        ),
+                    border: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor
+                      ),
+
+                  ),
+                    hintStyle: AppTextStyle.inputHint(context),
+                    
+                  ),   
+                  onTap: (){
+                      DatePicker.showDatePicker(
+                     context,
+                    showTitleActions: true,
+                    onChanged: (date) {
+                      String v = '${date.day}-${date.month}-${date.year}';
+                      setCheckOutDate(value: v);
+
+                    }, onConfirm: (date) {
+                       String v = '${date.day}-${date.month}-${date.year}';
+                      setCheckOutDate(value: v);
+                    }, currentTime: DateTime.now(), locale: LocaleType.en);
+                  },
+                    ), ),  ],
+                     
                       ),
                         ],
                       ),
+
+                       verticalSpaceSmall,
+                       
+                    Visibility(
+                       child: Column(
+                          children: <Widget>[
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: <Widget>[
+                          CollectTextWithout(title: 'Check-In Link',),
+                           GestureDetector(child: Icon(Icons.share, size: 30, color: Colors.black,),
+                           onTap: (){
+                              _customFuntion.shareReservationLink(link: model.getinviteLink);
+                           },),
+                        
+                     ],),
+                      assignValue(model),
+                         TextFormField(
+                          controller: inviteInLinkController,
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                            keyboardType: TextInputType.number,
+                            decoration:  InputDecoration(
+                              enabledBorder: new OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: new BorderSide(color: AppColor.borderColor,
+                              ),
+                          ),
+                    border: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor
+                      ),
+                      
+                    )
+
+                  ),
+                  onTap: (){
+                    //Share Link
+                    _customFuntion.shareReservationLink(link: model.getinviteLink);
+                  },
+                      ),
+                          ]
+                       ),
+                      visible: model.linkUIVisisblity,
+                    ),
                         verticalSpaceLarge,
-                   GestureDetector(
+                        (model.busy ? CircularProgressIndicator(
+                  strokeWidth: 4,
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
+                        backgroundColor: AppColor.borderColor,
+                  ):
+                  (model.linkUIVisisblity ? SizedBox.shrink() //Remove button if it's true;
+                  : GestureDetector(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
                   child: Container(
@@ -157,16 +314,30 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                   ),
                 ),
                 onTap: (){
-                  
+                  model.authenticateReservation(
+                    bookChanl: bookingChannelController.text,
+                    checkinD: checkinController.text,
+                    checkoutD: checkoutController.text,
+                    guestEmail: guestEmailController.text,
+                    guestName: nameofGuestController.text,
+                    propertyID: _selectedID
+                  );
+
                 },
+              ))
               )
+                   
               ],
             ),
+          
+          
           ) 
                 
-        ),
-
-      ),
+        )
+        
+      ))
+    
+      
     );
   }
 
@@ -230,33 +401,24 @@ side: BorderSide(color: AppColor.primaryLight)
     });
 }
 
-Widget _buildDatePicker(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        showCupertinoModalPopup<void>(
-          context: context,
-          builder: (context) {
-            return BottomPicker(
-              child: CupertinoDatePicker(
-                backgroundColor:
-                    CupertinoColors.systemBackground.resolveFrom(context),
-                mode: CupertinoDatePickerMode.date,
-                initialDateTime: date,
-                onDateTimeChanged: (newDateTime) {
-                  setState(() => date = newDateTime);
-                },
-              ),
-            );
-          },
-        );
-      },
-      child: Menu(children: [
-       // Text(GalleryLocalizations.of(context).demoCupertinoPickerDate),
-        Text(
-          DateFormat.yMMMMd().format(date),
-          style: TextStyle(color: CupertinoColors.inactiveGray),
-        ),
-      ]),
-    );
+  setCheckinDate({String value}){
+    setState(() {
+checkinController.text = value;
+    });
+  }
+
+  setCheckOutDate({String value}){
+    setState(() {
+checkoutController.text = value;
+    });
+  }
+  assignValue(AddReservationViewModel model){
+    if(model.linkUIVisisblity){
+     inviteInLinkController.text = model.getinviteLink;
+    return SizedBox.shrink();
+    }else{
+ return SizedBox.shrink();
+    }
+    
   }
 }

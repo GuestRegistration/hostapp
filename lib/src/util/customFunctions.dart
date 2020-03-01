@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:encrypt/encrypt.dart' as Key;
 
@@ -120,5 +121,9 @@ String validateEmail(String value) {
     else
       return null;
 }
+
+shareReservationLink({String link})async{
+    Share.share('Click on this link to access the property $link');
+  }
 
 }

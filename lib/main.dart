@@ -5,7 +5,7 @@ import 'package:hostapp/src/managers/dialog_manager.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/route.dart';
 import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
-import 'package:hostapp/src/screen/AddReservationScreen.dart';
+import 'package:hostapp/src/screen/MainReservationScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
 import 'package:hostapp/src/GraphQLDemo/graphTexter.dart';
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: Dashboard(),//AddReservationScreen(), //Dashboard(), //
+      home: Dashboard(showIndex: 0,),//MainReservationScreen(), //Dashboard(), //
       onGenerateRoute: generateRoute,
     ),
       client: _graphQlConfiq.client,

@@ -69,5 +69,29 @@ const String getProperties = r"""
 }
  """;
 
+ const String addReservationQuery = r"""
+       mutation addReservation(
+              $user_id: String!
+              $property_id: String!
+              $name: String!
+              $email: String!
+              $booking_channel: String!
+              $booking_no: String!
+              $amount_paid: Int!
+              $checkin_date: String!
+              $checkout_date: String!
+            ){
+              createReservation(user_id: $user_id, property_id: $property_id,
+              name: $name, email: $email, booking_channel: $booking_channel, 
+                booking_no: $booking_no, amount_paid: $amount_paid, 
+                checkin_date: $checkin_date,
+                checkout_date: $checkout_date){
+                user_id
+                name
+                checkin_url
+              }
+            }
+ """;
+
 
 
