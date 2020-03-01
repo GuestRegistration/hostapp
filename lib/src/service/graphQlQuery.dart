@@ -93,5 +93,17 @@ const String getProperties = r"""
             }
  """;
 
+ const String getReservationsQuery = r"""
+query{
+  getReservations{
+   name
+    id
+    checkin_url
+    checkedin_at
+    checkout_date
+  }
+}
+ """;
+
 
 

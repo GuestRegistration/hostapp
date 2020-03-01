@@ -266,6 +266,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "firebase_remote_config",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_remote_config-0.3.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "firebase_storage",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-3.1.1",
       "packageUri": "lib/",
@@ -848,7 +854,7 @@
       "languageVersion": "2.3"
     }
   ],
-  "generated": "2020-03-01T01:07:35.940900Z",
+  "generated": "2020-03-01T18:34:49.410386Z",
   "generator": "pub",
   "generatorVersion": "2.8.0-dev.10.0.flutter-73f6d15665"
 }

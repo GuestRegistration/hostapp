@@ -51,7 +51,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
        Scaffold(
-        body: (model.busy ? Center(
+        body: (model.getPropertiesList == null ? Center(
         child: CircularProgressIndicator(
                     strokeWidth: 4,
                           valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),

@@ -22,9 +22,9 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
   
   @override
   Widget build(BuildContext context) {
-     return ViewModelProvider<MainReservationViewModel>.withConsumer(
+     return ViewModelProvider<MainReservationViewModel>.withoutConsumer(
       viewModel: MainReservationViewModel(),
-      //onModelReady: (model) => model.initialize(),
+      onModelReady: (model) => model.tab1Initialize(),
       builder: (context, model, child) =>
        buildTab(model)
       );
@@ -97,23 +97,39 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
   }
 }
 
-class Tab1 extends StatefulWidget {
-  @override
-  _Tab1State createState() => _Tab1State();
-}
 
-class _Tab1State extends State<Tab1> {
+
+class Tab1 extends ProviderWidget<MainReservationViewModel> {
   @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-            itemCount: 5,
+  Widget build(BuildContext context, MainReservationViewModel model) {
+    return (model.list == null ? Center(
+      child: CircularProgressIndicator(
+                    strokeWidth: 4,
+                          valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
+                          backgroundColor: AppColor.borderColor,
+                    ),
+    ) : ListView.builder(
+            itemCount: model.list.length,
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context , int index){
-               return  ReservationWidget(
-                 
-                  );
+              if(model.list.length == 0){
+              return Center(child: Text('You do not have any reservation. '
+                  'Click on the ‘’+ icon’’ button below to add one reservation for free.',
+                style:  TextStyle(
+                  color: Colors.red,
+                  fontStyle: FontStyle.normal,
+                  fontSize: 16,
+                )
+              ),
+              );
+            }
+            return  ReservationWidget(
+                getReservation: model.list[index],
+                );
+               
              
-               },);
+               },))
+               ;
   }
 }

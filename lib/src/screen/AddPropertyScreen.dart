@@ -18,7 +18,6 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 
-
 class AddPropertyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -148,6 +147,7 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
           ],),
                  verticalSpaceSmall,
                CollectText(ttile: 'Property Name',),
+              (model.busy ?  CircularProgressIndicator() :
                GestureDetector(
                       child:  TextFormField(
                         controller: propertyNameController,
@@ -168,7 +168,7 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
                    onTap: ()async{
                        Prediction prediction = await PlacesAutocomplete.show(
                           context: context,
-                          apiKey: Constants().apiKey,
+                          apiKey: model.key,
                           mode: Mode.overlay, // Mode.fullscreen
                           
                           );
@@ -180,8 +180,7 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
                     },
                   ),  
                    
-                  ),
-                
+                  )),
                   verticalSpaceSmall,
                    CollectText(ttile: 'Property Address',),
                     InputField(

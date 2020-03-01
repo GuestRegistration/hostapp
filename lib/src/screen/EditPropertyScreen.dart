@@ -123,6 +123,7 @@ TextEditingController propertyNameController =  TextEditingController();
   Widget build(BuildContext context) {
     return ViewModelProvider<AddPropertyViewModel>.withConsumer(
       viewModel: AddPropertyViewModel(),
+      onModelReady: (model) => model.editInitalize(),
       builder: (context, model, child) =>
      Scaffold(
       body: SingleChildScrollView(
@@ -151,7 +152,8 @@ TextEditingController propertyNameController =  TextEditingController();
             children: <Widget>[
 
               CollectTextWithout(title: 'Property Name',),
-                   GestureDetector(
+                  (model.key == null ? CircularProgressIndicator()
+                  :  GestureDetector(
                       child:  TextFormField(
                         controller: propertyNameController,
                   
@@ -172,7 +174,7 @@ TextEditingController propertyNameController =  TextEditingController();
                    onTap: ()async{
                        Prediction prediction = await PlacesAutocomplete.show(
                           context: context,
-                          apiKey: Constants().apiKey,
+                          apiKey: model.key,
                           mode: Mode.overlay, // Mode.fullscreen
                           
                           );
@@ -183,8 +185,8 @@ TextEditingController propertyNameController =  TextEditingController();
                     },
                   ),  
                    
-                  ),
-                
+                  )
+                ),
                   verticalSpaceSmall,
 
               CollectTextWithout(title: 'Property Address',),
@@ -433,14 +435,15 @@ side: BorderSide(color: AppColor.primaryLight)
         ),
       ),
             onTap: (){
-               Navigator.pop(context);
+              print(model.key);
+              // Navigator.pop(context);
             },
             ),
     horizontalSpaceMedium,
     GestureDetector(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: (model.busy ? 
+                      child: (model.busy && model.key !=null ? 
                       CircularProgressIndicator(
                   strokeWidth: 2,
                         valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hostapp/src/model/getPropertiesModel.dart';
-import 'package:hostapp/src/screen/EditPropertyScreen.dart';
+import 'package:hostapp/src/model/getReservationMode.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
 
 class ReservationWidget extends StatelessWidget{
   
+  final GetReservationModel getReservation;
      
    final Function onDeleteItem;
 
    const ReservationWidget({
     Key key,
-   // this.getProperties,
+    this.getReservation,
     this.onDeleteItem,
   }) : super(key: key);
 
@@ -44,12 +44,14 @@ class ReservationWidget extends StatelessWidget{
                                   child: ListTile(
                                    title: Padding(
                                      padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
-                                     child: Text('Property Name', style: AppTextStyle.title(context),),
+                                     child: Text((getReservation.name == null ? '' : getReservation.name), style: AppTextStyle.title(context),),
                                    ),
                                    leading: Icon(Icons.share, size: 25, color: Colors.black,),
                                    subtitle: Padding(
                                      padding: const EdgeInsets.only(bottom: 8.0),
-                                     child: Text("getProperties.address.stree", style: AppTextStyle.subtitle(context),),
+                                     child: Text((getReservation.checkinUrl == null ? '' : 
+                                     getReservation.checkinUrl 
+                                     ), style: AppTextStyle.subtitle(context),),
                                    ),
                                   //  trailing: Row(
                                   //    children: <Widget>[
