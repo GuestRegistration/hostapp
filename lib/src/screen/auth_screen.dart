@@ -53,10 +53,13 @@ class AuthScreenState extends State<AuthScreen> {
       if (version.contains('13') == true) {
         supportsAppleSignIn = true;
       }
+      setState(() {
+        _appledevice = true;
+      });
     } else {
       print("it is not an iOS device");
       setState(() {
-        _appledevice = true;
+        _appledevice = false;
       });
     }
   }
@@ -123,6 +126,17 @@ class AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+       if (Theme.of(context).platform == TargetPlatform.iOS) {
+      
+      setState(() {
+        _appledevice = true;
+      });
+    } else {
+      print("it is not an iOS device");
+      setState(() {
+        _appledevice = false;
+      });
+    }
     Widget loadingIndicator = _load
         ? Center(
             child: Column(
@@ -370,7 +384,7 @@ class AuthScreenState extends State<AuthScreen> {
                 width: 300.0,
                 height: 60.0,
                 child: FlatButton(
-                  onPressed: () {
+                  onPressed: () {                  
                   },
                   child: const Text(
                     'Terms & Conditions',
