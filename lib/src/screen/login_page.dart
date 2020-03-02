@@ -1,18 +1,23 @@
-import 'package:device_info/device_info.dart';
+import 'package:country_code_picker/country_code_picker.dart'; //for country code
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:firebase_database/firebase_database.dart';
-//import 'Address_screen.dart';
-//import 'package:guestapptest/Model/umodel.dart';
 import 'dart:async' show Future;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'signupcomplete.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hostapp/src/screen/verifyotp.dart';
 
 class LoginPage extends StatefulWidget {
   final String email, existingemail;
-  LoginPage({this.email, this.existingemail});
+  final String name, phoneNumber, lastname;
+  bool phoneerror;
+  LoginPage(
+      {this.email,
+      this.existingemail,
+      this.phoneerror,
+      this.lastname,
+      this.name,
+      this.phoneNumber});
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -30,115 +35,93 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   TextEditingController phone = new TextEditingController();
   TextEditingController propertiesname = new TextEditingController();
   TextEditingController role = new TextEditingController();
-
-  var hostProperty, hostrole;
+  var phoneCode;
+   var hostProperty, hostrole;
   List host1;
-
+  bool isButtonEnabled = true;
+  bool errorflag = false;
+  bool _load = false;
+  var buttoncolor;
+  String phoneNo;
+  String smsOTP;
+  String verificationId;
+  String errorMessage = '';
+  FirebaseAuth _auth = FirebaseAuth.instance;
+   var interphone;
+   String phoneNumber;
+  String phoneIsoCode;
+  var confirmedNumber;
+    String insertData = r"""
+        mutation users(     
+         $id: String!  
+         $phone: String!
+         $email : String!
+         $name: String!
+         $lastname: String!){
+           createUser( id: $id,email: $email,
+          phone: $phone , first_name:$name,last_name:$lastname
+        ){ 
+          id
+          email
+          phone  
+          name{
+            first_name
+          last_name
+          }       
+                }
+        }
+          """;
+ 
   void initState() {
     super.initState();
-
-    // getdata();
-    // _getId();
-    //hosts = List();
+ 
     email1 = "${widget.existingemail}";
-    print(email1);
+
     WidgetsBinding.instance.addObserver(this);
   }
 
-  getData() async {
-    return Firestore.instance.collection('users').snapshots();
-  }
+  isEmpty() {
+    if (name.text != "" && lastname.text != "" && phone.text != "") {
+      setState(() {
+        print(" isButtonEnabled = false;");
+        isButtonEnabled = false;
+      });
+    } else {
+      print(" isButtonEnabled = false;");
 
-  void addUser() async {
-    print("inside add uer");
+      setState(() {
+        isButtonEnabled = true;
+      });
+    }
+  }
+ 
+
+  Future<void> navigateotp() async {
+     print("inside navigate otp");
+    print("internationalizedPhoneNumber" + interphone.toString());
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user1 = await auth.currentUser();
     final email1 = user1.email;
     final uid = user1.uid;
-    print("uidddddddddddddd" + uid);
-    var emailid = "${widget.existingemail}";
-
-    print("email" + emailid);
-    Firestore.instance
-        .collection("users")
-        .where("email", isEqualTo: emailid)
-        .getDocuments()
-        .then((string) async {
-      print('Firestore response111: , ${string.documents.length}');
-      string.documents.forEach(
-        (doc) => print("data available"),
-      );
-      if (string.documents.length == 0) {
-        try {
-          Firestore.instance.runTransaction(
-            (Transaction transaction) async {
-              Firestore.instance.collection('users').document(uid).setData(
-                {
-                  'name': name.text,
-                  'lastname': lastname.text,
-                  'email': email1.toLowerCase(),
-                  'phone': phone.text,
-                  'host': [],
-                },
-              );
-            },
-          ).whenComplete(() => addDevicedetails());
-        } catch (e) {
-          print(e.toString());
-        }
-      } else {
-        print("data alreadyexists");
-      }
-    });
-  }
-
-  navigate() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return Signupcomplete(
-            email: "${widget.existingemail}",
+          return Verifyotp(
+              phoneNumber: "$phoneCode" + "${phone.text}",
+             name: name.text,
+            lastname: lastname.text,
+            email: email1.toLowerCase(),
+            authuid: uid,
           );
         },
       ),
     );
   }
+ 
 
-  addDevicedetails() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-
-    var emailid = "${widget.existingemail}";
-
-    print("email" + emailid);
-    var did;
-    if (Theme.of(context).platform == TargetPlatform.iOS) {
-      IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
-      did = iosDeviceInfo.identifierForVendor;
-      // return iosDeviceInfo.identifierForVendor; // unique ID on iOS
-    } else {
-      AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
-      did = androidDeviceInfo.androidId;
-      print("did" + did);
-      print(androidDeviceInfo.androidId);
-      //return androidDeviceInfo.androidId; // unique ID on Android
-    }
-    Firestore.instance.runTransaction(
-      (Transaction transaction) async {
-        Firestore.instance.collection('device').document(did).setData(
-          {
-            'email': emailid.toLowerCase(),
-            'DeviceId': did,
-          },
-        );
-      },
-    ).whenComplete(() => navigate());
-  }
-
-  Future getdata() async {
-    var firestore = Firestore.instance;
-    QuerySnapshot qn = await firestore.collection("users").getDocuments();
-    print(qn.documents.toList());
-    return qn.documents;
+  void _onCountryChange(countryCode) {
+    phoneCode = countryCode.toString();
+    print("New Country selected: " + countryCode.toString());
   }
 
   void dispose() {
@@ -147,218 +130,431 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //backgroundColor: Color(0xff151232),
-      backgroundColor: Colors.white,
+     final HttpLink httpLink = HttpLink(
+        uri:
+            'https://us-central1-guestregistration-4140a.cloudfunctions.net/api');
+    final ValueNotifier<GraphQLClient> client =
+        ValueNotifier<GraphQLClient>(GraphQLClient(
+            link: httpLink,
+            cache: OptimisticCache(
+              dataIdFromObject: typenameDataIdFromObject,
+            )));
+
+    if (isButtonEnabled == false) {
+      buttoncolor = Color(0xff45A1C9);
+    } else {
+      buttoncolor = Color(0xffC7E3EF);
+    }
+    if (widget.phoneerror == true) {
+      print("widget.phoneerror" + widget.phoneerror.toString());
+      errorMessage = "mobile number is in valid relative to country code ";
+    } else {
+      print("inside widget.phoneerror else");
+      print("widget.phoneerror else" + widget.phoneerror.toString());
+    }
+       Widget loadingIndicator = _load
+        ? Center(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height:20.0,
+              ),
+              new Container(
+                   width: 60.0,
+                  height: 60.0,
+                  child: new CircularProgressIndicator(
+                    strokeWidth: 8,
+                     valueColor:
+    AlwaysStoppedAnimation<Color>(Color(0xFF45A1C9),), backgroundColor:  Color(0xFFC6DEE9), 
+                  ),
+                ),
+            ],
+          ),
+        )
+        : new Container();
+      return GraphQLProvider(
+       client: client,
+      child: Scaffold(   
       key: scaffoldkey,
-      body: Container(
-        //  color: Colors.white,
-        child: Center(
+         body: Center(
           child: SingleChildScrollView(
             child: new Form(
               autovalidate: _validate,
               key: formKey,
               // ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //  crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  // const Text("You are not currently signed in."),
-                  new SizedBox(
-                    height: 1.0,
-                  ),
-                  Text(
-                    "Create your profile",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30.0),
-                  ),
-                  Text(
-                    "Secure your activity and validate your account",
-                    //  style: TextStyle(color: Color(0xffD6C9F5), fontSize: 15.0),
-                    style: TextStyle(color: Colors.black, fontSize: 12.0),
-                  ),
-                  SizedBox(
-                    height: 32.0,
-                  ),
-                  Align(
-                    alignment: Alignment(-.85, 0),
-                    //     widthFactor: left
-                    child: Container(
-                      // color: Color(0xffD6C9F5),
+              child: Mutation(
+                 options: MutationOptions(
+              documentNode: gql(insertData),
+              onCompleted: (data) {
+              
+                print(data.toString());
+              },
+              onError: (error) {
+              
+                print('Error Occur: ${error.toString()}');
+              },
+            ),
+                              builder: (runMutation, result) {         
+
+                                  return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   children: <Widget>[
+                     new SizedBox(
+                      height: 22.0,
+                    ),
+                    Visibility(
                       child: Text(
-                        "First Name",
-                        style: TextStyle(color: Colors.black, fontSize: 15.0),
+                        "one or more fields are incomplete",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30.0),
+                      ),
+                      visible: errorflag,
+                    ),
+
+                    Text(
+                      "Create your profile",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 34.0),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      "Secure your activity and validate your account",
+                       style: TextStyle(
+                          color: Color(0xff8F8F8F),
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 32.0,
+                    ),
+                    Align(
+                      alignment: Alignment(-.85, 0),
+                       child: Container(
+                         child: Text(
+                          "First Name*",
+                          style:
+                              TextStyle(color: Color(0xffB8B8B8), fontSize: 15.0),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
 
-                  Align(
-                    alignment: Alignment(-.100, 0),
-                    child: Container(
-                      alignment: Alignment.center,
-                      // height: 60.0,
-                      width: MediaQuery.of(context).size.width - 100,
-                      //width: 300.0,
-                      decoration: new BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: new BorderRadius.circular(12.0)),
-                      child: new TextFormField(
-                          controller: name,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Please Enter First Name";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            hintText: "Joe ",
-                            contentPadding: EdgeInsets.all(20),
-                          )),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 32.0,
-                  ),
-                  Align(
-                    alignment: Alignment(-.85, 0),
-                    //     widthFactor: left
-                    child: Container(
-                      // color: Color(0xffD6C9F5),
-                      child: Text(
-                        "Last Name",
-                        style: TextStyle(color: Colors.black, fontSize: 15.0),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Align(
-                    alignment: Alignment(-.100, 0),
-                    child: Container(
-                      alignment: Alignment.center,
-                      // height: 60.0,
-                      width: MediaQuery.of(context).size.width - 100,
-                      //width: 300.0,
-                      decoration: new BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: new BorderRadius.circular(12.0)),
-                      child: new TextFormField(
-                          controller: lastname,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Please Enter Last Name";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            hintText: " Bloggs",
-                            contentPadding: EdgeInsets.all(20),
-                          )),
-                    ),
-                  ),
-
-                  SizedBox(
-                    height: 32.0,
-                  ),
-                  Align(
-                    alignment: Alignment(-.85, 0),
-                    //     widthFactor: left
-                    child: Container(
-                      // color: Color(0xffD6C9F5),
-                      child: Text(
-                        "Phone No",
-                        style: TextStyle(color: Colors.black, fontSize: 15.0),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-
-                  Align(
-                    alignment: Alignment(-.100, 0),
-                    child: Container(
-                      alignment: Alignment.center,
-                      // width: 60.0,
-                      width: MediaQuery.of(context).size.width - 100,
-                      decoration: new BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: new BorderRadius.circular(12.0)),
-                      child: new TextFormField(
-                          // initialValue: "",
-                          controller: phone,
-                          //keyboardType: TextInputType.emailAddress,
-                          keyboardType: TextInputType.phone,
-                          //maxLength: 12,
-                          autofocus: false,
-                          validator: validateMobile,
-                          onSaved: (String val) {
-                            mobile = val;
-                          },
-                          decoration: InputDecoration(
-                            hintText: "e.g. +44 7911 123456",
-                            fillColor: Color(0xffC8C3D4),
-                            contentPadding: EdgeInsets.all(20),
-                          )),
-                    ),
-                  ),
-
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  SizedBox(
-                    width: 300.0,
-                    child: Align(
-                      //alignment: Alignment.topLeft,
-                      //     widthFactor: left
+                    Align(
+                      alignment: Alignment(-.100, 0),
                       child: Container(
-                        child: Text(
-                          "By creating an account, you agree to our Terms and privacy Policy ",
-                          style: TextStyle(color: Colors.black, fontSize: 12.0),
+                        alignment: Alignment.center,
+                        height: 50.0,
+                        width: 320.0,
+                        decoration: new BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: new BorderRadius.circular(
+                              10.0,
+                            ),
+                            border: Border.all(color: Color(0xffC6DEE9))),
+                        child: new TextFormField(
+                            controller: name,
+                            onChanged: (val) {
+                              isEmpty();
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Please Enter First Name";
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              hintText: "John",
+                              hintStyle: TextStyle(
+                                  color: Color(
+                                0xff63A5C0,
+                              )),
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              border: InputBorder.none,
+                            )),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 32.0,
+                    ),
+                    Align(
+                      alignment: Alignment(-.85, 0),
+                       child: Container(
+                         child: Text(
+                          "Last Name*",
+                          style:
+                              TextStyle(color: Color(0xffB8B8B8), fontSize: 15.0),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  new SizedBox(
-                    width: 300.0,
-                    height: 60.0,
-                    child: new RaisedButton(
-                        child: const Text(
-                          'Next',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Align(
+                      alignment: Alignment(-.100, 0),
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 50.0,
+                        width: 320.0,
+                        decoration: new BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Color(0xffC6DEE9)),
+                            borderRadius: new BorderRadius.circular(10.0)),
+                        child: new TextFormField(
+                            controller: lastname,
+                            onChanged: (val) {
+                              isEmpty();
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Please Enter Last Name";
+                              } else {}
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Doe",
+                              hintStyle: TextStyle(
+                                  color: Color(
+                                0xff63A5C0,
+                              )),
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                              border: InputBorder.none,
+                            )),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 32.0,
+                    ),
+                    Align(
+                      alignment: Alignment(-.85, 0),
+                       child: Container(
+                         child: Text(
+                          "Mobile Phone*",
+                          style:
+                              TextStyle(color: Color(0xffB8B8B8), fontSize: 15.0),
                         ),
-                        //color: Color(0xff6839ed),
-                        color: Colors.black26,
-                        onPressed: () {
-                          //  addUser();
-                          if (formKey.currentState.validate()) {
-                            setState(() {
-                              addUser();
-                            });
-                            formKey.currentState.save();
-                            scaffoldkey.currentState.showSnackBar(SnackBar(
-                              content: Text("Start adding user details"),
-                            ));
-                          } else {
-                            // validation error
-                            scaffoldkey.currentState.showSnackBar(SnackBar(
-                              content: Text("Failed to Add user details"),
-                            ));
-                          }
-                        }),
-                  ),
-                ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+
+                    Align(
+                      alignment: Alignment(-.100, 0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            decoration: new BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: Color(0xffC6DEE9)),
+                                borderRadius: new BorderRadius.circular(10.0)),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  height: 50.0,
+                                  decoration: new BoxDecoration(
+                                      color: Colors.white,
+                                      border:
+                                          Border.all(color: Color(0xffC6DEE9)),
+                                      borderRadius:
+                                          new BorderRadius.circular(10.0)),
+                                  child: new CountryCodePicker(
+                                     onChanged: _onCountryChange,
+                                            // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                                    initialSelection: 'US',
+                                    favorite: ['+1', 'US'],
+                                    // optional. Shows only country name and flag
+                                    showCountryOnly: false,
+                                    // optional. Shows only country name and flag when popup is closed.
+                                    showOnlyCountryWhenClosed: false,
+                                    // optional. aligns the flag and the Text left
+                                    alignLeft: false,
+                                    //itemBuilder: _buildDropdownItem,
+                                  ),
+                                ),
+                               
+                                Container(
+                                  alignment: Alignment.center,
+                                  width: 220.0,
+                                  child: new TextFormField(
+                                       onChanged: (val) {
+                                        isEmpty();
+                                      },
+                                      controller: phone,
+                                       keyboardType: TextInputType.phone,
+                                       autofocus: false,
+                                      validator: validateMobile,
+                                      onSaved: (String val) {
+                                        mobile = val;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: "(123) 456-7890",
+                                        fillColor: Color(0xffC8C3D4),
+                                        hintStyle: TextStyle(
+                                            color: Color(
+                                          0xff63A5C0,
+                                        )),
+                                        contentPadding: EdgeInsets.fromLTRB(
+                                            20.0, 10.0, 20.0, 10.0),
+                                        border: InputBorder.none,
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                   
+                    SizedBox(
+                      height: 10.0,
+                    ),
+       
+  new Align(
+                              child: loadingIndicator,
+                              alignment: FractionalOffset.center,
+                            ),
+                            SizedBox(
+                      height: 20.0,
+                    ),
+                    new SizedBox(
+                      width: 300.0,
+                      height: 47.0,
+                      child: AbsorbPointer(
+                        absorbing: isButtonEnabled,
+                              child: new RaisedButton(
+                            child: const Text(
+                              'Continue',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+
+                                 color: buttoncolor,
+                            shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(13.0),
+                            ),
+                            onPressed: () {
+                                     if (formKey.currentState.validate()) {
+                                if (name.text == "" &&
+                                    phone.text == "" &&
+                                    lastname.text == "") {
+                                  setState(() {
+                                    errorflag = true;
+                                  });
+                                } else {
+                                  setState(() {
+                                    errorflag = false;
+                                  });
+                                }
+                                setState(() async {
+                                    navigateotp(); //send otp
+                               
+
+                                });
+                                formKey.currentState.save();
+                                scaffoldkey.currentState.showSnackBar(SnackBar(
+                                  content: Text("Start adding user details"),
+                                ));
+                              } else {
+                                // validation error
+                                scaffoldkey.currentState.showSnackBar(SnackBar(
+                                  content: Text("Failed to Add user details"),
+                                ));
+                              }
+                            }
+                             ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    SizedBox(
+                      width: 321.0,
+                      child: Align(
+                             child: Column(
+                          children: <Widget>[
+                            Container(
+                              child: Center(
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                      "By creating an account, you agree to our",
+                                      style: TextStyle(
+                                          color: Color(0xff8F8F8F),
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      " Terms of ",
+                                      style: TextStyle(
+                                          color: Color(0xff8F8F8F),
+                                          fontSize: 12.0,
+                                          decoration: TextDecoration.underline,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                       ],
+                                ),
+                              ),
+                            ),
+                            Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                              
+                                  Text(
+                                    "Service",
+                                    style: TextStyle(
+                                        color: Color(0xff8F8F8F),
+                                        fontSize: 12.0,
+                                        decoration: TextDecoration.underline,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Text(
+                                    " and",
+                                    style: TextStyle(
+                                        color: Color(0xff8F8F8F),
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Text(
+                                    " Privacy Policy ",
+                                    style: TextStyle(
+                                        color: Color(0xff8F8F8F),
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w600,
+                                        decoration: TextDecoration.underline),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+
+   
+                );
+                              },
               ),
             ),
           ),
@@ -373,8 +569,8 @@ String validateMobile(String value) {
   RegExp regExp = new RegExp(patttern);
   if (value.length == 0) {
     return "Mobile is Required";
-  } else if (value.length != 10) {
-    return "Mobile number must 10 digits";
+  } else if (value.length >= 15) {
+    return "Mobile number can't be more than 15 digits";
   } else if (!regExp.hasMatch(value)) {
     return "Mobile Number must be digits";
   }

@@ -24,7 +24,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   firebase_auth: ^0.15.3+1 
-  rxdart: ^0.22.1+1
+  #rxdart: ^0.22.1+1
+  rxdart: 0.23.1
   flutter_secure_storage: ^3.3.1+1
   google_sign_in: ^4.1.1
   firebase_dynamic_links: ^0.5.0+9
@@ -33,10 +34,16 @@ dependencies:
   device_info: ^0.4.1+4  
   apple_sign_in: ^0.1.0
   shared_preferences: ^0.5.6+1
-  provider: ^4.0.1
+  provider: ^4.0.3
   google_fonts: ^0.2.0 #Styling text fonts
   intro_slider: ^2.2.8 #Intro slider for onBoardScreen
   flutter_spinkit: 4.1.0 #for loading
+  #flutter_signin_button: ^1.0.0 #for signin button
+  country_code_picker: ^1.2.4 # for country code picker
+  international_phone_input: ^1.0.2
+  firebase_core: ^0.4.3+1
+  firebase_auth_oauth: ^0.1.0
+  graphql_flutter: ^3.0.0
 
 dev_dependencies:
   flutter_test:
