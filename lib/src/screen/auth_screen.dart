@@ -3,6 +3,7 @@ import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hostapp/src/screen/terms&conditions.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/service/queryMutation.dart';
 import 'welcome.dart';
@@ -384,7 +385,13 @@ class AuthScreenState extends State<AuthScreen> {
                 width: 300.0,
                 height: 60.0,
                 child: FlatButton(
-                  onPressed: () {                  
+                  onPressed: () {  
+                     Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Termconditions(
+                                     
+                                    )));
                   },
                   child: const Text(
                     'Terms & Conditions',

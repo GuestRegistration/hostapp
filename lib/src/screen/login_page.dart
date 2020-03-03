@@ -124,6 +124,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
         builder: (context) {
           return Verifyotp(
             phoneNumber: "$phoneCode" + "${phone.text}",
+            phoneNumber1: "$phoneCode" +"-"+ "${phone.text}",
             name: name.text,
             lastname: lastname.text,
             email: email1.toLowerCase(),

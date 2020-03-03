@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:device_info/device_info.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hostapp/src/screen/auth_screen.dart';
-import 'package:hostapp/src/screen/sign_in.dart';
+import 'package:hostapp/src/screen/setting.dart';
+
 
 class WelcomeScreen extends StatefulWidget {
   final String email;
@@ -17,96 +14,30 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   var email;
 
+  int _selectedIndex;
   void initState() {
-    super.initState();
- 
 
+    super.initState();
   }
 
   void dispose() {
     super.dispose();
   }
- 
-  void signOut() async {
-  
-      final FirebaseAuth auth = FirebaseAuth.instance;
-        final FirebaseUser user1 = await auth.currentUser();
- 
-         await FirebaseAuth.instance.signOut().whenComplete(() => navigate());
-     await googleSignIn.signOut().whenComplete(() => navigate());
-  }
-    void deleteuser() {
-    print("inside deleteuser function");
-    
-    var email = widget.email;
-    print("email inside delete user"+email);
-    Firestore.instance
-        .collection("users")
-        .where("email", isEqualTo: email)
-        .getDocuments()
-        .then((string) {
-      print('Firestore response: , ${string.documents.length}');
-      string.documents.forEach(
-        (doc) => Firestore.instance
-            .collection("users")
-            .document("${doc.documentID.toString()}")
-            .delete()
-            .whenComplete(() {
-                
-          print('Deleted successfully');
-        }),
-      );
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
     });
-  }
-  void update() async {
-    print("inside update function");
-          final FirebaseAuth auth = FirebaseAuth.instance;
-        final FirebaseUser user1 = await auth.currentUser();
-      print("uid inside update"+user1.uid);
-var did;
-
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    if (Theme.of(context).platform == TargetPlatform.iOS) {
-      IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
- 
-      did = iosDeviceInfo.identifierForVendor;
-    } else {
-      AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
-      did = androidDeviceInfo.androidId;
-      print("DeviceId for android " + did);
-           }
-    //after signout remove the DeviceId value to null
-    print("widget.email"+"${widget.email}");
-    var email= "${widget.email}".toLowerCase();
-      print("email"+email);
-    Firestore.instance.collection('device').document(did).setData(
-      {
-       'email':email.toString(),
-        'DeviceId': "",
-      },
-    ).whenComplete(() => signOut());
-  }
-
-  navigate() {
-    print("inside navigate");
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return AuthScreen();
-        },
-      ),
-    );
-  
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
-      body:  
-          new Container(
+      body: switchBody(),
+      //_children[_currentIndex],
+      /*new Container(
     
           child: new Center(
             
@@ -114,6 +45,7 @@ var did;
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+           //switchBody(),
           Center(
             child: Text(
               "Sign In Complete!",
@@ -147,28 +79,47 @@ var did;
                 SizedBox(
                    
                   height: 30.0,),
-             SizedBox(
-                  width: 150.0,
-                  height: 60.0,
-                  child: Container(
-                    color: Colors.black,
-                    child: RaisedButton(
-                      onPressed: () {
-                      deleteuser();
-                      },
-                      child: const Text(
-                        'Delete user',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(2))),
-                      color: Colors.white12,
-                    ),
-                  ),
-                )
+          
+                
+           
          ],
-      ))),
+     )
+     )
+     ),*/
+
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) => _onItemTapped(index),
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today),
+              title: Text('RESERVATION'),
+              backgroundColor: Color(0xff808080)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.mms),
+              title: Text('PROPERTIES'),
+              backgroundColor: Color(0xff808080)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              title: Text('SETTINGS'),
+              backgroundColor: Color(0xff45A1C9)
+               )
+        ],
+      ),
     );
+  }
+
+  switchBody(){
+    if (_selectedIndex == 0) {
+      print("navigate to Reservation");
+      return Text('');
+    } else if (_selectedIndex == 1) {
+      print("navigate to Property");
+
+      return Text('');
+    } else if (_selectedIndex == 2) {
+      print("navigate to settings");
+
+      return SettingScreen();
+    }
   }
 }

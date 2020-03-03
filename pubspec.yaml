@@ -40,10 +40,11 @@ dependencies:
   flutter_spinkit: 4.1.0 #for loading
   #flutter_signin_button: ^1.0.0 #for signin button
   country_code_picker: ^1.2.4 # for country code picker
-  international_phone_input: ^1.0.2
   firebase_core: ^0.4.3+1
   firebase_auth_oauth: ^0.1.0
   graphql_flutter: ^3.0.0
+  firebase_remote_config: ^0.3.0+3
+
 
 dev_dependencies:
   flutter_test:
