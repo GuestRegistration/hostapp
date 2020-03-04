@@ -91,17 +91,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         onTap: (index) => _onItemTapped(index),
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today),
-              title: Text('RESERVATION'),
-              backgroundColor: Color(0xff808080)),
+              //icon: Icon(Icons.calendar_today,color: Color(0xff808080),),
+                          icon:  SizedBox(width:20.0,height:22.0,child: new Tab(icon: Icon(Icons.calendar_today,color: Color(0xff80000000)))),
+
+              title: Text('RESERVATION',style: TextStyle(color:Color(0xff80000000),fontSize: 13.0)),
+            
+                 ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.mms),
-              title: Text('PROPERTIES'),
-              backgroundColor: Color(0xff808080)),
+              //icon: Icon(Icons.mms,color: Color(0xff808080),),
+              icon:  SizedBox(width:20.0,height:22.0,child: new Tab(icon: new Image.asset("assets/images/Vector.png"),)),
+              title: Text('PROPERTIES',style: TextStyle(color:Color(0xff80000000),fontSize: 13.0)),
+              //backgroundColor: Color(0xff808080)Vector.png
+              ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              title: Text('SETTINGS'),
-              backgroundColor: Color(0xff45A1C9)
+            icon: SizedBox(width:20.0,height:22.0,child: new Tab(icon: Icon(Icons.settings,color: Color(0xff45A1C9)))),
+             // icon: Icon(Icons.settings,color: Color(0xff45A1C9),),
+              title: Text('SETTINGS',style: TextStyle(color:Color(0xff45A1C9),fontSize: 13.0),),
+              //backgroundColor: Color(0xff45A1C9)
                )
         ],
       ),
@@ -111,6 +117,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   switchBody(){
     if (_selectedIndex == 0) {
       print("navigate to Reservation");
+      
       return Text('');
     } else if (_selectedIndex == 1) {
       print("navigate to Property");

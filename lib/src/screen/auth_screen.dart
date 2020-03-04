@@ -163,31 +163,43 @@ class AuthScreenState extends State<AuthScreen> {
 
     return Scaffold(
       body: Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 50.0,
-              ),
-              Center(
-                child: Container(
-                  child: Text(
-                    "Let's get started",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 34.0),
+        child: SingleChildScrollView(
+                  child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 50.0,
+                ),
+                Center(
+                  child: Container(
+                    child: Text(
+                      "Let's get started",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 34.0),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Center(
-                child: SizedBox(
+                SizedBox(
+                  height: 20.0,
+                ),
+                Center(
+                  child: SizedBox(
+                    child: Text(
+                      "Select a method to begin using",
+                      style: TextStyle(
+                        color: Color(0xff8F8F8F),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
                   child: Text(
-                    "Select a method to begin using",
+                    "Guest Registration.",
                     style: TextStyle(
                       color: Color(0xff8F8F8F),
                       fontSize: 14.0,
@@ -195,106 +207,10 @@ class AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                child: Text(
-                  "Guest Registration.",
-                  style: TextStyle(
-                    color: Color(0xff8F8F8F),
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w600,
-                  ),
+                SizedBox(
+                  height: 50.0,
                 ),
-              ),
-              SizedBox(
-                height: 50.0,
-              ),
-              Container(
-                width: 318.0,
-                height: 47.0,
-                decoration: new BoxDecoration(
-                  borderRadius: new BorderRadius.circular(
-                    13.0,
-                  ),
-                ),
-                child: RaisedButton(
-                  color: const Color(0xffF1F1F1),
-                  child: new Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      new Image.asset(
-                        'assets/images/google.png',
-                        width: 27.0,
-                        height: 28.0,
-                      ),
-                      new Container(
-                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                          child: new Text(
-                            "Continue with Google",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.0),
-                          )),
-                    ],
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12))),
-                  onPressed: () async {
-                    setState(() {
-                      _load = true;
-                    });
-
-                    signInWithGoogle().whenComplete(() async {
-                      //After completion of signInWithGoogle its add the entry in cloud firestore database
-                      final FirebaseAuth auth = FirebaseAuth.instance;
-                      final FirebaseUser user1 = await auth.currentUser();
-                      final email1 = user1.email;
-                      print("email1" + email1);
-                      GraphQLClient _client =
-                          graphQLConfiguration.clientToQuery();
-                      QueryResult result = await _client.mutate(
-                        MutationOptions(
-                          document: selectdata,
-                         
-                          variables: {
-                            'email': email1,
-                          },
-                        ),
-                      );
-
-                      if (result.data["getUserByEmail"] == null) {
-                        print("inside if");
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage(
-                                      existingemail: email1.toString(),
-                                    )));
-                      } else {
-                        print("inside else");
-
-                                    return WelcomeScreen(email: email1.toString());
-                      }
-                    });
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 32.0,
-              ),
-              Visibility(
-                child: Text(
-                  "You are already logged in. Please sign out of your other device first",
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12.0),
-                ),
-                visible: signupcheck,
-              ),
-              Visibility(
-                              child: Container(
+                Container(
                   width: 318.0,
                   height: 47.0,
                   decoration: new BoxDecoration(
@@ -303,33 +219,35 @@ class AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                   child: RaisedButton(
-                    color: Colors.black,
+                    color: const Color(0xffF1F1F1),
                     child: new Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         new Image.asset(
-                          'assets/images/applelogo.png',
-                          width: 30.0,
-                          height: 30.0,
+                          'assets/images/google.png',
+                          width: 27.0,
+                          height: 28.0,
                         ),
                         new Container(
                             padding: EdgeInsets.only(left: 10.0, right: 10.0),
                             child: new Text(
-                              "Continue with Apple",
+                              "Continue with Google",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16.0),
                             )),
                       ],
                     ),
-                    onPressed: () {
-                      //function call for apple sign up
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12))),
+                    onPressed: () async {
+                      setState(() {
+                        _load = true;
+                      });
 
-                      signInWithApple().whenComplete(() async {
-                        setState(() {
-                          _load = true;
-                        });
+                      signInWithGoogle().whenComplete(() async {
+                        //After completion of signInWithGoogle its add the entry in cloud firestore database
                         final FirebaseAuth auth = FirebaseAuth.instance;
                         final FirebaseUser user1 = await auth.currentUser();
                         final email1 = user1.email;
@@ -339,7 +257,7 @@ class AuthScreenState extends State<AuthScreen> {
                         QueryResult result = await _client.mutate(
                           MutationOptions(
                             document: selectdata,
-                            //documentNode: gql(selectdata),
+                           
                             variables: {
                               'email': email1,
                             },
@@ -348,7 +266,6 @@ class AuthScreenState extends State<AuthScreen> {
 
                         if (result.data["getUserByEmail"] == null) {
                           print("inside if");
-
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -358,53 +275,138 @@ class AuthScreenState extends State<AuthScreen> {
                         } else {
                           print("inside else");
 
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WelcomeScreen(
-                                        email: email1.toString(),
-                                      ))); 
+                                      return WelcomeScreen(email: email1.toString());
                         }
                       });
-                      //function call for apple sign up
                     },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12))),
                   ),
                 ),
-                 visible: _appledevice,
-              ),
-              new Align(
-                child: loadingIndicator,
-                alignment: FractionalOffset.center,
-              ),
-              SizedBox(
-                height: 150.0,
-              ),
-              SizedBox(
-                width: 300.0,
-                height: 60.0,
-                child: FlatButton(
-                  onPressed: () {  
-                     Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Termconditions(
-                                     
-                                    )));
-                  },
-                  child: const Text(
-                    'Terms & Conditions',
+                SizedBox(
+                  height: 32.0,
+                ),
+                Visibility(
+                  child: Text(
+                    "You are already logged in. Please sign out of your other device first",
                     style: TextStyle(
-                      color: Color(0xff8F8F8F),
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.0),
+                  ),
+                  visible: signupcheck,
+                ),
+                Visibility(
+                                child: Container(
+                    width: 318.0,
+                    height: 47.0,
+                    decoration: new BoxDecoration(
+                      borderRadius: new BorderRadius.circular(
+                        13.0,
+                      ),
+                    ),
+                    child: RaisedButton(
+                      color: Colors.black,
+                      child: new Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          new Image.asset(
+                            'assets/images/applelogo.png',
+                            width: 30.0,
+                            height: 30.0,
+                          ),
+                          new Container(
+                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                              child: new Text(
+                                "Continue with Apple",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16.0),
+                              )),
+                        ],
+                      ),
+                      onPressed: () {
+                        //function call for apple sign up
+
+                        signInWithApple().whenComplete(() async {
+                          setState(() {
+                            _load = true;
+                          });
+                          final FirebaseAuth auth = FirebaseAuth.instance;
+                          final FirebaseUser user1 = await auth.currentUser();
+                          final email1 = user1.email;
+                          print("email1" + email1);
+                          GraphQLClient _client =
+                              graphQLConfiguration.clientToQuery();
+                          QueryResult result = await _client.mutate(
+                            MutationOptions(
+                              document: selectdata,
+                              //documentNode: gql(selectdata),
+                              variables: {
+                                'email': email1,
+                              },
+                            ),
+                          );
+
+                          if (result.data["getUserByEmail"] == null) {
+                            print("inside if");
+
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage(
+                                          existingemail: email1.toString(),
+                                        )));
+                          } else {
+                            print("inside else");
+
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WelcomeScreen(
+                                          email: email1.toString(),
+                                        ))); 
+                          }
+                        });
+                        //function call for apple sign up
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12))),
+                    ),
+                  ),
+                   visible: _appledevice,
+                ),
+                new Align(
+                  child: loadingIndicator,
+                  alignment: FractionalOffset.center,
+                ),
+                SizedBox(
+                  height: 150.0,
+                ),
+                SizedBox(
+                  width: 300.0,
+                  height: 60.0,
+                  child: FlatButton(
+                    onPressed: () {  
+                       Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Termconditions(
+                                       
+                                      )));
+                    },
+                    child: const Text(
+                      'Terms & Conditions',
+                      style: TextStyle(
+                        color: Color(0xff8F8F8F),
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ]),
+              ]),
+        ),
       ),
     );
   }

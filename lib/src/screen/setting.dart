@@ -36,9 +36,9 @@ class _SettingScreenState extends State<SettingScreen> {
       }
 }
  """;
-  String updateuserquery = r"""
+ String updateuserquery = r"""
  mutation($email: String!,$id:String!,$phone:String!,$first_name:String!,$last_name:String!){
-  updateUser(email:$email,id:$id,phone:$phone, first_name:$first_name,last_name:$last_name){
+  updateUser(email:$email,id:$id,phone:$phone,first_name:$first_name,last_name:$last_name){
     name{
       first_name 
       last_name
@@ -66,20 +66,22 @@ class _SettingScreenState extends State<SettingScreen> {
         },
       ),
     );
+    phonesplit0 = 'US';
     if (result.data == null) {
       return Center(child: CircularProgressIndicator());
     } else if (result.data != null) {
       setState(() {
-        phone1 = result.data["getUserByEmail"][0]["phone"];
-        phonesplit = phone1.split(delimiter);
-        print("phonesplit" + phonesplit[0].toString());
-        print("phonesplit1" + phonesplit[1].toString());
         name = new TextEditingController(
             text: result.data["getUserByEmail"][0]["name"]["first_name"]);
         email = new TextEditingController(
             text: result.data["getUserByEmail"][0]["email"]);
         lastname = new TextEditingController(
             text: result.data["getUserByEmail"][0]["name"]["last_name"]);
+
+        phone1 = result.data["getUserByEmail"][0]["phone"];
+        phonesplit = phone1.split(delimiter);
+        print("phonesplit" + phonesplit[0].toString());
+        print("phonesplit1" + phonesplit[1].toString());
         phone = new TextEditingController(text: phonesplit[1]);
       });
     } else {
@@ -89,11 +91,14 @@ class _SettingScreenState extends State<SettingScreen> {
 
   var phonesplit0;
   Future<void> updateuser() async {
+    print("inside update user");
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user1 = await auth.currentUser();
     final email1 = user1.email;
     final uid = user1.uid;
     print("email1" + email1);
+    print("phonesplit0"+phonesplit0);
+    print( "${phonesplit0.toString()}" + "-" + "${phone.text}");
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
@@ -103,7 +108,7 @@ class _SettingScreenState extends State<SettingScreen> {
           'email': email1,
           'first_name': name.text.trim(),
           'last_name': lastname.text.trim(),
-          'phone': "$phoneCode" + "-" + "${phone.text}",
+          'phone': "${phonesplit0.toString()}" + "-" + "${phone.text}",
         },
       ),
     );
@@ -111,18 +116,8 @@ class _SettingScreenState extends State<SettingScreen> {
 
   void initState() {
     super.initState();
-print(phonesplit[0]);
+    phonesplit0 = 'US';
     selectuser();
-
-    /* addressline1 = addresssplit[0];
-      
-
-   
-    city = addresssplit[1];
-    state = addresssplit[2];
-    print(addressline1);
-    print(city);
-    print(state);*/
   }
 
   void _onCountryChange(countryCode) {
@@ -158,16 +153,13 @@ print(phonesplit[0]);
 
   @override
   Widget build(BuildContext context) {
-    if (phonesplit[0].isEmpty) {
+    if (phonesplit.isEmpty) {
       setState(() {
-                phonesplit0 = 'US';
-
+        phonesplit0 = 'US';
       });
-     
     } else {
-       setState(() {
-                 phonesplit0 = phonesplit[0];
-
+      setState(() {
+        phonesplit0 = phonesplit[0];
       });
     }
     return Scaffold(
@@ -193,40 +185,12 @@ print(phonesplit[0]);
                     fontSize: 34.0),
               ),
             ),
-            Container(
-                child: Column(
-              children: <Widget>[
-                SizedBox(
-                  //width: 118.0,
-                  // height: 32.0,
-                  child: Container(
-                    alignment: Alignment.topRight,
-                    //color: Color(0xff45A1C9),
-                    child: RaisedButton(
-                      onPressed: () {
-                        updateuser();
-                      },
-                      child: const Text(
-                        'Save changes',
-                        style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(29))),
-                      color: Color(0xff45A1C9),
-                    ),
-                  ),
-                ),
-              ],
-            )),
             Align(
               alignment: Alignment(-.85, 0),
               child: Container(
                 child: Text(
                   "First Name",
-                  style: TextStyle(color: Color(0xffB8B8B8), fontSize: 15.0),
+                  style: TextStyle(color: Color(0xff80000000), fontSize: 16.0),
                 ),
               ),
             ),
@@ -234,7 +198,7 @@ print(phonesplit[0]);
               height: 20.0,
             ),
             Align(
-              alignment: Alignment(-.100, 0),
+             // alignment: Alignment(-.100, 0),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -270,7 +234,7 @@ print(phonesplit[0]);
               child: Container(
                 child: Text(
                   "Last Name",
-                  style: TextStyle(color: Color(0xffB8B8B8), fontSize: 15.0),
+                  style: TextStyle(color: Color(0xff80000000), fontSize: 16.0),
                 ),
               ),
             ),
@@ -278,7 +242,7 @@ print(phonesplit[0]);
               height: 20.0,
             ),
             Align(
-              alignment: Alignment(-.100, 0),
+            //  alignment: Alignment(-.100, 0),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -314,7 +278,7 @@ print(phonesplit[0]);
               child: Container(
                 child: Text(
                   "Email",
-                  style: TextStyle(color: Color(0xffB8B8B8), fontSize: 15.0),
+                  style: TextStyle(color: Color(0xff80000000), fontSize: 16.0),
                 ),
               ),
             ),
@@ -322,7 +286,7 @@ print(phonesplit[0]);
               height: 20.0,
             ),
             Align(
-              alignment: Alignment(-.100, 0),
+             // alignment: Alignment(-.100, 0),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -336,9 +300,7 @@ print(phonesplit[0]);
                 child: new TextFormField(
                     enabled: false,
                     controller: email,
-                    onChanged: (val) {
-                      //  isEmpty();
-                    },
+                    style: TextStyle(color: Color(0xffCC8F8F8F)),
                     decoration: InputDecoration(
                       hintText: "joebloggs@gmail.com",
                       hintStyle: TextStyle(
@@ -358,16 +320,18 @@ print(phonesplit[0]);
               alignment: Alignment(-.85, 0),
               child: Container(
                 child: Text(
-                  "Mobile Phone",
-                  style: TextStyle(color: Color(0xffB8B8B8), fontSize: 15.0),
+                  "Mobile Number",
+                  style: TextStyle(color: Color(0xff80000000), fontSize: 16.0),
                 ),
               ),
             ),
             SizedBox(
               height: 20.0,
             ),
-            Align(
-              alignment: Alignment(-.100, 0),
+            Container(
+                //height: 50.0,
+                //width: 320.0,
+             // alignment: Alignment(-.100, 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -379,37 +343,36 @@ print(phonesplit[0]);
                         borderRadius: new BorderRadius.circular(10.0)),
                     child: Row(
                       children: <Widget>[
-                        Container(
-                          height: 50.0,
-                          decoration: new BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: Color(0xffC6DEE9)),
-                              borderRadius: new BorderRadius.circular(10.0)),
-                          child: new CountryCodePicker(
-                            onChanged: _onCountryChange,
+                        IgnorePointer(
+                           ignoring: true,
+                                                  child: Container(
+                            height: 50.0,
+                            decoration: new BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(color: Color(0xffC6DEE9)),
+                                borderRadius: new BorderRadius.circular(10.0)),
+                            child: new CountryCodePicker(
+                        textStyle:TextStyle(color: Color(0xffCC8F8F8F)),                                                                                                                         
 
-                            //  initialSelection: phonesplit[0],
-                            initialSelection: phonesplit0,
-                            //favorite: ['+1', 'US'],
-
-                            showCountryOnly: false,
-                            // optional. Shows only country name and flag when popup is closed.
-                            showOnlyCountryWhenClosed: false,
-                            // optional. aligns the flag and the Text left
-                            alignLeft: false,
-                            //itemBuilder: _buildDropdownItem,
+                              onChanged: _onCountryChange,
+                              initialSelection: phonesplit0,
+                              //favorite: ['+1', 'US'],
+                              showCountryOnly: false,
+                              // optional. Shows only country name and flag when popup is closed.
+                              showOnlyCountryWhenClosed: false,
+                              // optional. aligns the flag and the Text left
+                              alignLeft: false,
+                              //itemBuilder: _buildDropdownItem,
+                            ),
                           ),
                         ),
                         Container(
-                          alignment: Alignment.center,
-                          width: 220.0,
+                          //alignment: Alignment.center,
+                          width: 228.0,
                           child: new TextFormField(
-                                                enabled: false,
-
-                              onChanged: (val) {
-                                //   isEmpty();
-                              },
+                              enabled: false,
                               controller: phone,
+                              style: TextStyle(color: Color(0xffCC8F8F8F)),
                               keyboardType: TextInputType.phone,
                               autofocus: false,
                               decoration: InputDecoration(
@@ -439,8 +402,34 @@ print(phonesplit[0]);
             SizedBox(
               height: 20.0,
             ),
+            Center(
+              child: SizedBox(
+                width: 320.0,
+                height: 47.0,
+                child: Container(
+                  //color: Colors.red,
+                  child: RaisedButton(
+                    onPressed: () {
+                      updateuser();
+                    },
+                    child: const Text(
+                      'Update',
+                      style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(13))),
+                    color: Color(0xff45A1C9),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
             Align(
-              alignment: Alignment(-.100, 0),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -455,15 +444,18 @@ print(phonesplit[0]);
                   onPressed: () {},
                   child: Row(
                     children: <Widget>[
-                      Text(
-                        'Terms of Service',
-                        style: TextStyle(
-                          color: Color(0xff8F8F8F),
-                          fontSize: 12.0,
+                      Container(
+                        child: Text(
+                          'Terms of Service',
+                          style: TextStyle(
+                            color: Color(0xff8F8F8F),
+                            fontSize: 18.0,
+                          ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment(0, .150),
+                      Container(
+                        width: 124.0,
+                        alignment: Alignment.centerRight,
                         child: SizedBox(
                           //  width: 190.0,
                           child: Icon(
@@ -482,7 +474,6 @@ print(phonesplit[0]);
               height: 20.0,
             ),
             Align(
-              alignment: Alignment(-.100, 0),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -501,13 +492,14 @@ print(phonesplit[0]);
                         'Privacy Policy ',
                         style: TextStyle(
                           color: Color(0xff8F8F8F),
-                          fontSize: 12.0,
+                          fontSize: 18.0,
                         ),
                       ),
                       //SizedBox(width: 150.0,),
                       Align(
-                        alignment: Alignment(-.100, 0),
+                        //alignment: Alignment(-.100, 0),
                         child: Container(
+                          width: 147.0,
                           alignment: Alignment.centerRight,
                           child: Icon(
                             Icons.arrow_forward_ios,
@@ -525,7 +517,6 @@ print(phonesplit[0]);
               height: 20.0,
             ),
             Align(
-              alignment: Alignment(-.100, 0),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -544,11 +535,12 @@ print(phonesplit[0]);
                         'Contact Us',
                         style: TextStyle(
                           color: Color(0xff8F8F8F),
-                          fontSize: 12.0,
+                          fontSize: 18.0,
                         ),
                       ),
-                      Align(
-                        alignment: AlignmentDirectional(10, 10),
+                      Container(
+                        width: 180.0,
+                        alignment: Alignment.centerRight,
                         child: SizedBox(
                           //width: 210.0,
                           child: Icon(
@@ -572,7 +564,7 @@ print(phonesplit[0]);
                 width: 320.0,
                 height: 47.0,
                 child: Container(
-                  color: Colors.red,
+                  color: Color(0xffD35E5E),
                   child: RaisedButton(
                     onPressed: () {
                       signOut();
@@ -586,10 +578,13 @@ print(phonesplit[0]);
                     ),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(13))),
-                    color: Colors.white12,
+                    color: Color(0xffD13B3B),
                   ),
                 ),
               ),
+            ),
+             SizedBox(
+              height: 20.0,
             ),
           ],
         ))),

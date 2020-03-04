@@ -5,7 +5,7 @@ import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hostapp/src/screen/signupcomplete.dart';
+import 'package:hostapp/src/screen/welcome.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 
 class Verifyotp extends StatefulWidget {
@@ -176,41 +176,12 @@ class _VerifyotpState extends State<Verifyotp> {
     }
   }
 
-  addDevicedetails() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-
-    var emailid = "${widget.email}";
-
-    print("email" + emailid);
-    var did;
-    if (Theme.of(context).platform == TargetPlatform.iOS) {
-      IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
-      did = iosDeviceInfo.identifierForVendor;
-      // return iosDeviceInfo.identifierForVendor; // unique ID on iOS
-    } else {
-      AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
-      did = androidDeviceInfo.androidId;
-      print("did" + did);
-      print(androidDeviceInfo.androidId);
-      //return androidDeviceInfo.androidId; // unique ID on Android
-    }
-    Firestore.instance.runTransaction(
-      (Transaction transaction) async {
-        Firestore.instance.collection('device').document(did).setData(
-          {
-            'email': emailid,
-            'DeviceId': did,
-          },
-        );
-      },
-    ).whenComplete(() => navigate());
-  }
-
+ 
   navigate() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return Signupcomplete(
+          return WelcomeScreen(
             email: "${widget.email}",
           );
         },
@@ -550,6 +521,7 @@ class _VerifyotpState extends State<Verifyotp> {
                                     setState(() {
                                       _load = true;
                                     });
+                                     
                                     try {
                                       final AuthCredential credential =
                                           PhoneAuthProvider.getCredential(
