@@ -57,9 +57,9 @@ import 'package:hostapp/src/util/customFunctions.dart';
 //}
 
 class EditPropertyScreen extends StatefulWidget {
-  final String pName, pAddress, pNumber,pEmail, country, prules, pFile, propertyID, phoneIcode;
+  final String pName, pAddress, pNumber,pEmail, country, prules, doclink, propertyID, phoneIcode;
 
-  const EditPropertyScreen({this.pName, this.pAddress, this.pNumber, this.country, this.pEmail, this.prules, this.pFile, this.propertyID, this.phoneIcode});
+  const EditPropertyScreen({this.pName, this.pAddress, this.pNumber, this.country, this.pEmail, this.prules, this.doclink, this.propertyID, this.phoneIcode});
 
   @override
   _EditPropertyScreenState createState() => _EditPropertyScreenState();
@@ -94,7 +94,7 @@ TextEditingController propertyNameController =  TextEditingController();
     emailcontroller.text  = widget.pEmail;
     phoneNumber.text  = widget.pNumber;
      rulesController.text  = widget.prules;
-     docuemntController.text  = widget.pFile;
+     docuemntController.text  = widget.doclink;
      defaultCountry = widget.country;
      defaultphoneIsoCode = widget.phoneIcode;
 
@@ -344,49 +344,48 @@ TextEditingController propertyNameController =  TextEditingController();
                         borderSide: new BorderSide(color: AppColor.borderColor,
                         ),
                       ),
-                      labelText:   (model.selectedDocument == null ? 'Attached document here' : 'Document attached'),
+                      labelText: 'Paste URL here',
                       suffixIcon: Icon(Icons.attachment)
                   ),
                   onTap: (){
-                    //TODO Select Document from Gallery.
-                    model.pickDocument(docuemntController);
+                 
                   },
                 ),
               ),
               verticalSpaceLarge,
 
-              GestureDetector(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
-                  child: Container(
-                    height: 50,
-                    child: Material(
-                      child: Center(
-                        child: Text('Remove Property',
-                          style: TextStyle(
-                              color: AppColor.white,
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.bold
-                          ),),
-                      ),
-                      color: Color(0xFFD24E4E),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18.0),
-                          side: BorderSide(color: AppColor.borderColor)
-                      ),
+              // GestureDetector(
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
+              //     child: Container(
+              //       height: 50,
+              //       child: Material(
+              //         child: Center(
+              //           child: Text('Remove Property',
+              //             style: TextStyle(
+              //                 color: AppColor.white,
+              //                 fontSize: 17.0,
+              //                 fontWeight: FontWeight.bold
+              //             ),),
+              //         ),
+              //         color: Color(0xFFD24E4E),
+              //         shape: RoundedRectangleBorder(
+              //             borderRadius: new BorderRadius.circular(18.0),
+              //             side: BorderSide(color: AppColor.borderColor)
+              //         ),
 
-                    ),
-                  ),
-                ),
-                onTap: (){
-                  return showDialog(
-                      context: context,
-                      builder: (context) {
-                        return deleteDialog(context, model, propertyNameController.text);
-                      }
-                  );
-                },
-              )
+              //       ),
+              //     ),
+              //   ),
+              //   onTap: (){
+              //     return showDialog(
+              //         context: context,
+              //         builder: (context) {
+              //           return deleteDialog(context, model, propertyNameController.text);
+              //         }
+              //     );
+              //   },
+              // )
 
 ],
           ),
@@ -435,8 +434,7 @@ side: BorderSide(color: AppColor.primaryLight)
         ),
       ),
             onTap: (){
-              print(model.key);
-              // Navigator.pop(context);
+             Navigator.pop(context);
             },
             ),
     horizontalSpaceMedium,
@@ -480,7 +478,9 @@ side: BorderSide(color: AppColor.primaryLight)
                             country: model.getCountry,
                             propertyName: propertyNameController.text.trim(),
                             pID: widget.propertyID,
-                            phoneIcode: defaultphoneIsoCode
+                            phoneIcode: defaultphoneIsoCode,
+                            link: docuemntController.text.trim(),
+                            rules: rulesController.text.trim(),
                         );
                       }else{
 

@@ -1,6 +1,5 @@
 class Constants {
   String dummyUseriD = "Lb2kymVmU9SbfK8FiMsE";
-  String apiKey = 'AIzaSyA7jtcMy9L9Iy2Ni9Vjxuf1DAKMQpwdnAc';
   // Strings
  
   //static const String projectUrl = "https://passwordlessdemo.firebaseapp.com";
@@ -33,3 +32,5 @@ const String signInViewRoute = '/signIn';
 const String addpropertyloadingRoute = '/propertyloding';
 const String proRoute ='/pro';
 const String addReservationRoute = '/addreservat';
+const String updatepropertyloadingRoute = '/updateProperty';
+const String addReservationloadingRoute = '/reseloading';

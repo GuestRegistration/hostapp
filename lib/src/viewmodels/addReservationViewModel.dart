@@ -34,9 +34,10 @@ List<GetProperties> get properties => _propertlist;
 List<Map<String, dynamic>> _plist = List<Map<String, dynamic>>();
 List<Map<String, dynamic>> get gerPlist => _plist;
 String selectedProperty;
+String _pId, _gName, _gEmail, _bookingC, _checkinD, _checkoutD, _instruction; 
 
 void initialize()async{
-  setBusy(true);
+  loadingOther(true);
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
@@ -44,7 +45,7 @@ QueryResult result = await _client.query(
       ),
 );
    if(result.data == null) {
-      setBusy(false);
+      loadingOther(false);
              print('Result is Null');
          }else{
             print('Result is not Null');
@@ -74,7 +75,7 @@ QueryResult result = await _client.query(
             _propertlist.add(v);
              
       }
-       setBusy(false);
+       loadingOther(false);
          }
 }
 List<GetProperties> getPropertiesList() {
@@ -127,47 +128,60 @@ showMessage(error: 'Check-out Date required');
     //  print(bookChanl);
     //  print(checkinD);
     //  print(checkoutD);  
+    _pId = propertyID; _gName = guestName; _gEmail = guestEmail; _bookingC = bookChanl;  _checkinD = checkinD; 
+    checkoutD = _checkoutD; 
+  }
+  }
+
+  }
+  
+  checkInInstrusion({@required String instruction,})async{
+    _instruction = instruction;
+    //Move to loading Page and send data to API
+
+  }
+
+  //TODO **********************************Adding Reservation Loading ViewModel**********************************
+    addReservationAPI()async{
       setBusy(true);
-     GraphQLClient _client = _graphQlConfiq.clientToQuery();
-    QueryResult result = await _client.mutate(
-      MutationOptions(
-          documentNode: gql(addReservationQuery),
-          onError: (error) {
-            print('******************Error Occur: ${error.toString()}');
-          },
-          onCompleted: (data) {
-            //Note: Don't compare data here or do anything that's pertaining to returened Data, 
-            //This will definately return even if it's error
+     
+    //  GraphQLClient _client = _graphQlConfiq.clientToQuery();
+    // QueryResult result = await _client.mutate(
+    //   MutationOptions(
+    //       documentNode: gql(addReservationQuery),
+    //       onError: (error) {
+    //         print('******************Error Occur: ${error.toString()}');
+    //       },
+    //       onCompleted: (data) {
+    //         //Note: Don't compare data here or do anything that's pertaining to returened Data, 
+    //         //This will definately return even if it's error
            
-          },
-          //Later (Rules and document)
-          variables: <String, dynamic>{
-            "user_id": Constants().dummyUseriD,
-            "property_id": propertyID,
-            "name": guestName,
-            "email": guestEmail,
-            "booking_channel": bookChanl,
-            "booking_no": "Not include",
-            "amount_paid": 0,
-            "checkin_date": checkinD,
-            "checkout_date": checkoutD
-
-          }
-      )
-    );
-     if (result.data == null) {
-        setBusy(false);
-             print('Result is Null');
-         }else{
-            setBusy(false);
-            print('Result is not Null');
-            _inviteLink = result.data['createReservation']['checkin_url'];
-            setLinkUIVisibilty(status: true); //enable(Make it visible) link Textfield UI
-            print(result.data['createReservation']['checkin_url']);
-            // _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
-         }
+    //       },
+    //       //Later (Rules and document)
+    //       variables: <String, dynamic>{
+    //         "user_id": Constants().dummyUseriD,
+    //         "property_id": _pId,
+    //         "name": _gName,
+    //         "email": _gEmail,
+    //         "booking_channel": _bookingC,
+    //         "checkin_date": _checkinD,
+    //         "checkout_date": _checkoutD,
+    //         "instruction": _instruction,
+    //       }
+    //   )
+    // );
+    //  if (result.data == null) {
+    //     setBusy(false);
+    //          print('Result is Null');
+    //      }else{
+    //         setBusy(false);
+    //         print('Result is not Null');
+    //         _inviteLink = result.data['createReservation']['checkin_url'];
+    //         setLinkUIVisibilty(status: true); //enable(Make it visible) link Textfield UI
+    //         print(result.data['createReservation']['checkin_url']);
+    //         // _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
+    //      }
 
   }
-  }
-  }
+    
 }

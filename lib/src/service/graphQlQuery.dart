@@ -1,26 +1,21 @@
 const  String addPropertyQuery = r"""
         mutation addProperty($userID : String!
-          $name: String!
           $phone: String!
+          $name: String!
           $email: String!
           $street: String!
-          $city: String!
-          $state: String!
+          $rules: String
           $phoneCountry_code: String!
+          $terms: String
           $country: String!
-          $postal_code: Int!
         ){
         createProperty(user_id: $userID,name: $name,
         phone_number: $phone, email: $email, street: $street, 
-          city: $city, state: $state, phone_country_code: $phoneCountry_code
-          country: $country, postal_code: $postal_code){
+          terms: $terms, phone_country_code: $phoneCountry_code,
+          country: $country, rules: $rules){
           id
           name
           email
-          address{
-            country
-            city
-          }
         }
         }
           """;
@@ -32,16 +27,15 @@ const  String addPropertyQuery = r"""
                 $phone: String!
                 $email: String!
                 $street: String!
-                $city: String!
                 $phoneCountry_code: String!
-                $state: String!
                 $country: String!
-                $postal_code: Int!
+                $rules: String
+                $terms: String
             ){
               updateProperty(id: $id, user_id: $user_id, name: $name,
               phone_number: $phone, email: $email, street: $street, 
-                city: $city, state: $state, phone_country_code: $phoneCountry_code
-                country: $country, postal_code: $postal_code){
+               phone_country_code: $phoneCountry_code,
+                country: $country, rules: $rules, terms: $terms,){
                 user_id
                 name
               }
@@ -62,9 +56,9 @@ const String getProperties = r"""
       street
       country
     }
-    
     email
-    terms    
+    terms  
+    rules  
   }
 }
  """;
@@ -80,11 +74,12 @@ const String getProperties = r"""
               $amount_paid: Int!
               $checkin_date: String!
               $checkout_date: String!
+              $instruction: String!
             ){
               createReservation(user_id: $user_id, property_id: $property_id,
               name: $name, email: $email, booking_channel: $booking_channel, 
                 booking_no: $booking_no, amount_paid: $amount_paid, 
-                checkin_date: $checkin_date,
+                checkin_date: $checkin_date, instruction: $instruction,
                 checkout_date: $checkout_date){
                 user_id
                 name

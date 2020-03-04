@@ -97,7 +97,7 @@ class _AddProprtyUIState extends State<AddProprtyUI> {
               horizontalSpaceLarge,
             horizontalSpaceLarge,
            swtichScreen(widget.model, context)
-          
+          //screen2(context, widget.model),
           ],
         ),
               ],)
@@ -126,11 +126,11 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
                Padding(
               padding: const EdgeInsets.only(top: 1.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                  Padding(
                    padding: const EdgeInsets.all(8.0),
-                   child: Text('Add Property', style:  TextStyle(
+                   child: Text('Add a Property', style:  TextStyle(
             color: AppColor.black,
             fontSize: AppFontSizes.largest,
             fontWeight: FontWeight.bold
@@ -147,40 +147,45 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
           ],),
                  verticalSpaceSmall,
                CollectText(ttile: 'Property Name',),
-              (model.busy ?  CircularProgressIndicator() :
-               GestureDetector(
-                      child:  TextFormField(
-                        controller: propertyNameController,
-                    keyboardType: TextInputType.number,
-                    decoration:  InputDecoration(
-                      enabledBorder: new OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: new BorderSide(color: AppColor.borderColor,
-                      ),
-                  ),
-                    border: new OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: new BorderSide(color: AppColor.borderColor
-                      ),
-                  ),
-                    hintStyle: AppTextStyle.inputHint(context),
-                  ),
-                   onTap: ()async{
-                       Prediction prediction = await PlacesAutocomplete.show(
-                          context: context,
-                          apiKey: model.key,
-                          mode: Mode.overlay, // Mode.fullscreen
+               verticalSpaceSmall,
+                    InputField(
+                    placeholder: 'PropertyAddress',
+                    decoration: null,
+                    controller: propertyNameController,
+                  ), 
+        //       (model.busy ?  CircularProgressIndicator() :
+        //        GestureDetector(
+        //               child:  TextFormField(
+        //                 controller: propertyNameController,
+        //             keyboardType: TextInputType.number,
+        //             decoration:  InputDecoration(
+        //               enabledBorder: new OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(8.0),
+        //               borderSide: new BorderSide(color: AppColor.borderColor,
+        //               ),
+        //           ),
+        //             border: new OutlineInputBorder(
+        //               borderRadius: BorderRadius.circular(8.0),
+        //               borderSide: new BorderSide(color: AppColor.borderColor
+        //               ),
+        //           ),
+        //             hintStyle: AppTextStyle.inputHint(context),
+        //           ),
+        //            onTap: ()async{
+        //                Prediction prediction = await PlacesAutocomplete.show(
+        //                   context: context,
+        //                   apiKey: model.key,
+        //                   mode: Mode.overlay, // Mode.fullscreen
                           
-                          );
-         propertyNameController.text=prediction.structuredFormatting.mainText;
-          //addressController.selection = TextSelection.fromPosition(TextPosition(offset: prediction.structuredFormatting.mainText.length));
-          setState(() {
-            addressController.text = prediction.structuredFormatting.secondaryText;
-          });
-                    },
-                  ),  
-                   
-                  )),
+        //                   );
+        //  propertyNameController.text=prediction.structuredFormatting.mainText;
+        //   //addressController.selection = TextSelection.fromPosition(TextPosition(offset: prediction.structuredFormatting.mainText.length));
+        //   setState(() {
+        //     addressController.text = prediction.structuredFormatting.secondaryText;
+        //   });
+        //   },
+        //           ),  
+        //           )),
                   verticalSpaceSmall,
                    CollectText(ttile: 'Property Address',),
                     InputField(
@@ -226,16 +231,7 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
 //                         ),
 //                       ),
 //                   ],),
-                    verticalSpaceSmall,
-                     CollectText(ttile: 'Contact Email',),
-                  InputField(
-                    placeholder: '',
-                    controller: emailcontroller,
-                    textInputType: TextInputType.emailAddress,
-                    onChanged: (value){
-                    },
-                  ),
-
+                   
                    verticalSpaceSmall,
                     CollectText(ttile: 'Contact Phone',),
                     InputField(
@@ -287,6 +283,18 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
                     
                   ),
                   ),
+                 
+                  verticalSpaceSmall,
+                     CollectText(ttile: 'Contact Email',),
+                  InputField(
+                    placeholder: '',
+                    controller: emailcontroller,
+                    textInputType: TextInputType.emailAddress,
+                    onChanged: (value){
+                    },
+                  ),
+ 
+ 
  verticalSpaceSmall,
   verticalSpaceLarge,
  GestureDetector(
@@ -352,24 +360,25 @@ setState(() {
               Padding(
               padding: const EdgeInsets.only(top: 50.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                  Padding(
                    padding: const EdgeInsets.all(8.0),
-                   child: Text('Add a Property ', style:  TextStyle( //Property Rules
+                   child: Text('Property Rules', 
+                   style:  TextStyle( //Property Rules
             color: AppColor.black,
-            fontSize: AppFontSizes.largest,
+            fontSize: AppFontSizes.larger,
             fontWeight: FontWeight.bold
           )
         ),), ],),
             ),
-               verticalSpaceSmall,
-               Text('Property Rules and T&C Document', style: TextStyle(
-            color: Colors.grey,
-            fontSize: AppFontSizes.medium,
-            fontWeight: FontWeight.bold
-          )
-        ),
+        //        verticalSpaceSmall,
+        //        Text('Property Rules and T&C Document', style: TextStyle(
+        //     color: Colors.grey,
+        //     fontSize: AppFontSizes.medium,
+        //     fontWeight: FontWeight.bold
+        //   )
+        // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -431,7 +440,7 @@ Padding(
                           borderSide: new BorderSide(color: AppColor.borderColor,
                           ),
                         ),
-                      labelText:   (model.selectedDocument == null ? 'Attached document link' : 'Document link'),
+                        hintText: 'Paste URL here',
                       suffixIcon: Icon(Icons.attachment)
                     ),
                     onChanged: (value) {
@@ -476,6 +485,7 @@ Padding(
                     ),
                   ),
                   onTap: (){
+                    
                      model.lastScreenbutton(
                        rules: rulesController.text.trim(),
                        mustSetData: false, //No, It's not a Must to set rules and document
@@ -508,6 +518,7 @@ Padding(
                       ),
                     ),
                     onTap: (){
+                      
                        model.lastScreenbutton(
                        rules: rulesController.text.trim(),
                        document: docuemntController.text.trim(),

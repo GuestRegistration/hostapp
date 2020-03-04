@@ -75,7 +75,7 @@ class _ProScreenState extends State<ProScreen> {
               ),
                GooglePlaceAutoCompleteTextField(
         textEditingController: controller,
-        googleAPIKey: Constants().apiKey,
+        //googleAPIKey: Constants().apiKey,
         inputDecoration :InputDecoration(
       border: new OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
@@ -109,7 +109,7 @@ class _ProScreenState extends State<ProScreen> {
   dar()async{
     Prediction prediction = await PlacesAutocomplete.show(
                           context: context,
-                          apiKey: Constants().apiKey,
+                         // apiKey: Constants().apiKey,
                           mode: Mode.fullscreen, // Mode.fullscreen
                           sessionToken: controller.text,
                            

@@ -15,6 +15,7 @@ final NavigationService _navigationService = locator<NavigationService>();
 
 List<GetProperties> _propertlist = List<GetProperties>();
 List<GetProperties> get properties => _propertlist;
+String serverError;
 
 
 void initialize()async{
@@ -28,6 +29,7 @@ QueryResult result = await _client.query(
    if(result.data == null) {
       setBusy(false);
              print('Result is Null');
+             print(result.exception);
          }else{
             print('Result is not Null');
             for (var index = 0; index < result.data["getProperties"].length; index++) {
@@ -36,7 +38,7 @@ QueryResult result = await _client.query(
                   email: result.data["getProperties"][index]["email"],
                   id: result.data["getProperties"][index]["id"],
                   name: result.data["getProperties"][index]["name"],
-
+                  rulesText: result.data["getProperties"][index]["rules"],
                   propertyPhone: PropertyPhone(
                     completePhone: result.data["getProperties"][index]["phone"]['complete_phone'], 
                   countryCode: result.data["getProperties"][index]["phone"]['country_code'], 
@@ -47,8 +49,9 @@ QueryResult result = await _client.query(
                   terms: result.data["getProperties"][index]["terms"],
                     )
               );
+              print( result.data["getProperties"][index]["rules"]);
       }
-      print(_propertlist.length);
+     // print(_propertlist.length);
        setBusy(false);
          }
 }
@@ -60,5 +63,11 @@ void addproperty(){
 
 void proPage(){
     _navigationService.navigateTo(proRoute);
+}
+
+setError(String errorMessage){
+  serverError = errorMessage;
+  print(serverError);
+  notifyListeners();
 }
 }

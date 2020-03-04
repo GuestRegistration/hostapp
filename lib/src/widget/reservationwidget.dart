@@ -5,12 +5,14 @@ import 'package:hostapp/src/style/AppTextStyle.dart';
 class ReservationWidget extends StatelessWidget{
   
   final GetReservationModel getReservation;
+  final String type;
      
    final Function onDeleteItem;
 
    const ReservationWidget({
     Key key,
     this.getReservation,
+    this.type,
     this.onDeleteItem,
   }) : super(key: key);
 
@@ -32,6 +34,7 @@ class ReservationWidget extends StatelessWidget{
                             ),
                                child: Card(
                                 elevation: 10,
+                                color: colorType(type: type),
                                 shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(20),
@@ -71,5 +74,21 @@ class ReservationWidget extends StatelessWidget{
                   );
                
 
+  }
+
+  Color colorType({String type}){
+    if (type == 'Upcomming'){
+
+      return Colors.white;
+
+    }else if(type == 'Current'){
+
+     return Color(0xFFF7FCFE);
+
+    }else if(type == 'Past'){
+
+      return Color(0xFFFEF7F7);
+
+    }
   }
 }

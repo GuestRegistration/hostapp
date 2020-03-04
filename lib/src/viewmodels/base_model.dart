@@ -7,10 +7,16 @@ class BaseModel extends ChangeNotifier {
   final AuthService _authService = locator<AuthService>();
 
   bool _busy = false;
+  bool loadingOthers = false;
   bool get busy => _busy;
 
   void setBusy(bool value) {
     _busy = value;
+    notifyListeners();
+  }
+
+  void loadingOther(bool value) {
+    loadingOthers = value;
     notifyListeners();
   }
 }

@@ -3,8 +3,10 @@ import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
 import 'package:hostapp/src/screen/ProScreen.dart';
 import 'package:hostapp/src/screen/AddReservationScreen.dart';
+import 'package:hostapp/src/widget/loadingScreen/AddReservationLoadingWidget.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/screen/WrapperScreen.dart';
+import 'package:hostapp/src/widget/loadingScreen/UpdatePropertyWidget.dart';
 import 'package:hostapp/src/util/constants.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -37,11 +39,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: Dashboard(showIndex: index,),
       );
 
-      case addpropertyloadingRoute:
-      return _getPageRoute(
-        routeName: settings.name,
-        viewToShow: AddProprtyLoadingScreen(data: settings.arguments,),
-      );
+      
+
        case proRoute:
       return _getPageRoute(
         routeName: settings.name,
@@ -52,6 +51,26 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: AddReservationScreen(),
+      );
+
+//TODO Loader UI.
+
+      case addpropertyloadingRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: AddProprtyLoadingScreen(data: settings.arguments,),
+      );
+
+      case updatepropertyloadingRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow:  UpdatePropertyWidget(data: settings.arguments,),
+      );
+
+      case addReservationloadingRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: AddReservationLoadingWidget(),
       );
       
 

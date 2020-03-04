@@ -6,10 +6,12 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/route.dart';
 import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/MainReservationScreen.dart';
+import 'package:hostapp/src/screen/EditReservationScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/screen/tester.dart';
 import 'package:hostapp/src/GraphQLDemo/graphTexter.dart';
-import 'package:hostapp/src/screen/ProScreen.dart';
+import 'package:hostapp/src/screen/AddPropertyScreen.dart';
+import 'package:hostapp/src/screen/ListOfProperty.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
@@ -48,7 +50,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: Dashboard(showIndex: 0,),//MainReservationScreen(), //Dashboard(), //
+      home: Dashboard(showIndex: 0,),//ListOfProperty(),//Dashboard(showIndex: 0,), //AddPropertyView(), //SendCheckInInstruction(),//EditReservationScreen(),//Dashboard(showIndex: 0,),//MainReservationScreen(), //Dashboard(), //
       onGenerateRoute: generateRoute,
     ),
       client: _graphQlConfiq.client,

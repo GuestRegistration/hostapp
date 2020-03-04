@@ -5,9 +5,10 @@ class GetProperties {
   Address address;
   String email;
   String terms;
+  String rulesText;
   PropertyPhone propertyPhone;
 
-  GetProperties({this.id, this.name, this.propertyPhone, this.address, this.email, this.terms});
+  GetProperties({this.id, this.name, this.propertyPhone, this.address, this.email, this.terms, this.rulesText});
 
    getId() => this.id;
 
@@ -20,6 +21,8 @@ class GetProperties {
   getEmail() => this.email;
 
   geterms() => this.terms;
+
+ getRules() => this.rulesText;
   
 }
 

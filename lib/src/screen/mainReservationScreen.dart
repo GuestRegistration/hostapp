@@ -6,6 +6,9 @@ import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/authentication.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
+import 'package:hostapp/src/screen/reservationsTabs/UpcomingTab.dart';
+import 'package:hostapp/src/screen/reservationsTabs/CurrentTab.dart';
+import 'package:hostapp/src/screen/reservationsTabs/PastTab.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/widget/ReservationWidget.dart';
 import 'package:provider_architecture/provider_architecture.dart';
@@ -28,7 +31,6 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
       builder: (context, model, child) =>
        buildTab(model)
       );
-  
   
   }
 
@@ -83,9 +85,9 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
          
           ),
           body: TabBarView(children: [
-             Tab1(),
-            Icon(Icons.movie),
-            Icon(Icons.games),
+             UpcomingTab(),
+            CurrentTab(),
+           PastTab(),
           ]),
           floatingActionButton:FloatingActionButton(onPressed: () { 
              model.addReservation();
@@ -97,39 +99,3 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
   }
 }
 
-
-
-class Tab1 extends ProviderWidget<MainReservationViewModel> {
-  @override
-  Widget build(BuildContext context, MainReservationViewModel model) {
-    return (model.list == null ? Center(
-      child: CircularProgressIndicator(
-                    strokeWidth: 4,
-                          valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
-                          backgroundColor: AppColor.borderColor,
-                    ),
-    ) : ListView.builder(
-            itemCount: model.list.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context , int index){
-              if(model.list.length == 0){
-              return Center(child: Text('You do not have any reservation. '
-                  'Click on the ‘’+ icon’’ button below to add one reservation for free.',
-                style:  TextStyle(
-                  color: Colors.red,
-                  fontStyle: FontStyle.normal,
-                  fontSize: 16,
-                )
-              ),
-              );
-            }
-            return  ReservationWidget(
-                getReservation: model.list[index],
-                );
-               
-             
-               },))
-               ;
-  }
-}

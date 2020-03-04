@@ -13,6 +13,8 @@ class AppText{
   static const String next = "Next";
   static const String done = "Done";
   static const String addPHoldOn = "Hold on while we create your property... It will only take a few seconds";
+  static const String addPHoldOnUpdateProperty = "Hold on while we update your property... It will only take a few seconds";
+   static const String addPHoldOnReservation = "Hold on while we create your reservation... It will only take a few seconds";
 
 
   /// the welcome screen data

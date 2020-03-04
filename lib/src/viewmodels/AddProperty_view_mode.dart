@@ -36,7 +36,7 @@ File get selectedImage => _image; //Property Image
 File get selectedDocument => _file; //Property rules document.
 bool isPropertyRulesSet = false; //enable listerner for button in property rules
 CloudStorageResult storageResult;
-String _propertyName, _address, _contactEmail, _phoneN, _phoneIcode;
+String _propertyName, _address, _contactEmail, _phoneN, _phoneIcode, _rules, _documentLink;
 String _errorMessage;
 String get errorM => _errorMessage;
 String _country;
@@ -175,6 +175,7 @@ Future pickDocument(TextEditingController docuemntController)async{
 
  lastScreenbutton({ 
    @required String rules, @required String document, @required bool mustSetData})async{
+
      if(mustSetData){ //IF Skip button is press,this wull be false but if complete is press this will be true
      if(rules.isEmpty){
 showMessage(error: 'Property rules required');
@@ -187,33 +188,31 @@ showMessage(error: 'Property rules required');
   }else if(rules.isNotEmpty && document.isNotEmpty){
       bool _validURL = Uri.parse(document).isAbsolute;
       if(_validURL){
-          sendrulesData();
+        //Asigned to global variable
+        _rules = rules;
+        _documentLink = document;
+         sendrulesData();
       }else{
          showMessage(error: 'Invalid Document link');
       }
      //    print(rules);
   //  print(_file.path);
  
- 
   }
      }else{
-if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am not compulosry to be filled.
- sendrulesData();
-
-  }
+       print('I dy here');
+//Am not compulosry to be filled.
+  sendrulesData();
      }
 
  }
  sendrulesData(){
  List<String> datalist = new List<String>();
   datalist.add(_propertyName);  datalist.add(_address);   datalist.add(_phoneN);
-  datalist.add(_country);   datalist.add(_contactEmail); datalist.add(_phoneIcode);   
-    _navigationService.navigateTo(addpropertyloadingRoute, arguments: datalist);
-  
+  datalist.add(_country);   datalist.add(_contactEmail); datalist.add(_phoneIcode); 
+  datalist.add(_rules); datalist.add(_documentLink);   
+    _navigationService.navigateTo(addpropertyloadingRoute, arguments: datalist); 
  }
-
-
-
 
 
  setPropertyRulesButtonStatus(bool value){
@@ -241,7 +240,8 @@ if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am no
 
 //TODO********************** UPDATE/ EDIT/ ADD PROPERTY *************************
   updateDetails({@required String propertyName, @required String address, @required String contactEmail,
-    @required String phoneN, @required String country, pID, @required String phoneIcode,
+    @required String phoneN, @required String country, pID, @required String phoneIcode,  @required String rules,
+     @required String link, 
   }){
 
     //Check Address
@@ -282,66 +282,27 @@ if(rules.isEmpty || _file == null || rules.isNotEmpty || _file != null){ //Am no
         // print(address);
         // print(country);
         // print(contactEmail);
-
-         updateAPI(address: address, contactEmail: contactEmail, country: country, phoneN: phoneN,
-         propertyName: propertyName, id: pID, phoneIcode: phoneIcode);
         
+ List<String> updateList = new List<String>();
+  updateList.add(pID);
+  updateList.add(propertyName);  
+  updateList.add(address);   updateList.add(phoneN);
+  updateList.add(country);   updateList.add(contactEmail); updateList.add(phoneIcode); 
+  updateList.add(rules); updateList.add(link);  
 
-      
         //TODO UPDATE CHANGES
-      
+    _navigationService.navigateTo(updatepropertyloadingRoute, arguments: updateList); 
       }
     }
   }
 
   deleteProperty({@required String propertyName}){
-
    //TODO DELETE API
     _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
   }
 
 
-  updateAPI({@required String propertyName, @required String address, @required String contactEmail,
-    @required String phoneN, @required String country, id, String phoneIcode})async{
-        setBusy(true);
-     GraphQLClient _client = _graphQlConfiq.clientToQuery();
-    QueryResult result = await _client.mutate(
-      MutationOptions(
-          documentNode: gql(updatePropertyQuery),
-          onError: (error) {
-            print('******************Error Occur: ${error.toString()}');
-          },
-          onCompleted: (data) {
-            //Note: Don't compare data here or do anything that's pertaining to returened Data, 
-            //This will definately return even if it's error
-           
-          },
-          //Later (Rules and document)
-          variables: <String, dynamic>{
-            "user_id": Constants().dummyUseriD,
-             "id": id,
-              "phone": phoneN,
-              "email": contactEmail,
-              "street": address,
-              "state": "Not Include",
-              "postal_code": 0,
-              "name": propertyName,
-              'phoneCountry_code': phoneIcode,
-              "city": "Not include",
-              "country": country,
-          }
-      )
-    );
-     if (result.data == null) {
-        setBusy(false);
-             print('Result is Null');
-         }else{
-            setBusy(false);
-            print('Result is not Null');
-            print(result.data['updateProperty']['name']);
-             _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
-         }
-  }
+ 
   
  Future setupRemoteConfig() async {
    setBusy(true);

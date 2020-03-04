@@ -31,8 +31,9 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
      TextEditingController checkoutController = new TextEditingController();
       TextEditingController inviteInLinkController = new TextEditingController();
      DateTime date = DateTime.now();
-       String _selectedProperty = '', _selectedID = ''; //
-         
+       GetProperties _selectedProperty, _selectedID;
+       String selectedBookingName;
+       String propertyID;
 
      @override
   void initState() {
@@ -48,10 +49,10 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
   Widget build(BuildContext context) {
     return ViewModelProvider<AddReservationViewModel>.withConsumer(
       viewModel: AddReservationViewModel(),
-      onModelReady: (model) => model.initialize(),
+      //onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
        Scaffold(
-        body: (model.getPropertiesList == null ? Center(
+        body: (model.loadingOthers ? Center(
         child: CircularProgressIndicator(
                     strokeWidth: 4,
                           valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
@@ -66,47 +67,55 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                  horizontalSpaceLarge,
                 horizontalSpaceLarge,
                headerButton(),
-                Padding(
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.start,
+                 children: <Widget>[
+                  Padding(
                      padding: const EdgeInsets.all(8.0),
                      child: Text('Add a reservation', style:  TextStyle(
               color: AppColor.black,
-              fontSize: AppFontSizes.largest,
+              fontSize: AppFontSizes.larger,
               fontWeight: FontWeight.bold
             )
           ),), 
+               ],),
              _customFuntion.errorUimessage(errorMessage: model.errorM),
                    verticalSpaceSmall,
                     CollectTextWithout(title: 'Property',),
-                        Container(
-                            height: 50,
-                             width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.symmetric(horizontal: 10.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                border: Border.all(
-                                    color: AppColor.borderColor, style: BorderStyle.solid, width: 0.80),
-                              ),
-                          child: DropdownButton(
-                            isExpanded: true,
-                                underline: SizedBox(),
-                                items: model.getPropertiesList().map((GetProperties lang) {
-                                return DropdownMenuItem<GetProperties>(
-                                          value: lang,
-                                          child: Text(lang.name.toString(), 
-                                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
-                                        );
-                                            }).toList(),
-                                onChanged: (GetProperties val) {
-                                  setState(() {
-                                     _selectedProperty= val.name;
-                                     _selectedID= val.id;
-                                    //  print(_selectedID);
-                                    //  print(_selectedProperty);
-
-                                  });
-                                    },
-                              ),
-                        ),
+                     CollectTextWithout(title: 'SHow later, when prioperty resolve, and also initModel',),
+                        // Container(
+                        //     height: 50,
+                        //      width: MediaQuery.of(context).size.width,
+                        //       padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        //       decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(15.0),
+                        //         border: Border.all(
+                        //             color: AppColor.borderColor, style: BorderStyle.solid, width: 0.80),
+                        //       ),
+                        //   child: DropdownButton<GetProperties>(
+                        //     isExpanded: true,
+                        //         underline: SizedBox(),
+                        //         value: _selectedProperty,
+                        //         onChanged: (value) {
+                        //           setState(() {
+                        //             _selectedProperty = value;
+                        //              propertyID = value.id; //Return property ID
+                                     
+                        //             //  print(_selectedID);
+                        //            //  print(_selectedProperty.id);
+                        //             //  print(_selectedProperty);
+                        //           });
+                        //         },
+                        //         items: model.getPropertiesList().map((GetProperties lang) {
+                        //         return DropdownMenuItem<GetProperties>(
+                        //                   value: lang, //Show Name 
+                        //                   child: Text(lang.name.toString(), 
+                        //                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
+                        //                 );
+                        //                     }).toList(),
+                              
+                        //       ),
+                        // ),
                   //  FindDropdown(
                   //   items: model.properties.map((value)),
                   //   label: "Select Property",
@@ -139,14 +148,44 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                       decoration: null,
                       controller: guestEmailController,
                     ),
+
                      
                       verticalSpaceSmall,
                        CollectTextWithout(title: 'Booking Channel',),
-                    InputField(
-                      placeholder: 'Booking Channel',
-                      controller: bookingChannelController,
-                      textInputType: TextInputType.text,
-                    ),
+                        CollectTextWithout(title: 'Am also a dropdown, \n so need to implement ASAP',),
+                    
+                      // Container(
+                      //       height: 50,
+                      //        width: MediaQuery.of(context).size.width,
+                      //         padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(15.0),
+                      //           border: Border.all(
+                      //               color: AppColor.borderColor, style: BorderStyle.solid, width: 0.80),
+                      //         ),
+                      //     child: DropdownButton<String>(
+                      //       isExpanded: true,
+                      //           underline: SizedBox(),
+                      //           value: selectedBookingName,
+                      //           onChanged: (value) {
+                      //             setState(() {
+                      //             selectedBookingName = value
+                                     
+                      //               //  print(_selectedID);
+                      //              //  print(_selectedProperty.id);
+                      //               //  print(_selectedProperty);
+                      //             });
+                      //           },
+                      //           items: model.getPropertiesList().map((String lang) {
+                      //           return DropdownMenuItem<String>(
+                      //                     value: lang, //Show Name 
+                      //                     child: Text(lang.toString(), 
+                      //                     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
+                      //                   );
+                      //                       }).toList(),
+                              
+                      //         ),
+                      //   ),
                   
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -297,7 +336,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                     height: 50,
                     child: Material(
                       child: Center(
-                        child: Text('Generate Check-In Link',
+                        child: Text('Continue',
                           style: TextStyle(
                               color: AppColor.white,
                               fontSize: 17.0,
@@ -320,7 +359,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                     checkoutD: checkoutController.text,
                     guestEmail: guestEmailController.text,
                     guestName: nameofGuestController.text,
-                    propertyID: _selectedID
+                    propertyID: propertyID
                   );
 
                 },
