@@ -1,6 +1,7 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/screen/auth_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Termconditions extends StatefulWidget {
   // List list;
@@ -25,7 +26,8 @@ class _TermconditionsState extends State<Termconditions> {
       remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
       await remoteConfig.fetch(expiration: const Duration(seconds: 0));
       await remoteConfig.activateFetched();
-      result = remoteConfig.getString('TermsConditions');
+      //result = remoteConfig.getString('TermsConditions');
+      result = remoteConfig.getString('Termsurl');
     } on FetchThrottledException catch (exception) {
       print(exception);
     } catch (exception) {
@@ -52,18 +54,31 @@ class _TermconditionsState extends State<Termconditions> {
             return Text('');
           }
         });
-
-    
   }
 }
 
-class Remoteterms extends StatelessWidget {
+class Remoteterms extends StatefulWidget {
   Remoteterms({this.result});
   var result;
+
+  @override
+  _RemotetermsState createState() => _RemotetermsState();
+}
+
+class _RemotetermsState extends State<Remoteterms> {
+  void initState() {
+    print("inside init");
+    /*setState(() {
+       
+       launch('${widget.result}');
+     });*/
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(result);
- 
+    print(widget.result);
+
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
@@ -114,12 +129,8 @@ class Remoteterms extends StatelessWidget {
                     ],
                   ),
                   onPressed: () {
-                     Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AuthScreen(
-                                      
-                                    )));
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => AuthScreen()));
                   },
                 ),
               ),
@@ -137,17 +148,22 @@ class Remoteterms extends StatelessWidget {
             SizedBox(height: 50.0),
             Center(
               child: SizedBox(
-         
                 child: Align(
                   child: Center(
                     child: Container(
                       margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                       child: Column(
                         children: <Widget>[
-                          Text('$result',
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 16.0)),
                           SizedBox(height: 10.0),
+                          new InkWell(
+                            child: new Text('Our Terms & Conditions',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 16.0,
+                                  decoration: TextDecoration.underline,
+                                )),
+                            onTap: () => launch('${widget.result}'),
+                          ),
                         ],
                       ),
                     ),

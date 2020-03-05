@@ -1,11 +1,13 @@
 import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/terms&conditions.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/service/queryMutation.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'welcome.dart';
 import 'sign_in.dart';
 import 'login_page.dart';
@@ -45,7 +47,24 @@ class AuthScreenState extends State<AuthScreen> {
     getdeviceinfo();
     super.initState();
   }
- 
+ //getting data from remote config
+   Future getTermconditions() async {
+    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    var result;
+    try {
+      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
+      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
+      await remoteConfig.activateFetched();
+      //result = remoteConfig.getString('TermsConditions');
+          result = remoteConfig.getString('Termsurl');
+    } on FetchThrottledException catch (exception) {
+      print(exception);
+    } catch (exception) {
+      print("unable to fetch remote config");
+    }
+    return result;
+  }
+
  //Function start to check device type
   getdeviceinfo() async {
     if (Theme.of(context).platform == TargetPlatform.iOS) {
@@ -387,12 +406,14 @@ class AuthScreenState extends State<AuthScreen> {
                   height: 60.0,
                   child: FlatButton(
                     onPressed: () {  
+                       
                        Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Termconditions(
                                        
                                       )));
+                                     // return Termconditions();
                     },
                     child: const Text(
                       'Terms & Conditions',
@@ -411,3 +432,4 @@ class AuthScreenState extends State<AuthScreen> {
     );
   }
 }
+
