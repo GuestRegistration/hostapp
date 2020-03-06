@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hostapp/src/screen/terms&conditions.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/service/queryMutation.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -56,13 +55,14 @@ class AuthScreenState extends State<AuthScreen> {
       await remoteConfig.fetch(expiration: const Duration(seconds: 0));
       await remoteConfig.activateFetched();
       //result = remoteConfig.getString('TermsConditions');
-          result = remoteConfig.getString('Termsurl');
+      result = remoteConfig.getString('Termsurl');
     } on FetchThrottledException catch (exception) {
       print(exception);
     } catch (exception) {
       print("unable to fetch remote config");
     }
-    return result;
+    return launch(result);
+
   }
 
  //Function start to check device type
@@ -275,8 +275,7 @@ class AuthScreenState extends State<AuthScreen> {
                             graphQLConfiguration.clientToQuery();
                         QueryResult result = await _client.mutate(
                           MutationOptions(
-                            document: selectdata,
-                           
+                            document: selectdata,                           
                             variables: {
                               'email': email1,
                             },
@@ -406,14 +405,8 @@ class AuthScreenState extends State<AuthScreen> {
                   height: 60.0,
                   child: FlatButton(
                     onPressed: () {  
-                       
-                       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Termconditions(
-                                       
-                                      )));
-                                     // return Termconditions();
+                       getTermconditions(); 
+                                                           
                     },
                     child: const Text(
                       'Terms & Conditions',

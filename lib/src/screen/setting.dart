@@ -1,10 +1,12 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/sign_in.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends StatefulWidget {
   final String email;
@@ -145,7 +147,27 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
     );
   }
+   
+    Future geturl(String url) async {
+      print("url"+url);
+    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    var result;
+    try {
+      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
+      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
+      await remoteConfig.activateFetched();
+      //result = remoteConfig.getString('TermsConditions');
+      //result = remoteConfig.getString('Contactusurl');
+      result = remoteConfig.getString(url);
+    } on FetchThrottledException catch (exception) {
+      print(exception);
+    } catch (exception) {
+      print("unable to fetch remote config");
+    }
+        return launch(result);
 
+  }
+  
   @override
   void dispose() {
     super.dispose();
@@ -441,7 +463,10 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     border: Border.all(color: Color(0xffC6DEE9))),
                 child: new FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //getTermsofService();
+                      geturl('Termsofserviceurl');
+                  },
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -485,7 +510,10 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     border: Border.all(color: Color(0xffC6DEE9))),
                 child: new FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //getPrivacyPolicy();
+                    geturl('Privacypolicyurl');
+                  },
                   child: Row(
                     children: <Widget>[
                       Text(
@@ -528,7 +556,10 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     border: Border.all(color: Color(0xffC6DEE9))),
                 child: new FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                   // getcontactus();
+                   geturl('Contactusurl');
+                  },
                   child: Row(
                     children: <Widget>[
                       Text(
