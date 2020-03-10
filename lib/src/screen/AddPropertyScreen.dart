@@ -241,7 +241,7 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
                     decoration:  InputDecoration(
                       enabledBorder: new OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide: new BorderSide(color: AppColor.borderColor,
+                      borderSide: new BorderSide(color: AppColor.primary,
                       ),
                   ),
                     border: new OutlineInputBorder(

@@ -13,6 +13,10 @@ import 'package:hostapp/src/util/customFunctions.dart';
 
 
 class SendCheckInInstruction extends StatefulWidget {
+  final List<String> movedData;
+
+  const SendCheckInInstruction({this.movedData});
+
   @override
   _SendCheckInInstructionState createState() => _SendCheckInInstructionState();
 }
@@ -111,7 +115,7 @@ class _SendCheckInInstructionState extends State<SendCheckInInstruction> {
                     ),
                   ),
                   onTap: (){
-                    model.checkInInstrusion(instruction: instructionController.text);
+                    model.checkInInstrusion(instruction: instructionController.text, moved: widget.movedData);
                   },
                 )
                 

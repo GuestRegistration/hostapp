@@ -24,7 +24,7 @@ import 'package:hostapp/src/util/customFunctions.dart';
 class AddPropertyViewModel extends BaseModel{
     final AuthService _authService = locator<AuthService>();
 final DialogService _dialogService = locator<DialogService>();
-final NavigationService _navigationService = locator<NavigationService>();
+final NavigationService _navigationService = locator<NavigationService>(); 
 final FirestoreService _firestoreService = locator<FirestoreService>();
 final CloudStorageService _cloudStorageService = locator<CloudStorageService>();
  final CustomFuntion _customFuntion = locator<CustomFuntion>();
@@ -55,7 +55,7 @@ bool isDataEntered = false, continueButton = false, erasseData = false; //Is any
 
  
  void initialize(){
-  setupRemoteConfig().then((value) => key = value);
+  //setupRemoteConfig().then((value) => key = value); comment for now till Google Place
 pageIndex = 0;
 notifyListeners(); //To Notify changes
 }

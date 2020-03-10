@@ -22,17 +22,19 @@ String get getErrorMessage => _errorMessage;
       String rules = data[6]; //Rules
       String docLink = data[7]; //Rules
 
-      print('**************** COMING DATA *****************');
-       print(pName); 
-        print(pAddress); 
-        print(phoneN); 
-        print(country); 
-        print(cEmail); 
-         print(rules); 
-         print(docLink); 
-         print('**************** *****************');
+      // print('**************** COMING DATA *****************');
+      //  print(pName); 
+      //   print(pAddress); 
+      //   print(phoneN); 
+      //   print(country); 
+      //   print(cEmail); 
+      //    print(rules); 
+      //    print(docLink); 
+      //    print('**************** *****************');
 
 setBusy(true);
+
+ await _graphQlConfiq.getNeccessartyToken();
     GraphQLClient _client = _graphQlConfiq.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
@@ -44,18 +46,17 @@ setBusy(true);
             //Note: Don't compare data here or do anything that's pertaining to returened Data, This will definately return even if it's error
 
           },
-
+ //"userID": Constants().dummyUseriD,
           
           variables: <String, dynamic>{
-              "userID": Constants().dummyUseriD,
+              "name": pName,
               "phone": phoneN,
               "email": cEmail,
               "street": pAddress,
               "rules": rules,
-              "name": pName,
               'phoneCountry_code': phoneIcode,
               "terms": docLink,
-              "country": country,
+              "country": country
           }
       )
     ).catchError((e){
@@ -63,7 +64,7 @@ setBusy(true);
       print('Error Occur, ${e.toString()}');
       setErrorMessage(erorr: e.toString());
 
-        }).timeout(Duration(seconds: 6,), onTimeout: (){
+        }).timeout(Duration(seconds: 5,), onTimeout: (){
            setBusy(false);
           setErrorMessage(erorr: 'Server Timeout');
         },);
@@ -79,7 +80,6 @@ setBusy(true);
              _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
          }
   }
-
 
 updatePropertyAPI({List data})async{
 

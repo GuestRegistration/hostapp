@@ -4,8 +4,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/service/graphQlQuery.dart';
+import 'package:hostapp/src/locator.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart';
+import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 
 class GraphTester extends StatefulWidget {
   @override
@@ -13,23 +15,25 @@ class GraphTester extends StatefulWidget {
 }
 
 class _GraphTesterState extends State<GraphTester> {
+var _graphQlConfiq = locator<GraphQLConfiguration>();
+
 
   @override
   Widget build(BuildContext context) {
-    //final HttpLink httpLink = HttpLink(uri: 'https://countries.trevorblades.com'); //Am using someone's api for fetch dummy data
-    final HttpLink httpLink = HttpLink(uri: 'https://us-central1-guestregistration-4140a.cloudfunctions.net/api');
-    final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
-      GraphQLClient(link: httpLink,
-      cache: OptimisticCache(
-        dataIdFromObject: typenameDataIdFromObject,
-      )
-      )
-    );
+    // //final HttpLink httpLink = HttpLink(uri: 'https://countries.trevorblades.com'); //Am using someone's api for fetch dummy data
+    // final HttpLink httpLink = HttpLink(uri: 'https://us-central1-guestregistration-4140a.cloudfunctions.net/api');
+    // final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
+    //   GraphQLClient(link: httpLink,
+    //   cache: OptimisticCache(
+    //     dataIdFromObject: typenameDataIdFromObject,
+    //   )
+    //   )
+    // );
 
 
     return GraphQLProvider(
-      child: FetchDataDemo(),
-      client: client,
+      child: InserDemo(),
+      client: _graphQlConfiq.initilize(),
     );
   }
 }
@@ -111,29 +115,26 @@ class InserDemo extends StatefulWidget {
 }
 
 class _InserDemoState extends State<InserDemo> {
+  var _graphQlConfiq = locator<GraphQLConfiguration>();
   bool processing = false;
   String insertData = r"""
-        mutation addProperty($userID : String!
-          $name: String!
+        mutation addProperty(
           $phone: String!
+          $name: String!
           $email: String!
           $street: String!
-          $city: String!
-          $state: String!
+          $rules: String
+          $phoneCountry_code: String!
+          $terms: String
           $country: String!
-          $postal_code: Int!
         ){
-        createProperty(user_id: $userID,name: $name,
-        phone: $phone, email: $email, street: $street, 
-          city: $city, state: $state,
-          country: $country, postal_code: $postal_code){
+        createProperty(name: $name,
+        phone_number: $phone, email: $email, street: $street, 
+          terms: $terms, phone_country_code: $phoneCountry_code,
+          country: $country, rules: $rules){
           id
           name
           email
-          address{
-            country
-            city
-          }
         }
         }
           """;
@@ -172,19 +173,45 @@ class _InserDemoState extends State<InserDemo> {
                       onPressed: (){
                         startLoading();
                         runMutation(<String, dynamic>{
-                            "userID": "KrtoxB4cBZsFdGZ975qM",
-                            "phone": "09057463831",
-                            "email": "horlaz229@gmail.com",
-                            "street": "Bodija Adebayo street",
-                            "state": "OYO",
-                            "postal_code": 123,
-                            "name": "Olajire",
-                            "city": "Islamdad",
-                            "country": "Pakistan"
+                        "phone": '09057463831',
+                        "email": 'horlaz229@gmail.com',
+                        "street": 'Bodija Adebayo street',
+                        "rules": 'My Rules is rules',
+                        "name": 'Olajire',
+                        'phoneCountry_code': '+232',
+                        "terms": 'No Smoking Asshole',
+                        "country": 'Pakistan'
                         });
                       },
                     ),
                   )),
+
+                  //  (processing ? SpinKitRipple(color: AppColor.colorassence, duration: new Duration(seconds: 1),) :
+                  // Container(
+                  //   height: 30,
+                  //   width: 250,
+                  //   color: Colors.teal,
+                  //   child: MaterialButton(
+                  //     child: Text('get Token'),
+                  //     onPressed: (){
+                  //       _graphQlConfiq.getFromServerClientToken();
+                  //     },
+                  //   ),
+                  // )),
+
+                  SizedBox(height: 20,),
+
+                  Container(
+                    height: 30,
+                    width: 250,
+                    color: Colors.teal,
+                    child: MaterialButton(
+                      child: Text('See Token'),
+                      onPressed: (){
+                        //_graphQlConfiq.local();
+                      },
+                    ),
+                  ),
                   SizedBox(height: 30,),
               status(result)
               ],),

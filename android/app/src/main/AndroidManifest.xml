@@ -15,7 +15,7 @@
         android:label="hostapp"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.maps.v2.API_KEY" 
-        android:value="AIzaSyCBRhAT9zrldvx7CMcdDgPt0VlCNLPtKpM"/>
+        android:value="AIzaSyA7jtcMy9L9Iy2Ni9Vjxuf1DAKMQpwdnAc"/>
      <meta-data android:name="com.google.android.gms.version"
       android:value="@integer/google_play_services_version"/>
       

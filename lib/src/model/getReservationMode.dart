@@ -4,11 +4,15 @@ String id;
   String checkinUrl;
   String checkedinAat;
   String checkoutDate;
+  String checkInDate;
   bool alreadyCheckedin;
   String bookingChannel;
+  bool approved;
+  List<dynamic> guest;
+  Property property;
 
-  GetReservationModel({this.id, this.name, this.checkinUrl, this.checkedinAat, 
-  this.checkoutDate, this.alreadyCheckedin, this.bookingChannel});
+  GetReservationModel({this.id, this.name, this.checkinUrl, this.checkedinAat, this.approved,
+  this.checkoutDate, this.alreadyCheckedin, this.bookingChannel, this.guest, this.property, this.checkInDate});
 
    getId() => this.id;
 
@@ -23,4 +27,29 @@ String id;
   getIsAlreadyCheckIn() => this.alreadyCheckedin;
 
   getBookingChannel() => this.bookingChannel;
+
+   getProperty() => this.property;
+
+   getCheckInDate() => this.checkInDate;
+
+    getIsApproved() => this.approved;
+}
+
+class Property{
+ String id, name;
+
+ Property({this.id, this.name});
+
+getPropertyId() => this.id;
+
+getPropertyName() => this.name;
+}
+
+
+class GuestModel{
+  String id, name, gender, type;
+    
+   GuestModel({this.id, this.name, this.gender, this.type});
+
+   
 }

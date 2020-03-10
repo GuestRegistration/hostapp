@@ -6,6 +6,7 @@ import 'package:hostapp/src/screen/AddReservationScreen.dart';
 import 'package:hostapp/src/widget/loadingScreen/AddReservationLoadingWidget.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/screen/WrapperScreen.dart';
+import 'package:hostapp/src/screen/SendCheckInInstruction.dart';
 import 'package:hostapp/src/widget/loadingScreen/UpdatePropertyWidget.dart';
 import 'package:hostapp/src/util/constants.dart';
 
@@ -53,6 +54,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: AddReservationScreen(),
       );
 
+      case reservationInstructionRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SendCheckInInstruction(movedData: settings.arguments),
+      );
+
+      
+
+      
+
 //TODO Loader UI.
 
       case addpropertyloadingRoute:
@@ -70,9 +81,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       case addReservationloadingRoute:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: AddReservationLoadingWidget(),
+        viewToShow: AddReservationLoadingWidget(data: settings.arguments,),
       );
-      
+
+    
 
        
     default:

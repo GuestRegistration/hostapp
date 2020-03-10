@@ -126,4 +126,60 @@ shareReservationLink({String link})async{
     Share.share('Click on this link to access the property $link');
   }
 
+
+   String returnMonth({int value}){
+    switch(value){
+    case 1:
+	return "January";
+	  break;
+	  
+	  case 2:
+	return "Feb.";
+	  break;
+	  
+	  case 3:
+	return "March";
+	  break;
+	  
+	  case 4:
+	return "April";
+	  break;
+	  
+	  case 5:
+	return "May";
+	  break;
+	  
+	  case 6:
+	return "June";
+	  break;
+	  
+	  case 7:
+	return "July";
+	  break;
+	  
+	  case 8:
+	return "August";
+	  break;
+	  
+	  case 9:
+	return "Sept.";
+	  break;
+	  
+	  case 10:
+	return "Oct.";
+	  break;
+	  
+	  case 11:
+	return "Nov.";
+	  break;
+	  
+	  case 12:
+	return "Dec.";
+	  break;
+    
+    default:
+    return '';
+    }
+  }
+
 }

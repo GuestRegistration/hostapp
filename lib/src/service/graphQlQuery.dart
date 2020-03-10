@@ -1,5 +1,5 @@
 const  String addPropertyQuery = r"""
-        mutation addProperty($userID : String!
+        mutation addProperty(
           $phone: String!
           $name: String!
           $email: String!
@@ -9,7 +9,7 @@ const  String addPropertyQuery = r"""
           $terms: String
           $country: String!
         ){
-        createProperty(user_id: $userID,name: $name,
+        createProperty(name: $name,
         phone_number: $phone, email: $email, street: $street, 
           terms: $terms, phone_country_code: $phoneCountry_code,
           country: $country, rules: $rules){
@@ -43,8 +43,8 @@ const  String addPropertyQuery = r"""
           """;
 
 const String getProperties = r"""
-       query{
-  getProperties{
+   query{
+  getUserProperties{
     id
     name
     phone{
@@ -65,20 +65,15 @@ const String getProperties = r"""
 
  const String addReservationQuery = r"""
        mutation addReservation(
-              $user_id: String!
               $property_id: String!
               $name: String!
-              $email: String!
               $booking_channel: String!
-              $booking_no: String!
-              $amount_paid: Int!
               $checkin_date: String!
               $checkout_date: String!
               $instruction: String!
             ){
-              createReservation(user_id: $user_id, property_id: $property_id,
-              name: $name, email: $email, booking_channel: $booking_channel, 
-                booking_no: $booking_no, amount_paid: $amount_paid, 
+              createReservation(property_id: $property_id,
+              name: $name, booking_channel: $booking_channel, 
                 checkin_date: $checkin_date, instruction: $instruction,
                 checkout_date: $checkout_date){
                 user_id
@@ -91,13 +86,35 @@ const String getProperties = r"""
  const String getReservationsQuery = r"""
 query{
   getReservations{
-   name
+    name
     id
     checkin_url
     checkedin_at
     checkout_date
+    checkin_date
+    approved
+    already_checkedin
+    instruction
+    booking_channel
+    property{
+      id
+      name
+    }
+    guests{
+      user_id
+      name
+    }
   }
 }
+ """;
+
+const String getBookingChannel = r"""
+   query{
+  getBookingChannels{
+    channel_code
+    channel_name
+}
+  }
  """;
 
 

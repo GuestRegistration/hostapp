@@ -11,7 +11,7 @@ import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/screen/tester.dart';
 import 'package:hostapp/src/GraphQLDemo/graphTexter.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
-import 'package:hostapp/src/screen/ListOfProperty.dart';
+import 'package:hostapp/src/screen/AddReservationScreen.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
   
     return GraphQLProvider(
+       client: _graphQlConfiq.initilize(),
       child:  MaterialApp(
       title: 'HostApp',
       debugShowCheckedModeBanner: false,
@@ -50,10 +51,9 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: Dashboard(showIndex: 0,),//ListOfProperty(),//Dashboard(showIndex: 0,), //AddPropertyView(), //SendCheckInInstruction(),//EditReservationScreen(),//Dashboard(showIndex: 0,),//MainReservationScreen(), //Dashboard(), //
+      home: Dashboard(showIndex: 0,),//AddReservationScreen(),//AddReservationScreen(), //Dashboard(showIndex: 0,), //Dashboard(showIndex: 0,),//ListOfProperty(),//Dashboard(showIndex: 0,), //AddPropertyView(),
       onGenerateRoute: generateRoute,
     ),
-      client: _graphQlConfiq.client,
     );
     //  return MaterialApp(
     //   title: 'HostApp',
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
     //       fontFamily: 'Open Sans',
     //     ),
     //   ),
-    //   home:TesterMain(),//AddProprtyLoadingScreen(),//Dashboard(),//, //244344  //
+    //   home: //TesterMain(),//AddProprtyLoadingScreen(),//Dashboard(),//, //244344  //
     //   onGenerateRoute: generateRoute,
     // );
      

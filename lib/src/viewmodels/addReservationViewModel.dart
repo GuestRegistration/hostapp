@@ -17,12 +17,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
-import 'package:hostapp/src/model/getPropertiesModel.dart';
+import 'package:hostapp/src/model/getPropertiesModel.dart'; 
+import 'package:hostapp/src/model/BookingChannelModel.dart'; 
 
 
 class AddReservationViewModel extends BaseModel{
 final CustomFuntion _customFuntion = locator<CustomFuntion>();
   final GraphQLConfiguration _graphQlConfiq = locator<GraphQLConfiguration>();
+  final NavigationService _navigationService = locator<NavigationService>();
+
 
 String _errorMessage;
 String get errorM => _errorMessage;
@@ -31,52 +34,72 @@ String get getinviteLink => _inviteLink;
 bool linkUIVisisblity = false;
 List<GetProperties> _propertlist = List<GetProperties>();
 List<GetProperties> get properties => _propertlist;
+List<BookingChannelModel> _bookingList = List<BookingChannelModel>();
+List<BookingChannelModel> get bookingList => _bookingList;
+
 List<Map<String, dynamic>> _plist = List<Map<String, dynamic>>();
 List<Map<String, dynamic>> get gerPlist => _plist;
 String selectedProperty;
 String _pId, _gName, _gEmail, _bookingC, _checkinD, _checkoutD, _instruction; 
+String _apiError;
+String get getErrorMessage => _apiError;
 
 void initialize()async{
   loadingOther(true);
+await _graphQlConfiq.getNeccessartyToken();
+
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
         documentNode: gql(getProperties),
       ),
-);
+).catchError((e){
+      setBusy(false);
+      print('Error Occur, ${e.toString()}');
+      setApiError(erorr: e.toString());
+
+        }).timeout(Duration(seconds: 5,), onTimeout: (){
+           setBusy(false);
+          setApiError(erorr: 'Server Timeout');
+        },);
+
+        
    if(result.data == null) {
       loadingOther(false);
              print('Result is Null');
          }else{
             print('Result is not Null');
-            for (var index = 0; index < result.data["getProperties"].length; index++) {
-             Map<String, dynamic> map = new Map<String, dynamic>();
-             map[result.data["getProperties"][index]["id"]] = result.data["getProperties"][index]["name"];
+            if(result.data['getUserProperties'] == null){
+              print('*************Return Data is Null Exception **************');
+             print(result.exception.graphqlErrors);
+            setApiError(erorr: result.exception.graphqlErrors.toString());
 
-              gerPlist.add(
-                map
-              );
-            // _propertlist.add(
+            }else{
+              for (var index = 0; index < result.data["getUserProperties"].length; index++) {
+           
             GetProperties v  =  new GetProperties(
-                  email: result.data["getProperties"][index]["email"],
-                  id: result.data["getProperties"][index]["id"],
-                  name: result.data["getProperties"][index]["name"],
+                  email: result.data["getUserProperties"][index]["email"],
+                  id: result.data["getUserProperties"][index]["id"],
+                  name: result.data["getUserProperties"][index]["name"],
                   propertyPhone: PropertyPhone(
-                    completePhone: result.data["getProperties"][index]["phone"]['complete_phone'], 
-                  countryCode: result.data["getProperties"][index]["phone"]['country_code'], 
-                  phoneNumber: result.data["getProperties"][index]["phone"]['phone_number']),
+                    completePhone: result.data["getUserProperties"][index]["phone"]['complete_phone'], 
+                  countryCode: result.data["getUserProperties"][index]["phone"]['country_code'], 
+                  phoneNumber: result.data["getUserProperties"][index]["phone"]['phone_number']),
                   address:
-                  Address(street: result.data["getProperties"][index]["address"]['street'],
-                  country: result.data["getProperties"][index]["address"]['country']),
-                  terms: result.data["getProperties"][index]["terms"],
+                  Address(street: result.data["getUserProperties"][index]["address"]['street'],
+                  country: result.data["getUserProperties"][index]["address"]['country']),
+                  terms: result.data["getUserProperties"][index]["terms"],
                     );
-            //   );
-
+           
             _propertlist.add(v);
-             
+            
+      } 
       }
-       loadingOther(false);
+          loadingOther(false);
          }
+
+           getBookinChannel(); //fetch list of reservation  
+       
 }
 List<GetProperties> getPropertiesList() {
      return _propertlist;
@@ -93,7 +116,6 @@ setLinkUIVisibilty({bool status}){
 
 authenticateReservation({
   @required String guestName,
-  @required String guestEmail,
   @required String bookChanl,
   @required String checkinD,
    @required String checkoutD,
@@ -103,8 +125,8 @@ authenticateReservation({
   if(guestName.isEmpty){
 showMessage(error: 'Guest Name required');
 
-  } else if(guestEmail.isEmpty){
-showMessage(error: 'Guest Email required');
+//   } else if(guestEmail.isEmpty){
+// showMessage(error: 'Guest Email required');
 
   } else if(bookChanl.isEmpty){
 showMessage(error: 'Booking Channel required');
@@ -115,73 +137,87 @@ showMessage(error: 'Check-in Date required');
   }else if(checkoutD.isEmpty){
 showMessage(error: 'Check-out Date required');
 
-  }else if(guestEmail != null){
+  }else if(guestName.isNotEmpty && bookChanl.isNotEmpty && checkinD.isNotEmpty && checkoutD.isNotEmpty){
+     
+    _pId = propertyID; _gName = guestName; _bookingC = bookChanl;  _checkinD = checkinD; 
+    _checkoutD = checkoutD; 
 
-     String check = _customFuntion.validateEmail(guestEmail);
+//AM USING LIST SO THAT THE DAT Won't be null when moving to another screen with the same Viewmodel.
+    List<String> transfetData = List<String>();
+     transfetData.add(_pId);
+     transfetData.add(_gName);
+     transfetData.add(_bookingC);
+     transfetData.add(_checkinD);
+     transfetData.add(_checkoutD);
 
-     if(check != null){
-        showMessage(error: 'Guest email you entered is invalid');
-
-  }else if(guestName.isNotEmpty && guestEmail.isNotEmpty  && bookChanl.isNotEmpty && checkinD.isNotEmpty && checkoutD.isNotEmpty){
-    // print(guestName);
-    //  print(guestEmail);
-    //  print(bookChanl);
-    //  print(checkinD);
-    //  print(checkoutD);  
-    _pId = propertyID; _gName = guestName; _gEmail = guestEmail; _bookingC = bookChanl;  _checkinD = checkinD; 
-    checkoutD = _checkoutD; 
-  }
-  }
-
+     
+    
+     //TODO SEND RESERVATION DATA TO NEXT SCREEEN
+   _navigationService.navigateTo(reservationInstructionRoute, arguments: transfetData); 
+    
   }
   
-  checkInInstrusion({@required String instruction,})async{
+  }
+
+  checkInInstrusion({@required String instruction, @required List moved})async{
     _instruction = instruction;
     //Move to loading Page and send data to API
 
-  }
-
-  //TODO **********************************Adding Reservation Loading ViewModel**********************************
-    addReservationAPI()async{
-      setBusy(true);
-     
-    //  GraphQLClient _client = _graphQlConfiq.clientToQuery();
-    // QueryResult result = await _client.mutate(
-    //   MutationOptions(
-    //       documentNode: gql(addReservationQuery),
-    //       onError: (error) {
-    //         print('******************Error Occur: ${error.toString()}');
-    //       },
-    //       onCompleted: (data) {
-    //         //Note: Don't compare data here or do anything that's pertaining to returened Data, 
-    //         //This will definately return even if it's error
-           
-    //       },
-    //       //Later (Rules and document)
-    //       variables: <String, dynamic>{
-    //         "user_id": Constants().dummyUseriD,
-    //         "property_id": _pId,
-    //         "name": _gName,
-    //         "email": _gEmail,
-    //         "booking_channel": _bookingC,
-    //         "checkin_date": _checkinD,
-    //         "checkout_date": _checkoutD,
-    //         "instruction": _instruction,
-    //       }
-    //   )
-    // );
-    //  if (result.data == null) {
-    //     setBusy(false);
-    //          print('Result is Null');
-    //      }else{
-    //         setBusy(false);
-    //         print('Result is not Null');
-    //         _inviteLink = result.data['createReservation']['checkin_url'];
-    //         setLinkUIVisibilty(status: true); //enable(Make it visible) link Textfield UI
-    //         print(result.data['createReservation']['checkin_url']);
-    //         // _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
-    //      }
+    //  print(_pId);
+    //  print(_gName);
+    //  print(_bookingC);
+    //  print(_checkinD);
+    //  print(_checkoutD);
+    //   print(_instruction);
+      moved.add(_instruction);
+        //TODO SEND RESERVATION DATA TO LOADING SCREEN THEN SEND TO SERVER
+   _navigationService.navigateTo(addReservationloadingRoute, arguments: moved); 
 
   }
+
+
+  getBookinChannel()async{
+      loadingOther2(true);
+GraphQLClient _client = _graphQlConfiq.clientToQuery();
+QueryResult result = await _client.query(
+   QueryOptions(
+        documentNode: gql(getBookingChannel),
+      ),
+);
+   if(result.data == null) {
+      loadingOther2(false);
+             print('Result is Null');
+         }else{
+            print('Result is not Null');
+
+            if(result.data['getBookingChannels'] == null){
+              print('*************Return Data is Null Exception **************');
+             print(result.exception.graphqlErrors);
+            setApiError(erorr: result.exception.graphqlErrors.toString());
+
+            }else{
+              print('Result is not Null');
+            for (var index = 0; index < result.data["getBookingChannels"].length; index++) {
+             
+            BookingChannelModel v =  new BookingChannelModel(
+                  code: result.data["getBookingChannels"][index]["channel_code"],
+                  name: result.data["getBookingChannels"][index]["channel_name"], );
+            _bookingList.add(v);
+      }
+       loadingOther2(false); 
+      }
+          loadingOther(false);
+         }
+}
+List<BookingChannelModel> getBookingList() {
+     return _bookingList;
+   
+  }
+
+  setApiError({String erorr}){
+  _errorMessage = erorr;
+  print(erorr);
+   notifyListeners();
+}
     
 }

@@ -98,7 +98,7 @@ class _InputFieldState extends State<InputField> {
                               ),
                                enabledBorder: new OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: new BorderSide(color: AppColor.inputTextCorderColor,
+                                  borderSide: new BorderSide(color: AppColor.primary,
                                   ),
                               ),
                         hintStyle:TextStyle(fontSize: widget.smallVersion ? 12 : 15)) : 

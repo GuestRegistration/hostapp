@@ -7,6 +7,7 @@ import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/viewmodels/addReservationViewModel.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:hostapp/src/widget/ShareLinkDialog.dart';
 
 class TesterMain extends StatefulWidget {
   @override
@@ -27,65 +28,54 @@ class _TesterMainState extends State<TesterMain> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<AddReservationViewModel>.withConsumer(
-      viewModel: AddReservationViewModel(),
-      onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) =>
-         Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text('Remote Config Example'),
         ),
-        body: (model.busy ?  CircularProgressIndicator(
-                    strokeWidth: 4,
-                          valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
-                          backgroundColor: AppColor.borderColor,
-                    ) : Center(
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                    child: DropdownButton<GetProperties>(
-                      elevation: 6,
-                      style: AppTextStyle.inputStyle(context),
-                      hint: Text(
-                        "اختر النوع", //Choose type
-                        textAlign: TextAlign.center,
+children: <Widget>[
+  GestureDetector(child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      child: Material(
+                      child: Center(
+                          child: Text('Show Dialog',
+                          style: TextStyle(
+                            color: AppColor.white,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold
+                          ),),
                       ),
-                       items: model.getPropertiesList().map((GetProperties lang) {
-                        return DropdownMenuItem<GetProperties>(
-                          value: lang,
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                lang.name,
-                                style: TextStyle(
-                                  color: AppColor.secondary,
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      }).toList(),
-                      isExpanded: true, 
-                      value: _seletUsertype,
-                      onChanged: (value) {
-                        setState(() {
-                          _seletUsertype = value;
-                          print(_seletUsertype.id);
-                        });
-                      },
-                    ),
+                      color: Color(0xFF45A1C9),
+                      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: AppColor.borderColor)
+    ),
+                   
                 ),
-            ],
+                    ),
+                  ),
+                  onTap: (){
+                    
+                  },
+                        ),
+],
           ),
-        ))
-      ),
-    );
+        )
+      );
    
     
   }
+  display(BuildContext context){
+   showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ShareLinkDialog(link: 'https://pub.dev/packages?q=dialog',);});
+}
 }
 class WelcomeWidget extends StatelessWidget {
   WelcomeWidget({this.result});

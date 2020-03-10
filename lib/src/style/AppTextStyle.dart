@@ -66,6 +66,14 @@ static BoxDecoration disabledFieldDecortaion = BoxDecoration(
         fontWeight: FontWeight.w700,
         color: AppColor.black);
   }
+   static TextStyle titleLarge(BuildContext context, Color color) {
+    return TextStyle(
+        fontFamily: "Metropolis",
+        fontFamilyFallback: ["RobotoRegular"],
+        fontSize: AppFontSizes.medium,
+        fontWeight: FontWeight.w700,
+        color: color);
+  }
    static TextStyle subtitle(BuildContext context) {
     return TextStyle(
         fontFamily: "Metropolis",

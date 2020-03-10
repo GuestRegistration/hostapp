@@ -16,6 +16,7 @@ import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:hostapp/src/model/BookingChannelModel.dart'; 
 
 class AddReservationScreen extends StatefulWidget {
   @override
@@ -25,13 +26,14 @@ class AddReservationScreen extends StatefulWidget {
 class _AddReservationScreenState extends State<AddReservationScreen> {
     final CustomFuntion _customFuntion = locator<CustomFuntion>();
    TextEditingController nameofGuestController = TextEditingController();
-   TextEditingController guestEmailController = new TextEditingController();
-    TextEditingController bookingChannelController = new TextEditingController();
+  // TextEditingController guestEmailController = new TextEditingController();
+    //TextEditingController bookingChannelController = new TextEditingController();
      TextEditingController checkinController = new TextEditingController();
      TextEditingController checkoutController = new TextEditingController();
       TextEditingController inviteInLinkController = new TextEditingController();
      DateTime date = DateTime.now();
        GetProperties _selectedProperty, _selectedID;
+       BookingChannelModel _selectedBokingModel;
        String selectedBookingName;
        String propertyID;
 
@@ -39,8 +41,8 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
   void initState() {
     super.initState();
      listener(nameofGuestController);
-    listener(guestEmailController);
-    listener(bookingChannelController);
+   // listener(guestEmailController); No guest Email for now
+   // listener(bookingChannelController);
     listener(checkinController);
     listener(checkoutController);
   }
@@ -49,9 +51,12 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
   Widget build(BuildContext context) {
     return ViewModelProvider<AddReservationViewModel>.withConsumer(
       viewModel: AddReservationViewModel(),
-      //onModelReady: (model) => model.initialize(),
+      onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
-       Scaffold(
+      (model.busy ? loadingWidget()
+                 :
+                 (model.getErrorMessage == null ? 
+                   Scaffold(
         body: (model.loadingOthers ? Center(
         child: CircularProgressIndicator(
                     strokeWidth: 4,
@@ -82,110 +87,83 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
              _customFuntion.errorUimessage(errorMessage: model.errorM),
                    verticalSpaceSmall,
                     CollectTextWithout(title: 'Property',),
-                     CollectTextWithout(title: 'SHow later, when prioperty resolve, and also initModel',),
-                        // Container(
-                        //     height: 50,
-                        //      width: MediaQuery.of(context).size.width,
-                        //       padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        //       decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(15.0),
-                        //         border: Border.all(
-                        //             color: AppColor.borderColor, style: BorderStyle.solid, width: 0.80),
-                        //       ),
-                        //   child: DropdownButton<GetProperties>(
-                        //     isExpanded: true,
-                        //         underline: SizedBox(),
-                        //         value: _selectedProperty,
-                        //         onChanged: (value) {
-                        //           setState(() {
-                        //             _selectedProperty = value;
-                        //              propertyID = value.id; //Return property ID
+                    
+                        Container(
+                            height: 50,
+                             width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(
+                                    color: AppColor.primary, style: BorderStyle.solid, width: 0.80),
+                              ),
+                          child: DropdownButton<GetProperties>(
+                            isExpanded: true,
+                             iconEnabledColor: AppColor.primary,
+                                underline: SizedBox(),
+                                value: _selectedProperty,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedProperty = value;
+                                     propertyID = value.id; //Return property ID
                                      
-                        //             //  print(_selectedID);
-                        //            //  print(_selectedProperty.id);
-                        //             //  print(_selectedProperty);
-                        //           });
-                        //         },
-                        //         items: model.getPropertiesList().map((GetProperties lang) {
-                        //         return DropdownMenuItem<GetProperties>(
-                        //                   value: lang, //Show Name 
-                        //                   child: Text(lang.name.toString(), 
-                        //                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
-                        //                 );
-                        //                     }).toList(),
+                                      print(propertyID);
+                                   //  print(_selectedProperty.id);
+                                    //  print(_selectedProperty);
+                                  });
+                                },
+                                items: model.getPropertiesList().map((GetProperties lang) {
+                                return DropdownMenuItem<GetProperties>(
+                                          value: lang, 
+                                          child: Text(lang.name.toString(), //Show Name 
+                                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
+                                        );
+                                            }).toList(),
                               
-                        //       ),
-                        // ),
-                  //  FindDropdown(
-                  //   items: model.properties.map((value)),
-                  //   label: "Select Property",
-                  //   onChanged:(value){
-                  //     model.selectedProperty = value[0].name;
-                  //     print(model.selectedProperty.toString());
-                  //   },
-                  //   selectedItem: '',
-                  //   validate: (item) {
-                  //     if (item == null)
-                  //       return "Required field";
-                  //     else if (item == "NO")
-                  //       return "Invalid item";
-                  //     else
-                  //       return null;
-                  //   },
-                  // ),
-                 
+                              ),
+                        ),
+                         verticalSpaceSmall,
                  CollectTextWithout(title: 'Name of Guest',),
                     InputField(
                       placeholder: 'NameOfGuest',
                       decoration: null,
                       controller: nameofGuestController,
                     ),
-                  
-                    verticalSpaceSmall,
-                     CollectTextWithout(title: 'Guest Email',),
-                    InputField(
-                      placeholder: 'guestofEmail',
-                      decoration: null,
-                      controller: guestEmailController,
-                    ),
-
                      
                       verticalSpaceSmall,
                        CollectTextWithout(title: 'Booking Channel',),
-                        CollectTextWithout(title: 'Am also a dropdown, \n so need to implement ASAP',),
-                    
-                      // Container(
-                      //       height: 50,
-                      //        width: MediaQuery.of(context).size.width,
-                      //         padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      //         decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(15.0),
-                      //           border: Border.all(
-                      //               color: AppColor.borderColor, style: BorderStyle.solid, width: 0.80),
-                      //         ),
-                      //     child: DropdownButton<String>(
-                      //       isExpanded: true,
-                      //           underline: SizedBox(),
-                      //           value: selectedBookingName,
-                      //           onChanged: (value) {
-                      //             setState(() {
-                      //             selectedBookingName = value
-                                     
-                      //               //  print(_selectedID);
-                      //              //  print(_selectedProperty.id);
-                      //               //  print(_selectedProperty);
-                      //             });
-                      //           },
-                      //           items: model.getPropertiesList().map((String lang) {
-                      //           return DropdownMenuItem<String>(
-                      //                     value: lang, //Show Name 
-                      //                     child: Text(lang.toString(), 
-                      //                     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
-                      //                   );
-                      //                       }).toList(),
+                     (model.loadingOthers2 ? CircularProgressIndicator() :
+                      Container(
+                            height: 50,
+                             width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(
+                                    color: AppColor.primary, style: BorderStyle.solid, width: 0.80),
+                              ),
+                          child: DropdownButton<BookingChannelModel>(
+                            isExpanded: true,
+                            iconEnabledColor: AppColor.primary,
+                                underline: SizedBox(),
+                                value: _selectedBokingModel,
+                                onChanged: (value) {
+                                  setState(() {
+                                 _selectedBokingModel = value;
+                                  selectedBookingName = _selectedBokingModel.name;
+                                 // print(selectedBookingName);
+                                  });
+                                },
+                                items: model.getBookingList().map((BookingChannelModel lang) {
+                                return DropdownMenuItem<BookingChannelModel>(
+                                          value: lang, //Show Name 
+                                          child: Text(lang.name,
+                                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
+                                        );
+                                            }).toList(),
                               
-                      //         ),
-                      //   ),
+                              ),
+                        )),
                   
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,7 +181,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                           decoration:  InputDecoration(
                             enabledBorder: new OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
-                            borderSide: new BorderSide(color: AppColor.borderColor,
+                            borderSide: new BorderSide(color: AppColor.primary,
                             ),
                         ),
                     border: new OutlineInputBorder(
@@ -248,7 +226,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                           decoration:  InputDecoration(
                             enabledBorder: new OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
-                            borderSide: new BorderSide(color: AppColor.borderColor,
+                            borderSide: new BorderSide(color: AppColor.primary,
                             ),
                         ),
                     border: new OutlineInputBorder(
@@ -354,10 +332,10 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                 ),
                 onTap: (){
                   model.authenticateReservation(
-                    bookChanl: bookingChannelController.text,
+                    bookChanl: selectedBookingName,
                     checkinD: checkinController.text,
                     checkoutD: checkoutController.text,
-                    guestEmail: guestEmailController.text,
+                  //  guestEmail: guestEmailController.text,
                     guestName: nameofGuestController.text,
                     propertyID: propertyID
                   );
@@ -369,14 +347,15 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
               ],
             ),
           
-          
           ) 
-                
         )
-        
+     
+     
       ))
-    
-      
+                   : errorWidget(model)
+                   )
+                   ),
+   
     );
   }
 
@@ -451,6 +430,7 @@ checkinController.text = value;
 checkoutController.text = value;
     });
   }
+ 
   assignValue(AddReservationViewModel model){
     if(model.linkUIVisisblity){
      inviteInLinkController.text = model.getinviteLink;
@@ -460,4 +440,68 @@ checkoutController.text = value;
     }
     
   }
+
+
+   
+  errorWidget(AddReservationViewModel model){
+    return Center(
+      child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 30,),
+                  Center(
+                    child: Text(model.getErrorMessage,
+                     textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.red,
+                    fontSize: AppFontSizes.medium,
+                    fontWeight: FontWeight.bold
+                              ),),
+                             
+                  ),
+                  verticalSpaceLarge,
+                  GestureDetector(child: Padding(
+                      padding: const EdgeInsets.all(1.0),
+                      child: Container(
+                        width: 150,
+                        height: 50,
+                        child: Material(
+                        child: Center(
+                            child: Text('Retry',
+                            style: TextStyle(
+                              color: AppColor.white,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.bold
+                            ),),
+                        ),
+                        color: Color(0xFF45A1C9),
+                        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(18.0),
+              side: BorderSide(color: AppColor.borderColor)
+      ),
+                     
+                  ),
+                      ),
+                    ),
+                    onTap: (){
+                      model.initialize();
+                      model.showMessage(error: null); //back to null
+                    },
+                          ),
+                ],
+              ),
+    );
+  }
+  
+  loadingWidget(){
+   return Center(
+      child: CircularProgressIndicator(
+                    strokeWidth: 4,
+                          valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
+                          backgroundColor: AppColor.borderColor,
+                    ),
+    );
+  }
 }
+
+

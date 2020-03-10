@@ -8,6 +8,7 @@ class BaseModel extends ChangeNotifier {
 
   bool _busy = false;
   bool loadingOthers = false;
+  bool loadingOthers2 = false;
   bool get busy => _busy;
 
   void setBusy(bool value) {
@@ -17,6 +18,11 @@ class BaseModel extends ChangeNotifier {
 
   void loadingOther(bool value) {
     loadingOthers = value;
+    notifyListeners();
+  }
+
+   void loadingOther2(bool value) {
+    loadingOthers2 = value;
     notifyListeners();
   }
 }

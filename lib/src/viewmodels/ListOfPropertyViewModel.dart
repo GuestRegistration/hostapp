@@ -15,42 +15,64 @@ final NavigationService _navigationService = locator<NavigationService>();
 
 List<GetProperties> _propertlist = List<GetProperties>();
 List<GetProperties> get properties => _propertlist;
-String serverError;
+String _errorMessage;
+String get getErrorMessage => _errorMessage;
 
 
 void initialize()async{
   setBusy(true);
+  
+   await _graphQlConfiq.getNeccessartyToken();
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
         documentNode: gql(getProperties),
       ),
-);
+).catchError((e){
+      setBusy(false);
+      print('Error Occur, ${e.toString()}');
+      setErrorMessage(erorr: e.toString());
+
+        }).timeout(Duration(seconds: 5,), onTimeout: (){
+           setBusy(false);
+          setErrorMessage(erorr: 'Server Timeout');
+        },);
+
    if(result.data == null) {
       setBusy(false);
              print('Result is Null');
              print(result.exception);
+              setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+              
          }else{
-            print('Result is not Null');
-            for (var index = 0; index < result.data["getProperties"].length; index++) {
+           if(result.data['getUserProperties'] == null){
+             setBusy(false);
+              print('*************Return Data is Null Exception **************');
+              print(result.exception.graphqlErrors);
+             setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+
+            }else{
+               print('Result is not Null,becaue I have data with me');
+               for (var index = 0; index < result.data["getUserProperties"].length; index++) {
             _propertlist.add(
                   GetProperties(
-                  email: result.data["getProperties"][index]["email"],
-                  id: result.data["getProperties"][index]["id"],
-                  name: result.data["getProperties"][index]["name"],
-                  rulesText: result.data["getProperties"][index]["rules"],
+                  email: result.data["getUserProperties"][index]["email"],
+                  id: result.data["getUserProperties"][index]["id"],
+                  name: result.data["getUserProperties"][index]["name"],
+                  rulesText: result.data["getUserProperties"][index]["rules"],
                   propertyPhone: PropertyPhone(
-                    completePhone: result.data["getProperties"][index]["phone"]['complete_phone'], 
-                  countryCode: result.data["getProperties"][index]["phone"]['country_code'], 
-                  phoneNumber: result.data["getProperties"][index]["phone"]['phone_number']),
+                  completePhone: result.data["getUserProperties"][index]["phone"]['complete_phone'], 
+                  countryCode: result.data["getUserProperties"][index]["phone"]['country_code'], 
+                  phoneNumber: result.data["getUserProperties"][index]["phone"]['phone_number']),
                   address:
-                  Address(street: result.data["getProperties"][index]["address"]['street'],
-                  country: result.data["getProperties"][index]["address"]['country']),
-                  terms: result.data["getProperties"][index]["terms"],
+                  Address(street: result.data["getUserProperties"][index]["address"]['street'],
+                  country: result.data["getUserProperties"][index]["address"]['country']),
+                  terms: result.data["getUserProperties"][index]["terms"],
                     )
               );
-              print( result.data["getProperties"][index]["rules"]);
-      }
+             // print( result.data["getProperties"][index]["rules"]);
+      } }
+           
      // print(_propertlist.length);
        setBusy(false);
          }
@@ -65,9 +87,9 @@ void proPage(){
     _navigationService.navigateTo(proRoute);
 }
 
-setError(String errorMessage){
-  serverError = errorMessage;
-  print(serverError);
+setErrorMessage({String erorr}){
+  _errorMessage = erorr;
+  print(erorr);
   notifyListeners();
 }
 }
