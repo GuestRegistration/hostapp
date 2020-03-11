@@ -7,7 +7,7 @@ import 'dart:async' show Future;
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/verifyotp.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
-
+ 
 class LoginPage extends StatefulWidget {
   final String email, existingemail;
   final String name, phoneNumber, lastname;
@@ -89,6 +89,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
               }
             }
               """;
+  String storedemail, storeduid;
   void initState() {
     super.initState();
 
@@ -122,9 +123,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
+          // return Verifyotp1
           return Verifyotp(
             phoneNumber: "$phoneCode" + "${phone.text}",
-            phoneNumber1: "$phoneCode" +"-"+ "${phone.text}",
+            phoneNumber1: "$phoneCode" + "-" + "${phone.text}",
             name: name.text,
             lastname: lastname.text,
             email: email1.toLowerCase(),
@@ -139,6 +141,8 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     phoneCode = countryCode.toString();
     print("New Country selected: " + countryCode.toString());
   }
+
+
 
   void dispose() {
     super.dispose();
@@ -423,22 +427,19 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                           border: InputBorder.none,
                                         )),
                                   ),
-                               
                                 ],
                               ),
                             ),
-                               
                           ],
                         ),
                       ),
                       Visibility(
-                                    child: Text(
-                                      "This mobile number already exists",
-                                      style: TextStyle(
-                                          color: Colors.red, fontSize: 16.0),
-                                    ),
-                                    visible: duplicatephoneno,
-                                  ),
+                        child: Text(
+                          "This mobile number already exists",
+                          style: TextStyle(color: Colors.red, fontSize: 16.0),
+                        ),
+                        visible: duplicatephoneno,
+                      ),
                       SizedBox(
                         height: 10.0,
                       ),
@@ -470,6 +471,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                 borderRadius: new BorderRadius.circular(13.0),
                               ),
                               onPressed: () async {
+                                //getStoredemailanduid();
                                 if (formKey.currentState.validate()) {
                                   if (name.text == "" &&
                                       phone.text == "" &&
@@ -496,7 +498,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                   );
 
                                   if (result.data["getUserByPhone"] == null) {
-                                    print("inside if");
+                                    print("inside if call navigateotp()");
 
                                     navigateotp();
                                   } else {

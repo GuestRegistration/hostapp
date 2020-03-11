@@ -6,6 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/sign_in.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _SettingScreenState extends State<SettingScreen> {
       }
 }
  """;
- String updateuserquery = r"""
+  String updateuserquery = r"""
  mutation($email: String!,$id:String!,$phone:String!,$first_name:String!,$last_name:String!){
   updateUser(email:$email,id:$id,phone:$phone,first_name:$first_name,last_name:$last_name){
     name{
@@ -52,19 +53,42 @@ class _SettingScreenState extends State<SettingScreen> {
  """;
   var phoneCode;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+  SharedPreferences sharedPreferences;
+
+  getStoredemailanduid() async {
+    print("inside getStoredemailanduid function");
+    String storedemail,storeduid;
+    sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      storedemail = sharedPreferences.getString("Storedemail");
+      storeduid = sharedPreferences.getString("Storeduid");
+      print("storeemail" + storedemail);
+      print(sharedPreferences.getString("Storedemail"));
+      print("storeduid" + storeduid);
+      //selectuser();
+    });
+  }
+
 
   Future<void> selectuser() async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final FirebaseUser user1 = await auth.currentUser();
-    final email1 = user1.email;
-    print("email1" + email1);
+    print("inside selectuser function");
+    String storedemail,storeduid;
+    sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      storedemail = sharedPreferences.getString("Storedemail");
+      storeduid = sharedPreferences.getString("Storeduid");
+      print("storeemail" + storedemail);
+      print("storeduid" + storeduid);   
+    });
+    print("storedemail in selectuser" + storedemail);
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
         // document: selectUser,
         documentNode: gql(selectUser),
         variables: {
-          'email': email1,
+          'email': storedemail,
+       //'email':"diya.feb28@gmail.com",
         },
       ),
     );
@@ -73,6 +97,7 @@ class _SettingScreenState extends State<SettingScreen> {
       return Center(child: CircularProgressIndicator());
     } else if (result.data != null) {
       setState(() {
+        print("inside setState");
         name = new TextEditingController(
             text: result.data["getUserByEmail"][0]["name"]["first_name"]);
         email = new TextEditingController(
@@ -94,20 +119,30 @@ class _SettingScreenState extends State<SettingScreen> {
   var phonesplit0;
   Future<void> updateuser() async {
     print("inside update user");
-    final FirebaseAuth auth = FirebaseAuth.instance;
+   /* final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user1 = await auth.currentUser();
     final email1 = user1.email;
     final uid = user1.uid;
-    print("email1" + email1);
-    print("phonesplit0"+phonesplit0);
-    print( "${phonesplit0.toString()}" + "-" + "${phone.text}");
+    print("email1" + email1);*/
+      String storedemail,storeduid;
+    sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      storedemail = sharedPreferences.getString("Storedemail");
+      storeduid = sharedPreferences.getString("Storeduid");
+      print("storeemail" + storedemail);
+      print(sharedPreferences.getString("Storedemail"));
+      print("storeduid" + storeduid);
+     
+    });
+    print("phonesplit0" + phonesplit0);
+    print("${phonesplit0.toString()}" + "-" + "${phone.text}");
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
         documentNode: gql(updateuserquery),
         variables: {
-          'id': uid,
-          'email': email1,
+          'id': storeduid,
+          'email': storedemail,
           'first_name': name.text.trim(),
           'last_name': lastname.text.trim(),
           'phone': "${phonesplit0.toString()}" + "-" + "${phone.text}",
@@ -119,6 +154,7 @@ class _SettingScreenState extends State<SettingScreen> {
   void initState() {
     super.initState();
     phonesplit0 = 'US';
+    //getStoredemailanduid();
     selectuser();
   }
 
@@ -132,6 +168,8 @@ class _SettingScreenState extends State<SettingScreen> {
 
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user1 = await auth.currentUser();
+    SharedPreferences prefrences = await SharedPreferences.getInstance();
+await prefrences.clear();
     await FirebaseAuth.instance.signOut().whenComplete(() => navigate());
     await googleSignIn.signOut().whenComplete(() => navigate());
   }
@@ -147,9 +185,9 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
     );
   }
-   
-    Future geturl(String url) async {
-      print("url"+url);
+
+  Future geturl(String url) async {
+    print("url" + url);
     final RemoteConfig remoteConfig = await RemoteConfig.instance;
     var result;
     try {
@@ -164,10 +202,9 @@ class _SettingScreenState extends State<SettingScreen> {
     } catch (exception) {
       print("unable to fetch remote config");
     }
-        return launch(result);
-
+    return launch(result);
   }
-  
+
   @override
   void dispose() {
     super.dispose();
@@ -220,7 +257,7 @@ class _SettingScreenState extends State<SettingScreen> {
               height: 20.0,
             ),
             Align(
-             // alignment: Alignment(-.100, 0),
+              // alignment: Alignment(-.100, 0),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -264,7 +301,7 @@ class _SettingScreenState extends State<SettingScreen> {
               height: 20.0,
             ),
             Align(
-            //  alignment: Alignment(-.100, 0),
+              //  alignment: Alignment(-.100, 0),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -308,7 +345,7 @@ class _SettingScreenState extends State<SettingScreen> {
               height: 20.0,
             ),
             Align(
-             // alignment: Alignment(-.100, 0),
+              // alignment: Alignment(-.100, 0),
               child: Container(
                 alignment: Alignment.center,
                 height: 50.0,
@@ -351,9 +388,9 @@ class _SettingScreenState extends State<SettingScreen> {
               height: 20.0,
             ),
             Container(
-                //height: 50.0,
-                //width: 320.0,
-             // alignment: Alignment(-.100, 0),
+              //height: 50.0,
+              //width: 320.0,
+              // alignment: Alignment(-.100, 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -366,15 +403,15 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Row(
                       children: <Widget>[
                         IgnorePointer(
-                           ignoring: true,
-                                                  child: Container(
+                          ignoring: true,
+                          child: Container(
                             height: 50.0,
                             decoration: new BoxDecoration(
                                 color: Colors.white,
                                 border: Border.all(color: Color(0xffC6DEE9)),
                                 borderRadius: new BorderRadius.circular(10.0)),
                             child: new CountryCodePicker(
-                        textStyle:TextStyle(color: Color(0xffCC8F8F8F)),                                                                                                                         
+                              textStyle: TextStyle(color: Color(0xffCC8F8F8F)),
 
                               onChanged: _onCountryChange,
                               initialSelection: phonesplit0,
@@ -465,7 +502,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 child: new FlatButton(
                   onPressed: () {
                     //getTermsofService();
-                      geturl('Termsofserviceurl');
+                    geturl('Termsofserviceurl');
                   },
                   child: Row(
                     children: <Widget>[
@@ -557,8 +594,8 @@ class _SettingScreenState extends State<SettingScreen> {
                     border: Border.all(color: Color(0xffC6DEE9))),
                 child: new FlatButton(
                   onPressed: () {
-                   // getcontactus();
-                   geturl('Contactusurl');
+                    // getcontactus();
+                    geturl('Contactusurl');
                   },
                   child: Row(
                     children: <Widget>[
@@ -614,7 +651,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               ),
             ),
-             SizedBox(
+            SizedBox(
               height: 20.0,
             ),
           ],

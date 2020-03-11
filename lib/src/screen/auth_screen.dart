@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/service/queryMutation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'welcome.dart';
 import 'sign_in.dart';
@@ -23,7 +24,7 @@ class AuthScreenState extends State<AuthScreen> {
   bool signupcheck = false;
   bool isLoading = false;
   bool _load = false;
-  bool _appledevice =false;
+  bool _appledevice = false;
   TextEditingController textemail = new TextEditingController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   bool supportsAppleSignIn = false;
@@ -35,19 +36,41 @@ class AuthScreenState extends State<AuthScreen> {
               }
             }
               """;
+             // AuthBloc _bloc;
+  Locale _myLocale;
+  SharedPreferences sharedPreferences;
 
+ storedemailanduid(String email, String uid) async {
+   String storedemail,storeduid;
+   storedemail = email;
+   storeduid = uid;
+   print("inside   storedemailanduid function");
+   print("Storedemail"+storedemail);
+   print("Storeduid"+storeduid);
+    sharedPreferences = await SharedPreferences.getInstance();
+    //setState(() {
+      sharedPreferences.setString("Storedemail", storedemail);
+      sharedPreferences.setString("Storeduid", storeduid);
+      sharedPreferences.commit();
+      
+  // });
+  }
+    
   @override
-    void didChangeDependencies() {
-    super.didChangeDependencies();
+  void didChangeDependencies() {
+    //  _bloc = AuthBlocProvider.of(context);
  
+   _myLocale = Localizations.localeOf(context);
+    super.didChangeDependencies();
   }
 
   void initState() {
     getdeviceinfo();
     super.initState();
   }
- //getting data from remote config
-   Future getTermconditions() async {
+
+  //getting data from remote config
+  Future getTermconditions() async {
     final RemoteConfig remoteConfig = await RemoteConfig.instance;
     var result;
     try {
@@ -62,13 +85,12 @@ class AuthScreenState extends State<AuthScreen> {
       print("unable to fetch remote config");
     }
     return launch(result);
-
   }
 
- //Function start to check device type
+  //Function start to check device type
   getdeviceinfo() async {
     if (Theme.of(context).platform == TargetPlatform.iOS) {
-       var iosInfo = await DeviceInfoPlugin().iosInfo;
+      var iosInfo = await DeviceInfoPlugin().iosInfo;
       var version = iosInfo.systemVersion;
       if (version.contains('13') == true) {
         supportsAppleSignIn = true;
@@ -83,7 +105,7 @@ class AuthScreenState extends State<AuthScreen> {
       });
     }
   }
- //Function end to check device type
+  //Function end to check device type
 
   /// Function start for handling apple signup
 
@@ -146,8 +168,7 @@ class AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-       if (Theme.of(context).platform == TargetPlatform.iOS) {
-      
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
       setState(() {
         _appledevice = true;
       });
@@ -183,7 +204,7 @@ class AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-                  child: Column(
+          child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -270,12 +291,15 @@ class AuthScreenState extends State<AuthScreen> {
                         final FirebaseAuth auth = FirebaseAuth.instance;
                         final FirebaseUser user1 = await auth.currentUser();
                         final email1 = user1.email;
-                        print("email1" + email1);
+                        String storedemail = user1.email;
+                        String storeduid = user1.uid;
+                        print("email1" + storedemail);
+                    storedemailanduid(storedemail,storeduid) ;
                         GraphQLClient _client =
                             graphQLConfiguration.clientToQuery();
                         QueryResult result = await _client.mutate(
                           MutationOptions(
-                            document: selectdata,                           
+                            document: selectdata,
                             variables: {
                               'email': email1,
                             },
@@ -283,17 +307,24 @@ class AuthScreenState extends State<AuthScreen> {
                         );
 
                         if (result.data["getUserByEmail"] == null) {
-                          print("inside if");
+                          print("inside if new user");
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => LoginPage(
                                         existingemail: email1.toString(),
                                       )));
+                          //  return LoginPage(existingemail: email1.toString());
                         } else {
-                          print("inside else");
+                          print("inside else existing user");
 
-                                      return WelcomeScreen(email: email1.toString());
+                         // return WelcomeScreen(email: email1.toString());
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WelcomeScreen(
+                                        email: email1.toString(),
+                                      )));
                         }
                       });
                     },
@@ -313,7 +344,7 @@ class AuthScreenState extends State<AuthScreen> {
                   visible: signupcheck,
                 ),
                 Visibility(
-                                child: Container(
+                  child: Container(
                     width: 318.0,
                     height: 47.0,
                     decoration: new BoxDecoration(
@@ -351,8 +382,10 @@ class AuthScreenState extends State<AuthScreen> {
                           });
                           final FirebaseAuth auth = FirebaseAuth.instance;
                           final FirebaseUser user1 = await auth.currentUser();
-                          final email1 = user1.email;
-                          print("email1" + email1);
+                          final storedemail = user1.email;
+                          final storeduid = user1.uid;
+                          print("email1" + storedemail);
+                             storedemailanduid(storedemail,storeduid) ;
                           GraphQLClient _client =
                               graphQLConfiguration.clientToQuery();
                           QueryResult result = await _client.mutate(
@@ -360,7 +393,7 @@ class AuthScreenState extends State<AuthScreen> {
                               document: selectdata,
                               //documentNode: gql(selectdata),
                               variables: {
-                                'email': email1,
+                                'email': storedemail,
                               },
                             ),
                           );
@@ -372,7 +405,7 @@ class AuthScreenState extends State<AuthScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => LoginPage(
-                                          existingemail: email1.toString(),
+                                          existingemail: storedemail.toString(),
                                         )));
                           } else {
                             print("inside else");
@@ -381,8 +414,8 @@ class AuthScreenState extends State<AuthScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => WelcomeScreen(
-                                          email: email1.toString(),
-                                        ))); 
+                                          email: storedemail.toString(),
+                                        )));
                           }
                         });
                         //function call for apple sign up
@@ -391,7 +424,7 @@ class AuthScreenState extends State<AuthScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(12))),
                     ),
                   ),
-                   visible: _appledevice,
+                  visible: _appledevice,
                 ),
                 new Align(
                   child: loadingIndicator,
@@ -404,9 +437,8 @@ class AuthScreenState extends State<AuthScreen> {
                   width: 300.0,
                   height: 60.0,
                   child: FlatButton(
-                    onPressed: () {  
-                       getTermconditions(); 
-                                                           
+                    onPressed: () {
+                      getTermconditions();
                     },
                     child: const Text(
                       'Terms & Conditions',
@@ -425,4 +457,3 @@ class AuthScreenState extends State<AuthScreen> {
     );
   }
 }
-

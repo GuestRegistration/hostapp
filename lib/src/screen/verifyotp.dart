@@ -1,18 +1,24 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:collection';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/welcome.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class Verifyotp extends StatefulWidget {
   final String email;
-  final String phoneNumber, lastname, name, authuid,phoneNumber1;
+  final String phoneNumber, lastname, name, authuid, phoneNumber1;
   Verifyotp(
-      {this.email, this.phoneNumber, this.lastname, this.name, this.authuid,this.phoneNumber1});
+      {this.email,
+      this.phoneNumber,
+      this.lastname,
+      this.name,
+      this.authuid,
+      this.phoneNumber1});
   @override
   _VerifyotpState createState() => new _VerifyotpState();
 }
@@ -39,6 +45,7 @@ class _VerifyotpState extends State<Verifyotp> {
   var phonenumbersplit;
   bool enablebutton = false;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+      String token,result;
   String insertData = r"""
         mutation users(        
         $id: String!       
@@ -61,6 +68,8 @@ class _VerifyotpState extends State<Verifyotp> {
                 }
         }
           """;
+          String clientToken;
+          final storage = new FlutterSecureStorage();
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
@@ -176,7 +185,6 @@ class _VerifyotpState extends State<Verifyotp> {
     }
   }
 
- 
   navigate() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -323,14 +331,15 @@ class _VerifyotpState extends State<Verifyotp> {
         verificationId: verificationId,
         smsCode: smsOTP,
       );
-      final FirebaseUser currentUser = await _auth.currentUser();
-      if (resendcode == true) {
-        //resendaddUser();
-        print("resendcode is true");
-      } else {
-        //addUser();
-        print("resendcode is false");
-      }
+
+      FirebaseAuth _auth = FirebaseAuth.instance;
+      final FirebaseUser user =
+          await _auth.signInWithCredential(credential).then((user) {
+        print("navigation call to the add user");
+      }).catchError((e) {
+        print(e);
+        handleError(e);
+      });
     } catch (e) {
       handleError(e);
     }
@@ -354,10 +363,91 @@ class _VerifyotpState extends State<Verifyotp> {
     super.dispose();
     _timer.cancel();
   }
+getfromLocalClientToken()async{
 
+    print("inside getfromLocalClientToken ");
+   clientToken =  await storage.read(key: "CToken");
+   //print("clientToken"+clientToken);
+ }
+ 
+
+  getFromServerClientToken() async {
+    print("inside getFromServerClientToken ");
+    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    // Enable developer mode to relax fetch throttling
+    //var result;
+
+    try {
+      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
+      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
+      await remoteConfig.activateFetched();
+      result = remoteConfig.getString('ClientToken');
+      // print("************************Wrting to local secure************************");
+      //print(result);
+      //await storage.write(key: 'CToken', value: result.toString());
+      print('************************');
+    } on FetchThrottledException catch (exception) {
+      // Fetch throttled.
+      print(exception);
+    } catch (exception) {
+      print('Unable to fetch remote config. Cached or default values will be '
+          'used');
+    }
+    return result;
+  }
+
+  Future<void> getuserid() async {
+    print("inside getuserid()  ");
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
+    user.getIdToken().then((result) {
+      token = result.token;
+      print("tokennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
+              token);
+      return token;
+    });
+  }
   @override
+
   Widget build(BuildContext context) {
-    final HttpLink httpLink = HttpLink(
+ValueNotifier<GraphQLClient> initilize(){
+   
+  
+  /*getfromLocalClientToken().then((v){
+  clientToken = v;
+  print(clientToken);
+  });*/
+  
+ String d = "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjhjZjBjNjQyZDQwOWRlODJlY2M5MjI4ZTRiZDc5OTkzOTZiNTY3NDAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZ3Vlc3RyZWdpc3RyYXRpb24tNDE0MGEiLCJhdWQiOiJndWVzdHJlZ2lzdHJhdGlvbi00MTQwYSIsImF1dGhfdGltZSI6MTU4MzU5NjY5MSwidXNlcl9pZCI6IlRwZUFqeTUwTUViVkdsRkNUYnI2bkVLaDZhYzIiLCJzdWIiOiJUcGVBank1ME1FYlZHbEZDVGJyNm5FS2g2YWMyIiwiaWF0IjoxNTgzNTk2NjkxLCJleHAiOjE1ODM2MDAyOTEsInBob25lX251bWJlciI6IisyMzQ4MTM5MDA0NTcxIiwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJwaG9uZSI6WyIrMjM0ODEzOTAwNDU3MSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBob25lIn19.Uxr-9_65FkGLg_PjrQR4OtlBMv7x1q87-w39wmVndF-e2KXJTJd8zgS5gMOE9BdPBH9QHhSvMywzpH1WbNWl-ZtQjAlgrdrxNmvXMt1_0C33I1v6YaCR8EuGQrEGSV8tibgwQKqu3OSAyAftDEX9N6lDOkX4l8ik0ecz5JmuXrgnULs4El_EKJmuzP_5Sfg1nbuYGaOmp2y25fT22FevdvvUnbxMa3AO5D7kfoDDworKVW4mtnWKE5GittMgbdQuLtZnwT9bYtHcHPb6pNOZUi51qWXCFlC-B-4OvDsVDrQFuQhdMTJpAgE2PAE_Uyr0TzTif77y2u1EdTkBf5LMFA";
+
+  Map<String, String> header = new HashMap();
+   getFromServerClientToken();
+      getuserid();
+  //header['gr-client-token'] = clientToken;
+  header['gr-client-token'] = '$result';
+  print("$result");
+  //header['gr-client-token'] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdyLWdyYXBoUUxAdmlydHVhbHdvcmtzLm5nIiwicGFzc3dvcmQiOiJsaWZlLWlzLWdvb2QiLCJpYXQiOjE1ODM5MDAxMDJ9.E7vn8LWUvUyzMyp2_hxFFBytjHkt35NGq7738bghDJY";
+
+ // header['gr-user-token'] = d;//userToken;
+     header['gr-user-token'] = "Bearer $token";
+
+     final HttpLink httpLink = HttpLink(uri: 'https://us-central1-guestregistration-4140a.cloudfunctions.net/api', 
+ headers: header);
+
+//Endpoint confiquration
+  ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
+      GraphQLClient(link: httpLink,
+      cache: OptimisticCache(
+        dataIdFromObject: typenameDataIdFromObject,
+      )
+      )
+    );
+
+    return client;
+}
+
+
+   /* final HttpLink httpLink = HttpLink(
         uri:
             'https://us-central1-guestregistration-4140a.cloudfunctions.net/api');
     final ValueNotifier<GraphQLClient> client =
@@ -365,7 +455,7 @@ class _VerifyotpState extends State<Verifyotp> {
             link: httpLink,
             cache: OptimisticCache(
               dataIdFromObject: typenameDataIdFromObject,
-            )));
+            )));*/
     print(isButtonEnabled);
 
     if (isButtonEnabled == false) {
@@ -397,7 +487,8 @@ class _VerifyotpState extends State<Verifyotp> {
           )
         : new Container();
     return GraphQLProvider(
-        client: client,
+        //client: client,
+        client:initilize(),
         child: Scaffold(
           backgroundColor: Colors.white,
           resizeToAvoidBottomPadding: false,
@@ -521,7 +612,8 @@ class _VerifyotpState extends State<Verifyotp> {
                                     setState(() {
                                       _load = true;
                                     });
-                                     
+                                    //verifyPhone();
+                                    //signIn();
                                     try {
                                       final AuthCredential credential =
                                           PhoneAuthProvider.getCredential(
@@ -529,30 +621,39 @@ class _VerifyotpState extends State<Verifyotp> {
                                         smsCode: smsOTP,
                                       );
 
-                                      final FirebaseUser currentUser =
-                                          await _auth.currentUser();
-                                      if (resendcode == true) {
-                                        runMutation(<String, dynamic>{
-                                          "id":"${widget.authuid}",
-                                          "phone":"$phoneCode" +"-"+ "${phone.text}",
-                                          "email": "${widget.email}",
-                                          "name": "${widget.name}",
-                                          "lastname": "${widget.lastname}"
-                                        });
-                                        navigate();
-                                        print("resendcode is true");
-                                      } else {
-                                        //addUser();
-                                        runMutation(<String, dynamic>{
-                                          "id":"${widget.authuid}",
-                                              "phone": "${widget.phoneNumber1}",
-                                          "email": "${widget.email}",
-                                          "name": "${widget.name}",
-                                          "lastname": "${widget.lastname}"
-                                        });
-                                        navigate();
-                                        print("resendcode is false");
-                                      }
+                                      FirebaseAuth _auth =
+                                          FirebaseAuth.instance;
+                                      final FirebaseUser user = await _auth
+                                          .signInWithCredential(credential)
+                                          .then((user) {
+                                        print(
+                                            "navigation call to the add user");
+                                        if (resendcode == true) {
+                                          runMutation(<String, dynamic>{
+                                            "id": "${widget.authuid}",
+                                            "phone": "$phoneCode" + "-" + "${phone.text}",
+                                            "email": "${widget.email}",
+                                            "name": "${widget.name}",
+                                            "lastname": "${widget.lastname}",
+                                            
+                                          });
+                                          navigate();
+                                          print("resendcode is true");
+                                        } else {
+                                          runMutation(<String, dynamic>{
+                                            "id": "${widget.authuid}",
+                                            "phone": "${widget.phoneNumber1}",
+                                            "email": "${widget.email}",
+                                            "name": "${widget.name}",
+                                            "lastname": "${widget.lastname}"
+                                          });
+                                          navigate();
+                                          print("resendcode is false");
+                                        }
+                                      }).catchError((e) {
+                                        print(e);
+                                        handleError(e);
+                                      });
                                     } catch (e) {
                                       handleError(e);
                                     }

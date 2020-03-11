@@ -33,7 +33,6 @@ dependencies:
   firebase_database: ^3.0.9 
   device_info: ^0.4.1+4  
   apple_sign_in: ^0.1.0
-  shared_preferences: ^0.5.6+1
   provider: ^4.0.3
   google_fonts: ^0.2.0 #Styling text fonts
   intro_slider: ^2.2.8 #Intro slider for onBoardScreen
@@ -45,6 +44,7 @@ dependencies:
   graphql_flutter: ^3.0.0
   firebase_remote_config: ^0.3.0+3
   url_launcher: ^5.4.2
+  shared_preferences: ^0.5.6+2
 
 
 dev_dependencies:
