@@ -3,6 +3,7 @@ import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/service/queryMutation.dart';
@@ -24,6 +25,8 @@ class AuthScreenState extends State<AuthScreen> {
   bool signupcheck = false;
   bool isLoading = false;
   bool _load = false;
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+ 
   bool _appledevice = false;
   TextEditingController textemail = new TextEditingController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -294,7 +297,9 @@ class AuthScreenState extends State<AuthScreen> {
                         String storedemail = user1.email;
                         String storeduid = user1.uid;
                         print("email1" + storedemail);
-                    storedemailanduid(storedemail,storeduid) ;
+                        
+                    storedemailanduid(storedemail,storeduid);
+
                         GraphQLClient _client = await
                             graphQLConfiguration.clientToQuery();
                         QueryResult result = await _client.mutate(
@@ -452,9 +457,11 @@ class AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                 ),
+                  
               ]),
         ),
       ),
     );
   }
+
 }

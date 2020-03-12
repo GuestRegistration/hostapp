@@ -23,9 +23,13 @@ class PasswordlessApp extends StatelessWidget {
               
                   if (user == null) {
                    /// return OnboardScreen(); //Start from the beginning
+                   print('User is null');
                     return AuthScreen();
                   } else {
+                    print('User is not Null');
                     return WelcomeScreen();
+                   
+
                   }
                 } else {
                   // return Signupcomplete(); //Start in dashboard

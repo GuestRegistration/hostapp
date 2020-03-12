@@ -62,9 +62,9 @@ class _SettingScreenState extends State<SettingScreen> {
     setState(() {
       storedemail = sharedPreferences.getString("Storedemail");
       storeduid = sharedPreferences.getString("Storeduid");
-      print("storeemail" + storedemail);
+      print("storeemail " + storedemail);
       print(sharedPreferences.getString("Storedemail"));
-      print("storeduid" + storeduid);
+      print("storeduid " + storeduid);
       //selectuser();
     });
   }
