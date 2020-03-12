@@ -123,7 +123,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                               ),
                         ),
                          verticalSpaceSmall,
-                 CollectTextWithout(title: 'Name of Guest',),
+                 CollectTextWithout(title: 'Guest',),
                     InputField(
                       placeholder: 'NameOfGuest',
                       decoration: null,
@@ -401,6 +401,8 @@ side: BorderSide(color: AppColor.primaryLight)
             ),   ],
                     );
 }
+   
+   
    listener(TextEditingController controller){
    controller.addListener(() {
       if(controller.text.isNotEmpty){

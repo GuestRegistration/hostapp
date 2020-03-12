@@ -70,10 +70,10 @@ d = "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjhjZjBjNjQyZDQwOWRlODJlY2M5MjI4ZTRiZDc5
  httpLink = HttpLink(uri: 'https://us-central1-guestregistration-4140a.cloudfunctions.net/api', 
  headers: header);
 
-print('*************************************************************');
- print('*** CLiet Token *** $clientToken');
-  print('*** User Token *** $d');
-  print('*************************************************************');
+// print('*************************************************************');
+//  print('*** CLiet Token *** $clientToken');
+//   print('*** User Token *** $d');
+//   print('*************************************************************');
 
     return GraphQLClient(
       cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),

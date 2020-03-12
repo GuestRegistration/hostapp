@@ -14,6 +14,8 @@ import 'package:hostapp/src/widget/ReservationWidget.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+import 'package:hostapp/src/model/getPropertiesModel.dart'; 
 import 'package:hostapp/src/viewmodels/MainReservationViewModel.dart';
 
 
@@ -23,8 +25,8 @@ class MainReservationScreen extends StatefulWidget {
 }
 
 class _MainReservationScreenState extends State<MainReservationScreen> {
-   List<String> properties = ['Ade', 'Jidex', 'Harbdollar'];
-       String selected;
+       GetProperties _selectedProperty;
+       String propertyID;
   
   @override
   Widget build(BuildContext context) {
@@ -112,7 +114,7 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                   dropdownProperty(),
+                  (model.loadingOthers ? CircularProgressIndicator() : dropdownProperty(model: model)),
                 ],),
                  Expanded(child: Padding(
                    padding: const EdgeInsets.only(top: 30.0, left: 8.0, right: 8.0),
@@ -135,7 +137,7 @@ Padding(
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                   dropdownProperty(),
+                 //  dropdownProperty(model: model),
                 ],),
                  Expanded(child: Padding(
                    padding: const EdgeInsets.only(top: 30.0),
@@ -157,7 +159,7 @@ Padding(
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                   dropdownProperty(),
+                   //dropdownProperty(),
                 ],),
                 Expanded(child: Padding(
                    padding: const EdgeInsets.only(top: 30.0),
@@ -184,55 +186,58 @@ Padding(
   }
 
 
-  dropdownProperty(){
-  return  Container(
-        height: 40,
-          width: MediaQuery.of(context).size.width /2,
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          //color: AppColor.borderColor,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-            topLeft:  const  Radius.circular(0.0),
-            topRight: const  Radius.circular(30.0),
-            bottomLeft:const  Radius.circular(0.0),
-            bottomRight: const  Radius.circular(30.0),
-                    ),
-                                    color: AppColor.borderColor,
-                                    border: Border.all(
-                                        style: BorderStyle.solid, 
-                                        width: 0.80, color: AppColor.borderColor),
-                                  ),
-                              child:  Center(
-                                child: DropdownButton<dynamic>(
-                                        isExpanded: true,
-                                        iconEnabledColor: AppColor.primary,
-                                        underline: SizedBox(),
-                                        hint:  Text('All Properties',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(fontWeight: FontWeight.normal, 
-                                                  fontSize: 16,
-                                                  color: AppColor.primary),),
-                                        value: selected,
-                                        onChanged: (value) {
-                                          setState(() {
-                                          selected = value; //print(value);
-                                          });
-
-                                        },
-                                        items: properties.map((dynamic lang) {
-                                        return DropdownMenuItem<dynamic>(
-                                                  value: lang, //Show Name 
-                                                  
-                                                  child: Text(lang,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(fontWeight: FontWeight.bold, 
-                                                  color: AppColor.primary),),
-                                                );
-                                                    }).toList(),
-                                      
-                                      ),
-                              ),
-                            );
+  dropdownProperty({MainReservationViewModel model}){
+    if(model == null){
+  print('********** AM NULL $model');
+    }else{
+      print('******NOT NULL**** BUSY ${model.properties.toString()}');
+    }
+    return Text('dhd');
+  // return   Container(
+  //       height: 40,
+  //         width: MediaQuery.of(context).size.width /2,
+  //         padding: EdgeInsets.symmetric(horizontal: 10.0),
+  //         //color: AppColor.borderColor,
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.only(
+  //           topLeft:  const  Radius.circular(0.0),
+  //           topRight: const  Radius.circular(30.0),
+  //           bottomLeft:const  Radius.circular(0.0),
+  //           bottomRight: const  Radius.circular(30.0),
+  //                   ),
+  //                                   color: AppColor.borderColor,
+  //                                   border: Border.all(
+  //                                       style: BorderStyle.solid, 
+  //                                       width: 0.80, color: AppColor.borderColor),
+  //                                 ),
+  //                             child:  Center(
+  //                               child: DropdownButton<GetProperties>(
+  //                           isExpanded: true,
+  //                            iconEnabledColor: AppColor.primary,
+  //                               underline: SizedBox(),
+  //                               value: _selectedProperty,
+  //                               onChanged: (value) {
+  //                                 setState(() {
+  //                                   _selectedProperty = value;
+  //                                    propertyID = value.id; //Return property ID
+                                     
+  //                                     print(propertyID);
+  //                                  //  print(_selectedProperty.id);
+  //                                   //  print(_selectedProperty);
+  //                                 });
+  //                               },
+  //                               items: model.getPropertiesList().map((GetProperties lang) {
+  //                               return DropdownMenuItem<GetProperties>(
+  //                                         value: lang, 
+  //                                         child: Text(lang.name.toString(), //Show Name 
+  //                                         style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
+  //                                       );
+  //                                           }).toList(),
+                              
+  //                             ),
+  //                             ),
+  //                           );
+  
   }
   
    

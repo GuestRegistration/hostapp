@@ -11,7 +11,7 @@ import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/screen/tester.dart';
 import 'package:hostapp/src/GraphQLDemo/graphTexter.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
-import 'package:hostapp/src/screen/AddReservationScreen.dart';
+import 'package:hostapp/src/screen/GuestScreen.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';

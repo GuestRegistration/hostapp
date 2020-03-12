@@ -88,7 +88,10 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
                     invitelink:getReservation.checkinUrl,
                     propertyId: getReservation.property.id,
                     propertyN: getReservation.property.name,
+                  appoved: getReservation.approved,
                    gname: getReservation.guest,
+                   instructions:  getReservation.instrucstions,
+                  
                    )));
                     },
                   );
@@ -134,7 +137,7 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
               padding: const EdgeInsets.only(top: 10.0, left: 8.0, bottom: 10.0,),
               child: Row(
                     children: <Widget>[
-                      Icon(Icons.outlined_flag, color: Colors.black,),
+                      Icon(Icons.exit_to_app, color: Colors.black,),
                         SizedBox(width: 10,),
                       Text(formatDate(value: whichdate), 
                   style: TextStyle(

@@ -7,6 +7,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/model/getReservationMode.dart';
 import 'package:hostapp/src/service/graphQlQuery.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
+import 'package:hostapp/src/model/getPropertiesModel.dart';
 
 class MainReservationViewModel extends BaseModel{
      final AuthService _authService = locator<AuthService>();
@@ -16,6 +17,8 @@ final NavigationService _navigationService = locator<NavigationService>();
 List<GetReservationModel> _list = List<GetReservationModel>();
 List<GetReservationModel> get list => _list;
 String _errorMessage;
+List<GetProperties> _propertlist = List<GetProperties>();
+List<GetProperties> get properties => _propertlist;
 String get getErrorMessage => _errorMessage;
 
 
@@ -26,7 +29,9 @@ void addReservation(){
 
 void tab1Initialize()async{
   setBusy(true);
+
   await _graphQlConfiq.getNeccessartyToken();
+
 
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
@@ -71,6 +76,7 @@ QueryResult result = await _client.query(
                   checkInDate: result.data["getReservations"][index]["checkin_date"],
                   checkinUrl: result.data["getReservations"][index]["checkin_url"],
                   approved: result.data["getReservations"][index]["approved"],
+                  instrucstions: result.data["getReservations"][index]["instruction"],
                   checkoutDate: result.data["getReservations"][index]["checkout_date"],
                   property: Property(id: result.data["getReservations"][index]["property"]['id'],
                    name: result.data["getReservations"][index]["property"]['name'],),
@@ -85,6 +91,7 @@ QueryResult result = await _client.query(
       print(list.length);
        setBusy(false);
          }
+         // fetchProperties();
 }
 
 
@@ -92,5 +99,64 @@ setErrorMessage({String erorr}){
 _errorMessage = erorr;
 notifyListeners();
 }
+
+
+
+void fetchProperties()async{
+ loadingOther(true);
+
+GraphQLClient _client = _graphQlConfiq.clientToQuery();
+QueryResult result = await _client.query(
+   QueryOptions(
+        documentNode: gql(getProperties),
+      ),
+).catchError((e){
+      loadingOther(false);
+      print('Error Occur, ${e.toString()}');
+      setErrorMessage(erorr: e.toString());
+
+        }).timeout(Duration(seconds: 5,), onTimeout: (){
+           loadingOther(false);
+          setErrorMessage(erorr:'Server Timeout');
+        },);
+
+        
+   if(result.data == null) {
+      loadingOther(false);
+             print('Result is Null');
+         }else{
+            print('Result is not Null');
+            if(result.data['getUserProperties'] == null){
+              print('*************Return Data is Null Exception **************');
+             print(result.exception.graphqlErrors);
+            setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+
+            }else{
+              for (var index = 0; index < result.data["getUserProperties"].length; index++) {
+           
+            GetProperties v  =  new GetProperties(
+                  email: result.data["getUserProperties"][index]["email"],
+                  id: result.data["getUserProperties"][index]["id"],
+                  name: result.data["getUserProperties"][index]["name"],
+                  propertyPhone: PropertyPhone(
+                    completePhone: result.data["getUserProperties"][index]["phone"]['complete_phone'], 
+                  countryCode: result.data["getUserProperties"][index]["phone"]['country_code'], 
+                  phoneNumber: result.data["getUserProperties"][index]["phone"]['phone_number']),
+                  address:
+                  Address(street: result.data["getUserProperties"][index]["address"]['street'],
+                  country: result.data["getUserProperties"][index]["address"]['country']),
+                  terms: result.data["getUserProperties"][index]["terms"],
+                    );
+           
+            _propertlist.add(v);
+            
+      } 
+      }
+          loadingOther(false);
+         }
+}
+List<GetProperties> getPropertiesList() {
+     return _propertlist;
+   }
 
 }
