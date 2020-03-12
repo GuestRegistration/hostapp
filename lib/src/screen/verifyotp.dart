@@ -1,14 +1,13 @@
 import 'dart:async';
-import 'dart:collection';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/welcome.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class Verifyotp extends StatefulWidget {
   final String email;
   final String phoneNumber, lastname, name, authuid, phoneNumber1;
@@ -45,7 +44,7 @@ class _VerifyotpState extends State<Verifyotp> {
   var phonenumbersplit;
   bool enablebutton = false;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-      String token,result;
+  String token, result;
   String insertData = r"""
         mutation users(        
         $id: String!       
@@ -68,8 +67,8 @@ class _VerifyotpState extends State<Verifyotp> {
                 }
         }
           """;
-          String clientToken;
-          final storage = new FlutterSecureStorage();
+  String clientToken;
+  final storage = new FlutterSecureStorage();
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
@@ -201,6 +200,42 @@ class _VerifyotpState extends State<Verifyotp> {
     //Todo : manipulate the selected country code here
     phoneCode = countryCode.toString();
     print("New Country selected: " + countryCode.toString());
+  }
+
+  Future<void> adduser() async {
+    print("inside adduser user");
+
+    GraphQLClient _client = await graphQLConfiguration.clientToQuery();
+    QueryResult result = await _client.mutate(
+      MutationOptions(
+        documentNode: gql(insertData),
+        variables: {
+          "id": "${widget.authuid}",
+          "phone": "$phoneCode" + "-" + "${phone.text}",
+          "email": "${widget.email}",
+          "name": "${widget.name}",
+          "lastname": "${widget.lastname}",
+        },
+      ),
+    );
+  }
+
+  Future<void> resendadduser() async {
+    print("inside adduser user");
+
+    GraphQLClient _client = await graphQLConfiguration.clientToQuery();
+    QueryResult result = await _client.mutate(
+      MutationOptions(
+        documentNode: gql(insertData),
+        variables: {
+          "id": "${widget.authuid}",
+          "phone": "${widget.phoneNumber1}",
+          "email": "${widget.email}",
+          "name": "${widget.name}",
+          "lastname": "${widget.lastname}"
+        },
+      ),
+    );
   }
 
   Future<bool> resendOTPDialog(BuildContext context) {
@@ -363,101 +398,29 @@ class _VerifyotpState extends State<Verifyotp> {
     super.dispose();
     _timer.cancel();
   }
-getfromLocalClientToken()async{
 
-    print("inside getfromLocalClientToken ");
-   clientToken =  await storage.read(key: "CToken");
-   //print("clientToken"+clientToken);
- }
- 
+  SharedPreferences sharedPreferences;
 
-  getFromServerClientToken() async {
-    print("inside getFromServerClientToken ");
-    final RemoteConfig remoteConfig = await RemoteConfig.instance;
-    // Enable developer mode to relax fetch throttling
-    //var result;
-
-    try {
-      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
-      await remoteConfig.activateFetched();
-      result = remoteConfig.getString('ClientToken');
-      // print("************************Wrting to local secure************************");
-      //print(result);
-      //await storage.write(key: 'CToken', value: result.toString());
-      print('************************');
-    } on FetchThrottledException catch (exception) {
-      // Fetch throttled.
-      print(exception);
-    } catch (exception) {
-      print('Unable to fetch remote config. Cached or default values will be '
-          'used');
-    }
-    return result;
+  getfromLocalClientToken() async {
+    print("inside getfromLocal ClientToken ");
+    clientToken = await storage.read(key: "CToken");
+    print("clientToken" + clientToken);
   }
 
   Future<void> getuserid() async {
     print("inside getuserid()  ");
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
-
-    user.getIdToken().then((result) {
-      token = result.token;
-      print("tokennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
+    user.getIdToken().then((tokenresult) {
+      token = tokenresult.token;
+      print(
+          "tokennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
               token);
       return token;
     });
   }
+
   @override
-
   Widget build(BuildContext context) {
-ValueNotifier<GraphQLClient> initilize(){
-   
-  
-  /*getfromLocalClientToken().then((v){
-  clientToken = v;
-  print(clientToken);
-  });*/
-  
- String d = "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjhjZjBjNjQyZDQwOWRlODJlY2M5MjI4ZTRiZDc5OTkzOTZiNTY3NDAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZ3Vlc3RyZWdpc3RyYXRpb24tNDE0MGEiLCJhdWQiOiJndWVzdHJlZ2lzdHJhdGlvbi00MTQwYSIsImF1dGhfdGltZSI6MTU4MzU5NjY5MSwidXNlcl9pZCI6IlRwZUFqeTUwTUViVkdsRkNUYnI2bkVLaDZhYzIiLCJzdWIiOiJUcGVBank1ME1FYlZHbEZDVGJyNm5FS2g2YWMyIiwiaWF0IjoxNTgzNTk2NjkxLCJleHAiOjE1ODM2MDAyOTEsInBob25lX251bWJlciI6IisyMzQ4MTM5MDA0NTcxIiwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJwaG9uZSI6WyIrMjM0ODEzOTAwNDU3MSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBob25lIn19.Uxr-9_65FkGLg_PjrQR4OtlBMv7x1q87-w39wmVndF-e2KXJTJd8zgS5gMOE9BdPBH9QHhSvMywzpH1WbNWl-ZtQjAlgrdrxNmvXMt1_0C33I1v6YaCR8EuGQrEGSV8tibgwQKqu3OSAyAftDEX9N6lDOkX4l8ik0ecz5JmuXrgnULs4El_EKJmuzP_5Sfg1nbuYGaOmp2y25fT22FevdvvUnbxMa3AO5D7kfoDDworKVW4mtnWKE5GittMgbdQuLtZnwT9bYtHcHPb6pNOZUi51qWXCFlC-B-4OvDsVDrQFuQhdMTJpAgE2PAE_Uyr0TzTif77y2u1EdTkBf5LMFA";
-
-  Map<String, String> header = new HashMap();
-   getFromServerClientToken();
-      getuserid();
-  //header['gr-client-token'] = clientToken;
-  header['gr-client-token'] = '$result';
-  print("$result");
-  //header['gr-client-token'] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdyLWdyYXBoUUxAdmlydHVhbHdvcmtzLm5nIiwicGFzc3dvcmQiOiJsaWZlLWlzLWdvb2QiLCJpYXQiOjE1ODM5MDAxMDJ9.E7vn8LWUvUyzMyp2_hxFFBytjHkt35NGq7738bghDJY";
-
- // header['gr-user-token'] = d;//userToken;
-     header['gr-user-token'] = "Bearer $token";
-
-     final HttpLink httpLink = HttpLink(uri: 'https://us-central1-guestregistration-4140a.cloudfunctions.net/api', 
- headers: header);
-
-//Endpoint confiquration
-  ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
-      GraphQLClient(link: httpLink,
-      cache: OptimisticCache(
-        dataIdFromObject: typenameDataIdFromObject,
-      )
-      )
-    );
-
-    return client;
-}
-
-
-   /* final HttpLink httpLink = HttpLink(
-        uri:
-            'https://us-central1-guestregistration-4140a.cloudfunctions.net/api');
-    final ValueNotifier<GraphQLClient> client =
-        ValueNotifier<GraphQLClient>(GraphQLClient(
-            link: httpLink,
-            cache: OptimisticCache(
-              dataIdFromObject: typenameDataIdFromObject,
-            )));*/
-    print(isButtonEnabled);
-
     if (isButtonEnabled == false) {
       buttoncolor = Color(0xff45A1C9);
     } else {
@@ -486,260 +449,226 @@ ValueNotifier<GraphQLClient> initilize(){
             ),
           )
         : new Container();
-    return GraphQLProvider(
-        //client: client,
-        client:initilize(),
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          resizeToAvoidBottomPadding: false,
-          body: new Container(
-              child: Mutation(
-                  options: MutationOptions(
-                    documentNode: gql(insertData),
-                    onCompleted: (data) {
-                      print(data.toString());
-                    },
-                    onError: (error) {
-                      print('Error Occur: ${error.toString()}');
-                    },
+    //return GraphQLProvider(
+    //client: client,
+    //client: initilize(),
+    //child:
+    return Scaffold(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomPadding: false,
+        body: new Container(
+            child: Container(
+                child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 50.0,
+              ),
+              Center(
+                child: Text(
+                  "Check your mobile",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0),
+                ),
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              (errorMessage != ''
+                  ? Text(
+                      errorMessage,
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : Container()),
+              Align(
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                      child: Text("We sent a one time validation code to your",
+                          style: TextStyle(
+                            color: Color(0xff8F8F8F),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14.0,
+                          )),
+                    ),
+                    Center(
+                      child: Text(
+                          "mobile number xxx-xxx-$newphonenumbersplit. Enter the 6 digit",
+                          style: TextStyle(
+                            color: Color(0xff8F8F8F),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14.0,
+                          )),
+                    ),
+                    Center(
+                      child: Text("code below before it expires in 2 minutes",
+                          style: TextStyle(
+                            color: Color(0xff8F8F8F),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14.0,
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              Align(
+                alignment: Alignment(-.100, 0),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 50.0,
+                  width: 320.0,
+                  decoration: new BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Color(0xffC6DEE9)),
+                      borderRadius: new BorderRadius.circular(10.0)),
+                  child: new TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.phone,
+                      onChanged: (value) {
+                        isEmpty();
+                        this.smsOTP = value;
+                      },
+                      controller: otp,
+                      decoration: InputDecoration(
+                        hintText: "XXX-XXX",
+                        hintStyle:
+                            TextStyle(fontSize: 15.0, color: Color(0xff63A5C0)),
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 10.0, 30.0, 10.0),
+                        border: InputBorder.none,
+                      )),
+                ),
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              SizedBox(
+                width: 320.0,
+                height: 47.0,
+                child: Container(
+                  child: AbsorbPointer(
+                    absorbing: isButtonEnabled,
+                    child: new RaisedButton(
+                      color: buttoncolor,
+                      onPressed: () async {
+                        setState(() {
+                          _load = true;
+                        });
+                        print("navigation call to the add user");
+
+                        try {
+                          final AuthCredential credential =
+                              PhoneAuthProvider.getCredential(
+                            verificationId: verificationId,
+                            smsCode: smsOTP,
+                          );
+
+                          FirebaseAuth _auth = FirebaseAuth.instance;
+                          final FirebaseUser user = await _auth
+                              .signInWithCredential(credential)
+                              .then((user) {
+                            print("navigation call to the add user");
+                            if (resendcode == true) {
+                              adduser();
+                              navigate();
+                              print("resendcode is true");
+                            } else {
+                              resendadduser();
+                              navigate();
+                              print("resendcode is false");
+                            }
+                          }).catchError((e) {
+                            print(e);
+                            handleError(e);
+                          });
+                        } catch (e) {
+                          handleError(e);
+                        }
+                      },
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(13.0),
+                      ),
+                    ),
                   ),
-                  builder: (runMutation, result) {
-                    return Container(
-                        child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                ),
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              AbsorbPointer(
+                absorbing: enablebutton,
+                //absorbing: false,
+                child: FlatButton(
+                    onPressed: () {
+                      verifyPhone();
+                      print("enablebutton" + enablebutton.toString());
+                    },
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          SizedBox(
-                            height: 50.0,
+                          Text(
+                            "Resend Code",
+                            style: TextStyle(
+                                color: Color(0xffB1D2DF),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0),
                           ),
-                          Center(
-                            child: Text(
-                              "Check your mobile",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30.0),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 50.0,
-                          ),
-                          (errorMessage != ''
-                              ? Text(
-                                  errorMessage,
-                                  style: TextStyle(color: Colors.red),
-                                )
-                              : Container()),
-                          Align(
-                            child: Column(
-                              children: <Widget>[
-                                Center(
-                                  child: Text(
-                                      "We sent a one time validation code to your",
-                                      style: TextStyle(
-                                        color: Color(0xff8F8F8F),
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.0,
-                                      )),
-                                ),
-                                Center(
-                                  child: Text(
-                                      "mobile number xxx-xxx-$newphonenumbersplit. Enter the 6 digit",
-                                      style: TextStyle(
-                                        color: Color(0xff8F8F8F),
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.0,
-                                      )),
-                                ),
-                                Center(
-                                  child: Text(
-                                      "code below before it expires in 2 minutes",
-                                      style: TextStyle(
-                                        color: Color(0xff8F8F8F),
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.0,
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 50.0,
-                          ),
-                          Align(
-                            alignment: Alignment(-.100, 0),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50.0,
-                              width: 320.0,
-                              decoration: new BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(color: Color(0xffC6DEE9)),
-                                  borderRadius:
-                                      new BorderRadius.circular(10.0)),
-                              child: new TextFormField(
-                                  textAlign: TextAlign.center,
-                                  keyboardType: TextInputType.phone,
-                                  onChanged: (value) {
-                                    isEmpty();
-                                    this.smsOTP = value;
-                                  },
-                                  controller: otp,
-                                  decoration: InputDecoration(
-                                    hintText: "XXX-XXX",
-                                    hintStyle: TextStyle(
-                                        fontSize: 15.0,
-                                        color: Color(0xff63A5C0)),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 10.0, 30.0, 10.0),
-                                    border: InputBorder.none,
-                                  )),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 50.0,
-                          ),
-                          SizedBox(
-                            width: 320.0,
-                            height: 47.0,
-                            child: Container(
-                              child: AbsorbPointer(
-                                absorbing: isButtonEnabled,
-                                child: new RaisedButton(
-                                  color: buttoncolor,
-                                  onPressed: () async {
-                                    setState(() {
-                                      _load = true;
-                                    });
-                                    //verifyPhone();
-                                    //signIn();
-                                    try {
-                                      final AuthCredential credential =
-                                          PhoneAuthProvider.getCredential(
-                                        verificationId: verificationId,
-                                        smsCode: smsOTP,
-                                      );
-
-                                      FirebaseAuth _auth =
-                                          FirebaseAuth.instance;
-                                      final FirebaseUser user = await _auth
-                                          .signInWithCredential(credential)
-                                          .then((user) {
-                                        print(
-                                            "navigation call to the add user");
-                                        if (resendcode == true) {
-                                          runMutation(<String, dynamic>{
-                                            "id": "${widget.authuid}",
-                                            "phone": "$phoneCode" + "-" + "${phone.text}",
-                                            "email": "${widget.email}",
-                                            "name": "${widget.name}",
-                                            "lastname": "${widget.lastname}",
-                                            
-                                          });
-                                          navigate();
-                                          print("resendcode is true");
-                                        } else {
-                                          runMutation(<String, dynamic>{
-                                            "id": "${widget.authuid}",
-                                            "phone": "${widget.phoneNumber1}",
-                                            "email": "${widget.email}",
-                                            "name": "${widget.name}",
-                                            "lastname": "${widget.lastname}"
-                                          });
-                                          navigate();
-                                          print("resendcode is false");
-                                        }
-                                      }).catchError((e) {
-                                        print(e);
-                                        handleError(e);
-                                      });
-                                    } catch (e) {
-                                      handleError(e);
-                                    }
-                                  },
-                                  child: const Text(
-                                    'Continue',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(13.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 50.0,
-                          ),
-                          AbsorbPointer(
-                            absorbing: enablebutton,
-                            //absorbing: false,
-                            child: FlatButton(
-                                onPressed: () {
-                                  verifyPhone();
-                                  print(
-                                      "enablebutton" + enablebutton.toString());
-                                },
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Resend Code",
-                                        style: TextStyle(
-                                            color: Color(0xffB1D2DF),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16.0),
-                                      ),
-                                      Text(
-                                        " in ($_start)",
-                                        style: TextStyle(
-                                            color: Color(0xff63A5C0),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16.0),
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          ),
-                          SizedBox(
-                            width: 30.0,
-                          ),
-                          SizedBox(
-                            width: 300.0,
-                            child: Container(
-                              child: FlatButton(
-                                onPressed: () {
-                                  resendOTPDialog(context).then((value) {
-                                    print('resenotp');
-                                  });
-                                },
-                                child: const Text(
-                                  'Wrong number ? Click here to re-enter number',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 11.0),
-                                ),
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          new Align(
-                            child: loadingIndicator,
-                            alignment: FractionalOffset.center,
+                          Text(
+                            " in ($_start)",
+                            style: TextStyle(
+                                color: Color(0xff63A5C0),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0),
                           ),
                         ],
                       ),
-                    ));
-                  })),
-        ));
+                    )),
+              ),
+              SizedBox(
+                width: 30.0,
+              ),
+              SizedBox(
+                width: 300.0,
+                child: Container(
+                  child: FlatButton(
+                    onPressed: () {
+                      resendOTPDialog(context).then((value) {
+                        print('resenotp');
+                      });
+                    },
+                    child: const Text(
+                      'Wrong number ? Click here to re-enter number',
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11.0),
+                    ),
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              new Align(
+                child: loadingIndicator,
+                alignment: FractionalOffset.center,
+              ),
+            ],
+          ),
+        ))));
+    //  );
   }
 }
 

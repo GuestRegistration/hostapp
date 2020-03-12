@@ -81,7 +81,7 @@ class _SettingScreenState extends State<SettingScreen> {
       print("storeduid" + storeduid);   
     });
     print("storedemail in selectuser" + storedemail);
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient _client = await graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
         // document: selectUser,
@@ -136,7 +136,7 @@ class _SettingScreenState extends State<SettingScreen> {
     });
     print("phonesplit0" + phonesplit0);
     print("${phonesplit0.toString()}" + "-" + "${phone.text}");
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient _client = await graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
         documentNode: gql(updateuserquery),

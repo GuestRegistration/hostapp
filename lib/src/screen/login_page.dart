@@ -485,11 +485,12 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                     });
                                   }
 
-                                  GraphQLClient _client =
+                                  GraphQLClient _client = await 
                                       graphQLConfiguration.clientToQuery();
                                   QueryResult result = await _client.mutate(
                                     MutationOptions(
-                                      document: getphone,
+                                  // document: getphone,
+                                  documentNode: gql(getphone),
                                       variables: {
                                         'phone': "$phoneCode".toString() +
                                             "${phone.text}".toString(),

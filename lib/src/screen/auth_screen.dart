@@ -295,11 +295,12 @@ class AuthScreenState extends State<AuthScreen> {
                         String storeduid = user1.uid;
                         print("email1" + storedemail);
                     storedemailanduid(storedemail,storeduid) ;
-                        GraphQLClient _client =
+                        GraphQLClient _client = await
                             graphQLConfiguration.clientToQuery();
                         QueryResult result = await _client.mutate(
                           MutationOptions(
-                            document: selectdata,
+                            documentNode: gql(selectdata),
+                            //document: selectdata,
                             variables: {
                               'email': email1,
                             },
@@ -386,12 +387,12 @@ class AuthScreenState extends State<AuthScreen> {
                           final storeduid = user1.uid;
                           print("email1" + storedemail);
                              storedemailanduid(storedemail,storeduid) ;
-                          GraphQLClient _client =
+                          GraphQLClient _client = await 
                               graphQLConfiguration.clientToQuery();
                           QueryResult result = await _client.mutate(
                             MutationOptions(
-                              document: selectdata,
-                              //documentNode: gql(selectdata),
+                             // document: selectdata,
+                              documentNode: gql(selectdata),
                               variables: {
                                 'email': storedemail,
                               },
