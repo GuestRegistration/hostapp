@@ -107,35 +107,8 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
               if (snapshot.connectionState == ConnectionState.active) {
                 FirebaseUser user = snapshot.data;
 
-<<<<<<< HEAD
                 if (user == null) {
                   print('User is null');
-=======
-  return MaterialApp(
-        theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
-        home: Scaffold(
-          body: Center(
-            child: StreamBuilder<FirebaseUser>(
-              stream: FirebaseAuth.instance.onAuthStateChanged,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  FirebaseUser user = snapshot.data;
-              
-                  if (user == null) {
-                   /// return OnboardScreen(); //Start from the beginning
-                   print('User is null');
-                    return AuthScreen();
-                  } else {
-                    print('User is not Null');
-                    return WelcomeScreen();
-                   
-
-                  }
-                } else {
-                  // return Signupcomplete(); //Start in dashboard
-                  print("inside ConnectionState else ");
-                  //return OnboardScreen();
->>>>>>> 34cf105f9fc08574e5974843e4e4462335f4d51f
                   return AuthScreen();
                 }
                 /*else if (snapshot1.data == false) {
