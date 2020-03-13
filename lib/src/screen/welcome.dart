@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/screen/setting.dart';
+import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 
 
 class WelcomeScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  GraphQLConfiguration graph = GraphQLConfiguration();
   var email;
 
   int _selectedIndex;
@@ -118,6 +120,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   switchBody(){
     if (_selectedIndex == 0) {
+
       print("navigate to Reservation");
       
       return Text('');

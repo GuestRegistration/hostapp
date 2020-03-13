@@ -25,6 +25,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   String mobile;
+  bool loading = false;
   DatabaseReference userRef;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String email1;
@@ -172,28 +173,16 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       print("inside widget.phoneerror else");
       print("widget.phoneerror else" + widget.phoneerror.toString());
     }
-    Widget loadingIndicator = _load
-        ? Center(
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 20.0,
-                ),
-                new Container(
-                  width: 60.0,
-                  height: 60.0,
-                  child: new CircularProgressIndicator(
-                    strokeWidth: 8,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Color(0xFF45A1C9),
-                    ),
-                    backgroundColor: Color(0xFFC6DEE9),
-                  ),
-                ),
-              ],
-            ),
-          )
-        : new Container();
+    Widget loadingIndicator = Center(
+      child: CircularProgressIndicator(
+        strokeWidth: 8,
+        valueColor: AlwaysStoppedAnimation<Color>(
+          Color(0xFF45A1C9),
+        ),
+        backgroundColor: Color(0xFFC6DEE9),
+      )
+    );
+
     return GraphQLProvider(
       client: client,
       child: Scaffold(
@@ -446,10 +435,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                       SizedBox(
                         height: 10.0,
                       ),
-                      new Align(
-                        child: loadingIndicator,
-                        alignment: FractionalOffset.center,
-                      ),
+//                      new Align(
+//                        child: loadingIndicator,
+//                        alignment: FractionalOffset.center,
+//                      ),
                       SizedBox(
                         height: 20.0,
                       ),
@@ -458,7 +447,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                         height: 47.0,
                         child: AbsorbPointer(
                           absorbing: isButtonEnabled,
-                          child: new RaisedButton(
+                          child: (_load ? loadingIndicator : RaisedButton(
                               child: const Text(
                                 'Continue',
                                 style: TextStyle(
@@ -484,13 +473,13 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                       errorflag = false;
                                     });
                                   }
-
-                                  GraphQLClient _client = await 
-                                      graphQLConfiguration.clientToQuery();
+                                  startLoading();
+                                  GraphQLClient _client = await
+                                  graphQLConfiguration.clientToQuery();
                                   QueryResult result = await _client.mutate(
                                     MutationOptions(
-                                  // document: getphone,
-                                  documentNode: gql(getphone),
+                                      // document: getphone,
+                                      documentNode: gql(getphone),
                                       variables: {
                                         'phone': "$phoneCode".toString() +
                                             "${phone.text}".toString(),
@@ -500,9 +489,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
                                   if (result.data["getUserByPhone"] == null) {
                                     print("inside if call navigateotp()");
-
+                                    stopLoading();
                                     navigateotp();
                                   } else {
+                                    stopLoading();
                                     print("inside else");
                                     print("phone number already exist");
                                     setState(() {
@@ -523,7 +513,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                     content: Text("Failed to Add user details"),
                                   ));
                                 }
-                              }),
+                              }))
                         ),
                       ),
                       SizedBox(
@@ -602,6 +592,18 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
         ),
       ),
     );
+  }
+
+  stopLoading(){
+    setState(() {
+      _load = false;
+    });
+  }
+
+  startLoading(){
+    setState(() {
+      _load = true;
+    });
   }
 }
 

@@ -28,7 +28,6 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
   String email1;
   checkuser() async {
     print("inside checkuser");
-<<<<<<< HEAD
 
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user1 = await auth.currentUser();
@@ -60,99 +59,19 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
       return true;
     }
   }
- void _showDialog() {
-     showDialog(
+  void _showDialog() {
+    showDialog(
       context: this.context,
       builder: (context) => AlertDialog(
-            title: Text("No Internet Found!"),
-            content: Text("Switch on Mobile Data or Wi-Fi!"),
-            actions: <Widget>[FlatButton(child: Text("Ok"), onPressed: () {
-              Navigator.pop(context);
-            })],
-          ),
-    );
-  }
-    void initState() {
-    Timer.run(() {
-      try {
-        InternetAddress.lookup('google.com').then((result) {
-          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-            print('connected');
-          } else {
-            _showDialog(); // show dialog
-          }
-        }).catchError((error) {
-          _showDialog(); // show dialog
-        });
-      } on SocketException catch (_) {
-        _showDialog();
-        print('not connected'); // show dialog
-      }
-      
-    });
-    
-    super.initState();
-  }
-
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
-      home: Scaffold(
-        body: Center(
-          child: StreamBuilder<FirebaseUser>(
-            stream: FirebaseAuth.instance.onAuthStateChanged,
-            builder: (context, snapshot) {
-              // return FutureBuilder(
-              //   future: checkuser(),
-              //  builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot1) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                FirebaseUser user = snapshot.data;
-
-=======
-
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final FirebaseUser user1 = await auth.currentUser();
-    email1 = user1.email;
-
-    GraphQLClient _client = await graphQLConfiguration.clientToQuery();
-    result = await _client.mutate(
-      MutationOptions(
-        documentNode: gql(selectdata),
-        //document: selectdata,
-        variables: {
-          'email': email1,
-          //'email': "diya.feb28@gmail.com"
-        },
+        title: Text("No Internet Found!"),
+        content: Text("Switch on Mobile Data or Wi-Fi!"),
+        actions: <Widget>[FlatButton(child: Text("Ok"), onPressed: () {
+          Navigator.pop(context);
+        })],
       ),
     );
-
-    if (result.data["getUserByEmail"] == null) {
-      print("inside if new user");
-      /*Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => LoginPage(existingemail: email1.toString()),
-      ));*/
-      return false;
-    } else {
-      print("inside else existing user");
-      /*Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WelcomeScreen(email: email1.toString()),
-      ));*/
-      return true;
-    }
   }
- void _showDialog() {
-     showDialog(
-      context: this.context,
-      builder: (context) => AlertDialog(
-            title: Text("No Internet Found!"),
-            content: Text("Switch on Mobile Data or Wi-Fi!"),
-            actions: <Widget>[FlatButton(child: Text("Ok"), onPressed: () {
-              Navigator.pop(context);
-            })],
-          ),
-    );
-  }
-    void initState() {
+  void initState() {
     Timer.run(() {
       try {
         InternetAddress.lookup('google.com').then((result) {
@@ -168,9 +87,9 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
         _showDialog();
         print('not connected'); // show dialog
       }
-      
+
     });
-    
+
     super.initState();
   }
 
@@ -188,43 +107,38 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
               if (snapshot.connectionState == ConnectionState.active) {
                 FirebaseUser user = snapshot.data;
 
->>>>>>> a0ecb50ea24d19ce948b1b37c773254ebabc63e8
                 if (user == null) {
                   print('User is null');
                   return AuthScreen();
                 }
                 /*else if (snapshot1.data == false) {
                         print('User is not Null');
-<<<<<<< HEAD
-=======
-
->>>>>>> a0ecb50ea24d19ce948b1b37c773254ebabc63e8
                         return LoginPage();
-                      }  
+                      }
                         return WelcomeScreen();*/
                 else {
                   return FutureBuilder(
                       future: checkuser(),
                       builder: (BuildContext context,
                           AsyncSnapshot<dynamic> snapshot1) {
-                            /*if (snapshot1.connectionState == ConnectionState.waiting) { 
+                        /*if (snapshot1.connectionState == ConnectionState.waiting) {
                                        print("snapshot1.data" + snapshot1.data.toString());
                               return CircularProgressIndicator();
                             }*/
-                   /*   if (snapshot1.connectionState ==
+                        /*   if (snapshot1.connectionState ==
                             ConnectionState.active) {
                           print("snapshot1.data" + snapshot1.data.toString());*/
 
-                          if (snapshot1.data == false) {
-                            print('User  table is null');
-                            return LoginPage();
-                          }
-                          else{
-                              print('Existing user ');
-                               return WelcomeScreen();
-                          }
-                          //return WelcomeScreen();
-                       /* } else {
+                        if (snapshot1.data == false) {
+                          print('User  table is null');
+                          return LoginPage();
+                        }
+                        else{
+                          print('Existing user ');
+                          return WelcomeScreen();
+                        }
+                        //return WelcomeScreen();
+                        /* } else {
                           return AuthScreen();
                         }*/
                       });
@@ -242,25 +156,3 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
     // );
   }
 }
-/*
-import 'package:flutter/material.dart';
-import 'package:hostapp/src/screen/onboardScreen.dart';
-import 'package:hostapp/src/service/auth_bloc_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-class PasswordlessApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-       //   theme: new ThemeData(scaffoldBackgroundColor: const Color(0xff151232)),
-        theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
-        home: Scaffold(
-          body: AuthScreen(),
-        ),
-      );
-   // );
-  }
-<<<<<<< HEAD
-}*/
-=======
-}*/
->>>>>>> a0ecb50ea24d19ce948b1b37c773254ebabc63e8
