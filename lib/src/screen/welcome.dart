@@ -102,11 +102,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               icon:  SizedBox(width:20.0,height:22.0,child: new Tab(icon: new Image.asset("assets/images/Vector.png"),)),
               title: Text('PROPERTIES',style: TextStyle(color:Color(0xff80000000),fontSize: 13.0)),
               //backgroundColor: Color(0xff808080)Vector.png
-              ),
+               ),
+
           BottomNavigationBarItem(
-            icon: SizedBox(width:20.0,height:22.0,child: new Tab(icon: Icon(Icons.settings,color: Color(0xff45A1C9)))),
+            icon: SizedBox(width:20.0, height:22.0,child: new Tab(icon: Icon(Icons.settings,color: Color(0xff45A1C9)))),
              // icon: Icon(Icons.settings,color: Color(0xff45A1C9),),
-              title: Text('SETTINGS',style: TextStyle(color:Color(0xff45A1C9),fontSize: 13.0),),
+              title: Text('SETTINGS',style: TextStyle(
+                color:Color(0xff45A1C9),fontSize: 13.0),),
               //backgroundColor: Color(0xff45A1C9)
                )
         ],

@@ -42,6 +42,7 @@ class AuthScreenState extends State<AuthScreen> {
              // AuthBloc _bloc;
   Locale _myLocale;
   SharedPreferences sharedPreferences;
+  String errorMessage;
 
  storedemailanduid(String email, String uid) async {
    String storedemail,storeduid;
@@ -211,6 +212,12 @@ class AuthScreenState extends State<AuthScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                Text((errorMessage == null ? '' : errorMessage),
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 18.0),
+                    ),
                 SizedBox(
                   height: 50.0,
                 ),
@@ -290,16 +297,20 @@ class AuthScreenState extends State<AuthScreen> {
                       });
 
                       signInWithGoogle().whenComplete(() async {
-                        //After completion of signInWithGoogle its add the entry in cloud firestore database
+                    //     //After completion of signInWithGoogle its add the entry in cloud firestore database
                         final FirebaseAuth auth = FirebaseAuth.instance;
                         final FirebaseUser user1 = await auth.currentUser();
                         final email1 = user1.email;
                         String storedemail = user1.email;
                         String storeduid = user1.uid;
                         print("email1" + storedemail);
-                        
-                    storedemailanduid(storedemail,storeduid);
 
+                        if(storedemail == null){
+                          stopLoading();
+                          showErrorMessage(error: 'Error occur, Please try again.');
+
+                        }else{
+                           storedemailanduid(storedemail,storeduid); //Store Email and ID
                         GraphQLClient _client = await
                             graphQLConfiguration.clientToQuery();
                         QueryResult result = await _client.mutate(
@@ -310,20 +321,25 @@ class AuthScreenState extends State<AuthScreen> {
                               'email': email1,
                             },
                           ),
-                        );
+                        ).catchError((e){
+                            stopLoading();
+                            showErrorMessage(error: e.toString());
+
+                            }).timeout(Duration(seconds: 5,), onTimeout: (){
+                              showErrorMessage(error: 'Server Timeout');
+                            },);
 
                         if (result.data["getUserByEmail"] == null) {
-                          print("inside if new user");
+                          print("******* THIS IS NEW USER*************");
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => LoginPage(
                                         existingemail: email1.toString(),
                                       )));
-                          //  return LoginPage(existingemail: email1.toString());
+                           return LoginPage(existingemail: email1.toString());
                         } else {
-                          print("inside else existing user");
-
+                           print("******* THIS IS EXISTING USER*************");
                          // return WelcomeScreen(email: email1.toString());
                           Navigator.pushReplacement(
                               context,
@@ -332,7 +348,11 @@ class AuthScreenState extends State<AuthScreen> {
                                         email: email1.toString(),
                                       )));
                         }
-                      });
+
+                        }
+                        
+                    
+                       });
                     },
                   ),
                 ),
@@ -383,9 +403,8 @@ class AuthScreenState extends State<AuthScreen> {
                         //function call for apple sign up
 
                         signInWithApple().whenComplete(() async {
-                          setState(() {
-                            _load = true;
-                          });
+                          startLoading();//start loading...
+
                           final FirebaseAuth auth = FirebaseAuth.instance;
                           final FirebaseUser user1 = await auth.currentUser();
                           final storedemail = user1.email;
@@ -429,6 +448,7 @@ class AuthScreenState extends State<AuthScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12))),
                     ),
+                  
                   ),
                   visible: _appledevice,
                 ),
@@ -457,11 +477,29 @@ class AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                 ),
-                  
+               
               ]),
         ),
       ),
     );
+  }
+
+  startLoading(){
+    setState(() {
+       _load = true;
+      });
+  }
+
+  stopLoading(){
+     setState(() {
+       _load = false;
+      });
+  }
+
+  showErrorMessage({String error}){
+    setState(() {
+      errorMessage = error;
+    });
   }
 
 }
