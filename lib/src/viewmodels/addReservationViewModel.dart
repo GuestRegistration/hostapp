@@ -209,6 +209,7 @@ QueryResult result = await _client.query(
           loadingOther(false);
          }
 }
+
 List<BookingChannelModel> getBookingList() {
      return _bookingList;
    
