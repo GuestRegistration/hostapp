@@ -15,6 +15,9 @@ import 'package:hostapp/src/screen/GuestScreen.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
+import 'package:hostapp/src/screen/auth_screen.dart';
+import 'package:hostapp/src/screen/login_page.dart';
+import 'src/app.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,30 +33,36 @@ void main()async{
 
 class MyApp extends StatelessWidget {
   var _graphQlConfiq = locator<GraphQLConfiguration>();
+
   @override
   Widget build(BuildContext context) {
-  
     return GraphQLProvider(
-       client: _graphQlConfiq.initilize(),
-      child:  MaterialApp(
-      title: 'HostApp',
-      debugShowCheckedModeBanner: false,
-      builder: (context, child) => Navigator(
-        key: locator<DialogService>().dialogNavigationKey,
-        onGenerateRoute: (settings) => MaterialPageRoute(
-            builder: (context) => DialogManager(child: child)),
-      ),
-      navigatorKey: locator<NavigationService>().navigationKey,
-      theme: ThemeData(
-        primaryColor: Color.fromARGB(255, 9, 202, 172),
-        backgroundColor: Color.fromARGB(255, 26, 27, 30),
-        textTheme: Theme.of(context).textTheme.apply(
-          fontFamily: 'Open Sans',
+      client: _graphQlConfiq.initilize(),
+      child: MaterialApp(
+        title: 'HostApp',
+        debugShowCheckedModeBanner: false,
+        builder: (context, child) =>
+            Navigator(
+              key: locator<DialogService>().dialogNavigationKey,
+              onGenerateRoute: (settings) =>
+                  MaterialPageRoute(
+                      builder: (context) => DialogManager(child: child)),
+            ),
+        navigatorKey: locator<NavigationService>().navigationKey,
+        theme: ThemeData(
+          primaryColor: Color.fromARGB(255, 9, 202, 172),
+          backgroundColor: Color.fromARGB(255, 26, 27, 30),
+          textTheme: Theme
+              .of(context)
+              .textTheme
+              .apply(
+            fontFamily: 'Open Sans',
+          ),
         ),
+        home: PasswordlessApp(),
+        //AddReservationScreen(),//AddReservationScreen(), //Dashboard(showIndex: 0,), //Dashboard(showIndex: 0,),//ListOfProperty(),//Dashboard(showIndex: 0,), //AddPropertyView(),
+        onGenerateRoute: generateRoute,
       ),
-      home: Dashboard(showIndex: 0,),//AddReservationScreen(),//AddReservationScreen(), //Dashboard(showIndex: 0,), //Dashboard(showIndex: 0,),//ListOfProperty(),//Dashboard(showIndex: 0,), //AddPropertyView(),
-      onGenerateRoute: generateRoute,
-    ),
     );
     //  return MaterialApp(
     //   title: 'HostApp',
@@ -74,6 +83,6 @@ class MyApp extends StatelessWidget {
     //   home: //TesterMain(),//AddProprtyLoadingScreen(),//Dashboard(),//, //244344  //
     //   onGenerateRoute: generateRoute,
     // );
-     
+
   }
 }

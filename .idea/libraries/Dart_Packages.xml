@@ -261,6 +261,27 @@
             </list>
           </value>
         </entry>
+        <entry key="firebase_auth_oauth">
+          <value>
+            <list>
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_oauth-0.1.0+5/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="firebase_auth_oauth_platform_interface">
+          <value>
+            <list>
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_oauth_platform_interface-0.1.0+2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="firebase_auth_oauth_web">
+          <value>
+            <list>
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_oauth_web-0.1.0+4/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="firebase_auth_platform_interface">
           <value>
             <list>
@@ -320,7 +341,7 @@
         <entry key="firebase_remote_config">
           <value>
             <list>
-              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_remote_config-0.3.0+1/lib" />
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_remote_config-0.3.0+3/lib" />
             </list>
           </value>
         </entry>
@@ -740,7 +761,7 @@
         <entry key="provider">
           <value>
             <list>
-              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/provider-4.0.2/lib" />
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/provider-4.0.4/lib" />
             </list>
           </value>
         </entry>
@@ -796,7 +817,7 @@
         <entry key="shared_preferences">
           <value>
             <list>
-              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.6+1/lib" />
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.6+2/lib" />
             </list>
           </value>
         </entry>
@@ -940,6 +961,34 @@
             </list>
           </value>
         </entry>
+        <entry key="url_launcher">
+          <value>
+            <list>
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher-5.4.2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="url_launcher_macos">
+          <value>
+            <list>
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_macos-0.0.1+4/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="url_launcher_platform_interface">
+          <value>
+            <list>
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_platform_interface-1.0.6/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="url_launcher_web">
+          <value>
+            <list>
+              <option value="C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_web-0.1.1+1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="uuid_enhanced">
           <value>
             <list>
@@ -1043,6 +1092,9 @@
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase-7.2.1/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_analytics-5.0.11/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.15.4/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_oauth-0.1.0+5/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_oauth_platform_interface-0.1.0+2/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_oauth_web-0.1.0+4/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_platform_interface-1.1.5/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-0.1.2/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.3+3/lib" />
@@ -1051,7 +1103,7 @@
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database-3.1.1/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_dynamic_links-0.5.0+9/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-6.0.9/lib" />
-      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_remote_config-0.3.0+1/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_remote_config-0.3.0+3/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-3.1.1/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/fixnum-0.10.11/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_datetime_picker-1.3.4/lib" />
@@ -1108,7 +1160,7 @@
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-1.0.2/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/pointycastle-1.0.2/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/pool-1.4.0/lib" />
-      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/provider-4.0.2/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/provider-4.0.4/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/provider_architecture-1.0.5/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/pub_semver-1.4.3/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-2.0.5/lib" />
@@ -1116,7 +1168,7 @@
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.23.1/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/select_dialog-1.0.7/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/share-0.6.3+6/lib" />
-      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.6+1/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.6+2/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+4/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_platform_interface-1.0.1/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+3/lib" />
@@ -1136,6 +1188,10 @@
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.2.14/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/test_core-0.3.0/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/typed_data-1.1.6/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher-5.4.2/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_macos-0.0.1+4/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_platform_interface-1.0.6/lib" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_web-0.1.1+1/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/uuid_enhanced-3.0.2/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.0.8/lib" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/vm_service-2.3.1/lib" />
