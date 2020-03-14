@@ -19,11 +19,11 @@ import 'package:hostapp/src/model/BookingChannelModel.dart';
 
 
 class EditReservationScreen extends StatefulWidget {
-  final String  chekinD, checkoutD, invitelink, propertyN, bookingC, propertyId, instructions;
+  final String  chekinD, checkoutD, invitelink, propertyN, bookingC, propertyId, instructions, initialGuestName, id;
   final List<dynamic> gname;
   final bool appoved;
 
-  const EditReservationScreen({this.chekinD, this.checkoutD, this.invitelink, this.instructions,
+  const EditReservationScreen({this.chekinD, this.checkoutD, this.invitelink, this.instructions,this.initialGuestName,this.id,
    this.propertyN, this.bookingC, this.propertyId, this.gname, this.appoved});
 
   @override
@@ -39,6 +39,7 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
       TextEditingController inviteInLinkController = new TextEditingController();
        TextEditingController propertyNameController = new TextEditingController();
         TextEditingController instructionController = new TextEditingController();
+         TextEditingController guestNameController = new TextEditingController();
      DateTime date = DateTime.now();
        String propertyID;
        List<dynamic> guestName;
@@ -56,6 +57,7 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
     propertyNameController.text = widget.propertyN;
     guestName = widget.gname;
     instructionController.text = widget.instructions;
+    guestNameController.text = widget.initialGuestName;
 
     //_selectedProperty =
     
@@ -112,45 +114,21 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children: <Widget>[
                        CollectTextWithout(title: 'Guest',),
-                       viewUI(),
+                       viewUI(model),
 
                      ],),
-                         Container(
-                                height: 50,
-                                 width: MediaQuery.of(context).size.width,
-                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    border: Border.all(
-                                        color: AppColor.borderColor, 
-                                        style: BorderStyle.solid, width: 0.80),
-                                  ),
-                              child: DropdownButton<dynamic>(
-                                    isExpanded: true,
-                                    icon: Icon(Icons.verified_user, size: 20, 
-                                    color: (widget.appoved ? Colors.green : Colors.grey),),
-                                    underline: SizedBox(),
-                                    value: selectedGuest,
-                                    onChanged: (value) {
-                                      setState(() {
-                                     selectedGuest = value;
-                                      });
-                                    },
-                                    items: guestName.map((dynamic lang) {
-                                    return DropdownMenuItem<dynamic>(
-                                              value: lang, //Show Name 
-                                              child: Text(lang,
-                                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
-                                            );
-                                                }).toList(),
-                                  
-                                  ),
-                            ),
+                      AbsorbPointer(
+                            child: InputField(
+                              placeholder: 'GuestName',
+                              decoration: null,
+                              controller: guestNameController,
+                          ),),
+                            
                          
                           verticalSpaceSmall,
                            CollectTextWithout(title: 'Booking Channel',),
                            AbsorbPointer(
-                                                        child: InputField(
+                            child: InputField(
                               placeholder: 'bookingChannel',
                               decoration: null,
                               controller: bookingChannelController,
@@ -436,7 +414,7 @@ checkoutController.text = value;
     
   }
 
-  viewUI(){
+  viewUI(AddReservationViewModel model){
     return 
     GestureDetector(
                     child: Padding(
@@ -459,11 +437,12 @@ checkoutController.text = value;
     ),  ),)  
                      ),
                     onTap: (){
-                    
 return showDialog(
             context: context,
             builder: (BuildContext context) {
-              return ApproveDialog();});
+              return ApproveDialog( reservationID: widget.id,
+              isApproved: widget.appoved,
+              );});
                     },
                   );
   }
@@ -487,9 +466,10 @@ return showDialog(
                      ),
                     onTap: (){
                      _customFuntion.shareReservationLink(link: model.getinviteLink);
-
                     },
                   );
   }
+
+
 }
 

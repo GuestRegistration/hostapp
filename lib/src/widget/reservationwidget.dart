@@ -82,6 +82,7 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
 
                       Navigator.push( context,
                    MaterialPageRoute(builder: (context) => EditReservationScreen(
+                     id: getReservation.id,
                     bookingC: getReservation.bookingChannel,
                     checkoutD: getReservation.checkoutDate,
                     chekinD: getReservation.checkInDate,
@@ -91,6 +92,7 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
                   appoved: getReservation.approved,
                    gname: getReservation.guest,
                    instructions:  getReservation.instrucstions,
+                   initialGuestName: getReservation.name,
                   
                    )));
                     },

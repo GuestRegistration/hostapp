@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d2a60331-5d2c-4148-9ea2-d62a124fe9a0" name="Default Changelist" comment="">
+    <list default="true" id="d2a60331-5d2c-4148-9ea2-d62a124fe9a0" name="Default Changelist" comment="Merge branch 'add-reservation' of https://github.com/GuestRegistration/hostapp into Vijay_Abdullah&#10;&#10;# Conflicts:&#10;#&#9;.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/.filecache&#10;#&#9;.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/app.dill&#10;#&#9;.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/debug_android_application.stamp&#10;#&#9;.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/flutter_assets.d&#10;#&#9;.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/kernel_snapshot.d&#10;#&#9;.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/kernel_snapshot.stamp&#10;#&#9;.dart_tool/package_config.json&#10;#&#9;.flutter-plugins&#10;#&#9;.flutter-plugins-dependencies&#10;#&#9;.idea/libraries/Dart_Packages.xml&#10;#&#9;.idea/libraries/Flutter_Plugins.xml&#10;#&#9;.idea/workspace.xml&#10;#&#9;.packages&#10;#&#9;android/app/google-services.json&#10;#&#9;lib/main.dart&#10;#&#9;lib/src/service/GraphQLConfiguration.dart&#10;#&#9;pubspec.yaml">
+      <change afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/android.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/GraphQLDemo/CrasylisticsTester.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/GraphQLDemo/FirebasePerformance.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/model/ReservationCheckinModel.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/.filecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/app.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/debug_android_application.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/debug_android_application.stamp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/flutter_assets.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/flutter_assets.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/kernel_snapshot.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/kernel_snapshot.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/kernel_snapshot.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/kernel_snapshot.stamp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/service/GraphQLConfiguration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/service/GraphQLConfiguration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/EditReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/EditReservationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/GuestScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/GuestScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/service/graphQlQuery.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/service/graphQlQuery.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/util/customFunctions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/util/customFunctions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/GuestScreenViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/GuestScreenViewModel.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/addReservationViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/addReservationViewModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widget/approveDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widget/approveDialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widget/reservationwidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widget/reservationwidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
@@ -25,13 +56,34 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="Mobile_API_29" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/src/app.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="138" column="24" selection-start-line="138" selection-start-column="24" selection-end-line="138" selection-end-column="24" />
+            <state relative-caret-position="96">
+              <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="71" selection-start-line="71" selection-end-line="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/main.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="161">
+              <caret line="29" column="28" lean-forward="true" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#64#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -94,13 +146,13 @@
         <option value="$PROJECT_DIR$/.flutter-plugins-dependencies" />
         <option value="$PROJECT_DIR$/.flutter-plugins" />
         <option value="$PROJECT_DIR$/.packages" />
-        <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/pubspec.lock" />
         <option value="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/lib/src/screen/sign_in.dart" />
         <option value="$PROJECT_DIR$/lib/src/app.dart" />
         <option value="$PROJECT_DIR$/lib/src/viewmodels/addReservationViewModel.dart" />
         <option value="$PROJECT_DIR$/lib/src/service/GraphQLConfiguration.dart" />
+        <option value="$PROJECT_DIR$/pubspec.yaml" />
       </list>
     </option>
   </component>
@@ -125,6 +177,24 @@
             <path>
               <item name="hostapp" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\Users\h\FlutterProjects\hostapp" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="hostapp" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\h\FlutterProjects\hostapp" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="lib" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="hostapp" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\h\FlutterProjects\hostapp" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="lib" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="hostapp" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\h\FlutterProjects\hostapp" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="lib" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="GraphQLDemo" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -195,10 +265,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.24962178" />
       <window_info id="Designer" order="1" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.34493193" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.35022694" />
       <window_info id="Structure" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
@@ -206,11 +277,11 @@
       <window_info id="Resources Explorer" order="7" weight="0.32980332" />
       <window_info id="Favorites" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" sideWeight="0.49924356" weight="0.32715008" />
-      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.4977307" visible="true" weight="0.16694772" />
+      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.4977307" visible="true" weight="0.618887" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Debug" order="4" />
-      <window_info anchor="bottom" id="Terminal" order="5" weight="0.9494098" />
+      <window_info anchor="bottom" id="Terminal" order="5" weight="0.17706576" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.50226927" side_tool="true" weight="0.3237774" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Logcat" order="8" />
@@ -277,7 +348,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="merge user branch" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/src/screen/PasswordlessScreen.dart" />
     <entry file="file://$PROJECT_DIR$/lib/src/screen/signupcomplete.dart" />
     <entry file="file://$PROJECT_DIR$/lib/src/screen/onboardScreen.dart" />
     <entry file="file://$PROJECT_DIR$/lib/src/screen/SplashScreen.dart" />
@@ -498,16 +568,6 @@
     <entry file="file://$PROJECT_DIR$/.flutter-plugins">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/generated_plugin_registrant.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="e#64#81#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pubspec.lock">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
@@ -519,23 +579,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="73" column="11" lean-forward="true" selection-start-line="73" selection-start-column="11" selection-end-line="73" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -625,12 +668,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/generated_plugin_registrant.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#1079#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/GraphQLDemo/CrasylisticsTester.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#0#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="71" selection-start-line="71" selection-end-line="71" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/src/app.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="138" column="24" selection-start-line="138" selection-start-column="24" selection-end-line="138" selection-end-column="24" />
+        <state relative-caret-position="96">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="29" column="28" lean-forward="true" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#64#0" expanded="true" />
           </folding>
         </state>
       </provider>

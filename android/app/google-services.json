@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "840040500916-f30p7udnn5lgub1691ke18b8v0fta2im.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.macaulaygidado.hostapp",
+            "certificate_hash": "59b538ec590ca2ec14e390e203d526f10821e52e"
+          }
+        },
+        {
           "client_id": "840040500916-vcinogp713dc9maab2nhj3b3o0ed0fcq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
