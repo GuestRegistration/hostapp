@@ -117,5 +117,28 @@ const String getBookingChannel = r"""
   }
  """;
 
+ const String getReservationCheckin = r"""
+ query getReservationCheckin($id: String!){
+  getReservationCheckin(id: $id){
+    user{
+      phone
+      name{
+        first_name
+        last_name
+      }
+    }
+    reservation{
+      name
+    }
+    identity{
+      country
+      user_id
+      document_type
+      document_url
+    }
+  }
+}
+ """;
+
 
 

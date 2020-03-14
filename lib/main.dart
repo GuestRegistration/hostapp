@@ -1,5 +1,7 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hostapp/src/GraphQLDemo/CrasylisticsTester.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/managers/dialog_manager.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -9,14 +11,16 @@ import 'package:hostapp/src/screen/MainReservationScreen.dart';
 import 'package:hostapp/src/screen/EditReservationScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/screen/tester.dart';
-import 'package:hostapp/src/GraphQLDemo/graphTexter.dart';
+import 'package:hostapp/src/GraphQLDemo/FirebasePerformance.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
 import 'package:hostapp/src/screen/GuestScreen.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
+import 'dart:async';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 
 void main()async{
+
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator(); // Register all the models and services before the app starts
   SystemChrome.setPreferredOrientations([
@@ -25,7 +29,21 @@ void main()async{
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
-  runApp(MyApp());
+
+  Crashlytics.instance.enableInDevMode = true;
+
+  Crashlytics.instance.setUserEmail('horlaz229@gmail.com');
+  Crashlytics.instance.setUserName('Harbdollar');
+  Crashlytics.instance.setUserIdentifier('Harbdollar USER IDENTIFIER');
+
+  // Pass all uncaught errors from the framework to Crashlytics.
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+
+    // runApp(MyApp(),); 
+    runZoned(() {
+    runApp(MyApp());
+  }, onError: Crashlytics.instance.recordError);
+
 }
 
 class MyApp extends StatelessWidget {
@@ -51,7 +69,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: Dashboard(showIndex: 0,),//AddReservationScreen(),//AddReservationScreen(), //Dashboard(showIndex: 0,), //Dashboard(showIndex: 0,),//ListOfProperty(),//Dashboard(showIndex: 0,), //AddPropertyView(),
+      home:Dashboard(showIndex: 0,), //AppPerformance(),//,//AddReservationScreen(),//AddReservationScreen(), //Dashboard(showIndex: 0,), //Dashboard(showIndex: 0,),//ListOfProperty(),//Dashboard(showIndex: 0,), //AddPropertyView(),
       onGenerateRoute: generateRoute,
     ),
     );

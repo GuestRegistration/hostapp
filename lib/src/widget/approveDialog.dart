@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:hostapp/src/screen/GuestScreen.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
+import 'package:hostapp/src/viewmodels/addReservationViewModel.dart';
 
 class ApproveDialog extends StatefulWidget {
+  final String reservationID;
+ final bool isApproved;
+
+  const ApproveDialog({this.reservationID, this.isApproved});
+
   @override
   _ApproveDialogState createState() => _ApproveDialogState();
 }
@@ -112,11 +118,12 @@ class _ApproveDialogState extends State<ApproveDialog> {
                             ),
                           ),
                           onTap: (){
-                      
-                    Navigator.push( context,
-                   MaterialPageRoute(builder: (context) =>
-                    GuestScreen())).then((value) => 
-                    Navigator.of(context).pop()); 
+                        Navigator.push( context,
+                      MaterialPageRoute(builder: (context) =>
+                        GuestScreen(reservationID: widget.reservationID,
+                         isApproved: widget.isApproved,)))
+                        .then((value) => 
+                        Navigator.of(context).pop()); 
                      // Navigator.of(context).popUntil((route) => false);
                               
                           }

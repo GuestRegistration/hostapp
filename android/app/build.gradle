@@ -73,3 +73,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.firebase:firebase-dynamic-links:19.0.0'
 }
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'

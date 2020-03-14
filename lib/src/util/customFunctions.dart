@@ -64,7 +64,11 @@ return SnackBar(content: Text(message));
 
   loadingWidget(){
     return Center(
-      child: SpinKitRipple(color: AppColor.colorassence, duration: new Duration(seconds: 1),)
+      child: CircularProgressIndicator(
+                    strokeWidth: 4,
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
+                    backgroundColor: AppColor.borderColor,
+                    ),
     );
   }
 
@@ -181,5 +185,6 @@ shareReservationLink({String link})async{
     return '';
     }
   }
+  
 
 }
