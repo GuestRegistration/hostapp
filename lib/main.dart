@@ -2,6 +2,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hostapp/src/GraphQLDemo/CrasylisticsTester.dart';
+import 'package:hostapp/src/app.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/managers/dialog_manager.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -10,6 +11,7 @@ import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/MainReservationScreen.dart';
 import 'package:hostapp/src/screen/EditReservationScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
+import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/tester.dart';
 import 'package:hostapp/src/GraphQLDemo/FirebasePerformance.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
@@ -31,7 +33,6 @@ void main()async{
   ]);
 
   Crashlytics.instance.enableInDevMode = true;
-
   Crashlytics.instance.setUserEmail('horlaz229@gmail.com');
   Crashlytics.instance.setUserName('Harbdollar');
   Crashlytics.instance.setUserIdentifier('Harbdollar USER IDENTIFIER');
@@ -69,29 +70,9 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home:Dashboard(showIndex: 0,), //AppPerformance(),//,//AddReservationScreen(),//AddReservationScreen(), //Dashboard(showIndex: 0,), //Dashboard(showIndex: 0,),//ListOfProperty(),//Dashboard(showIndex: 0,), //AddPropertyView(),
+      home:AuthScreen(), //PasswordlessApp(),// Dashboard(showIndex: 0,), //AppPerformance(),//,//AddReservationScreen(),//AddReservationScreen(), //Dashboard(showIndex: 0,), //Dashboard(showIndex: 0,),//ListOfProperty(),//Dashboard(showIndex: 0,), //AddPropertyView(),
       onGenerateRoute: generateRoute,
     ),
     );
-    //  return MaterialApp(
-    //   title: 'HostApp',
-    //   debugShowCheckedModeBanner: false,
-    //   builder: (context, child) => Navigator(
-    //     key: locator<DialogService>().dialogNavigationKey,
-    //     onGenerateRoute: (settings) => MaterialPageRoute(
-    //         builder: (context) => DialogManager(child: child)),
-    //   ),
-    //   navigatorKey: locator<NavigationService>().navigationKey,
-    //   theme: ThemeData(
-    //     primaryColor: Color.fromARGB(255, 9, 202, 172),
-    //     backgroundColor: Color.fromARGB(255, 26, 27, 30),
-    //     textTheme: Theme.of(context).textTheme.apply(
-    //       fontFamily: 'Open Sans',
-    //     ),
-    //   ),
-    //   home: //TesterMain(),//AddProprtyLoadingScreen(),//Dashboard(),//, //244344  //
-    //   onGenerateRoute: generateRoute,
-    // );
-     
   }
 }

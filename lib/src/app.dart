@@ -24,8 +24,10 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
               """;
   QueryResult result;
   String email1;
+
+
   checkuser() async {
-    print("inside checkuser");
+    //print("inside checkuser");
 
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user1 = await auth.currentUser();
@@ -57,6 +59,7 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
       return true;
     }
   }
+  
   void _showDialog() {
     showDialog(
       context: this.context,
@@ -69,6 +72,8 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
       ),
     );
   }
+ 
+ 
   void initState() {
     Timer.run(() {
       try {
@@ -99,46 +104,25 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
           child: StreamBuilder<FirebaseUser>(
             stream: FirebaseAuth.instance.onAuthStateChanged,
             builder: (context, snapshot) {
-              // return FutureBuilder(
-              //   future: checkuser(),
-              //  builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot1) {
               if (snapshot.connectionState == ConnectionState.active) {
                 FirebaseUser user = snapshot.data;
 
                 if (user == null) {
                   print('User is null');
                   return AuthScreen();
-                }
-                /*else if (snapshot1.data == false) {
-                        print('User is not Null');
-                        return LoginPage();
-                      }
-                        return WelcomeScreen();*/
-                else {
+                } else {
                   return FutureBuilder(
                       future: checkuser(),
                       builder: (BuildContext context,
                           AsyncSnapshot<dynamic> snapshot1) {
-                        /*if (snapshot1.connectionState == ConnectionState.waiting) {
-                                       print("snapshot1.data" + snapshot1.data.toString());
-                              return CircularProgressIndicator();
-                            }*/
-                        /*   if (snapshot1.connectionState ==
-                            ConnectionState.active) {
-                          print("snapshot1.data" + snapshot1.data.toString());*/
-
                         if (snapshot1.data == false) {
-                          print('User  table is null');
+                          print('User table is null');
                           return LoginPage();
                         }
                         else{
                           print('Existing user ');
                           return WelcomeScreen();
                         }
-                        //return WelcomeScreen();
-                        /* } else {
-                          return AuthScreen();
-                        }*/
                       });
                 }
               } else {

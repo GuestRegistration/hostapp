@@ -1,4 +1,5 @@
 import 'package:encrypt/encrypt.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:encrypt/encrypt.dart' as Key;
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomFuntion{
    IV iv; Encrypter encrypter; Encrypted encrypted;
@@ -185,6 +187,22 @@ shareReservationLink({String link})async{
     return '';
     }
   }
-  
+   //getting data from remote config
+  Future getTermconditions() async {
+    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    var result;
+    try {
+      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
+      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
+      await remoteConfig.activateFetched();
+      //result = remoteConfig.getString('TermsConditions');
+      result = remoteConfig.getString('Termsurl');
+    } on FetchThrottledException catch (exception) {
+      print(exception);
+    } catch (exception) {
+      print("unable to fetch remote config");
+    }
+    return launch(result);
+  }
 
 }

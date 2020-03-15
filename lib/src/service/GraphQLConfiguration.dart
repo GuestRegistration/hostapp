@@ -74,16 +74,16 @@ class GraphQLConfiguration {
   }
 
   Future<void> getuserid() async {
-    print("inside getuserid()  ");
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    // print("inside getuserid()  ");
+    // FirebaseUser user = await FirebaseAuth.instance.currentUser();
 
-    user.getIdToken().then((tokenresult) {
-      userToken = tokenresult.token;
-      print(
-          "tokennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
-              userToken);
-      return userToken;
-    });
+    // user.getIdToken().then((tokenresult) {
+    //   userToken = tokenresult.token;
+    //   print(
+    //       "tokennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
+    //           userToken);
+    //   return userToken;
+    // });
   }
 
   getNeccessartyToken()async{

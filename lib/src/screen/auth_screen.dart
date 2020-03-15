@@ -5,8 +5,10 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/service/queryMutation.dart';
+import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'welcome.dart';
@@ -20,13 +22,12 @@ class AuthScreen extends StatefulWidget {
 }
 
 class AuthScreenState extends State<AuthScreen> {
+    final CustomFuntion _customFuntion = locator<CustomFuntion>(); //instance of custom function
   FirebaseUser user;
   var existingemail;
   bool signupcheck = false;
   bool isLoading = false;
   bool _load = false;
-  GoogleSignIn _googleSignIn = GoogleSignIn();
- 
   bool _appledevice = false;
   TextEditingController textemail = new TextEditingController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -48,22 +49,16 @@ class AuthScreenState extends State<AuthScreen> {
    String storedemail,storeduid;
    storedemail = email;
    storeduid = uid;
-   print("inside   storedemailanduid function");
-   print("Storedemail"+storedemail);
-   print("Storeduid"+storeduid);
+  //  print("inside   storedemailanduid function");
+  //  print("Storedemail"+storedemail);
+  //  print("Storeduid"+storeduid);
     sharedPreferences = await SharedPreferences.getInstance();
-    //setState(() {
       sharedPreferences.setString("Storedemail", storedemail);
       sharedPreferences.setString("Storeduid", storeduid);
-      sharedPreferences.commit();
-      
-  // });
   }
     
   @override
   void didChangeDependencies() {
-    //  _bloc = AuthBlocProvider.of(context);
- 
    _myLocale = Localizations.localeOf(context);
     super.didChangeDependencies();
   }
@@ -73,23 +68,7 @@ class AuthScreenState extends State<AuthScreen> {
     super.initState();
   }
 
-  //getting data from remote config
-  Future getTermconditions() async {
-    final RemoteConfig remoteConfig = await RemoteConfig.instance;
-    var result;
-    try {
-      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
-      await remoteConfig.activateFetched();
-      //result = remoteConfig.getString('TermsConditions');
-      result = remoteConfig.getString('Termsurl');
-    } on FetchThrottledException catch (exception) {
-      print(exception);
-    } catch (exception) {
-      print("unable to fetch remote config");
-    }
-    return launch(result);
-  }
+ 
 
   //Function start to check device type
   getdeviceinfo() async {
@@ -292,67 +271,65 @@ class AuthScreenState extends State<AuthScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12))),
                     onPressed: () async {
-                      setState(() {
-                        _load = true;
-                      });
+                      startLoading(); //start show progress bar
+                      sigInwithG();
+                      // signInWithGoogle().whenComplete(() async {
+                      //    //After completion of signInWithGoogle its add the entry in cloud firestore database
+                      //   final FirebaseAuth auth = FirebaseAuth.instance;
+                      //   final FirebaseUser user1 = await auth.currentUser();
+                      //   final email1 = user1.email;
+                      //   String storedemail = user1.email;
+                      //   String storeduid = user1.uid;
+                      //   print("email1" + storedemail);
 
-                      signInWithGoogle().whenComplete(() async {
-                    //     //After completion of signInWithGoogle its add the entry in cloud firestore database
-                        final FirebaseAuth auth = FirebaseAuth.instance;
-                        final FirebaseUser user1 = await auth.currentUser();
-                        final email1 = user1.email;
-                        String storedemail = user1.email;
-                        String storeduid = user1.uid;
-                        print("email1" + storedemail);
+                      //   if(storedemail == null){
+                      //     stopLoading();
+                      //     showErrorMessage(error: 'Error occur, Please try again.');
 
-                        if(storedemail == null){
-                          stopLoading();
-                          showErrorMessage(error: 'Error occur, Please try again.');
+                      //   }else{
+                      //      storedemailanduid(storedemail,storeduid); //Store Email and ID
+                      //   GraphQLClient _client = await
+                      //       graphQLConfiguration.clientToQuery();
+                      //   QueryResult result = await _client.mutate(
+                      //     MutationOptions(
+                      //       documentNode: gql(selectdata),
+                      //       //document: selectdata,
+                      //       variables: {
+                      //         'email': email1,
+                      //       },
+                      //     ),
+                      //   ).catchError((e){
+                      //       stopLoading();
+                      //       showErrorMessage(error: e.toString());
 
-                        }else{
-                           storedemailanduid(storedemail,storeduid); //Store Email and ID
-                        GraphQLClient _client = await
-                            graphQLConfiguration.clientToQuery();
-                        QueryResult result = await _client.mutate(
-                          MutationOptions(
-                            documentNode: gql(selectdata),
-                            //document: selectdata,
-                            variables: {
-                              'email': email1,
-                            },
-                          ),
-                        ).catchError((e){
-                            stopLoading();
-                            showErrorMessage(error: e.toString());
+                      //       }).timeout(Duration(seconds: 5,), onTimeout: (){
+                      //         showErrorMessage(error: 'Server Timeout');
+                      //       },);
 
-                            }).timeout(Duration(seconds: 5,), onTimeout: (){
-                              showErrorMessage(error: 'Server Timeout');
-                            },);
+                      //   if (result.data["getUserByEmail"] == null) {
+                      //     print("******* THIS IS NEW USER*************");
+                      //     Navigator.pushReplacement(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //             builder: (context) => LoginPage(
+                      //                   existingemail: email1.toString(),
+                      //                 )));
+                      //      return LoginPage(existingemail: email1.toString());
+                      //   } else {
+                      //      print("******* THIS IS EXISTING USER*************");
+                      //    // return WelcomeScreen(email: email1.toString());
+                      //     Navigator.pushReplacement(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //             builder: (context) => WelcomeScreen(
+                      //                   email: email1.toString(),
+                      //                 )));
+                      //   }
 
-                        if (result.data["getUserByEmail"] == null) {
-                          print("******* THIS IS NEW USER*************");
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage(
-                                        existingemail: email1.toString(),
-                                      )));
-                           return LoginPage(existingemail: email1.toString());
-                        } else {
-                           print("******* THIS IS EXISTING USER*************");
-                         // return WelcomeScreen(email: email1.toString());
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WelcomeScreen(
-                                        email: email1.toString(),
-                                      )));
-                        }
-
-                        }
+                      //   }
                         
                     
-                       });
+                      //  });
                     },
                   ),
                 ),
@@ -464,7 +441,7 @@ class AuthScreenState extends State<AuthScreen> {
                   height: 60.0,
                   child: FlatButton(
                     onPressed: () {
-                      getTermconditions();
+                      _customFuntion.getTermconditions();
                     },
                     child: const Text(
                       'Terms & Conditions',
@@ -502,4 +479,37 @@ class AuthScreenState extends State<AuthScreen> {
     });
   }
 
+
+sigInwithG()async{
+  startLoading();
+  try{
+    GoogleSignInAccount account = await googleSignIn.signIn();
+  if(account == null){
+      stopLoading();
+      showErrorMessage(error: 'Account is Null');
+    
+  }else{
+    stopLoading();
+    GoogleSignInAuthentication googleSignInAuthentication = await account.authentication;
+    print('***************** AFTER SUCCESS');
+    print(googleSignInAuthentication.accessToken);
+    print(googleSignInAuthentication.idToken);
+    
+    showErrorMessage(error: 'Successful!!');
+
+  //   final AuthCredential credential = GoogleAuthProvider.getCredential(
+  //   accessToken: googleSignInAuthentication.accessToken,
+  //   idToken: googleSignInAuthentication.idToken,
+  // );
+
+  // final AuthResult authResult = await _auth.signInWithCredential(credential);
+  // final FirebaseUser user = authResult.user;
+ 
+  }
+
+  }catch(e){
+
+  }
+  
+}
 }
