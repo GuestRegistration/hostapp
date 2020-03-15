@@ -7,28 +7,22 @@ import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share/share.dart';
+import 'package:hostapp/src/util/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:encrypt/encrypt.dart' as Key;
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomFuntion{
-   IV iv; Encrypter encrypter; Encrypted encrypted;
-  
+    final storage = new FlutterSecureStorage();
 
-   snackBarMessage({String message}){
-return SnackBar(content: Text(message));
+  //Save Email and Id to secure storage
+  saveEmailandID({String email, String uid, String idToken})async{
+      await storage.write(key: Constants.constEmail, value: email.toString());
+        await storage.write(key: Constants.constID, value: uid.toString());
+         await storage.write(key: Constants.constUserToken, value: idToken);
   }
-
-   saveUserID({String userId})async{
-     final SharedPreferences prefs = await SharedPreferences.getInstance();
-     prefs.setString(sheref_Uid, userId);
-   }
-
-   getUserID()async{
-     final SharedPreferences prefs = await SharedPreferences.getInstance();
-     String uid = prefs.getString(sheref_Uid);
-     return uid;
-   }
 
   
 
@@ -100,23 +94,6 @@ return SnackBar(content: Text(message));
 
        ],),
    ));
-  }
-
-void util(){
-    final key = Key.Key.fromLength(32);
-     iv = IV.fromLength(16);
-     encrypter = Encrypter(AES(key));
-  }
-  //Encryp User Data, create a file and store it into.
-  encryptUserData({String plainText}){
-     encrypted = encrypter.encrypt(plainText, iv: iv);
-    print(encrypted.base16.toString());
-  }
-
-  deecryptUserData()async{
-    String decrypted = encrypter.decrypt(encrypted, iv: iv);
-     print(decrypted);
-     return decrypted;
   }
 String validateEmail(String value) {
     Pattern pattern =

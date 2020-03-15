@@ -46,17 +46,7 @@ class AuthScreenState extends State<AuthScreen> {
   SharedPreferences sharedPreferences;
   String errorMessage;
 
- storedemailanduid(String email, String uid) async {
-   String storedemail,storeduid;
-   storedemail = email;
-   storeduid = uid;
-  //  print("inside   storedemailanduid function");
-  //  print("Storedemail"+storedemail);
-  //  print("Storeduid"+storeduid);
-    sharedPreferences = await SharedPreferences.getInstance();
-      sharedPreferences.setString("Storedemail", storedemail);
-      sharedPreferences.setString("Storeduid", storeduid);
-  }
+
     
   @override
   void didChangeDependencies() {
@@ -380,47 +370,48 @@ class AuthScreenState extends State<AuthScreen> {
                       onPressed: () {
                         //function call for apple sign up
 
-                        signInWithApple().whenComplete(() async {
-                          startLoading();//start loading...
+                        // signInWithApple().whenComplete(() async {
+                        //   startLoading();//start loading...
 
-                          final FirebaseAuth auth = FirebaseAuth.instance;
-                          final FirebaseUser user1 = await auth.currentUser();
-                          final storedemail = user1.email;
-                          final storeduid = user1.uid;
-                          print("email1" + storedemail);
-                             storedemailanduid(storedemail,storeduid) ;
-                          GraphQLClient _client = await 
-                              graphQLConfiguration.clientToQuery();
-                          QueryResult result = await _client.mutate(
-                            MutationOptions(
-                             // document: selectdata,
-                              documentNode: gql(selectdata),
-                              variables: {
-                                'email': storedemail,
-                              },
-                            ),
-                          );
+                        //   final FirebaseAuth auth = FirebaseAuth.instance;
+                        //   final FirebaseUser user1 = await auth.currentUser();
+                        //   final storedemail = user1.email;
+                        //   final storeduid = user1.uid;
+                        //   print("email1" + storedemail);
+                        //      storedemailanduid(storedemail,storeduid) ;
+                        //   GraphQLClient _client = await 
+                        //       graphQLConfiguration.clientToQuery();
+                        //   QueryResult result = await _client.mutate(
+                        //     MutationOptions(
+                        //      // document: selectdata,
+                        //       documentNode: gql(selectdata),
+                        //       variables: {
+                        //         'email': storedemail,
+                        //       },
+                        //     ),
+                        //   );
 
-                          if (result.data["getUserByEmail"] == null) {
-                            print("inside if");
+                        //   if (result.data["getUserByEmail"] == null) {
+                        //     print("inside if");
 
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage(
-                                          existingemail: storedemail.toString(),
-                                        )));
-                          } else {
-                            print("inside else");
+                        //     Navigator.pushReplacement(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => LoginPage(
+                        //                   existingemail: storedemail.toString(),
+                        //                 )));
+                        //   } else {
+                        //     print("inside else");
 
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => WelcomeScreen(
-                                          email: storedemail.toString(),
-                                        )));
-                          }
-                        });
+                        //     Navigator.pushReplacement(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => WelcomeScreen(
+                        //                   email: storedemail.toString(),
+                        //                 )));
+                        //   }
+                        // }
+                        //);
                         //function call for apple sign up
                       },
                       shape: RoundedRectangleBorder(
@@ -495,13 +486,14 @@ sigInwithG()async{
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
   );
-  
+
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
      print('***************** AFTER SUCCESS');
-    print(googleSignInAuthentication.accessToken);
-    print(googleSignInAuthentication.idToken);
-    print(user.uid);
+     //_customFuntion.saveEmailandID(email: user.email, uid: user.uid, idToken: googleSignInAuthentication.idToken);
+    // print(googleSignInAuthentication.accessToken);
+    // print(googleSignInAuthentication.idToken);
+    // print(user.uid);
     showErrorMessage(error: 'Successful, ${user.displayName}!!');
      stopLoading(); 
   }

@@ -19,6 +19,10 @@ class Constants {
   static const String thankYou = "Thank you for authenticating!";
   // Numbers
   static const int timeOutDuration = 90;
+  //Saved constData
+static const String constEmail ='UserEmail';
+static const String constID = 'UserID';
+static const String constUserToken = 'UserToken';
 }
 
 const String passwordLessRoute = '/passless';
@@ -35,3 +39,5 @@ const String addReservationRoute = '/addreservat';
 const String updatepropertyloadingRoute = '/updateProperty';
 const String addReservationloadingRoute = '/reseloading';
 const String reservationInstructionRoute = '/reservationInstru';
+
+
