@@ -24,6 +24,7 @@ class AuthScreen extends StatefulWidget {
 class AuthScreenState extends State<AuthScreen> {
     final CustomFuntion _customFuntion = locator<CustomFuntion>(); //instance of custom function
   FirebaseUser user;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   var existingemail;
   bool signupcheck = false;
   bool isLoading = false;
@@ -489,22 +490,19 @@ sigInwithG()async{
       showErrorMessage(error: 'Account is Null');
     
   }else{
-    stopLoading();
     GoogleSignInAuthentication googleSignInAuthentication = await account.authentication;
-    print('***************** AFTER SUCCESS');
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    accessToken: googleSignInAuthentication.accessToken,
+    idToken: googleSignInAuthentication.idToken,
+  );
+  final AuthResult authResult = await _auth.signInWithCredential(credential);
+  final FirebaseUser user = authResult.user;
+     print('***************** AFTER SUCCESS');
     print(googleSignInAuthentication.accessToken);
     print(googleSignInAuthentication.idToken);
-    
-    showErrorMessage(error: 'Successful!!');
-
-  //   final AuthCredential credential = GoogleAuthProvider.getCredential(
-  //   accessToken: googleSignInAuthentication.accessToken,
-  //   idToken: googleSignInAuthentication.idToken,
-  // );
-
-  // final AuthResult authResult = await _auth.signInWithCredential(credential);
-  // final FirebaseUser user = authResult.user;
- 
+    print(user.uid);
+    showErrorMessage(error: 'Successful, ${user.displayName}!!');
+     stopLoading(); 
   }
 
   }catch(e){
