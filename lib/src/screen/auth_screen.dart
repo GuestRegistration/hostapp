@@ -495,6 +495,7 @@ sigInwithG()async{
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
   );
+  
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
      print('***************** AFTER SUCCESS');
