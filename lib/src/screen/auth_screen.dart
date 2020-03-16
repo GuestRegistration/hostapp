@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hostapp/src/screen/checkUserScreen.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
@@ -34,17 +35,9 @@ class AuthScreenState extends State<AuthScreen> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   bool supportsAppleSignIn = false;
   QueryMutation addMutation = QueryMutation();
-  String selectdata = r"""
-              query($email: String!) {       
-              getUserByEmail(email: $email){
-              email
-              }
-            }
-              """;
-             // AuthBloc _bloc;
   Locale _myLocale;
   SharedPreferences sharedPreferences;
-  String errorMessage;
+  String errorMessage = '';
 
 
     
@@ -83,52 +76,7 @@ class AuthScreenState extends State<AuthScreen> {
 
   /// Function start for handling apple signup
 
-  Future signInWithApple() async {
-    try {
-      final AuthorizationResult result = await AppleSignIn.performRequests([
-        AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-      ]);
-
-      switch (result.status) {
-        case AuthorizationStatus.authorized:
-          try {
-            print("successfull sign in");
-            final AppleIdCredential appleIdCredential = result.credential;
-
-            OAuthProvider oAuthProvider =
-                new OAuthProvider(providerId: "apple.com");
-            final AuthCredential credential = oAuthProvider.getCredential(
-              idToken: String.fromCharCodes(appleIdCredential.identityToken),
-              accessToken:
-                  String.fromCharCodes(appleIdCredential.authorizationCode),
-            );
-
-            final AuthResult _res =
-                await FirebaseAuth.instance.signInWithCredential(credential);
-
-            FirebaseAuth.instance.currentUser().then((val) async {
-              UserUpdateInfo updateUser = UserUpdateInfo();
-              updateUser.displayName =
-                  "${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}";
-              updateUser.photoUrl = "define an url";
-              await val.updateProfile(updateUser);
-            });
-          } catch (e) {
-            print("error");
-          }
-          break;
-        case AuthorizationStatus.error:
-          // do something
-          break;
-
-        case AuthorizationStatus.cancelled:
-          print('User cancelled');
-          break;
-      }
-    } catch (error) {
-      print("error with apple sign in");
-    }
-  }
+  
 
   void init() {
     existingemail = "";
@@ -264,63 +212,7 @@ class AuthScreenState extends State<AuthScreen> {
                     onPressed: () async {
                       startLoading(); //start show progress bar
                       sigInwithG();
-                      // signInWithGoogle().whenComplete(() async {
-                      //    //After completion of signInWithGoogle its add the entry in cloud firestore database
-                      //   final FirebaseAuth auth = FirebaseAuth.instance;
-                      //   final FirebaseUser user1 = await auth.currentUser();
-                      //   final email1 = user1.email;
-                      //   String storedemail = user1.email;
-                      //   String storeduid = user1.uid;
-                      //   print("email1" + storedemail);
-
-                      //   if(storedemail == null){
-                      //     stopLoading();
-                      //     showErrorMessage(error: 'Error occur, Please try again.');
-
-                      //   }else{
-                      //      storedemailanduid(storedemail,storeduid); //Store Email and ID
-                      //   GraphQLClient _client = await
-                      //       graphQLConfiguration.clientToQuery();
-                      //   QueryResult result = await _client.mutate(
-                      //     MutationOptions(
-                      //       documentNode: gql(selectdata),
-                      //       //document: selectdata,
-                      //       variables: {
-                      //         'email': email1,
-                      //       },
-                      //     ),
-                      //   ).catchError((e){
-                      //       stopLoading();
-                      //       showErrorMessage(error: e.toString());
-
-                      //       }).timeout(Duration(seconds: 5,), onTimeout: (){
-                      //         showErrorMessage(error: 'Server Timeout');
-                      //       },);
-
-                      //   if (result.data["getUserByEmail"] == null) {
-                      //     print("******* THIS IS NEW USER*************");
-                      //     Navigator.pushReplacement(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //             builder: (context) => LoginPage(
-                      //                   existingemail: email1.toString(),
-                      //                 )));
-                      //      return LoginPage(existingemail: email1.toString());
-                      //   } else {
-                      //      print("******* THIS IS EXISTING USER*************");
-                      //    // return WelcomeScreen(email: email1.toString());
-                      //     Navigator.pushReplacement(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //             builder: (context) => WelcomeScreen(
-                      //                   email: email1.toString(),
-                      //                 )));
-                      //   }
-
-                      //   }
-                        
-                    
-                      //  });
+                     
                     },
                   ),
                 ),
@@ -369,50 +261,7 @@ class AuthScreenState extends State<AuthScreen> {
                       ),
                       onPressed: () {
                         //function call for apple sign up
-
-                        // signInWithApple().whenComplete(() async {
-                        //   startLoading();//start loading...
-
-                        //   final FirebaseAuth auth = FirebaseAuth.instance;
-                        //   final FirebaseUser user1 = await auth.currentUser();
-                        //   final storedemail = user1.email;
-                        //   final storeduid = user1.uid;
-                        //   print("email1" + storedemail);
-                        //      storedemailanduid(storedemail,storeduid) ;
-                        //   GraphQLClient _client = await 
-                        //       graphQLConfiguration.clientToQuery();
-                        //   QueryResult result = await _client.mutate(
-                        //     MutationOptions(
-                        //      // document: selectdata,
-                        //       documentNode: gql(selectdata),
-                        //       variables: {
-                        //         'email': storedemail,
-                        //       },
-                        //     ),
-                        //   );
-
-                        //   if (result.data["getUserByEmail"] == null) {
-                        //     print("inside if");
-
-                        //     Navigator.pushReplacement(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => LoginPage(
-                        //                   existingemail: storedemail.toString(),
-                        //                 )));
-                        //   } else {
-                        //     print("inside else");
-
-                        //     Navigator.pushReplacement(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => WelcomeScreen(
-                        //                   email: storedemail.toString(),
-                        //                 )));
-                        //   }
-                        // }
-                        //);
-                        //function call for apple sign up
+                            signInWithApple();
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12))),
@@ -473,6 +322,7 @@ class AuthScreenState extends State<AuthScreen> {
 
 
 sigInwithG()async{
+  clearErrorMessage();
   startLoading();
   try{
     GoogleSignInAccount account = await googleSignIn.signIn();
@@ -486,11 +336,18 @@ sigInwithG()async{
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
   );
+    print(googleSignInAuthentication.accessToken);
 
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
      print('***************** AFTER SUCCESS');
-     //_customFuntion.saveEmailandID(email: user.email, uid: user.uid, idToken: googleSignInAuthentication.idToken);
+     _customFuntion.saveEmailandID(email: user.email, uid: user.uid, idToken: googleSignInAuthentication.idToken);
+     Navigator.pushReplacement(
+           context,
+          MaterialPageRoute(
+              builder: (context) => CheckUserScreen(
+                    userEmail: user.email,
+                  )));
     // print(googleSignInAuthentication.accessToken);
     // print(googleSignInAuthentication.idToken);
     // print(user.uid);
@@ -499,8 +356,95 @@ sigInwithG()async{
   }
 
   }catch(e){
-
+    stopLoading();
+    print(e.toString());
+     showErrorMessage(error: e.toString());
   }
-  
 }
+
+ signInWithApple() async {
+    startLoading();
+    try {
+      final AuthorizationResult result = await AppleSignIn.performRequests([
+        AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+      ]);
+
+      if(result == null){
+        stopLoading();
+      showErrorMessage(error: 'Account is Null');
+
+      }else{
+        switch (result.status) {
+        case AuthorizationStatus.authorized:
+          try {
+            print("successfull sign in");
+            final AppleIdCredential appleIdCredential = result.credential;
+
+            OAuthProvider oAuthProvider =
+                new OAuthProvider(providerId: "apple.com");
+            final AuthCredential credential = oAuthProvider.getCredential(
+              idToken: String.fromCharCodes(appleIdCredential.identityToken),
+              accessToken:
+                  String.fromCharCodes(appleIdCredential.authorizationCode),
+            );
+
+            final AuthResult _res =  await FirebaseAuth.instance.signInWithCredential(credential);
+            FirebaseAuth.instance.currentUser().then((val) async {
+              UserUpdateInfo updateUser = UserUpdateInfo();
+              updateUser.displayName = "${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}";
+              updateUser.photoUrl = "define an url";
+              await val.updateProfile(updateUser);
+            });
+
+             final FirebaseAuth auth = FirebaseAuth.instance;
+              final FirebaseUser user1 = await auth.currentUser();
+              user.getIdToken().then((tokenresult) {
+
+                print(tokenresult.token);
+                 showErrorMessage(error: 'Debug Only \n${user1.email} \n ${user1.uid} \n ${tokenresult.token}');
+                // _customFuntion.saveEmailandID(email: user1.email, uid: user1.uid, idToken: tokenresult.token);
+                //  Navigator.pushReplacement(
+                // context,
+                // MaterialPageRoute(
+                //     builder: (context) => CheckUserScreen(
+                //           userEmail: user1.email,
+                //         )));
+              });
+
+          } catch (e) {
+            print("error");
+              stopLoading();
+       showErrorMessage(error: e.toString());
+          }
+
+          break;
+        case AuthorizationStatus.error:
+        stopLoading();
+       showErrorMessage(error: 'Authorization Status Error Occur');
+          // do something
+          break;
+
+        case AuthorizationStatus.cancelled:
+          stopLoading();
+       showErrorMessage(error: 'Authorization Status Cancel');
+          break;
+      }
+
+      }
+
+      
+    } catch (error) {
+      stopLoading();
+      print("error with apple sign in");
+     showErrorMessage(error: error.toString());
+    }
+  }
+
+
+clearErrorMessage(){
+  setState(() {
+       errorMessage = null;
+      });
+}
+
 }

@@ -2,12 +2,10 @@ import 'dart:async';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
-import 'package:hostapp/src/model/getPropertiesModel.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
-import 'package:hostapp/src/viewmodels/addReservationViewModel.dart';
-import 'package:provider_architecture/provider_architecture.dart';
-import 'package:hostapp/src/widget/ShareLinkDialog.dart';
 
 class TesterMain extends StatefulWidget {
   @override
@@ -15,140 +13,105 @@ class TesterMain extends StatefulWidget {
 }
 
 class _TesterMainState extends State<TesterMain> {
-   List<String> userType = new List<String>();
-     GetProperties _seletUsertype ;
-     String myV;
+ bool loading = false;
+  TextEditingController propertyNameController =  TextEditingController();
+  TextEditingController addressController =  TextEditingController();
+  String key;
 
-   
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    setupRemoteConfig(); //Vijay! Check if you can see the key here.
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Remote Config Example'),
+          title: const Text('hostApp Google Place'),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
 children: <Widget>[
-  GestureDetector(child: Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: Container(
-                      width: 150,
-                      height: 50,
-                      child: Material(
-                      child: Center(
-                          child: Text('Show Dialog',
-                          style: TextStyle(
-                            color: AppColor.white,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.bold
-                          ),),
+  (loading ?  CircularProgressIndicator() :
+               GestureDetector(
+                      child:  TextFormField(
+                        controller: propertyNameController,
+                    keyboardType: TextInputType.number,
+                    decoration:  InputDecoration(
+                      enabledBorder: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor,
                       ),
-                      color: Color(0xFF45A1C9),
-                      shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(18.0),
-            side: BorderSide(color: AppColor.borderColor)
-    ),
-                   
-                ),
-                    ),
                   ),
-                  onTap: (){
-                    
-                  },
-                        ),
+                    border: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor
+                      ),
+                  ),
+                    hintStyle: AppTextStyle.inputHint(context),
+                  ),
+                   onTap: ()async{
+                       Prediction prediction = await PlacesAutocomplete.show(
+                          context: context,
+                          apiKey: key,
+                          mode: Mode.overlay, // Mode.fullscreen
+                          
+                          );
+         propertyNameController.text=prediction.structuredFormatting.mainText;
+          setState(() {
+            addressController.text = prediction.structuredFormatting.secondaryText;
+          });
+          },
+                  ), 
+                  
+                  )
+                  
+                  ),
+  
 ],
           ),
         )
       );
    
-    
   }
-  display(BuildContext context){
-   showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ShareLinkDialog(link: 'https://pub.dev/packages?q=dialog',);});
-}
-}
-class WelcomeWidget extends StatelessWidget {
-  WelcomeWidget({this.result});
 
-   var result;
-
-  @override
-  Widget build(BuildContext context) {
-    print(result);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Remote Config Example'),
-      ),
-      body: Center(child: Text('$result')),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.refresh),
-          onPressed: () async {
-           
-          }
-          
-          ),
-    );
+  startLoading(){
+    setState((){
+      loading = true;
+    });
   }
-}
 
-Future setupRemoteConfig() async {
+  stopLoading(){
+    setState((){
+      loading = false;
+    });
+  }
+
+  
+     Future setupRemoteConfig() async {
+   startLoading();
   final RemoteConfig remoteConfig = await RemoteConfig.instance;
   // Enable developer mode to relax fetch throttling
    var result;
 
    try {
              remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-       
               await remoteConfig.fetch(expiration: const Duration(seconds: 0));
               await remoteConfig.activateFetched();
-               remoteConfig.setDefaults(<String, dynamic>{
-                'welcome': 'default welcome',
-                'hello': 'default hello',
-              });
-              result = remoteConfig.getString('tester');
-   
+             result = remoteConfig.getString('key');
+             key = result.toString(); //Store API key in this string.
+             print('API KEY Fetched is : $key'); //If it's null, that means no API key. 
+
             } on FetchThrottledException catch (exception) {
               // Fetch throttled.
               print(exception);
             } catch (exception) {
-              print(
-                  'Unable to fetch remote config. Cached or default values will be '
-                  'used');
+              print('Unable to fetch remote config. Cached or default values will be used');
             }
 
+             stopLoading();
   return result;
 }
-
-//  return Container(
-//       child: FutureBuilder(
-//           future: setupRemoteConfig(),
-//           builder: (BuildContext context, AsyncSnapshot snapshot) {
-//              if (snapshot.connectionState == ConnectionState.waiting) {
-//             return Center(child: CircularProgressIndicator());
-
-//             } else if (snapshot.hasError) {
-//             final error = snapshot.error;
-            
-//             return  Text(error.toString());
-
-//             } else if (snapshot.hasData) {
-//               return WelcomeWidget(result: snapshot.data);
-
-//             } else if(!snapshot.hasData) {
-//               return Text('Unable to get Data, Please retry');
-//             }else {
-//               return Text('');
-//             }
-//           },
-//         ),
-//     );
+}

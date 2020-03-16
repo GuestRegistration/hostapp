@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hostapp/src/screen/ListOfProperty.dart';
 import 'package:hostapp/src/screen/MainReservationScreen.dart';
 import 'package:hostapp/src/screen/FetchProperties.dart';
+import 'package:hostapp/src/screen/setting.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 
 class Dashboard extends StatefulWidget {
@@ -101,13 +102,10 @@ class _DashboardState extends State<Dashboard>{
    
 
     }else if(_selectedIndex == 2){ 
-      return Text('');
-
-    }else if(_selectedIndex == 3){ 
-      return Text('');
-
+     return SettingScreen();
     }
   }
+  
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;

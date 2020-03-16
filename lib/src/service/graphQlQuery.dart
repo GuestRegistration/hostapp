@@ -140,5 +140,13 @@ const String getBookingChannel = r"""
 }
  """;
 
+  const String selectdata = r"""
+              query($email: String!) {       
+              getUserByEmail(email: $email){
+              email
+              }
+            }
+              """;
+
 
 

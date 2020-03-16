@@ -7,6 +7,7 @@ import 'package:hostapp/src/screen/welcome.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hostapp/src/screen/Dashboard.dart';
 
 class Verifyotp extends StatefulWidget {
   final String email;
@@ -188,9 +189,7 @@ class _VerifyotpState extends State<Verifyotp> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return WelcomeScreen(
-            email: "${widget.email}",
-          );
+          return Dashboard(showIndex: 0);
         },
       ),
     );
@@ -585,6 +584,9 @@ class _VerifyotpState extends State<Verifyotp> {
                               print("resendcode is false");
                             }
                           }).catchError((e) {
+                            setState(() {
+                          _load = false;
+                        });
                             print(e);
                             handleError(e);
                           });

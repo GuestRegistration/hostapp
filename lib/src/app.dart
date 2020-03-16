@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/login_page.dart';
-import 'package:hostapp/src/screen/welcome.dart';
+import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'dart:async';
@@ -121,7 +121,7 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
                         }
                         else{
                           print('Existing user ');
-                          return WelcomeScreen();
+                          return Dashboard(showIndex: 0);
                         }
                       });
                 }

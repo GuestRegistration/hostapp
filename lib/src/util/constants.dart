@@ -23,7 +23,9 @@ class Constants {
 static const String constEmail ='UserEmail';
 static const String constID = 'UserID';
 static const String constUserToken = 'UserToken';
+static const String constClientToken = 'ClientToken';
 }
+
 
 const String passwordLessRoute = '/passless';
 const String wrapperRoute = '/wrapper';
