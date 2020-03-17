@@ -400,15 +400,15 @@ sigInwithG()async{
               final FirebaseUser user1 = await auth.currentUser();
               user.getIdToken().then((tokenresult) {
 
-                print(tokenresult.token);
-                 showErrorMessage(error: 'Debug Only \n${user1.email} \n ${user1.uid} \n ${tokenresult.token}');
-                // _customFuntion.saveEmailandID(email: user1.email, uid: user1.uid, idToken: tokenresult.token);
-                //  Navigator.pushReplacement(
-                // context,
-                // MaterialPageRoute(
-                //     builder: (context) => CheckUserScreen(
-                //           userEmail: user1.email,
-                //         )));
+                //print(tokenresult.token);
+                // showErrorMessage(error: 'Debug Only \n${user1.email} \n ${user1.uid} \n ${tokenresult.token}');
+                 _customFuntion.saveEmailandID(email: user1.email, uid: user1.uid, idToken: tokenresult.token);
+                 Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CheckUserScreen(
+                          userEmail: user1.email,
+                        )));
               });
 
           } catch (e) {

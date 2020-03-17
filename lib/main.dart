@@ -15,7 +15,7 @@ import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/tester.dart';
 import 'package:hostapp/src/GraphQLDemo/FirebasePerformance.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
-import 'package:hostapp/src/screen/GuestScreen.dart';
+import 'package:hostapp/src/screen/login_page.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'dart:async';
@@ -70,7 +70,14 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home:AuthScreen(), //PasswordlessApp(),// Dashboard(showIndex: 0,), //AppPerformance(),//,//AddReservationScreen(),//AddReservationScreen(), //Dashboard(showIndex: 0,), //Dashboard(showIndex: 0,),//ListOfProperty(),//Dashboard(showIndex: 0,), //AddPropertyView(),
+      home: PasswordlessApp(),
+      // home: LoginPage(
+      //   email: 'jordandaze969@gmail.com',
+      //   // existingemail: 'jordandaze969@gmail.com',
+      //   // lastname: 'MyLastName',
+      //   // name: 'myName',
+        
+      // ), //PasswordlessApp(),//AddReservationScreen()
       onGenerateRoute: generateRoute,
     ),
     );

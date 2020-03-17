@@ -8,6 +8,8 @@ import 'package:hostapp/src/screen/sign_in.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:hostapp/src/util/constants.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SettingScreen extends StatefulWidget {
   final String email;
@@ -54,16 +56,16 @@ class _SettingScreenState extends State<SettingScreen> {
   var phoneCode;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   SharedPreferences sharedPreferences;
+  final storage = new FlutterSecureStorage();
 
   getStoredemailanduid() async {
     print("inside getStoredemailanduid function");
     String storedemail,storeduid;
-    sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-      storedemail = sharedPreferences.getString("Storedemail");
-      storeduid = sharedPreferences.getString("Storeduid");
+
+    setState(() async{
+        storedemail = await storage.read(key: Constants.constEmail);
+        storeduid  = await storage.read(key: Constants.constID);
       print("storeemail " + storedemail);
-      print(sharedPreferences.getString("Storedemail"));
       print("storeduid " + storeduid);
       //selectuser();
     });
@@ -73,13 +75,13 @@ class _SettingScreenState extends State<SettingScreen> {
   Future<void> selectuser() async {
     print("inside selectuser function");
     String storedemail,storeduid;
-    sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-      storedemail = sharedPreferences.getString("Storedemail");
-      storeduid = sharedPreferences.getString("Storeduid");
+   setState(() async{
+        storedemail = await storage.read(key: Constants.constEmail);
+        storeduid  = await storage.read(key: Constants.constID);
       print("storeemail" + storedemail);
       print("storeduid" + storeduid);   
     });
+
     print("storedemail in selectuser" + storedemail);
     GraphQLClient _client = await graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(
@@ -126,11 +128,10 @@ class _SettingScreenState extends State<SettingScreen> {
     print("email1" + email1);*/
       String storedemail,storeduid;
     sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-      storedemail = sharedPreferences.getString("Storedemail");
-      storeduid = sharedPreferences.getString("Storeduid");
+ setState(() async{
+        storedemail = await storage.read(key: Constants.constEmail);
+        storeduid  = await storage.read(key: Constants.constID);
       print("storeemail" + storedemail);
-      print(sharedPreferences.getString("Storedemail"));
       print("storeduid" + storeduid);
      
     });

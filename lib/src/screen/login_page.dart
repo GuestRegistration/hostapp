@@ -18,7 +18,8 @@ class LoginPage extends StatefulWidget {
       this.phoneerror,
       this.lastname,
       this.name,
-      this.phoneNumber});
+      this.phoneNumber
+      });
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -151,6 +152,8 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    graphQLConfiguration.putInInitalize();
+    
     final HttpLink httpLink = HttpLink(
         uri:
             'https://us-central1-guestregistration-4140a.cloudfunctions.net/api');

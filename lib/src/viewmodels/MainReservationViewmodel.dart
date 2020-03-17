@@ -32,7 +32,6 @@ void tab1Initialize()async{
 
   await _graphQlConfiq.getNeccessartyToken();
 
-
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(

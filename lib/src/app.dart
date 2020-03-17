@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/login_page.dart';
-import 'package:hostapp/src/screen/Dashboard.dart';
+import 'package:hostapp/src/screen/CheckUserScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:hostapp/src/style/AppImage.dart';
+import 'package:hostapp/src/style/AppColor.dart';
 
 class PasswordlessApp extends StatefulWidget {
   @override
@@ -15,49 +18,40 @@ class PasswordlessApp extends StatefulWidget {
 
 class _PasswordlessAppState extends State<PasswordlessApp> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  String selectdata = r"""
-              query($email: String!) {       
-              getUserByEmail(email: $email){
-              email
-              }
-            }
-              """;
-  QueryResult result;
   String email1;
-
 
   checkuser() async {
     //print("inside checkuser");
 
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final FirebaseUser user1 = await auth.currentUser();
-    email1 = user1.email;
+    // final FirebaseAuth auth = FirebaseAuth.instance;
+    // final FirebaseUser user1 = await auth.currentUser();
+    // email1 = user1.email;
 
-    GraphQLClient _client = await graphQLConfiguration.clientToQuery();
-    result = await _client.mutate(
-      MutationOptions(
-        documentNode: gql(selectdata),
-        //document: selectdata,
-        variables: {
-          'email': email1,
-          //'email': "diya.feb28@gmail.com"
-        },
-      ),
-    );
+    // GraphQLClient _client = await graphQLConfiguration.clientToQuery();
+    // result = await _client.mutate(
+    //   MutationOptions(
+    //     documentNode: gql(selectdata),
+    //     //document: selectdata,
+    //     variables: {
+    //       'email': email1,
+    //       //'email': "diya.feb28@gmail.com"
+    //     },
+    //   ),
+    // );
 
-    if (result.data["getUserByEmail"] == null) {
-      print("inside if new user");
-      /*Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => LoginPage(existingemail: email1.toString()),
-      ));*/
-      return false;
-    } else {
-      print("inside else existing user");
-      /*Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WelcomeScreen(email: email1.toString()),
-      ));*/
-      return true;
-    }
+    // if (result.data["getUserByEmail"] == null) {
+    //   print("inside if new user");
+    //   /*Navigator.of(context).push(MaterialPageRoute(
+    //     builder: (context) => LoginPage(existingemail: email1.toString()),
+    //   ));*/
+    //   return false;
+    // } else {
+    //   print("inside else existing user");
+    //   /*Navigator.of(context).push(MaterialPageRoute(
+    //     builder: (context) => WelcomeScreen(email: email1.toString()),
+    //   ));*/
+    //   return true;
+    // }
   }
   
   void _showDialog() {
@@ -75,6 +69,7 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
  
  
   void initState() {
+   // data();
     Timer.run(() {
       try {
         InternetAddress.lookup('google.com').then((result) {
@@ -97,44 +92,47 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
   }
 
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: new ThemeData(scaffoldBackgroundColor: Colors.white),
-      home: Scaffold(
-        body: Center(
-          child: StreamBuilder<FirebaseUser>(
-            stream: FirebaseAuth.instance.onAuthStateChanged,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                FirebaseUser user = snapshot.data;
+    return Scaffold(
+      body:  StreamBuilder<FirebaseUser>(
+             stream: FirebaseAuth.instance.onAuthStateChanged,
+             builder: (context, snapshot) {
 
-                if (user == null) {
-                  print('User is null');
-                  return AuthScreen();
-                } else {
-                  return FutureBuilder(
-                      future: checkuser(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<dynamic> snapshot1) {
-                        if (snapshot1.data == false) {
-                          print('User table is null');
-                          return LoginPage();
-                        }
-                        else{
-                          print('Existing user ');
-                          return Dashboard(showIndex: 0);
-                        }
-                      });
-                }
-              } else {
-                print("inside ConnectionState else ");
-                return AuthScreen();
-              }
-              // });
-            },
-          ),
-        ),
-      ),
+               if (snapshot.connectionState == ConnectionState.active) {
+                 FirebaseUser user = snapshot.data;
+                 if (user == null) {
+                   //Not yet register
+                   return AuthScreen();
+                 }else{
+                   //This User already Login.
+                   return CheckUserScreen(userEmail: user.email,);
+                 }
+
+                  //loading......
+               }else if(snapshot.connectionState == ConnectionState.waiting){
+                return Center(
+                    child: Column(
+                      mainAxisSize:  MainAxisSize.min,
+                      children: <Widget>[
+                        SizedBox(width: 300, height: 100,
+                        child: Image.asset(AppImage.appLogo),
+                        ),
+                        SizedBox(height: 30,),
+                        CircularProgressIndicator(
+                          strokeWidth: 4,
+                          valueColor: AlwaysStoppedAnimation(
+                              AppColor.primary,
+                          ),
+                        )
+                    ],),);
+               }
+             },
+           )
     );
     // );
   }
+
+  // data()async{
+  //    await graphQLConfiguration.getFromServerClientToken();
+  // await graphQLConfiguration.getNeccessartyToken();
+  // }
 }

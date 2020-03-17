@@ -24,8 +24,8 @@ String get getErrorMessage => _errorMessage;
 void initialize(String userEmail, BuildContext context)async{
   setBusy(true);
   //Those two code below, will firstly launch before their next line, We have use await to delay.
-  await _graphQlConfiq.getFromServerClientToken();
-  await _graphQlConfiq.getNeccessartyToken();
+  // await _graphQlConfiq.getFromServerClientToken();
+  // await _graphQlConfiq.getNeccessartyToken();
 
     GraphQLClient _client = _graphQlConfiq.clientToQuery();
                         QueryResult result = await _client.mutate(

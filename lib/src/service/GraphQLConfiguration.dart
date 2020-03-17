@@ -21,15 +21,15 @@ class GraphQLConfiguration {
 
 
   ValueNotifier<GraphQLClient> initilize() {
-
+      putInInitalize();
     Map<String, String> header = new HashMap();
     header['gr-client-token'] = clientToken;
     header['gr-user-token'] = "Bearer $userToken"; //userToken;
 
-   print('*************************************************************');
-    print('*** Cleint token *** $clientToken');
-    print("******** User toke****** \n $userToken");
-    print('*************************************************************');
+  //  print('*************************************************************');
+  //   print('*** Cleint token *** $clientToken');
+  //   print("******** User toke****** \n $userToken");
+  //   print('*************************************************************');
 
     httpLink = HttpLink(
         uri:
@@ -68,7 +68,7 @@ class GraphQLConfiguration {
      clientToken = await storage.read(key: Constants.constClientToken);
       userToken = await storage.read(key: Constants.constUserToken);
       print('*** In getNeccessartyToken() Cleint token *** $clientToken');
-    print("********  In getNeccessartyToken() User toke****** \n $userToken");
+      print("********  In getNeccessartyToken() User toke****** \n $userToken");
   }
 
 
@@ -79,8 +79,7 @@ class GraphQLConfiguration {
     header['gr-user-token'] = "Bearer $userToken";
 
     httpLink = HttpLink(
-        uri:
-        'https://us-central1-guestregistration-4140a.cloudfunctions.net/api',
+        uri:'https://us-central1-guestregistration-4140a.cloudfunctions.net/api',
         headers: header);
 
     print('*************************************************************');
@@ -113,5 +112,10 @@ class GraphQLConfiguration {
           'used');
     }
     return result;
+  }
+
+  putInInitalize()async{
+ await getFromServerClientToken();
+  await getNeccessartyToken();
   }
 }
