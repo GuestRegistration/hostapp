@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +23,16 @@ class CustomFuntion{
       await storage.write(key: Constants.constEmail, value: email.toString());
         await storage.write(key: Constants.constID, value: uid.toString());
          await storage.write(key: Constants.constUserToken, value: idToken);
+  }
+
+  saveUserData({String email, String fname, String lname, String phoneN, String completePhone, String userID, String phoneCode})async{
+     await storage.write(key: Constants.constmail, value: email.toString());
+     await storage.write(key: Constants.constFname, value: fname.toString());
+     await storage.write(key: Constants.constLname, value: lname.toString());
+     await storage.write(key: Constants.constPhoneN, value: phoneN.toString());
+     await storage.write(key: Constants.constPhoneContryCode, value: phoneCode.toString());
+      await storage.write(key: Constants.constCompletePhone, value: completePhone.toString());
+      await storage.write(key: Constants.constID, value: userID.toString());
   }
 
   
@@ -78,16 +89,16 @@ class CustomFuntion{
     );
   }
 
-  errorUimessage({String errorMessage}){
+  errorUimessage({String errorMessage, int type}){
    return  (errorMessage == null ? SizedBox.shrink() : Center(
      child: Row(
        mainAxisAlignment: MainAxisAlignment.center,
        children: <Widget>[
-         Icon(Icons.error, color: Colors.red,),
+         (type == 1 ? Icon(Icons.check_circle, color: Colors.green,): Icon(Icons.error, color: Colors.red,)),
          SizedBox(width: 10,),
          Text(errorMessage,
            style: TextStyle(
-               color: AppColor.kErrorRed,
+               color: (type == 1 ? Colors.green : AppColor.kErrorRed),
                fontSize: 17.0,
                fontWeight: FontWeight.normal
            ),),
@@ -181,5 +192,110 @@ shareReservationLink({String link})async{
     }
     return launch(result);
   }
+
+   loadingIndicator() {
+     return Center(
+      child: CircularProgressIndicator(
+        strokeWidth: 8,
+        valueColor: AlwaysStoppedAnimation<Color>(
+          Color(0xFF45A1C9),
+        ),
+        backgroundColor: Color(0xFFC6DEE9),
+      )
+    );
+   }
+   
+   String validateMobile(String value) {
+  String patttern = r'(^[0-9]*$)';
+  RegExp regExp = new RegExp(patttern);
+  if (value.length == 0) {
+    return "Mobile is Required";
+  } else if (value.length >= 15) {
+    return "Mobile number can't be more than 15 digits";
+  } else if (!regExp.hasMatch(value)) {
+    return "Mobile Number must be digits";
+  }
+  return null;
+}
+textInputField({
+      final TextEditingController controller,
+  final TextInputType textInputType,
+  final bool password = false,
+  final bool isReadOnly = false,
+  final String placeholder,
+  final String validationMessage,
+  final Function enterPressed,
+  final bool smallVersion = false,
+  final FocusNode fieldFocusNode,
+  final FocusNode nextFocusNode,
+  final TextInputAction textInputAction,
+  final String additionalNote,
+  final Function(String) onChanged,
+  final InputDecoration decoration,
+  final TextInputFormatter formatter,
+  final BuildContext context,
+  final String hintText,
+ }
+  ){
+
+
+  double fieldHeight = 55;
+
+   return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+            children: <Widget>[
+              Expanded(
+                child: Theme(
+                  data: new ThemeData(
+            primaryColor: AppColor.borderColor,
+            primaryColorDark: AppColor.borderColor,
+          ),
+           child: TextFormField(
+                    controller: controller,
+                    keyboardType: textInputType,
+                    focusNode: fieldFocusNode,
+                    textInputAction: textInputAction,
+                    onChanged: onChanged,
+                    
+                    inputFormatters: formatter != null ? [formatter] : null,
+                    onEditingComplete: () {
+                      if (enterPressed != null) {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        enterPressed();
+                      }
+                    },
+                    onFieldSubmitted: (value) {
+                      if (nextFocusNode != null) {
+                        nextFocusNode.requestFocus();
+                      }
+                    },
+                    obscureText: password,
+                    readOnly: isReadOnly,
+                    
+                    decoration: (decoration == null ? InputDecoration(
+                        hintText: hintText,
+                        border: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: new BorderSide(color: AppColor.primary,
+                                  
+                                  ),
+                              ),
+                               enabledBorder: new OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: new BorderSide(color: AppColor.primary,
+                                  ),
+                              ),
+                        hintStyle:TextStyle(fontSize: smallVersion ? 12 : 15)) : 
+                          decoration)
+                  ),
+                ),
+              ),
+            ],
+          ),
+      ],
+    );
+}
 
 }

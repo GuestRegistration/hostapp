@@ -7,9 +7,8 @@ import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
 class CheckUserScreen extends StatefulWidget {
-  final String userEmail;
-
-  CheckUserScreen({this.userEmail});
+  final String userEmail, userid;
+  CheckUserScreen({this.userEmail, this.userid});
 
   @override
   _CheckUserScreenState createState() => _CheckUserScreenState();
@@ -20,7 +19,7 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
   Widget build(BuildContext context) {
     return ViewModelProvider<CheckUserModel>.withConsumer(
       viewModel: CheckUserModel(),
-      onModelReady: (model) => model.initialize(widget.userEmail, context),
+      onModelReady: (model) => model.initialize(widget.userEmail, context, widget.userid),
       builder: (context, model, child) =>
           Scaffold(
         body:  (model.getErrorMessage == null || model.busy ?
@@ -105,7 +104,7 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
                     ),
                   ),
                   onTap: (){
-                    model.initialize(widget.userEmail, context);
+                    model.initialize(widget.userEmail, context, widget.userid);
                     model.setErrorMessage(erorr: null);
                   },
                         ),

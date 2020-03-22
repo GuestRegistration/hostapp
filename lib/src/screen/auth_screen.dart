@@ -295,7 +295,6 @@ class AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                 ),
-               
               ]),
         ),
       ),
@@ -347,6 +346,7 @@ sigInwithG()async{
           MaterialPageRoute(
               builder: (context) => CheckUserScreen(
                     userEmail: user.email,
+                    userid: user.uid,
                   )));
     // print(googleSignInAuthentication.accessToken);
     // print(googleSignInAuthentication.idToken);
@@ -408,6 +408,7 @@ sigInwithG()async{
                 MaterialPageRoute(
                     builder: (context) => CheckUserScreen(
                           userEmail: user1.email,
+                          userid: user.uid,
                         )));
               });
 

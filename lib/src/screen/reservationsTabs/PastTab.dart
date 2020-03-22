@@ -10,32 +10,32 @@ import 'package:hostapp/src/viewmodels/MainReservationViewModel.dart';
 class PastTab extends ProviderWidget<MainReservationViewModel> {
   @override
   Widget build(BuildContext context, MainReservationViewModel model) {
-    return (model.list == null ? Center(
+    return (model.busy ? Center(
       child: CircularProgressIndicator(
                     strokeWidth: 4,
                           valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
                           backgroundColor: AppColor.borderColor,
                     ),
-    ) : ListView.builder(
-            itemCount: model.list.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context , int index){
-              
-              if(model.list.length == 0){
-              return Center(child: Text('You do not have any reservation. '
-                  'Click on the ‘’+ icon’’ button below to add one reservation for free.',
+    ) : (model.list == null ? Center(child: Text('You do not have any reservation. '
+                  'Click on the ‘’Add icon’’ button below to add one reservation for free.',
+                   textAlign: TextAlign.center,
                 style:  TextStyle(
                   color: Colors.red,
                   fontStyle: FontStyle.normal,
                   fontSize: 16,
                 )
               ),
-              );
-            } //model.list[index].checkoutDate, model.list, index
-            return  datechecker(checkoutDate: model.list[index].checkoutDate,
+              )
+    : ListView.builder(
+            itemCount: model.list.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context , int index){
+               return  datechecker(checkoutDate: model.list[index].checkoutDate,
             list:  model.list, index: index);
+           
                },))
+               )
                ;
   }
 

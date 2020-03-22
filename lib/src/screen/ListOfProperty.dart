@@ -57,35 +57,36 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                 ],
               )
             ),
+            (model.properties == null ?  Expanded(
+                          child: Center(
+                child: Text('You do not have any registered property. '
+                    'Click on the ‘’Add icon’’ button below to add one property for free.',
+                    textAlign: TextAlign.center,
+                  style:  TextStyle(
+                    color: Colors.red,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 16,
+                  )
+                ),
+                ),
+            ) : 
             Expanded(
            child:
            ListView.builder(
-          itemCount: model.properties.length,
+          itemCount: (model.properties == null ? 0 : model.properties.length),
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           itemBuilder: (BuildContext context , int index){
-            print('Data ${model.properties}');
-            if(model.properties.length == 0){
-              return Center(child: Text('You do not have any registered property. '
-                  'Click on the ‘’Add Property’’ button below to add one property for free.',
-                style:  TextStyle(
-                  color: Colors.red,
-                  fontStyle: FontStyle.normal,
-                  fontSize: 16,
-                )
-              ),
-              );
-            }
             return  PropertyWidget(
                 getProperties: model.properties[index],
                 );
              },)
                       
-            ),
+            ))
           ],),
       ),
          floatingActionButton:
-           (model.properties.length >= 1 
+           ((model.properties == null ? 0 : model.properties.length) >= 1 
            ? FloatingActionButton(
              child: Text('Pro',
                          style: TextStyle(
@@ -151,6 +152,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                       ),
                     ),
                     onTap: (){
+                      //model.d(); //DEBUG ONLY
                       model.initialize();
                       model.setErrorMessage(erorr: null); //back to null
                     },

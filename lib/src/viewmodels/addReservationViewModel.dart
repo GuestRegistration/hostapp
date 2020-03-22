@@ -12,13 +12,12 @@ import 'package:hostapp/src/service/CloudStorageService.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
-import 'package:hostapp/src/viewmodels/base_model.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart'; 
 import 'package:hostapp/src/model/BookingChannelModel.dart'; 
+
 
 
 class AddReservationViewModel extends BaseModel{
@@ -36,7 +35,6 @@ List<GetProperties> _propertlist = List<GetProperties>();
 List<GetProperties> get properties => _propertlist;
 List<BookingChannelModel> _bookingList = List<BookingChannelModel>();
 List<BookingChannelModel> get bookingList => _bookingList;
-
 List<Map<String, dynamic>> _plist = List<Map<String, dynamic>>();
 List<Map<String, dynamic>> get gerPlist => _plist;
 String selectedProperty;
@@ -75,8 +73,12 @@ QueryResult result = await _client.query(
             setApiError(erorr: result.exception.graphqlErrors.toString());
 
             }else{
-              for (var index = 0; index < result.data["getUserProperties"].length; index++) {
-           
+              if(result.data["getUserProperties"].length == 0){
+                 print('Am Empty');
+                 _propertlist = null;
+
+               }else{
+for (var index = 0; index < result.data["getUserProperties"].length; index++) {   
             GetProperties v  =  new GetProperties(
                   email: result.data["getUserProperties"][index]["email"],
                   id: result.data["getUserProperties"][index]["id"],
@@ -94,6 +96,8 @@ QueryResult result = await _client.query(
             _propertlist.add(v);
             
       } 
+               }
+              
       }
           loadingOther(false);
          }
@@ -171,7 +175,7 @@ showMessage(error: 'Check-out Date required');
     //   print(_instruction);
       moved.add(_instruction);
         //TODO SEND RESERVATION DATA TO LOADING SCREEN THEN SEND TO SERVER
-   _navigationService.navigateTo(addReservationloadingRoute, arguments: moved); 
+   _navigationService.navigateToandRemove(addReservationloadingRoute, arguments: moved); 
 
   }
 
@@ -220,6 +224,7 @@ List<BookingChannelModel> getBookingList() {
   print(erorr);
    notifyListeners();
 }
+
 
 
 

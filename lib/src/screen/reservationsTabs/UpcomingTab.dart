@@ -23,29 +23,29 @@ class UpcomingTab extends ProviderWidget<MainReservationViewModel> {
                           valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
                           backgroundColor: AppColor.borderColor,
                     ),
-    ) :  ListView.builder(
-            itemCount: model.list.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context , int index){
-              if(model.list.length == 0){
-                print(' data is null');
-              return Center(child: Text('You do not have any reservation. '
-                  'Click on the ‘’+ icon’’ button below to add one reservation for free.',
+    ) :  (model.list == null ? 
+    Center(child: Text('You do not have any reservation. '
+                  'Click on the ‘’Add icon’’ button below to add one reservation for free.',
+                   textAlign: TextAlign.center,
                 style:  TextStyle(
                   color: Colors.red,
                   fontStyle: FontStyle.normal,
                   fontSize: 16,
                 )
               ),
-              );
-            }
-            return  ReservationWidget(
+              )
+     :ListView.builder(
+            itemCount: model.list.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context , int index){
+             return  ReservationWidget(
                 getReservation: model.list[index],
                 type: 'unApproved',
-                );
-               
+                );  
                },))
+               
+               )
         
                ;
   }

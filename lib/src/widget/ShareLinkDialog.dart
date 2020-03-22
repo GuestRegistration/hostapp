@@ -5,10 +5,12 @@ import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
+import 'package:hostapp/src/screen/PersonalDetailsScreen.dart';
 import 'package:hostapp/src/widget/input_field.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
+
 
 class ShareLinkDialog extends StatefulWidget {
   final String link;
@@ -75,28 +77,8 @@ class _ShareLinkDialogState extends State<ShareLinkDialog> {
                           ),
                         ),
                       ),
-                     
-                      // SizedBox(height: 10,),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: <Widget>[
-                    //     Material(
-                    //       elevation: 30,
-                    //       shadowColor: AppColor.notWhite,
-                    //       shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(2.0)),
-                    //       child: Padding(
-                    //         padding: const EdgeInsets.all(10.0),
-                    //         child: Expanded(
-                    //               child: 
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     SizedBox(width: 10,),
-                    //   ],
-                    // ),
-                       SizedBox(height: 5,),
-                     GestureDetector(
+                       SizedBox(height: 5,), 
+                         GestureDetector(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
                       child: Container(
@@ -115,22 +97,19 @@ class _ShareLinkDialogState extends State<ShareLinkDialog> {
                               borderRadius: new BorderRadius.circular(18.0),
                               side: BorderSide(color: Color(0xFFF7FCFE))
                           ),
-
                         ),
                       ),
                     ),
                     onTap: (){
-                      _customFuntion.shareReservationLink(link: widget.link);
-
-                       //Show index 1 when lauching dashborad
+                     _customFuntion.shareReservationLink(link: linkController.text);
+                      //Show index 1 when lauching dashborad
                         Navigator.pushReplacement( context,
                    MaterialPageRoute(builder: (context) => Dashboard(
-showIndex: 0,
+                      showIndex: 0,
                    )));
-                      Navigator.pop(context);
+                     // Navigator.pop(context);
                     },
                   ),
-                      
                     ],
                   ),
                 ),

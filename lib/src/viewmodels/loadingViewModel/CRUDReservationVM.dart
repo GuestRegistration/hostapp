@@ -1,7 +1,6 @@
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/graphQlQuery.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:hostapp/src/widget/ShareLinkDialog.dart';

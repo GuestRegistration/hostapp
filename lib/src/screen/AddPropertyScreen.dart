@@ -91,7 +91,8 @@ class _AddProprtyUIState extends State<AddProprtyUI> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-              child: Column(children: <Widget>[
+              child: Column(
+                children: <Widget>[
                 Column(
           children: <Widget>[
               horizontalSpaceLarge,

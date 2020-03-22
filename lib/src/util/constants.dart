@@ -1,7 +1,5 @@
 class Constants {
-  String dummyUseriD = "Lb2kymVmU9SbfK8FiMsE";
-  // Strings
- 
+
   //static const String projectUrl = "https://passwordlessdemo.firebaseapp.com";
   static const String projectUrl = "https://guestregistration-4140a.firebaseapp.com";
   static const String errorPhone = "Phone is incorrect";
@@ -24,6 +22,14 @@ static const String constEmail ='UserEmail';
 static const String constID = 'UserID';
 static const String constUserToken = 'UserToken';
 static const String constClientToken = 'ClientToken';
+
+//User Details
+static const String constFname = 'Fname';
+static const String constLname = 'Lastname';
+static const String constmail = 'Email';
+static const String constPhoneN = 'PhoneNumber';
+static const String constPhoneContryCode = 'CountryCodePhone';
+static const String constCompletePhone = 'CompletePhone';
 }
 
 

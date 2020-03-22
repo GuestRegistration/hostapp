@@ -21,8 +21,8 @@ String get getErrorMessage => _errorMessage;
 
 void initialize()async{
   setBusy(true);
-  
    await _graphQlConfiq.getNeccessartyToken();
+
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
@@ -53,7 +53,12 @@ QueryResult result = await _client.query(
 
             }else{
                print('Result is not Null,becaue I have data with me');
-               for (var index = 0; index < result.data["getUserProperties"].length; index++) {
+               if(result.data["getUserProperties"].length == 0){
+                 print('Am Empty');
+                 _propertlist = null;
+
+               }else{
+for (var index = 0; index < result.data["getUserProperties"].length; index++) {
             _propertlist.add(
                   GetProperties(
                   email: result.data["getUserProperties"][index]["email"],
@@ -71,7 +76,11 @@ QueryResult result = await _client.query(
                     )
               );
              // print( result.data["getProperties"][index]["rules"]);
-      } }
+      } 
+               }
+               
+      
+      }
            
      // print(_propertlist.length);
        setBusy(false);
@@ -91,5 +100,9 @@ setErrorMessage({String erorr}){
   _errorMessage = erorr;
   print(erorr);
   notifyListeners();
+}
+
+d()async{
+     await _graphQlConfiq.getUserToken();
 }
 }

@@ -25,13 +25,15 @@ class _GuestScreenState extends State<GuestScreen> {
   Widget build(BuildContext context) {
     return ViewModelProvider<GuestScreenViewModel>.withConsumer(
       viewModel: GuestScreenViewModel(),
-      onModelReady: (model) => model.initialize(id: widget.reservationID),
+      //onModelReady: (model) => model.initialize(id: widget.reservationID),
       builder: (context, model, child) =>
       //If busy, start loading else
       //{ if error ocur, show errorMessage else show Data UI}
   Scaffold(
         body: (model.busy ? _customFuntion.loadingWidget() :
-         (model.getErrorMessage == null ? SingleChildScrollView(child: Column(children: <Widget>[
+         (SingleChildScrollView(
+           child: (model.getErrorMessage == null ? 
+            Column(children: <Widget>[
           horizontalSpaceLarge,
                 horizontalSpaceLarge,
                headerButton(),
@@ -56,8 +58,7 @@ class _GuestScreenState extends State<GuestScreen> {
                   child: Row(
                     children: <Widget>[
                       SizedBox(width: 10,),
-                      Text((model.reservationData.user.name.fname == null ? '' :
-                      '${model.reservationData.user.name.fname} ${model.reservationData.user.name.lname}'),
+                      Text('', //${model.reservationData.user.name.fname} ${model.reservationData.user.name.lname}
                   style: AppTextStyle.subTitle(context),),
                   SizedBox(width: 10,),
               Icon(Icons.verified_user, color: Colors.grey)
@@ -71,8 +72,7 @@ class _GuestScreenState extends State<GuestScreen> {
                   child: Row(children: <Widget>[
                     Image.asset(AppImage.board2, height: 50, width: 50,),
                      SizedBox(width: 10,),
-                    Text((model.reservationData.identity.identity_country == null ? '' :
-                      '${model.reservationData.identity.identity_country}'),
+                    Text('', //${model.reservationData.identity.identity_country}
                     
                     style: AppTextStyle.titleLarge(context, Colors.grey),)
                   ],),
@@ -83,8 +83,7 @@ class _GuestScreenState extends State<GuestScreen> {
                    child: Row(children: <Widget>[
                    Icon(Icons.email, size: 30,),
                      SizedBox(width: 10,),
-                    Text((model.reservationData.identity.identity_country == null ? '' :
-                      '${model.reservationData.identity.identity_country}'),
+                    Text('', //${model.reservationData.identity.identity_country}
                        style: AppTextStyle.titleLarge(context,  AppColor.primary),),
                 ],),
                  ),
@@ -94,8 +93,7 @@ class _GuestScreenState extends State<GuestScreen> {
                    child: Row(children: <Widget>[
                    Icon(Icons.phone, size: 30,),
                      SizedBox(width: 10,),
-                    Text((model.reservationData.user.phoneNumber == null ? '' :
-                      '${model.reservationData.user.phoneNumber}'),
+                    Text('', //${model.reservationData.user.phoneNumber}
                     style: AppTextStyle.titleLarge(context,  AppColor.primary),),
                 ],),
                  ),
@@ -131,8 +129,12 @@ class _GuestScreenState extends State<GuestScreen> {
                   },
                 ))
 
-        ],),)
-             : errorWidget))
+        ],)
+        : errorWidget(model)
+        )
+        )
+        
+            ))
     ),
     );
   }

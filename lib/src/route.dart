@@ -23,11 +23,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 //        viewToShow: LoginView(),
 //      );
      
-    case wrapperRoute:
-      return _getPageRoute(
-        routeName: settings.name,
-        viewToShow: WrapperScreen(),
-      );
+    
     case addPropertyRoute:
       return _getPageRoute(
         routeName: settings.name,

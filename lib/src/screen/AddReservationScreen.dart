@@ -97,7 +97,17 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                                 border: Border.all(
                                     color: AppColor.primary, style: BorderStyle.solid, width: 0.80),
                               ),
-                          child: DropdownButton<GetProperties>(
+                          child: (model.properties == null ? Center(child: Text('You do not have any property. '
+                             'Goto property page to add one for free.',
+                   textAlign: TextAlign.center,
+                style:  TextStyle(
+                  color: Colors.red,
+                  fontStyle: FontStyle.normal,
+                  fontSize: 16,
+                )
+              ),
+              ) :
+                          DropdownButton<GetProperties>(
                             isExpanded: true,
                              iconEnabledColor: AppColor.primary,
                                 underline: SizedBox(),
@@ -120,7 +130,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                                         );
                                             }).toList(),
                               
-                              ),
+                              ))
                         ),
                          verticalSpaceSmall,
                  CollectTextWithout(title: 'Guest',),
@@ -341,7 +351,10 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                   );
 
                 },
-              ))
+              )
+              
+              )
+
               )
                    
               ],

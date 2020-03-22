@@ -20,39 +20,6 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   String email1;
 
-  checkuser() async {
-    //print("inside checkuser");
-
-    // final FirebaseAuth auth = FirebaseAuth.instance;
-    // final FirebaseUser user1 = await auth.currentUser();
-    // email1 = user1.email;
-
-    // GraphQLClient _client = await graphQLConfiguration.clientToQuery();
-    // result = await _client.mutate(
-    //   MutationOptions(
-    //     documentNode: gql(selectdata),
-    //     //document: selectdata,
-    //     variables: {
-    //       'email': email1,
-    //       //'email': "diya.feb28@gmail.com"
-    //     },
-    //   ),
-    // );
-
-    // if (result.data["getUserByEmail"] == null) {
-    //   print("inside if new user");
-    //   /*Navigator.of(context).push(MaterialPageRoute(
-    //     builder: (context) => LoginPage(existingemail: email1.toString()),
-    //   ));*/
-    //   return false;
-    // } else {
-    //   print("inside else existing user");
-    //   /*Navigator.of(context).push(MaterialPageRoute(
-    //     builder: (context) => WelcomeScreen(email: email1.toString()),
-    //   ));*/
-    //   return true;
-    // }
-  }
   
   void _showDialog() {
     showDialog(
@@ -104,7 +71,7 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
                    return AuthScreen();
                  }else{
                    //This User already Login.
-                   return CheckUserScreen(userEmail: user.email,);
+                   return CheckUserScreen(userEmail: user.email, userid: user.uid,);
                  }
 
                   //loading......

@@ -11,7 +11,9 @@ import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/MainReservationScreen.dart';
 import 'package:hostapp/src/screen/EditReservationScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
+import 'package:hostapp/src/screen/SettingsScreen.dart';
 import 'package:hostapp/src/screen/auth_screen.dart';
+import 'package:hostapp/src/screen/PersonalDetailsScreen.dart';
 import 'package:hostapp/src/screen/tester.dart';
 import 'package:hostapp/src/GraphQLDemo/FirebasePerformance.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
@@ -22,7 +24,6 @@ import 'dart:async';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 
 void main()async{
-
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator(); // Register all the models and services before the app starts
   SystemChrome.setPreferredOrientations([
@@ -51,7 +52,6 @@ class MyApp extends StatelessWidget {
   var _graphQlConfiq = locator<GraphQLConfiguration>();
   @override
   Widget build(BuildContext context) {
-  
     return GraphQLProvider(
        client: _graphQlConfiq.initilize(),
       child:  MaterialApp(
@@ -70,16 +70,18 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: PasswordlessApp(),
-      // home: LoginPage(
-      //   email: 'jordandaze969@gmail.com',
-      //   // existingemail: 'jordandaze969@gmail.com',
-      //   // lastname: 'MyLastName',
-      //   // name: 'myName',
-        
-      // ), //PasswordlessApp(),//AddReservationScreen()
+      home: PasswordlessApp(),//PersonalDetailsScreen(),//PasswordlessApp(),//Dashboard(showIndex: 0,),//PasswordlessApp(),// Dashboard(showIndex: 0,),////PasswordlessApp(),//PersonalDetailsScreen(),//,//PersonalDetailsScreen(),//Dashboard(showIndex: 0,),//
       onGenerateRoute: generateRoute,
     ),
     );
   }
 }
+
+// CreateProfileScreen(),
+//       // home: LoginPage(
+//       //   email: 'jordandaze969@gmail.com',
+//       //   // existingemail: 'jordandaze969@gmail.com',
+//       //   // lastname: 'MyLastName',
+//       //   // name: 'myName',
+        
+//       // ), //

@@ -5,12 +5,14 @@ import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class CRUDpropertyloadingViewmodel extends BaseModel{
   final GraphQLConfiguration _graphQlConfiq = locator<GraphQLConfiguration>();
 final NavigationService _navigationService = locator<NavigationService>();
 String _errorMessage;
 String get getErrorMessage => _errorMessage;
+  final storage = new FlutterSecureStorage();
 
   addPropertyAPI({List data})async{
     String pName = data[0]; //propertyName
@@ -83,6 +85,8 @@ setBusy(true);
 
 updatePropertyAPI({List data})async{
 
+    String uid = await storage.read(key: Constants.constID);
+ 
    String propertyID = data[0]; 
     String propertyName = data[1]; 
     String address = data[2];
@@ -92,16 +96,17 @@ updatePropertyAPI({List data})async{
     String phoneIcode = data[6]; 
     String rules = data[7]; 
     String doclink = data[8]; 
-
-    // print(propertyID);
-    // print(propertyName);
-    // print(address);
-    // print(phoneN);
-    // print(country);
-    // print(contactEmail);
-    // print(phoneIcode);
-    //   print(rules);
-    //     print(doclink);
+    
+    print(propertyID);
+    print(propertyName);
+    print(address);
+    print(phoneN);
+    print(country);
+    print(contactEmail);
+    print(phoneIcode);
+    print(rules);
+    print(uid);
+    print(doclink);
 
 
           setBusy(true);
@@ -119,7 +124,6 @@ updatePropertyAPI({List data})async{
           },
           //Later (Rules and document)
           variables: <String, dynamic>{
-            "user_id": Constants().dummyUseriD,
              "id": propertyID,
               "phone": phoneN,
               "email": contactEmail,
@@ -146,10 +150,21 @@ updatePropertyAPI({List data})async{
         setBusy(false);
              print('Result is Null');
          }else{
-            setBusy(false);
+           if(result.data['updateProperty'] == null){
+                setBusy(false);
+            print(result.exception.graphqlErrors);
+            setErrorMessage(erorr: result.exception.graphqlErrors.toString());
             print('Result is not Null');
-            print(result.data['updateProperty']['name']);
-             _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
+             
+
+           }else{
+              // print(result.data['updateProperty']['name']);
+               setBusy(false);
+               _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
+
+           }
+           
+           
          }
 
 }

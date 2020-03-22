@@ -6,7 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hostapp/src/screen/ListOfProperty.dart';
 import 'package:hostapp/src/screen/MainReservationScreen.dart';
 import 'package:hostapp/src/screen/FetchProperties.dart';
-import 'package:hostapp/src/screen/setting.dart';
+import 'package:hostapp/src/screen/PersonalDetailsScreen.dart';
+import 'package:hostapp/src/screen/SettingsScreen.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 
 class Dashboard extends StatefulWidget {
@@ -102,7 +103,7 @@ class _DashboardState extends State<Dashboard>{
    
 
     }else if(_selectedIndex == 2){ 
-     return SettingScreen();
+     return SettingsScreen();
     }
   }
   

@@ -7,8 +7,9 @@ class GetProperties {
   String terms;
   String rulesText;
   PropertyPhone propertyPhone;
+ReservationM reservation;
 
-  GetProperties({this.id, this.name, this.propertyPhone, this.address, this.email, this.terms, this.rulesText});
+  GetProperties({this.id, this.name, this.propertyPhone, this.address, this.email, this.terms, this.rulesText, this.reservation});
 
    getId() => this.id;
 
@@ -50,4 +51,24 @@ class PropertyPhone {
   getPhoneNumber() => this.phoneNumber;
 
    getCompletePhoneN() => this.completePhone;
+}
+
+
+class ReservationM{
+  String id;
+  String name;
+  String checkoutDate;
+  String checkInDate;
+
+  ReservationM({this.id, this.name, this.checkoutDate, this.checkInDate});
+
+    getId() => this.id;
+
+  getName() => this.name;
+
+  
+   getCheckInDate() => this.checkInDate;
+
+   
+  getOutDate() => this.checkoutDate;
 }

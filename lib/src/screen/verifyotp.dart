@@ -36,7 +36,6 @@ class _VerifyotpState extends State<Verifyotp> {
   var newphonenumbersplit;
   bool phoneerror = false;
   bool _load = false;
-
   Timer _timer;
   var buttoncolor;
   int _start = 120;
@@ -74,7 +73,7 @@ class _VerifyotpState extends State<Verifyotp> {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
-      (Timer timer) => setState(
+      (timer) => setState(
         () {
           if (_start < 1) {
             timer.cancel();
@@ -88,6 +87,7 @@ class _VerifyotpState extends State<Verifyotp> {
         },
       ),
     );
+    
   }
 
   isEmpty() {
@@ -570,8 +570,7 @@ class _VerifyotpState extends State<Verifyotp> {
                           );
 
                           FirebaseAuth _auth = FirebaseAuth.instance;
-                          final FirebaseUser user = await _auth
-                              .signInWithCredential(credential)
+                          final FirebaseUser user = await _auth.signInWithCredential(credential)
                               .then((user) {
                             print("navigation call to the add user");
                             if (resendcode == true) {
@@ -670,6 +669,8 @@ class _VerifyotpState extends State<Verifyotp> {
             ],
           ),
         ))));
+    
+    
     //  );
   }
 }

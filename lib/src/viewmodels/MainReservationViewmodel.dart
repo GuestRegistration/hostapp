@@ -8,7 +8,8 @@ import 'package:hostapp/src/model/getReservationMode.dart';
 import 'package:hostapp/src/service/graphQlQuery.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart';
-
+import 'package:hostapp/src/widget/ShareLinkDialog.dart';
+import 'package:flutter/material.dart';
 class MainReservationViewModel extends BaseModel{
      final AuthService _authService = locator<AuthService>();
 final NavigationService _navigationService = locator<NavigationService>();
@@ -20,22 +21,38 @@ String _errorMessage;
 List<GetProperties> _propertlist = List<GetProperties>();
 List<GetProperties> get properties => _propertlist;
 String get getErrorMessage => _errorMessage;
+String firstId, firstName;
 
 
 void addReservation(){
-  _navigationService.navigateTo(addReservationRoute);
+ _navigationService.navigateTo(addReservationRoute);
+ //_graphQlConfiq.getUserToken(); DEBUG ONLY
+ 
 }
 
 
 void tab1Initialize()async{
-  setBusy(true);
+//   setBusy(true);
+fetchProperties();
 
+}
+
+
+setErrorMessage({String erorr}){
+_errorMessage = erorr;
+notifyListeners();
+}
+
+
+
+void fetchProperties()async{
+    setBusy(true);
   await _graphQlConfiq.getNeccessartyToken();
 
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
-        documentNode: gql(getReservationsQuery),
+        documentNode: gql(getProperties),
       ),
 ).catchError((e){
       setBusy(false);
@@ -49,65 +66,74 @@ QueryResult result = await _client.query(
 
    if(result.data == null) {
       setBusy(false);
-             print('Result is Null, There is Server Erorr');
-             setErrorMessage(erorr: 'Server Error, Please try again');
-             
+             print('Result is Null');
+             print(result.exception);
+              setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+              
          }else{
-            if(result.data['getReservations'] == null){
+           if(result.data['getUserProperties'] == null){
+             setBusy(false);
               print('*************Return Data is Null Exception **************');
-             print(result.exception.graphqlErrors);
-             print(result.data['getReservations'].toString());
-            setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+              print(result.exception.graphqlErrors);
+             setErrorMessage(erorr: result.exception.graphqlErrors.toString());
 
             }else{
-               print('Result is not Null,becaue I hve data with me');
-                print(result.data['getReservations'].toString());
-                print(result.data["getReservations"][0]["booking_channel"]);
+               print('Result is not Null,becaue I have data with me');
+               if(result.data["getUserProperties"].length == 0){
+                 print('Am Empty');
+                 _propertlist = null;
 
- for (var index = 0; index < result.data["getReservations"].length; index++) {
-            list.add(
-                  GetReservationModel(
-                  id: result.data["getReservations"][index]["id"],
-                  name: result.data["getReservations"][index]["name"],
-                  alreadyCheckedin: result.data["getReservations"][index]["already_checkedin"],
-                  bookingChannel: result.data["getReservations"][index]["booking_channel"],
-                  checkedinAat: result.data["getReservations"][index]["checkedin_at"],
-                  checkInDate: result.data["getReservations"][index]["checkin_date"],
-                  checkinUrl: result.data["getReservations"][index]["checkin_url"],
-                  approved: result.data["getReservations"][index]["approved"],
-                  instrucstions: result.data["getReservations"][index]["instruction"],
-                  checkoutDate: result.data["getReservations"][index]["checkout_date"],
-                  property: Property(id: result.data["getReservations"][index]["property"]['id'],
-                   name: result.data["getReservations"][index]["property"]['name'],),
-                   //guest: result.data["getReservations"][index]["guests"],
-                  guest: (result.data["getReservations"][index]["guests"] == [] ||
-                   result.data["getReservations"][index]["guests"] == null
-                  ?  [] : result.data["getReservations"][index]["guests"]
-                    ))
+               }else{
+for (var index = 0; index < result.data["getUserProperties"].length; index++) {
+  firstId = result.data["getUserProperties"][0]["id"];
+  firstName = result.data["getUserProperties"][0]["name"];
+            _propertlist.add(
+                  GetProperties(
+                  email: result.data["getUserProperties"][index]["email"],
+                  id: result.data["getUserProperties"][index]["id"],
+                  name: result.data["getUserProperties"][index]["name"],
+                  rulesText: result.data["getUserProperties"][index]["rules"],
+                  propertyPhone: PropertyPhone(
+                  completePhone: result.data["getUserProperties"][index]["phone"]['complete_phone'], 
+                  countryCode: result.data["getUserProperties"][index]["phone"]['country_code'], 
+                  phoneNumber: result.data["getUserProperties"][index]["phone"]['phone_number']),
+                  address:
+                  Address(street: result.data["getUserProperties"][index]["address"]['street'],
+                  country: result.data["getUserProperties"][index]["address"]['country']),
+                  terms: result.data["getUserProperties"][index]["terms"],
+                    )
               );
+             // print( result.data["getProperties"][index]["rules"]);
+      } 
+               }
+               
+      
       }
-            }
-      print(list.length);
        setBusy(false);
+       propertyReservations(propertyID: firstId);
          }
-         // fetchProperties();
 }
 
+List<GetProperties> getPropertiesList() {
+     return _propertlist;
+   }
 
-setErrorMessage({String erorr}){
-_errorMessage = erorr;
-notifyListeners();
-}
+propertyReservations({String propertyID})async{
+  // if(_propertlist.isNotEmpty && _list.isNotEmpty){
+  //   clearData();
+  // }
+  String v = 'getPropertyReservations';
+  loadingOther(true);
 
-
-
-void fetchProperties()async{
- loadingOther(true);
+  await _graphQlConfiq.getNeccessartyToken();
 
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
-        documentNode: gql(getProperties),
+        documentNode: gql(getReservationsQuery),
+        variables: {
+          'property_id' : propertyID
+        }
       ),
 ).catchError((e){
       loadingOther(false);
@@ -116,46 +142,63 @@ QueryResult result = await _client.query(
 
         }).timeout(Duration(seconds: 5,), onTimeout: (){
            loadingOther(false);
-          setErrorMessage(erorr:'Server Timeout');
+          setErrorMessage(erorr: 'Server Timeout');
         },);
 
-        
    if(result.data == null) {
       loadingOther(false);
-             print('Result is Null');
+             print('Result is Null, There is Server Erorr');
+             setErrorMessage(erorr: 'Server Error, Please try again');
+             
          }else{
-            print('Result is not Null');
-            if(result.data['getUserProperties'] == null){
+            if(result.data[v] == null){
               print('*************Return Data is Null Exception **************');
              print(result.exception.graphqlErrors);
+             print(result.data[v].toString());
             setErrorMessage(erorr: result.exception.graphqlErrors.toString());
 
             }else{
-              for (var index = 0; index < result.data["getUserProperties"].length; index++) {
-           
-            GetProperties v  =  new GetProperties(
-                  email: result.data["getUserProperties"][index]["email"],
-                  id: result.data["getUserProperties"][index]["id"],
-                  name: result.data["getUserProperties"][index]["name"],
-                  propertyPhone: PropertyPhone(
-                    completePhone: result.data["getUserProperties"][index]["phone"]['complete_phone'], 
-                  countryCode: result.data["getUserProperties"][index]["phone"]['country_code'], 
-                  phoneNumber: result.data["getUserProperties"][index]["phone"]['phone_number']),
-                  address:
-                  Address(street: result.data["getUserProperties"][index]["address"]['street'],
-                  country: result.data["getUserProperties"][index]["address"]['country']),
-                  terms: result.data["getUserProperties"][index]["terms"],
-                    );
-           
-            _propertlist.add(v);
-            
-      } 
+               print('Result is not Null,becaue I hve data with me');
+                //print(result.data['getUserReservations'].toString());
+               // print(result.data["getUserReservations"][0]["booking_channel"]);
+                if(result.data[v].length == 0){
+                 print('Am Empty');
+                 _list = null;
+
+               }else{
+                  for (var index = 0; index < result.data[v].length; index++) {
+            _list.add(
+                  GetReservationModel(
+                  id: result.data[v][index]["id"],
+                  name: result.data[v][index]["name"],
+                  alreadyCheckedin: result.data[v][index]["already_checkedin"],
+                  bookingChannel: result.data[v][index]["booking_channel"],
+                  checkedinAat: result.data[v][index]["checkedin_at"],
+                  checkInDate: result.data[v][index]["checkin_date"],
+                  checkinUrl: result.data[v][index]["checkin_url"],
+                  approved: result.data[v][index]["approved"],
+                  instrucstions: result.data[v][index]["instruction"],
+                  checkoutDate: result.data[v][index]["checkout_date"],
+                  property: Property(id: result.data[v][index]["property"]['id'],
+                   name: result.data[v][index]["property"]['name'],),
+                    )
+              );
       }
-          loadingOther(false);
+
+               }
+
+
+            }
+       loadingOther(false);
          }
 }
-List<GetProperties> getPropertiesList() {
-     return _propertlist;
-   }
+
+clearData(){
+  _propertlist.clear();
+  _list.clear();
+}
+
+ 
 
 }
+

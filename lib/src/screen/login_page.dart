@@ -82,8 +82,8 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   getUserByPhone(phone: $phone){
     phone
   }
-}
-          """;
+} """;
+
   String selectdata = r"""
               query($email: String!) {       
               getUserByEmail(email: $email){
@@ -96,7 +96,6 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     super.initState();
 
     email1 = "${widget.existingemail}";
-
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -477,15 +476,13 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                     });
                                   }
                                   startLoading();
-                                  GraphQLClient _client = await
-                                  graphQLConfiguration.clientToQuery();
+                                  GraphQLClient _client = await graphQLConfiguration.clientToQuery();
                                   QueryResult result = await _client.mutate(
                                     MutationOptions(
                                       // document: getphone,
                                       documentNode: gql(getphone),
                                       variables: {
-                                        'phone': "$phoneCode".toString() +
-                                            "${phone.text}".toString(),
+                                        'phone': "$phoneCode".toString() + "${phone.text}".toString(),
                                       },
                                     ),
                                   );

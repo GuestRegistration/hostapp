@@ -22,7 +22,6 @@ const  String addPropertyQuery = r"""
 
           const  String updatePropertyQuery = r"""
             mutation updateProperty($id : String!
-              $user_id: String!
               $name: String!
                 $phone: String!
                 $email: String!
@@ -32,7 +31,7 @@ const  String addPropertyQuery = r"""
                 $rules: String
                 $terms: String
             ){
-              updateProperty(id: $id, user_id: $user_id, name: $name,
+              updateProperty(id: $id, name: $name,
               phone_number: $phone, email: $email, street: $street, 
                phone_country_code: $phoneCountry_code,
                 country: $country, rules: $rules, terms: $terms,){
@@ -58,7 +57,13 @@ const String getProperties = r"""
     }
     email
     terms  
-    rules  
+    rules
+    reservations{
+      id
+      name
+      checkin_date
+      checkout_date
+    }
   }
 }
  """;
@@ -84,26 +89,23 @@ const String getProperties = r"""
  """;
 
  const String getReservationsQuery = r"""
-query{
-  getReservations{
-    name
+query getData($property_id: String!){
+    getPropertyReservations(id: $property_id){
     id
-    checkin_url
-    checkedin_at
-    checkout_date
-    checkin_date
-    approved
-    already_checkedin
-    instruction
+    name
     booking_channel
+    already_checkedin
+    checkedin_at
+    checkin_date
+    checkin_url
+    approved
+    instruction
+    checkout_date
     property{
       id
       name
     }
-    guests{
-      user_id
-      name
-    }
+    
   }
 }
  """;
@@ -144,9 +146,82 @@ const String getBookingChannel = r"""
               query($email: String!) {       
               getUserByEmail(email: $email){
               email
+      				id
+              name{
+                first_name
+                last_name
+              }
+              phone{
+                phone_number
+                country_code
+                complete_phone
+              }
               }
             }
               """;
+ const String getphone = r"""
+          query($phone: String!){
+  getUserByPhone(phone: $phone){
+    phone{
+          phone_number
+          country_code
+          complete_phone
+              }
+  }
+}
+""";
+const String insertData = r"""
+        mutation users(        
+        $id: String!       
+         $phone_number: String!
+         $phone_country_code: String!
+         $email: String!
+         $name: String!
+         $lastname: String!){
+           createUser( 
+             id:$id,
+             email: $email,
+             phone_country_code: $phone_country_code,
+          phone_number: $phone_number, first_name:$name, last_name:$lastname
+        ){ 
+          id
+          email
+          country_of_residence
+          name{
+            first_name
+            last_name
+          }       
+          phone{
+          phone_number
+          country_code
+          complete_phone
+              }
+                }
+        }
+          """;
+   const String updateuserquery = r"""
+ mutation($email: String!,$id:String!,
+  $phone_number: String!,
+   $phone_country_code: String!,
+ $first_name:String!,$last_name:String!){
+  updateUser(email:$email,id:$id,first_name:$first_name,last_name:$last_name,
+  phone_country_code: $phone_country_code,
+          phone_number: $phone_number){
+     id
+          email
+          country_of_residence
+          name{
+            first_name
+            last_name
+          }       
+          phone{
+          phone_number
+          country_code
+          complete_phone
+              }
+                }
+        }
+ """;
 
 
 

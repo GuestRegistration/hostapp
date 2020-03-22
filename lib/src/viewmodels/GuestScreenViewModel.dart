@@ -39,6 +39,8 @@ getCheckedIn(id: id);
 //Get reservation Check-in
 getCheckedIn({id})async{
    setBusy(true);
+   //await _graphQlConfiq.getNeccessartyToken();
+   
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(

@@ -61,12 +61,12 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
 
     //_selectedProperty =
     
-    print(widget.gname);
-     print(widget.chekinD);
-     print(widget.checkoutD);
-      print(widget.invitelink);
-       print(widget.bookingC);
-       print(widget.propertyId);
+    // print(widget.gname);
+    //  print(widget.chekinD);
+    //  print(widget.checkoutD);
+    //   print(widget.invitelink);
+    //    print(widget.bookingC);
+    //    print(widget.propertyId);
   }
      
   @override
@@ -230,15 +230,11 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
                          ),
 
                     ],),
-                 
-                  
-                       
-                          Row(
+                  Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children: <Widget>[
                        CollectTextWithout(title: 'Check-In Link',),
-                       shareView(model),
-
+                       shareView(),
                      ],),
                      TextFormField(
                           controller: inviteInLinkController,
@@ -447,7 +443,7 @@ return showDialog(
                   );
   }
 
-  shareView(AddReservationViewModel model){
+  shareView(){
     return GestureDetector(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -465,11 +461,9 @@ return showDialog(
     ),  ),)  
                      ),
                     onTap: (){
-                     _customFuntion.shareReservationLink(link: model.getinviteLink);
+                     _customFuntion.shareReservationLink(link: widget.invitelink);
                     },
                   );
   }
-
-
 }
 
