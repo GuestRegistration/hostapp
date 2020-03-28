@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hostapp/src/model/getPropertiesModel.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
@@ -9,6 +8,7 @@ import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppImage.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 
 class GuestScreen extends StatefulWidget {
    final String reservationID;
@@ -25,7 +25,7 @@ class _GuestScreenState extends State<GuestScreen> {
   Widget build(BuildContext context) {
     return ViewModelProvider<GuestScreenViewModel>.withConsumer(
       viewModel: GuestScreenViewModel(),
-      //onModelReady: (model) => model.initialize(id: widget.reservationID),
+      onModelReady: (model) => model.initialize(id: widget.reservationID),
       builder: (context, model, child) =>
       //If busy, start loading else
       //{ if error ocur, show errorMessage else show Data UI}
@@ -52,48 +52,67 @@ class _GuestScreenState extends State<GuestScreen> {
           ),),  
                  ],),
                ),
-                  Image.asset(AppImage.icode, height: 200, width: 200,),
+                  //height: 200, width: 200,
+                  (model.reservationData.identity.identity_documentUrl == null ?  Image.asset(AppImage.board2, height: 50, width: 50,)
+                  : FadeInImage.assetNetwork(
+                    placeholder: AppImage.loadinggif,
+                    image: model.reservationData.identity.identity_documentUrl,
+                    height: 200,
+                    width: MediaQuery.of(context).size.width,
+                  )),
+                  
                   Padding(
                   padding: const EdgeInsets.only(left:10.0, top: 10.0),
                   child: Row(
                     children: <Widget>[
                       SizedBox(width: 10,),
-                      Text('', //${model.reservationData.user.name.fname} ${model.reservationData.user.name.lname}
+                      Text((model.reservationData.user.name.fname == null ? '' : '${model.reservationData.user.name.fname} ${model.reservationData.user.name.lname}'),
                   style: AppTextStyle.subTitle(context),),
                   SizedBox(width: 10,),
               Icon(Icons.verified_user, color: Colors.grey)
                     ],
                 ),),
 
-                SizedBox(width: 15,),
+ Padding(
+   padding: const EdgeInsets.only(left: 15.0,),
+   child: Row(
+     children: <Widget>[
+     AbsorbPointer(
+       absorbing: true,
+            child: Container(
+          child:  CountryCodePicker(
+                      initialSelection: model.reservationData.identity.identity_country == null 
+                      ? '+1' : '${model.reservationData.identity.identity_country}', //just same mean as default country
+                      favorite: ['+39','FR'],
+                      alignLeft: false,
+                      showFlag: true,
+                      showOnlyCountryWhenClosed: true,
+                      textStyle: AppTextStyle.titleLarge(context,  AppColor.primary),
+                    ),
+                    ),
+     ),
+                  // Text(model.reservationData.identity.identity_country == null ? '' : '${model.reservationData.identity.identity_country}',
+                  //      style: AppTextStyle.titleLarge(context,  AppColor.primary),),
 
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(children: <Widget>[
-                    Image.asset(AppImage.board2, height: 50, width: 50,),
-                     SizedBox(width: 10,),
-                    Text('', //${model.reservationData.identity.identity_country}
-                    
-                    style: AppTextStyle.titleLarge(context, Colors.grey),)
-                  ],),
-                ),
+   ],)
+ ),
 
                  Padding(
-                   padding: const EdgeInsets.all(8.0),
+                   padding: const EdgeInsets.only(left: 15.0, right: 5.0, bottom: 5.0, top: 5.0),
                    child: Row(children: <Widget>[
                    Icon(Icons.email, size: 30,),
                      SizedBox(width: 10,),
-                    Text('', //${model.reservationData.identity.identity_country}
+                    Text(model.reservationData.user.email == null ? '' : '${model.reservationData.user.email}',
                        style: AppTextStyle.titleLarge(context,  AppColor.primary),),
                 ],),
                  ),
 
                  Padding(
-                   padding: const EdgeInsets.all(8.0),
+                   padding: const EdgeInsets.only(left: 15.0, right: 5.0, bottom: 5.0, top: 5.0),
                    child: Row(children: <Widget>[
                    Icon(Icons.phone, size: 30,),
                      SizedBox(width: 10,),
-                    Text('', //${model.reservationData.user.phoneNumber}
+                    Text(model.reservationData.user.phone.completePhone == null ? '' : '${model.reservationData.user.phone.completePhone}',
                     style: AppTextStyle.titleLarge(context,  AppColor.primary),),
                 ],),
                  ),
@@ -105,7 +124,7 @@ class _GuestScreenState extends State<GuestScreen> {
                     padding: const EdgeInsets.only(left: 10.0, right:10.0, bottom: 20),
                     child: Container(
                       height: 50,
-                      child: Material(
+                      child: (model.loadingOthers ? _customFuntion.loadingIndicator() : Material(
                         child: Center(
                           child: Text('Approve Guest',
                             style: TextStyle(
@@ -119,22 +138,22 @@ class _GuestScreenState extends State<GuestScreen> {
                             borderRadius: new BorderRadius.circular(18.0),
                             side: BorderSide(color: AppColor.borderColor)
                         ),
-
-                      ),
+                      ))
                     ),
                   ),
                   onTap: (){
-                   
-
+                   model.approveGuest(id: widget.reservationID);
                   },
                 ))
-
         ],)
-        : errorWidget(model)
+        : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+          errorWidget(model)
+        ],)
         )
-        )
-        
-            ))
+        ) ))
     ),
     );
   }
@@ -226,8 +245,7 @@ side: BorderSide(color: AppColor.primaryLight)
                       shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(18.0),
             side: BorderSide(color: AppColor.borderColor)
-    ),
-                   
+    ),             
                 ),
                     ),
                   ),
@@ -239,5 +257,4 @@ side: BorderSide(color: AppColor.primaryLight)
               ],
             );
   }
-  
 }

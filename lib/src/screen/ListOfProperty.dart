@@ -86,7 +86,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
           ],),
       ),
          floatingActionButton:
-           ((model.properties == null ? 0 : model.properties.length) >= 1 
+           ((model.properties == null ? 0 : model.properties.length) >= 1   //
            ? FloatingActionButton(
              child: Text('Pro',
                          style: TextStyle(

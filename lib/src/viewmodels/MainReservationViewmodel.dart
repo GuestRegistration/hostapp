@@ -8,8 +8,7 @@ import 'package:hostapp/src/model/getReservationMode.dart';
 import 'package:hostapp/src/service/graphQlQuery.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart';
-import 'package:hostapp/src/widget/ShareLinkDialog.dart';
-import 'package:flutter/material.dart';
+
 class MainReservationViewModel extends BaseModel{
      final AuthService _authService = locator<AuthService>();
 final NavigationService _navigationService = locator<NavigationService>();
@@ -25,16 +24,14 @@ String firstId, firstName;
 
 
 void addReservation(){
- _navigationService.navigateTo(addReservationRoute);
- //_graphQlConfiq.getUserToken(); DEBUG ONLY
- 
+// _navigationService.navigateTo(addReservationRoute);
+ _graphQlConfiq.getUserToken(); //DEBUG ONLY
 }
 
 
 void tab1Initialize()async{
 //   setBusy(true);
 fetchProperties();
-
 }
 
 
@@ -82,8 +79,10 @@ QueryResult result = await _client.query(
                if(result.data["getUserProperties"].length == 0){
                  print('Am Empty');
                  _propertlist = null;
+                 firstId = null;
 
                }else{
+                 print('Am Getting response');
 for (var index = 0; index < result.data["getUserProperties"].length; index++) {
   firstId = result.data["getUserProperties"][0]["id"];
   firstName = result.data["getUserProperties"][0]["name"];
@@ -119,11 +118,11 @@ List<GetProperties> getPropertiesList() {
    }
 
 propertyReservations({String propertyID})async{
-  // if(_propertlist.isNotEmpty && _list.isNotEmpty){
-  //   clearData();
-  // }
-  String v = 'getPropertyReservations';
-  loadingOther(true);
+  if(propertyID == null){
+    _list = null;
+  }else{
+     String v = 'getPropertyReservations';
+     loadingOther(true);
 
   await _graphQlConfiq.getNeccessartyToken();
 
@@ -183,22 +182,12 @@ QueryResult result = await _client.query(
                    name: result.data[v][index]["property"]['name'],),
                     )
               );
-      }
-
-               }
-
-
+      }}
             }
        loadingOther(false);
          }
-}
 
-clearData(){
-  _propertlist.clear();
-  _list.clear();
-}
-
+  }
  
-
 }
-
+}

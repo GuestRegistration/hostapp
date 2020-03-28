@@ -76,10 +76,20 @@ setBusy(true);
              print('Result is Null');
               setBusy(false);
          }else{
-            setBusy(false);
+            if(result.data['createProperty'] == null){
+                setBusy(false);
+            print(result.exception.graphqlErrors);
+            print(result.exception.clientException);
+            setErrorMessage(erorr: result.exception.graphqlErrors.toString());
             print('Result is not Null');
-            print(result.data['createProperty']['id']);
+             
+
+           }else{
+             setBusy(false);
+            print('Result is not Null');
              _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
+           }
+            
          }
   }
 
@@ -97,16 +107,16 @@ updatePropertyAPI({List data})async{
     String rules = data[7]; 
     String doclink = data[8]; 
     
-    print(propertyID);
-    print(propertyName);
-    print(address);
-    print(phoneN);
-    print(country);
-    print(contactEmail);
-    print(phoneIcode);
-    print(rules);
-    print(uid);
-    print(doclink);
+    // print(propertyID);
+    // print(propertyName);
+    // print(address);
+    // print(phoneN);
+    // print(country);
+    // print(contactEmail);
+    // print(phoneIcode);
+    // print(rules);
+    // print(uid);
+    // print(doclink);
 
 
           setBusy(true);
@@ -158,7 +168,6 @@ updatePropertyAPI({List data})async{
              
 
            }else{
-              // print(result.data['updateProperty']['name']);
                setBusy(false);
                _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
 

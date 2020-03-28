@@ -128,7 +128,7 @@ Padding(
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                 //  dropdownProperty(model: model),
+                (model.busy ? CircularProgressIndicator() : dropdownProperty(model: model)),
                 ],),
                  Expanded(child: Padding(
                    padding: const EdgeInsets.only(top: 30.0),
@@ -150,7 +150,7 @@ Padding(
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                   //dropdownProperty(),
+                  (model.busy ? CircularProgressIndicator() : dropdownProperty(model: model)),
                 ],),
                 Expanded(child: Padding(
                    padding: const EdgeInsets.only(top: 30.0),
@@ -179,6 +179,21 @@ Padding(
 
   dropdownProperty({MainReservationViewModel model}){
   //  return Text('Am here')
+  if(model.properties == null){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(child: Text('You do not have any property.',
+                     textAlign: TextAlign.center,
+                  style:  TextStyle(
+                    color: Colors.red,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 16,
+                  )
+                ),
+                ),
+    );
+  }else{
+
   return  Container(
         height: 40,
           width: MediaQuery.of(context).size.width /2,
@@ -225,6 +240,7 @@ Padding(
                               ),
                             );
   
+  }
   }
   
    

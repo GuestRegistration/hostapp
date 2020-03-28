@@ -356,9 +356,9 @@ sigInwithG()async{
   }
 
   }catch(e){
-    stopLoading();
     print(e.toString());
      showErrorMessage(error: e.toString());
+      stopLoading();
   }
 }
 

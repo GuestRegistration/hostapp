@@ -13,13 +13,30 @@ getIdentitySubModel() => this.identity;
 }
 
 class User{
-  String phoneNumber;
+  PhoneModel phone;
  Name name;
- User({this.name, this.phoneNumber});
+ String email;
+ User({this.name, this.phone, this.email});
 
  getName() => this.name;
- getPhoneNumber() => this.phoneNumber;
+ getPhoneNumber() => this.phone;
+ getEmail () => this.email;
 }
+class PhoneModel {
+  String countryCode;
+  String phoneNumber;
+  String completePhone;
+
+
+  PhoneModel({this.countryCode, this.phoneNumber, this.completePhone});
+
+   getCountrtyCode() => this.countryCode;
+
+  getPhoneNumber() => this.phoneNumber;
+
+   getCompletePhoneN() => this.completePhone;
+}
+
 
 
 class Name{
