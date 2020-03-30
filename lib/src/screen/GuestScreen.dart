@@ -117,9 +117,20 @@ class _GuestScreenState extends State<GuestScreen> {
                 ],),
                  ),
  verticalSpaceSmall,
- verticalSpaceLarge,
+  verticalSpaceSmall,
                   //If approve is true, disapper appove button else appear.
-                     (widget.isApproved ? SizedBox.shrink() : GestureDetector(
+                    Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+               Padding(
+                 padding: const EdgeInsets.only(left: 8.0),
+                 child: _customFuntion.errorUimessage(errorMessage: model.getSimpleMessage, type: model.getErrorType),
+               )
+            ],),
+              verticalSpaceSmall,
+                verticalSpaceSmall,
+           
+                     (widget.isApproved || model.getErrorType == 1 ? SizedBox.shrink() : GestureDetector(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0, right:10.0, bottom: 20),
                     child: Container(
@@ -142,7 +153,7 @@ class _GuestScreenState extends State<GuestScreen> {
                     ),
                   ),
                   onTap: (){
-                   model.approveGuest(id: widget.reservationID);
+                   model.approveGuest(id: model.reservationData.user.id);
                   },
                 ))
         ],)

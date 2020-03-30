@@ -132,6 +132,7 @@ const String getBookingChannel = r"""
  query getReservationCheckin($id: String!){
   getReservationCheckin(id: $id){
     user{
+      id
       phone{
         country_code
         phone_number

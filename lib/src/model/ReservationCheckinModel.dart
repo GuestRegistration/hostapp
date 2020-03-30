@@ -15,8 +15,9 @@ getIdentitySubModel() => this.identity;
 class User{
   PhoneModel phone;
  Name name;
+ String id;
  String email;
- User({this.name, this.phone, this.email});
+ User({this.name, this.phone, this.email, this.id});
 
  getName() => this.name;
  getPhoneNumber() => this.phone;

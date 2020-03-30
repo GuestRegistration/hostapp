@@ -276,6 +276,20 @@ class AuthScreenState extends State<AuthScreen> {
                 ),
                 SizedBox(
                   height: 150.0,
+                  child: FlatButton(
+                    onPressed: () {
+                      _customFuntion.havingProblemCondition();
+                    },
+                    child: const Text(
+                      'Having problems click here',
+                      style: TextStyle(
+                        color: Color(0xff8F8F8F),
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   width: 300.0,

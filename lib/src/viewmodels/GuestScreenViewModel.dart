@@ -28,8 +28,12 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
   final NavigationService _navigationService = locator<NavigationService>();
 String _apiError;
 String get getErrorMessage => _apiError;
+String _simpleError;
+String get getSimpleMessage => _simpleError;
 ReservationCheckinModel _reservationCheckinModel;
 ReservationCheckinModel get reservationData => _reservationCheckinModel;
+ int _errorType;
+ int get getErrorType => _errorType;
 
 void initialize({String id,}){
   print('Rservation ID is $id');
@@ -56,20 +60,20 @@ QueryResult result = await _client.query(
 
         }).timeout(Duration(seconds: 5,), onTimeout: (){
            setBusy(false);
-          setErrorMessage(erorr:'Server Timeout');
+          setErrorMessage(erorr:'Server Timeout', type: 0);
         },);
 
 
    if(result.data == null) {
       setBusy(false);
              print('Result is Null');
-              setErrorMessage(erorr: 'Server Error, Please try again');
+              setErrorMessage(erorr: 'Server Error, Please try again',  type: 0);
          }else{           
             if(result.data['getReservationCheckin'] == null){
               print('*************Return Data is Null Exception **************');
               setBusy(false);
              print('Error: ${result.exception.graphqlErrors.toString()}');
-            setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+            setErrorMessage(erorr: result.exception.graphqlErrors.toString(),  type: 0);
              
             }else{
               
@@ -77,8 +81,8 @@ QueryResult result = await _client.query(
              ReservationCheckinModel model = new ReservationCheckinModel(
 
                 user: User(
+                  id: result.data[val]['user']['id'],
                   phone: PhoneModel(
-                //completePhone: result.data[val]['phone']['complete_phone'],
               countryCode: result.data[val]['user']['phone']['country_code'],
               phoneNumber: result.data[val]['user']['phone']['phone_number'],
               completePhone: result.data[val]['user']['phone']['complete_phone'],),
@@ -95,14 +99,21 @@ QueryResult result = await _client.query(
                   reservation: Reservation(reservation_name:  result.data[val]['reservation']["name"], )
              );
              _reservationCheckinModel = model;
+             print(result.data[val]['user']['id']);
       }
           setBusy(false);
          }
 }
 
-setErrorMessage({String erorr}){
+setErrorMessage({String erorr, int type}){
   _apiError = erorr;
+  _errorType = type;
   //print(erorr);
+   notifyListeners();
+}
+simpleErrorMesage({String erorr, int type}){
+ _simpleError = erorr;
+  _errorType = type;
    notifyListeners();
 }
 
@@ -123,29 +134,32 @@ QueryResult result = await _client.mutate(
 ).catchError((e){
       loadingOther(false);
       print('Error Occur, ${e.toString()}');
-      setErrorMessage(erorr: e.toString());
+      simpleErrorMesage(erorr: e.toString());
+
         }).timeout(Duration(seconds: 5,), onTimeout: (){
            loadingOther(false);
-          setErrorMessage(erorr:'Server Timeout');
+          simpleErrorMesage(erorr:'Server Timeout',  type: 0);
         },);
 
 
    if(result.data == null) {
       setBusy(false);
              print('Result is Null');
-              setErrorMessage(erorr: 'Server Error, Please try again');
+              simpleErrorMesage(erorr: 'Server Error, Please try again');
+               loadingOther(false);
          }else{           
             if(result.data['getReservationCheckin'] == null){
               print('*************Return Data is Null Exception **************');
               loadingOther(false);
              print('Error: ${result.exception.graphqlErrors.toString()}');
-            setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+            simpleErrorMesage(erorr: result.exception.graphqlErrors.toString(),  type: 0);
              
             }else{
               
              String val = 'approveReservationCheckin'; //Value path to get Data
-             print(result.data[val]['user']['name']["first_name"]);
+             print(result.data[val]['user']['id']);
              print(result.data[val]['user']['name']["last_name"]);
+             simpleErrorMesage(erorr: 'Guest Approved',  type: 1);
       }
           loadingOther(false);
          }

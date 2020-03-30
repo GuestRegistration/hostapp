@@ -24,8 +24,8 @@ String firstId, firstName;
 
 
 void addReservation(){
-// _navigationService.navigateTo(addReservationRoute);
- _graphQlConfiq.getUserToken(); //DEBUG ONLY
+_navigationService.navigateTo(addReservationRoute);
+ //_graphQlConfiq.getUserToken(); //DEBUG ONLY
 }
 
 

@@ -193,6 +193,24 @@ shareReservationLink({String link})async{
     return launch(result);
   }
 
+     //getting data from remote config
+  Future havingProblemCondition() async {
+    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    var result;
+    try {
+      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
+      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
+      await remoteConfig.activateFetched();
+      //result = remoteConfig.getString('TermsConditions');
+      result = remoteConfig.getString('havingProblem');
+    } on FetchThrottledException catch (exception) {
+      print(exception);
+    } catch (exception) {
+      print("unable to fetch remote config");
+    }
+    return launch(result);
+  }
+
    loadingIndicator() {
      return Center(
       child: CircularProgressIndicator(
