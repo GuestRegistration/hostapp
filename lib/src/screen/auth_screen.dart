@@ -270,7 +270,7 @@ class AuthScreenState extends State<AuthScreen> {
                   ),
                   visible: _appledevice,
                 ),
-                new Align(
+                 Align(
                   child: loadingIndicator,
                   alignment: FractionalOffset.center,
                 ),

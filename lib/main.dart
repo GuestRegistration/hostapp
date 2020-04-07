@@ -11,6 +11,7 @@ import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/MainReservationScreen.dart';
 import 'package:hostapp/src/screen/EditReservationScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
+import 'package:hostapp/src/screen/ProScreen.dart';
 import 'package:hostapp/src/screen/SettingsScreen.dart';
 import 'package:hostapp/src/screen/GuestScreen.dart';
 import 'package:hostapp/src/screen/PersonalDetailsScreen.dart';
@@ -70,7 +71,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: PasswordlessApp(),
+      home: ProScreen(),//PasswordlessApp(),
        
       //PasswordlessApp(),//PersonalDetailsScreen(),//PasswordlessApp(),//Dashboard(showIndex: 0,),//PasswordlessApp(),// Dashboard(showIndex: 0,),////PasswordlessApp(),//PersonalDetailsScreen(),//,//PersonalDetailsScreen(),//Dashboard(showIndex: 0,),//
       onGenerateRoute: generateRoute,
