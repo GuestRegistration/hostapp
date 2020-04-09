@@ -15,6 +15,8 @@ import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'dart:async';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import 'package:flutter/material.dart';
@@ -45,7 +47,8 @@ MutationOptions _addpropertyOption;
 MutationOptions get  getaddPropertyOption => _addpropertyOption;
 RunMutation _runMutation;
 RunMutation get getRunMutation => _runMutation;
-String key;
+ String key;
+  final storage = new FlutterSecureStorage();
 
 QueryResult _result;
 QueryResult get getResult => _result;
@@ -55,9 +58,13 @@ bool isDataEntered = false, continueButton = false, erasseData = false; //Is any
 
  
  void initialize(){
-  //setupRemoteConfig().then((value) => key = value); comment for now till Google Place
+  setupRemoteConfig().then((value) => key = value); //comment for now till Google Place
 pageIndex = 0;
 notifyListeners(); //To Notify changes
+}
+
+getGoogleKey()async{
+   key = await storage.read(key: Constants.constClientToken);
 }
 
 

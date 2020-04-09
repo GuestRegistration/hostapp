@@ -33,7 +33,7 @@ TextEditingController propertyNameController =  TextEditingController();
   Widget build(BuildContext context) {
    return ViewModelProvider<ProViewModel>.withConsumer(
       viewModel: ProViewModel(),
-      //onModelReady: (model) => model.setupRemoteConfig(),
+      onModelReady: (model) => model.setupRemoteConfig(),
       builder: (context, model, child) =>
        Scaffold(
     resizeToAvoidBottomPadding: true,
@@ -46,7 +46,7 @@ TextEditingController propertyNameController =  TextEditingController();
                headerButton(),
                 Padding(
                      padding: const EdgeInsets.all(8.0),
-                     child: Text('Demo Screen', //Pro Screen
+                     child: Text('Pro Screen', //Pro Screen
                       style:  TextStyle(
               color: AppColor.black,
               fontSize: AppFontSizes.largest,
@@ -81,35 +81,35 @@ TextEditingController propertyNameController =  TextEditingController();
           //        secondPlace(model);
           //       },
           //     ),
-               CollectText(ttile: 'Property Name',),
-               GestureDetector(
-                      child:  TextFormField(
-                        controller: propertyNameController,
-                    keyboardType: TextInputType.text,
-                    decoration:  InputDecoration(
-                      enabledBorder: new OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: new BorderSide(color: AppColor.borderColor,
-                      ),
-                  ),
-                    border: new OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: new BorderSide(color: AppColor.borderColor
-                      ),
-                  ),
-                    hintStyle: AppTextStyle.inputHint(context),
-                  ),
-                   onTap: ()async{
-                      secondPlace(model);
-          },
-                  ),  
-                  ),
-                   CollectText(ttile: 'Property Address',),
-                    InputField(
-                    placeholder: 'PropertyAddress',
-                    decoration: null,
-                    controller: addressController,
-                  ),
+          //      CollectText(ttile: 'Property Name',),
+          //      GestureDetector(
+          //             child:  TextFormField(
+          //               controller: propertyNameController,
+          //           keyboardType: TextInputType.text,
+          //           decoration:  InputDecoration(
+          //             enabledBorder: new OutlineInputBorder(
+          //             borderRadius: BorderRadius.circular(8.0),
+          //             borderSide: new BorderSide(color: AppColor.borderColor,
+          //             ),
+          //         ),
+          //           border: new OutlineInputBorder(
+          //             borderRadius: BorderRadius.circular(8.0),
+          //             borderSide: new BorderSide(color: AppColor.borderColor
+          //             ),
+          //         ),
+          //           hintStyle: AppTextStyle.inputHint(context),
+          //         ),
+          //          onTap: ()async{
+          //             secondPlace(model);
+          // },
+          //         ),  
+          //         ),
+          //          CollectText(ttile: 'Property Address',),
+          //           InputField(
+          //           placeholder: 'PropertyAddress',
+          //           decoration: null,
+          //           controller: addressController,
+          //         ),
     //            GooglePlaceAutoCompleteTextField(
     //    googleAPIKey: 'AIzaSyCBRhAT9zrldvx7CMcdDgPt0VlCNLPtKpM',//model.key,
     //     textEditingController: controller,
@@ -137,12 +137,12 @@ TextEditingController propertyNameController =  TextEditingController();
        
     //     }
     // ),
-    SizedBox(height: 30,),
-    Text('Message: $error', style: TextStyle(
-               color:AppColor.kErrorRed,
-               fontSize: 17.0,
-               fontWeight: FontWeight.normal
-           ),)
+    // SizedBox(height: 30,),
+    // Text('Message: $error', style: TextStyle(
+    //            color:AppColor.kErrorRed,
+    //            fontSize: 17.0,
+    //            fontWeight: FontWeight.normal
+    //        ),)
       ],),
       ),
     ),
@@ -152,9 +152,9 @@ TextEditingController propertyNameController =  TextEditingController();
   secondPlace(ProViewModel model)async{
     Prediction prediction = await PlacesAutocomplete.show(
                           context: context,
-                          apiKey: 'AIzaSyCBRhAT9zrldvx7CMcdDgPt0VlCNLPtKpM',//model.key,
+                          apiKey: model.key,
                           mode: Mode.overlay, // Mode.fullscreen
-                          sessionToken: controller.text,
+                         // sessionToken: controller.text,
                           onError: (value) {
                             errorMessage(message: value.errorMessage);
                           },

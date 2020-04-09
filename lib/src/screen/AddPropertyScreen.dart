@@ -147,47 +147,43 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
              )
           ],),
                  verticalSpaceSmall,
-               CollectText(ttile: 'Property Name',),
-               verticalSpaceSmall,
-                    InputField(
-                    placeholder: 'PropertyAddress',
-                    decoration: null,
-                    controller: propertyNameController,
-                  ), 
-        //       (model.busy ?  CircularProgressIndicator() :
-        //        GestureDetector(
-        //               child:  TextFormField(
-        //                 controller: propertyNameController,
-        //             keyboardType: TextInputType.number,
-        //             decoration:  InputDecoration(
-        //               enabledBorder: new OutlineInputBorder(
-        //               borderRadius: BorderRadius.circular(8.0),
-        //               borderSide: new BorderSide(color: AppColor.borderColor,
-        //               ),
-        //           ),
-        //             border: new OutlineInputBorder(
-        //               borderRadius: BorderRadius.circular(8.0),
-        //               borderSide: new BorderSide(color: AppColor.borderColor
-        //               ),
-        //           ),
-        //             hintStyle: AppTextStyle.inputHint(context),
-        //           ),
-        //            onTap: ()async{
-        //                Prediction prediction = await PlacesAutocomplete.show(
-        //                   context: context,
-        //                   apiKey: model.key,
-        //                   mode: Mode.overlay, // Mode.fullscreen
-                          
-        //                   );
-        //  propertyNameController.text=prediction.structuredFormatting.mainText;
-        //   //addressController.selection = TextSelection.fromPosition(TextPosition(offset: prediction.structuredFormatting.mainText.length));
-        //   setState(() {
-        //     addressController.text = prediction.structuredFormatting.secondaryText;
-        //   });
-        //   },
-        //           ),  
-        //           )),
-                  verticalSpaceSmall,
+              //  CollectText(ttile: 'Property Name',),
+              //  verticalSpaceSmall,
+              //       InputField(
+              //       placeholder: 'PropertyAddress',
+              //       decoration: null,
+              //       controller: propertyNameController,
+              //     ), 
+       
+              //     verticalSpaceSmall,
+              //      CollectText(ttile: 'Property Address',),
+              //       InputField(
+              //       placeholder: 'PropertyAddress',
+              //       decoration: null,
+              //       controller: addressController,
+              //     ),
+              (model.busy ? _customFuntion.loadingIndicator() : GestureDetector(
+                      child:  TextFormField(
+                        controller: propertyNameController,
+                    keyboardType: TextInputType.text,
+                    decoration:  InputDecoration(
+                      enabledBorder: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor,
+                      ),
+                  ),
+                    border: new OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: new BorderSide(color: AppColor.borderColor
+                      ),
+                  ),
+                    hintStyle: AppTextStyle.inputHint(context),
+                  ),
+                   onTap: ()async{
+                      secondPlace(model);
+          },
+                  ),  
+                  )),
                    CollectText(ttile: 'Property Address',),
                     InputField(
                     placeholder: 'PropertyAddress',
@@ -550,6 +546,7 @@ Padding(
         );
      
   }
+ 
   headerButton(){
 return Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -703,6 +700,25 @@ listenerScreen2(TextEditingController controller){
       
     });
 }
+secondPlace(AddPropertyViewModel model)async{
+    Prediction prediction = await PlacesAutocomplete.show(
+                          context: context,
+                          apiKey: model.key, 
+                          mode: Mode.overlay, // Mode.fullscreen
+                         // sessionToken: controller.text,
+                          onError: (value) {
+                          //  errorMessage(message: value.errorMessage);
+                          },
+                         // components: [Component(Component.country, "en")],
+                          );
+                          propertyNameController.text=prediction.structuredFormatting.mainText;
+          //addressController.selection = TextSelection.fromPosition(TextPosition(offset: prediction.structuredFormatting.mainText.length));
+          setState(() {
+            addressController.text = prediction.structuredFormatting.secondaryText;
+          });
+      
+           // errorMessage(message: prediction.description);
+  }
 
 errasedAll(BuildContext contex){
   return Center(

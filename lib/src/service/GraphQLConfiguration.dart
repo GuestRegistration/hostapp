@@ -52,10 +52,7 @@ class GraphQLConfiguration {
   //   //   return userToken;
   //   // });
 //   // }
-// getfromLocalClientToken()async{
-//    clientToken =  await storage.read(key: "CToken");
-//    return clientToken;
-// }
+
 
 //Anytime when you want to query, Firstly put this before clientoQuery function
   getNeccessartyToken()async{

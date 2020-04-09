@@ -71,8 +71,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: ProScreen(),//PasswordlessApp(),
-       
+      home: PasswordlessApp(),//ProScreen(),//PasswordlessApp(),
       //PasswordlessApp(),//PersonalDetailsScreen(),//PasswordlessApp(),//Dashboard(showIndex: 0,),//PasswordlessApp(),// Dashboard(showIndex: 0,),////PasswordlessApp(),//PersonalDetailsScreen(),//,//PersonalDetailsScreen(),//Dashboard(showIndex: 0,),//
       onGenerateRoute: generateRoute,
     ),

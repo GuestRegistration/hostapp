@@ -22,6 +22,7 @@ static const String constEmail ='UserEmail';
 static const String constID = 'UserID';
 static const String constUserToken = 'UserToken';
 static const String constClientToken = 'ClientToken';
+static const String placeAPI = 'Googleplace';
 
 //User Details
 static const String constFname = 'Fname';
