@@ -1,6 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart'; //for country code
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async' show Future;
@@ -27,7 +26,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   String mobile;
   bool loading = false;
-  DatabaseReference userRef;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String email1;
   final scaffoldkey = GlobalKey<ScaffoldState>();

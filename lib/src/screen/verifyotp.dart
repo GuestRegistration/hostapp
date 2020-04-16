@@ -6,7 +6,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/welcome.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 
 class Verifyotp extends StatefulWidget {
@@ -398,7 +397,6 @@ class _VerifyotpState extends State<Verifyotp> {
     _timer.cancel();
   }
 
-  SharedPreferences sharedPreferences;
 
   getfromLocalClientToken() async {
     print("inside getfromLocal ClientToken ");

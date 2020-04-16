@@ -32,7 +32,7 @@ String _simpleError;
 String get getSimpleMessage => _simpleError;
 ReservationCheckinModel _reservationCheckinModel;
 ReservationCheckinModel get reservationData => _reservationCheckinModel;
- int _errorType;
+ int _errorType = 0;
  int get getErrorType => _errorType;
 
 void initialize({String id,}){
@@ -99,7 +99,6 @@ QueryResult result = await _client.query(
                   reservation: Reservation(reservation_name:  result.data[val]['reservation']["name"], )
              );
              _reservationCheckinModel = model;
-             print(result.data[val]['user']['id']);
       }
           setBusy(false);
          }
@@ -118,8 +117,9 @@ simpleErrorMesage({String erorr, int type}){
 }
 
 
-//Button clicked to approve User
+//Button clicked to approve User and pass reservation ID
 approveGuest({String id})async{
+  print('I want to approve reservation ID is $id');
 loadingOther(true);
  await _graphQlConfiq.getNeccessartyToken();
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
@@ -163,5 +163,13 @@ QueryResult result = await _client.mutate(
       }
           loadingOther(false);
          }
+}
+
+gotoDashboard(){
+  _navigationService.navigateTo(dashboardRoute); //GOTO DASBHOARD..
+}
+
+test(){
+  loadingOther(true);
 }
 }

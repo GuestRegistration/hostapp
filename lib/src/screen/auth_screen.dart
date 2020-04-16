@@ -10,8 +10,6 @@ import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/service/queryMutation.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'welcome.dart';
 import 'sign_in.dart';
 import 'login_page.dart';
@@ -36,7 +34,6 @@ class AuthScreenState extends State<AuthScreen> {
   bool supportsAppleSignIn = false;
   QueryMutation addMutation = QueryMutation();
   Locale _myLocale;
-  SharedPreferences sharedPreferences;
   String errorMessage = '';
 
 

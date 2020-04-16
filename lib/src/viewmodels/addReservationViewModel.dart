@@ -105,6 +105,8 @@ for (var index = 0; index < result.data["getUserProperties"].length; index++) {
            getBookinChannel(); //fetch list of reservation  
        
 }
+
+
 List<GetProperties> getPropertiesList() {
      return _propertlist;
    }

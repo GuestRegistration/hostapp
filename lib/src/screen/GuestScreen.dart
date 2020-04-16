@@ -124,7 +124,7 @@ class _GuestScreenState extends State<GuestScreen> {
               children: <Widget>[
                Padding(
                  padding: const EdgeInsets.only(left: 8.0),
-                 child: _customFuntion.errorUimessage(errorMessage: model.getSimpleMessage, type: model.getErrorType),
+                 child: Expanded(child: _customFuntion.ErrorUimessage(errorMessage: model.getSimpleMessage, type: model.getErrorType)),
                )
             ],),
               verticalSpaceSmall,
@@ -137,7 +137,7 @@ class _GuestScreenState extends State<GuestScreen> {
                       height: 50,
                       child: (model.loadingOthers ? _customFuntion.loadingIndicator() : Material(
                         child: Center(
-                          child: Text('Approve Guest',
+                          child: Text(model.getErrorType == 1 ? 'Dasbhoard' : 'Approve Guest', //If sucessful goto Dasboard
                             style: TextStyle(
                                 color: AppColor.white,
                                 fontSize: 17.0,
@@ -153,7 +153,13 @@ class _GuestScreenState extends State<GuestScreen> {
                     ),
                   ),
                   onTap: (){
-                   model.approveGuest(id: model.reservationData.user.id);
+                    print('Hi');
+                  //  if(model.getErrorType == 1){
+                  //    model.gotoDashboard();
+                  model.test();
+                  //  }else{
+                  //    model.approveGuest(id: widget.reservationID);
+                  //  }
                   },
                 ))
         ],)
@@ -268,4 +274,5 @@ side: BorderSide(color: AppColor.primaryLight)
               ],
             );
   }
+
 }

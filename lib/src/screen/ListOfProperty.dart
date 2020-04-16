@@ -96,6 +96,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                          ),),
              onPressed: () { 
               model.proPage();
+             
              },
             )
             

@@ -180,7 +180,7 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
                     hintStyle: AppTextStyle.inputHint(context),
                   ),
                    onTap: ()async{
-                      secondPlace(model);
+                      placeAPI(model);
           },
                   ),  
                   )),
@@ -700,7 +700,7 @@ listenerScreen2(TextEditingController controller){
       
     });
 }
-secondPlace(AddPropertyViewModel model)async{
+placeAPI(AddPropertyViewModel model)async{
     Prediction prediction = await PlacesAutocomplete.show(
                           context: context,
                           apiKey: model.key, 

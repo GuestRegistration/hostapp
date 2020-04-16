@@ -1,4 +1,3 @@
-import 'package:encrypt/encrypt.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -9,10 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 import 'package:hostapp/src/util/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:encrypt/encrypt.dart' as Key;
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomFuntion{
@@ -104,6 +101,26 @@ class CustomFuntion{
            ),),
 
        ],),
+   ));
+  }
+
+    ErrorUimessage({String errorMessage, int type}){
+   return  (errorMessage == null ? SizedBox.shrink() : Center(
+     child: Expanded(
+            child: Row(
+         mainAxisAlignment: MainAxisAlignment.center,
+         children: <Widget>[
+           (type == 1 ? Icon(Icons.check_circle, color: Colors.green,): Icon(Icons.error, color: Colors.red,)),
+           SizedBox(width: 10,),
+           Text(errorMessage,
+             style: TextStyle(
+                 color: (type == 1 ? Colors.green : AppColor.kErrorRed),
+                 fontSize: 13.0,
+                 fontWeight: FontWeight.normal
+             ),),
+
+         ],),
+     ),
    ));
   }
 String validateEmail(String value) {
