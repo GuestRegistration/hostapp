@@ -324,7 +324,7 @@ side: BorderSide(color: AppColor.primaryLight)
       print('Error Occur, ${e.toString()}');
       setErrorMessage(error: e.toString());
 
-        }).timeout(Duration(seconds: 5,), onTimeout: (){
+        }).timeout(Duration(seconds: 10,), onTimeout: (){
           stopLoading();
           setErrorMessage(error: 'Server Timeout, Please retry');
         },);
@@ -404,7 +404,7 @@ updateProfile()async{
       print('Error Occur, ${e.toString()}');
       setErrorMessage(error: e.toString());
 
-        }).timeout(Duration(seconds: 5,), onTimeout: (){
+        }).timeout(Duration(seconds: 10,), onTimeout: (){
           stopLoading();
           setErrorMessage(error: 'Server Timeout, Please retry', type: 0);
         },);

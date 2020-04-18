@@ -123,6 +123,27 @@ class CustomFuntion{
      ),
    ));
   }
+
+ approveGuestUimessage({String errorMessage, int type}){
+   return  (errorMessage == null ? SizedBox.shrink() : Center(
+     child: Row(
+         mainAxisAlignment: MainAxisAlignment.center,
+         children: <Widget>[
+           (type == 1 ? Icon(Icons.check_circle, color: Colors.green,): Icon(Icons.error, color: Colors.red,)),
+           SizedBox(width: 10,),
+           Text(errorMessage,
+              textAlign: TextAlign.justify,
+     overflow: TextOverflow.ellipsis,
+      maxLines: 10,
+               style: TextStyle(
+                   color: (type == 1 ? Colors.green : AppColor.kErrorRed),
+                   fontSize: 17.0,
+                   fontWeight: FontWeight.normal
+               ),),
+
+         ],),
+   ));
+  }
 String validateEmail(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';

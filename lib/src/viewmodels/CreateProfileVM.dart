@@ -47,7 +47,7 @@ void initialize({String phoneNumber, lastname, phoneCode, name, authuid, email, 
       print('Error Occur, ${e.toString()}');
       setErrorMessage(error: e.toString());
 
-        }).timeout(Duration(seconds: 5,), onTimeout: (){
+        }).timeout(Duration(seconds: 10,), onTimeout: (){
            setBusy(false);
           setErrorMessage(error: 'Server Timeout, Please retry');
         },);

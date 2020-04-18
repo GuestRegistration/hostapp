@@ -58,7 +58,7 @@ QueryResult result = await _client.query(
       print('Error Occur, ${e.toString()}');
       setErrorMessage(erorr: e.toString());
 
-        }).timeout(Duration(seconds: 5,), onTimeout: (){
+        }).timeout(Duration(seconds: 10,), onTimeout: (){
            setBusy(false);
           setErrorMessage(erorr:'Server Timeout', type: 0);
         },);
@@ -119,7 +119,7 @@ simpleErrorMesage({String erorr, int type}){
 
 //Button clicked to approve User and pass reservation ID
 approveGuest({String id})async{
-  print('I want to approve reservation ID is $id');
+ 
 loadingOther(true);
  await _graphQlConfiq.getNeccessartyToken();
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
@@ -136,7 +136,7 @@ QueryResult result = await _client.mutate(
       print('Error Occur, ${e.toString()}');
       simpleErrorMesage(erorr: e.toString());
 
-        }).timeout(Duration(seconds: 5,), onTimeout: (){
+        }).timeout(Duration(seconds: 10,), onTimeout: (){
            loadingOther(false);
           simpleErrorMesage(erorr:'Server Timeout',  type: 0);
         },);
@@ -155,10 +155,10 @@ QueryResult result = await _client.mutate(
             simpleErrorMesage(erorr: result.exception.graphqlErrors.toString(),  type: 0);
              
             }else{
-              
-             String val = 'approveReservationCheckin'; //Value path to get Data
-             print(result.data[val]['user']['id']);
-             print(result.data[val]['user']['name']["last_name"]);
+            //  String val = 'approveReservationCheckin'; //Value path to get Data
+            //  print(result.data[val]['already_checkedin']);
+            //  print(result.data[val]['approved']);
+            //  print(result.data[val]['approved_at']);
              simpleErrorMesage(erorr: 'Guest Approved',  type: 1);
       }
           loadingOther(false);

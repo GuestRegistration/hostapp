@@ -56,7 +56,7 @@ QueryResult result = await _client.query(
       print('Error Occur, ${e.toString()}');
       setErrorMessage(erorr: e.toString());
 
-        }).timeout(Duration(seconds: 5,), onTimeout: (){
+        }).timeout(Duration(seconds: 10,), onTimeout: (){
            setBusy(false);
           setErrorMessage(erorr: 'Server Timeout');
         },);
@@ -139,7 +139,7 @@ QueryResult result = await _client.query(
       print('Error Occur, ${e.toString()}');
       setErrorMessage(erorr: e.toString());
 
-        }).timeout(Duration(seconds: 5,), onTimeout: (){
+        }).timeout(Duration(seconds: 10,), onTimeout: (){
            loadingOther(false);
           setErrorMessage(erorr: 'Server Timeout');
         },);
@@ -182,6 +182,7 @@ QueryResult result = await _client.query(
                    name: result.data[v][index]["property"]['name'],),
                     )
               );
+             
       }}
             }
        loadingOther(false);

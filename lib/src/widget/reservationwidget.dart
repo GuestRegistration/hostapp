@@ -7,12 +7,15 @@ import 'package:date_format/date_format.dart';
 import 'package:hostapp/src/screen/EditReservationScreen.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/locator.dart';
+import 'package:hostapp/src/widget/approveDialog.dart';
+import 'package:popup_menu/popup_menu.dart';
 
 
 class ReservationWidget extends StatelessWidget{
 final CustomFuntion _customFuntion = locator<CustomFuntion>();
   final GetReservationModel getReservation;
   final String type;
+   GlobalKey btnKey = GlobalKey();
      
    final Function onDeleteItem;
 
@@ -25,6 +28,7 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
 
   @override
   Widget build(BuildContext context) {
+    PopupMenu.context = context;
     return GestureDetector(
                          child:  Card(
                                 elevation: 10,
@@ -43,14 +47,45 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
                                       Padding(
                                         padding: const EdgeInsets.only(left:10.0, top: 10.0),
                                         child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                          children: <Widget>[
-                                            SizedBox(width: 10,),
+                                            Row(children: <Widget>[
+                                              SizedBox(width: 10,),
                                            Text((getReservation.name == null ? '' : getReservation.name),
                                         style: AppTextStyle.titleLarge(context, titleColor(type: type)),),
                                         SizedBox(width: 10,),
 
-                                       (type == 'Past' ? SizedBox.shrink() :  Icon(Icons.verified_user, color: titleColor(type: type),))
-                                         ],
+                                       (type == 'Past' ? SizedBox.shrink() :  Icon(Icons.verified_user, color: titleColor(type: type),)),
+                                            ],),
+                                      //  Padding(
+                                      //    padding: const EdgeInsets.only(right: 10.0),
+                                      //    child:  Icon(Icons.more_vert),
+                                      //  ) 
+                                       Padding(
+                                         padding: const EdgeInsets.only(right: 10.0),
+                                         child:  PopupMenuButton<String>(
+                                           padding: EdgeInsets.zero,
+                                           itemBuilder: (context) => (getReservation.alreadyCheckedin ? alreadyApproveDrop() : notApprovedDrop()),
+                                           onSelected: (value){
+                                            //1 - Approve
+                                            //2 - View
+                                            //3 - Share
+                                            if(value == '1'){
+                                              approveReservation(context);
+
+                                            }else if(value == '2'){
+                                              viewReservation(context);
+
+                                            }else{
+                                               _customFuntion.shareReservationLink(link: getReservation.checkinUrl);
+
+                                            }
+
+                                           },
+                                         )
+                                       ) 
+                                       
+                                       ],
                                      ),
                                       ),
                                 Divider(),
@@ -69,8 +104,9 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
                                   )
                                 ),
                              ),
-
+  key: btnKey,
                     onTap: (){
+                   
                       // print('*************************');
                       //  print('bookingChannel ${getReservation.bookingChannel}');
                       // print('checkedin ${getReservation.checkedinAat}');
@@ -80,21 +116,7 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
                       //    print('name ${getReservation.property.name}');
                       // print('*************************');
 
-                      Navigator.push( context,
-                   MaterialPageRoute(builder: (context) => EditReservationScreen(
-                     id: getReservation.id,
-                    bookingC: getReservation.bookingChannel,
-                    checkoutD: getReservation.checkoutDate,
-                    chekinD: getReservation.checkInDate,
-                    invitelink:getReservation.checkinUrl,
-                    propertyId: getReservation.property.id,
-                    propertyN: getReservation.property.name,
-                  appoved: getReservation.approved,
-                   gname: getReservation.guest,
-                   instructions:  getReservation.instrucstions,
-                   initialGuestName: getReservation.name,
-                  
-                   )));
+                 
                     },
                   );
   }
@@ -119,7 +141,13 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
    Color titleColor({String type}){
     if (type == 'unApproved'){
 
-      return Colors.black;
+//If Already checkin is true return gree else RED
+      if(getReservation.alreadyCheckedin){
+          return Colors.green;
+      }else{
+
+      return Colors.red;
+      }
 
     }else if(type == 'Approved'){
 
@@ -172,4 +200,93 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
    
  }
  }
+
+
+viewReservation(BuildContext context){
+       Navigator.push( context,
+                   MaterialPageRoute(builder: (context) => EditReservationScreen(
+                     id: getReservation.id,
+                    bookingC: getReservation.bookingChannel,
+                    checkoutD: getReservation.checkoutDate,
+                    chekinD: getReservation.checkInDate,
+                    invitelink:getReservation.checkinUrl,
+                    propertyId: getReservation.property.id,
+                    propertyN: getReservation.property.name,
+                  appoved: getReservation.approved,
+                   gname: getReservation.guest,
+                   instructions:  getReservation.instrucstions,
+                   initialGuestName: getReservation.name,
+                  
+                   )));
+}
+
+approveReservation(BuildContext context){
+return showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ApproveDialog( reservationID: getReservation.id,
+              isApproved: getReservation.approved,
+              );});
+}
+
+
+
+alreadyApproveDrop(){
+  return <PopupMenuEntry<String>>[
+                                    PopupMenuItem<String>(
+                                                value: '1',
+                                                child: ListTile(
+                                                  leading: const Icon(Icons.done_all),
+                                                  title: Text(
+                                                    'Approve',
+                                                  ),
+                                                ),
+                                              ),
+                                              PopupMenuItem<String>(
+                                                value: '2',
+                                                child: ListTile(
+                                                  leading: const Icon(Icons.visibility),
+                                                  title: Text(
+                                                    'View',
+                                                  ),
+                                                ),
+                                              ),
+
+                                              PopupMenuItem<String>(
+                                                value: '3',
+                                                child: ListTile(
+                                                  leading: const Icon(Icons.share),
+                                                  title: Text(
+                                                    'Share',
+                                                  ),
+                                                ),
+                                              ),
+                                           ];
+
+}
+
+notApprovedDrop(){
+  return <PopupMenuEntry<String>>[
+
+          PopupMenuItem<String>(
+            value: '2',
+            child: ListTile(
+              leading: const Icon(Icons.visibility),
+              title: Text(
+                'View',
+              ),
+            ),
+          ),
+
+          PopupMenuItem<String>(
+            value: '3',
+            child: ListTile(
+              leading: const Icon(Icons.share),
+              title: Text(
+                'Share',
+              ),
+            ),
+          ),
+        ];
+}
 }

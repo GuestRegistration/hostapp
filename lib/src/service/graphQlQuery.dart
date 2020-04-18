@@ -241,28 +241,10 @@ const String insertData = r"""
 const String approveReservation = r"""
   mutation approve($id: String!){
   approveReservationCheckin(id: $id){
-    user{
-      phone{
-        country_code
-        phone_number
-        complete_phone
-      }
-      name{
-        first_name
-        last_name
-      }
-      email
+      already_checkedin
+      approved
+      approved_at
     }
-    reservation{
-      name
-    }
-    identity{
-      country
-      user_id
-      document_type
-      document_url
-    }
-  }
 }
  """;
 

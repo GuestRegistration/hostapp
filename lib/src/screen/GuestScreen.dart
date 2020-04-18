@@ -33,7 +33,8 @@ class _GuestScreenState extends State<GuestScreen> {
         body: (model.busy ? _customFuntion.loadingWidget() :
          (SingleChildScrollView(
            child: (model.getErrorMessage == null ? 
-            Column(children: <Widget>[
+            Column(children: 
+            <Widget>[
           horizontalSpaceLarge,
                 horizontalSpaceLarge,
                headerButton(),
@@ -122,15 +123,18 @@ class _GuestScreenState extends State<GuestScreen> {
                     Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-               Padding(
-                 padding: const EdgeInsets.only(left: 8.0),
-                 child: Expanded(child: _customFuntion.ErrorUimessage(errorMessage: model.getSimpleMessage, type: model.getErrorType)),
-               )
+               _customFuntion.approveGuestUimessage(errorMessage: model.getSimpleMessage,
+                  type: model.getErrorType)
             ],),
+            (widget.isApproved ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+               _customFuntion.approveGuestUimessage(errorMessage: 'Guest Approved',
+                  type: 1)
+            ],) :  SizedBox.shrink()),
               verticalSpaceSmall,
                 verticalSpaceSmall,
-           
-                     (widget.isApproved || model.getErrorType == 1 ? SizedBox.shrink() : GestureDetector(
+             (widget.isApproved || model.getErrorType == 1 ? SizedBox.shrink() : GestureDetector(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0, right:10.0, bottom: 20),
                     child: Container(
@@ -153,15 +157,15 @@ class _GuestScreenState extends State<GuestScreen> {
                     ),
                   ),
                   onTap: (){
-                    print('Hi');
-                  //  if(model.getErrorType == 1){
-                  //    model.gotoDashboard();
-                  model.test();
-                  //  }else{
-                  //    model.approveGuest(id: widget.reservationID);
-                  //  }
+                   if(model.getErrorType == 1){
+                     model.gotoDashboard();
+                  
+                   }else{
+                     model.approveGuest(id: widget.reservationID);
+                   }
                   },
                 ))
+                   
         ],)
         : Column(
           mainAxisAlignment: MainAxisAlignment.center,
