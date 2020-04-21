@@ -176,13 +176,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.3+2"
-  find_dropdown:
-    dependency: "direct main"
-    description:
-      name: find_dropdown
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.8"
   firebase:
     dependency: transitive
     description:
@@ -281,13 +274,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.0+3"
-  firebase_storage:
-    dependency: "direct main"
-    description:
-      name: firebase_storage
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.1"
   fixnum:
     dependency: transitive
     description:
@@ -473,13 +459,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.3"
-  icofont_flutter:
-    dependency: "direct main"
-    description:
-      name: icofont_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.3.0"
   image:
     dependency: transitive
     description:
@@ -494,13 +473,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3+1"
-  intercom_flutter:
-    dependency: "direct main"
-    description:
-      name: intercom_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.7"
   international_phone_input:
     dependency: "direct main"
     description:
@@ -718,13 +690,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.23.1"
-  select_dialog:
-    dependency: transitive
-    description:
-      name: select_dialog
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.7"
   share:
     dependency: "direct main"
     description:
@@ -827,21 +792,21 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.12.0"
+    version: "1.9.4"
   test_api:
     dependency: transitive
     description:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.14"
+    version: "0.2.11"
   test_core:
     dependency: transitive
     description:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.2.15"
   typed_data:
     dependency: transitive
     description:
@@ -912,13 +877,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  webkit_inspection_protocol:
-    dependency: transitive
-    description:
-      name: webkit_inspection_protocol
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.0"
   websocket:
     dependency: transitive
     description:

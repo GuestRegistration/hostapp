@@ -1,4 +1,3 @@
-import 'package:find_dropdown/find_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hostapp/src/locator.dart';

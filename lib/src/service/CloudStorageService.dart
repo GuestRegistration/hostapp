@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 
 class CloudStorageService {
@@ -9,23 +8,23 @@ class CloudStorageService {
     @required String title,
   }) async {
 
-    final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('DemoProperties');
-   var imageFileName = title + DateTime.now().millisecondsSinceEpoch.toString();
+  //   final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('DemoProperties');
+  //  var imageFileName = title + DateTime.now().millisecondsSinceEpoch.toString();
 
-    StorageUploadTask uploadTask = firebaseStorageRef.child(imageFileName).putFile(imageToUpload); //Upload Image with path
-    StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
+  //   StorageUploadTask uploadTask = firebaseStorageRef.child(imageFileName).putFile(imageToUpload); //Upload Image with path
+  //   StorageTaskSnapshot storageSnapshot = await uploadTask.onComplete;
 
-    var downloadUrl = await storageSnapshot.ref.getDownloadURL();
+  //   var downloadUrl = await storageSnapshot.ref.getDownloadURL();
 
-    if (uploadTask.isComplete) {
-      var url = downloadUrl.toString();
-      return CloudStorageResult(
-        imageUrl: url,
-        imageFileName: imageFileName,
-        );
-    }
+  //   if (uploadTask.isComplete) {
+  //     var url = downloadUrl.toString();
+  //     return CloudStorageResult(
+  //       imageUrl: url,
+  //       imageFileName: imageFileName,
+  //       );
+  //   }
 
-    return null;
+  //   return null;
   }
 }
 
