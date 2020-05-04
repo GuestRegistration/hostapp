@@ -1,0 +1,17 @@
+# This is a generated file; do not edit or check into version control.
+apple_sign_in=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/apple_sign_in-0.1.0/
+cloud_firestore=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.13.0+1/
+device_info=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/device_info-0.4.1+4/
+firebase_auth=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.15.4/
+firebase_auth_web=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-0.1.2/
+firebase_core=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.3+3/
+firebase_core_web=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-0.1.1+2/
+firebase_database=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/firebase_database-3.1.1/
+firebase_dynamic_links=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/firebase_dynamic_links-0.5.0+9/
+flutter_secure_storage=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage-3.3.1+1/
+google_sign_in=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/google_sign_in-4.1.1/
+google_sign_in_web=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/google_sign_in_web-0.8.3/
+path_provider=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.0/
+shared_preferences=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.6+1/
+shared_preferences_macos=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+4/
+shared_preferences_web=/Users/macaulaygidado/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+3/
