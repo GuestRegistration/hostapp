@@ -65,7 +65,7 @@ class _ApproveDialogState extends State<ApproveDialog> {
                       Expanded(
                     child: GestureDetector(
                 child: Padding(
-                  padding: const EdgeInsets.all(1.0),
+                  padding: const EdgeInsets.only(left: 8.0),
                   child: Container(
                     width: 100,
                     height: 50,

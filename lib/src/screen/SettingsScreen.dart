@@ -31,7 +31,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Column(children: <Widget>[
                  verticalSpaceMedium2,
                   Padding(
-              padding: const EdgeInsets.only(top: 1.0),
+              padding: const EdgeInsets.only(top: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -167,36 +167,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
                 
-                verticalSpaceLarge,
-                verticalSpaceMedium,
-                GestureDetector(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
-                  child: Container(
-                    height: 50,
-                    child: Material(
-                      child: Center(
-                        child: Text('Sign Out',
-                            style: TextStyle(
-                                color: AppColor.white,
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.bold
-                            ),),
-                      ),
-                     color: Color(0xffD13B3B),
-                      shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: AppColor.borderColor)
-                      ),
-
+//SignOUT
+                 verticalSpaceMedium,
+                 Container(
+                alignment: Alignment.center,
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: new BorderRadius.circular(
+                      10.0,
                     ),
-                  ),
+                    border: Border.all(color: Color(0xffC6DEE9))),
+                child: new FlatButton(
+                  onPressed: () {
+                     signOut();
+                  },
+                  child: ListTile(leading: Text(
+                          'Sign Out',
+                          style: TextStyle(
+                            color: Color(0xff8F8F8F),
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        trailing: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Color(0xff808080),
+                            size: 18.0,
+                          ),
+                        )
                 ),
-                onTap: (){
-                signOut();
-            
-                },
               ),
+                
+             
               ],)
         )
       )

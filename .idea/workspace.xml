@@ -2,21 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2a60331-5d2c-4148-9ea2-d62a124fe9a0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/key.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/.filecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/6453626b9adc2bfaebf48d095d99477f/app.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/hostapp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hostapp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/GuestScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/GuestScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/ListOfProperty.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/ListOfProperty.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/auth_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/auth_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/mainReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/mainReservationScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/service/graphQlQuery.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/service/graphQlQuery.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/GuestScreenViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/GuestScreenViewModel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/MainReservationViewmodel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/MainReservationViewmodel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/loadingViewModel/addpropertyloadingViewmodel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/loadingViewModel/addpropertyloadingViewmodel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
@@ -30,7 +19,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Mobile_API_29" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="1854c424" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -48,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1704">
-              <caret line="71" selection-start-line="71" selection-end-line="71" />
+            <state relative-caret-position="1440">
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
             </state>
           </provider>
         </entry>
@@ -57,11 +46,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="37" column="18" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
-              <folding>
-                <element signature="e#1487#1639#0" />
-              </folding>
+            <state relative-caret-position="282">
+              <caret line="42" column="22" lean-forward="true" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -149,6 +135,7 @@
       <pane id="ProjectPane" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -156,7 +143,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
@@ -225,7 +212,7 @@
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.24962178" />
       <window_info id="Designer" order="1" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.30559757" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.31013617" />
       <window_info id="Structure" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
@@ -560,13 +547,7 @@
     <entry file="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_remote_config-0.3.0+3/lib/firebase_remote_config.dart">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/src/screen/setting.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/screen/setting.dart" />
     <entry file="file://$PROJECT_DIR$/lib/src/viewmodels/addReservationViewModel.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="121">
@@ -648,18 +629,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1704">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
+        <state relative-caret-position="1440">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="37" column="18" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
-          <folding>
-            <element signature="e#1487#1639#0" />
-          </folding>
+        <state relative-caret-position="282">
+          <caret line="42" column="22" lean-forward="true" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
         </state>
       </provider>
     </entry>

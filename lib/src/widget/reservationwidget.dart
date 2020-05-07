@@ -9,7 +9,8 @@ import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/widget/approveDialog.dart';
 import 'package:popup_menu/popup_menu.dart';
-
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ReservationWidget extends StatelessWidget{
 final CustomFuntion _customFuntion = locator<CustomFuntion>();
@@ -65,20 +66,25 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
                                          padding: const EdgeInsets.only(right: 10.0),
                                          child:  PopupMenuButton<String>(
                                            padding: EdgeInsets.zero,
-                                           itemBuilder: (context) => (getReservation.alreadyCheckedin ? alreadyApproveDrop() : notApprovedDrop()),
+                                           itemBuilder: (context) => (getReservation.alreadyCheckedin ?
+                                            alreadyApproveDrop() 
+                                            : notApprovedDrop()),
                                            onSelected: (value){
                                             //1 - Approve
                                             //2 - View
                                             //3 - Share
+                                            //4 - Copy
                                             if(value == '1'){
                                               approveReservation(context);
 
                                             }else if(value == '2'){
                                               viewReservation(context);
 
-                                            }else{
+                                            }else if(value == '3'){
                                                _customFuntion.shareReservationLink(link: getReservation.checkinUrl);
 
+                                            }else{
+                                              copyLink(context);
                                             }
 
                                            },
@@ -229,6 +235,14 @@ return showDialog(
               );});
 }
 
+copyLink(BuildContext context){
+  Clipboard.setData(new ClipboardData(text: getReservation.checkinUrl));
+                              Scaffold.of(context).showSnackBar( 
+          SnackBar(backgroundColor: AppColor.primary,
+            content:Text("Reservation link copied", style: AppTextStyle.error(context, Colors.white))));
+          print('Copired');
+}
+
 
 
 alreadyApproveDrop(){
@@ -261,6 +275,16 @@ alreadyApproveDrop(){
                                                   ),
                                                 ),
                                               ),
+
+                                              PopupMenuItem<String>(
+                                                value: '4',
+                                                child: ListTile(
+                                                  leading: const Icon(FontAwesomeIcons.copy),
+                                                  title: Text(
+                                                    'Copy',
+                                                  ),
+                                                ),
+                                              ),
                                            ];
 
 }
@@ -287,6 +311,15 @@ notApprovedDrop(){
               ),
             ),
           ),
+          PopupMenuItem<String>(
+          value: '4',
+          child: ListTile(
+            leading: const Icon(FontAwesomeIcons.copy),
+            title: Text(
+              'Copy',
+            ),
+          ),
+        ),
         ];
 }
 }

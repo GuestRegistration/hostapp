@@ -105,4 +105,8 @@ setErrorMessage({String erorr}){
 d()async{
      await _graphQlConfiq.getUserToken();
 }
+
+movetoSettings(){
+  _navigationService.navigateTo(settingsRoute);
+}
 }

@@ -48,5 +48,6 @@ const String addReservationRoute = '/addreservat';
 const String updatepropertyloadingRoute = '/updateProperty';
 const String addReservationloadingRoute = '/reseloading';
 const String reservationInstructionRoute = '/reservationInstru';
+const String settingsRoute = '/settings';
 
 

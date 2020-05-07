@@ -5,10 +5,11 @@ import 'package:hostapp/src/screen/ProScreen.dart';
 import 'package:hostapp/src/screen/AddReservationScreen.dart';
 import 'package:hostapp/src/widget/loadingScreen/AddReservationLoadingWidget.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
-import 'package:hostapp/src/screen/WrapperScreen.dart';
+import 'package:hostapp/src/screen/NotificationScreen.dart';
 import 'package:hostapp/src/screen/SendCheckInInstruction.dart';
 import 'package:hostapp/src/widget/loadingScreen/UpdatePropertyWidget.dart';
 import 'package:hostapp/src/util/constants.dart';
+import 'package:hostapp/src/screen/SettingsScreen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -54,6 +55,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: SendCheckInInstruction(movedData: settings.arguments),
+      );
+
+      case settingsRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SettingsScreen(),
       );
 
       

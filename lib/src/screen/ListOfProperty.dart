@@ -45,7 +45,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                Padding(
               padding: const EdgeInsets.only(top: 30.0, left: 20),
               child:  Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text('Properties', 
               style:  TextStyle(
@@ -53,7 +53,11 @@ class _ListOfPropertyState extends State<ListOfProperty>{
             fontSize: AppFontSizes.largest,
             fontWeight: FontWeight.bold
           )
-        )
+        ),
+        GestureDetector(child: Icon(Icons.settings, size: 30,),
+         onTap: (){
+          model.movetoSettings();
+        },)
                 ],
               )
             ),
@@ -95,7 +99,8 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                              fontWeight: FontWeight.bold
                          ),),
              onPressed: () { 
-              model.proPage();
+          //    model.proPage();
+               model.addproperty();
              
              },
             )

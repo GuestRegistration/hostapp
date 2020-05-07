@@ -70,7 +70,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
               children: <Widget>[ 
                  horizontalSpaceLarge,
                 horizontalSpaceLarge,
-               headerButton(),
+               headerButton(model),
                Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget>[
@@ -310,51 +310,53 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                       visible: model.linkUIVisisblity,
                     ),
                         verticalSpaceLarge,
-                        (model.busy ? CircularProgressIndicator(
-                  strokeWidth: 4,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
-                        backgroundColor: AppColor.borderColor,
-                  ):
-                  (model.linkUIVisisblity ? SizedBox.shrink() //Remove button if it's true;
-                  : GestureDetector(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
-                  child: Container(
-                    height: 50,
-                    child: Material(
-                      child: Center(
-                        child: Text('Continue',
-                          style: TextStyle(
-                              color: AppColor.white,
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.bold
-                          ),),
-                      ),
-                      color: Color(0xFF45A1C9),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18.0),
-                          side: BorderSide(color: AppColor.borderColor)
-                      ),
 
-                    ),
-                  ),
-                ),
-                onTap: (){
-                  model.authenticateReservation(
-                    bookChanl: selectedBookingName,
-                    checkinD: checkinController.text,
-                    checkoutD: checkoutController.text,
-                  //  guestEmail: guestEmailController.text,
-                    guestName: nameofGuestController.text,
-                    propertyID: propertyID
-                  );
+//**************** REMOVE BUTTON FOR NOW */
+              //           (model.busy ? CircularProgressIndicator(
+              //     strokeWidth: 4,
+              //           valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
+              //           backgroundColor: AppColor.borderColor,
+              //     ):
+              //     (model.linkUIVisisblity ? SizedBox.shrink() //Remove button if it's true;
+              //     : GestureDetector(
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
+              //     child: Container(
+              //       height: 50,
+              //       child: Material(
+              //         child: Center(
+              //           child: Text('Continue',
+              //             style: TextStyle(
+              //                 color: AppColor.white,
+              //                 fontSize: 17.0,
+              //                 fontWeight: FontWeight.bold
+              //             ),),
+              //         ),
+              //         color: Color(0xFF45A1C9),
+              //         shape: RoundedRectangleBorder(
+              //             borderRadius: new BorderRadius.circular(18.0),
+              //             side: BorderSide(color: AppColor.borderColor)
+              //         ),
 
-                },
-              )
+              //       ),
+              //     ),
+              //   ),
+              //   onTap: (){
+              //     model.authenticateReservation(
+              //       bookChanl: selectedBookingName,
+              //       checkinD: checkinController.text,
+              //       checkoutD: checkoutController.text,
+              //     //  guestEmail: guestEmailController.text,
+              //       guestName: nameofGuestController.text,
+              //       propertyID: propertyID
+              //     );
+
+              //   },
+              // )
               
-              )
+              // )
 
-              )
+              //)
                    
               ],
             ),
@@ -372,13 +374,13 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
   }
 
 
-headerButton(){
+headerButton(AddReservationViewModel model){
 return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
          // crossAxisAlignment: Cros,
           children: <Widget>[
             GestureDetector(child: Padding(
-        padding: const EdgeInsets.only(left: 6.0, top: 30, bottom: 10),
+        padding: const EdgeInsets.all(1.0),
         child: Container(
           child: Material(
           child: Row(
@@ -404,14 +406,57 @@ return Row(
 borderRadius: new BorderRadius.circular(18.0),
 side: BorderSide(color: AppColor.primaryLight)
 ),
+
     ),
         ),
       ),
             onTap: (){
-               Navigator.pop(context);
+             Navigator.pop(context);
             },
-            ),   ],
+            ),
+    horizontalSpaceMedium,
+    (model.busy ? CircularProgressIndicator(
+                  strokeWidth: 4,
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
+                        backgroundColor: AppColor.borderColor,
+                  ): (model.linkUIVisisblity ? SizedBox.shrink() : GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 150,
+                        height: 35,
+                        child: Material(
+                        child: Center(
+                          child: Text('Continue', //If all field is entered, Display complete else Skip
+                          style: TextStyle(
+                            color: Color(0xFFEFF5F7),
+                            fontSize: 17.0,
+                          ),),
+                        ),
+                        color: Color(0xFF45A1C9),
+                        shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: AppColor.borderColor)
+    ),  ),)  
+),
+                    onTap: (){
+                   model.authenticateReservation(
+                    bookChanl: selectedBookingName,
+                    checkinD: checkinController.text,
+                    checkoutD: checkoutController.text,
+                  //  guestEmail: guestEmailController.text,
+                    guestName: nameofGuestController.text,
+                    propertyID: propertyID
+                  );
+
+                    },
+                  )) 
+)
+   
+                      ],
                     );
+
+
 }
    
    

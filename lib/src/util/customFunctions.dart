@@ -155,7 +155,7 @@ String validateEmail(String value) {
 }
 
 shareReservationLink({String link})async{
-    Share.share('Click on this link to access the property $link');
+    Share.share('Click on this link to access the property $link You are one step closer to your getaway. Check in with this link');
   }
 
 

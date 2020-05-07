@@ -4,8 +4,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostapp/src/screen/ListOfProperty.dart';
 import 'package:hostapp/src/screen/MainReservationScreen.dart';
-import 'package:hostapp/src/screen/PersonalDetailsScreen.dart';
-import 'package:hostapp/src/screen/SettingsScreen.dart';
+import 'package:hostapp/src/screen/NotificationScreen.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 
 class Dashboard extends StatefulWidget {
@@ -65,9 +64,9 @@ class _DashboardState extends State<Dashboard>{
               //Section
               BottomNavigationBarItem(
                 icon: Icon(
-                  MaterialIcons.settings,
+                  MaterialIcons.notifications,
                   color: (_selectedIndex == 2 ? AppColor.primary : Colors.grey), size: 25,),
-                title: new Text("SETTINGS",
+                title: new Text("NOTIFICATION",
                   style: TextStyle(
                      color: (_selectedIndex == 2 ? AppColor.primary :  Colors.grey),
                       fontSize: 16,
@@ -101,7 +100,7 @@ class _DashboardState extends State<Dashboard>{
    
 
     }else if(_selectedIndex == 2){ 
-     return SettingsScreen();
+     return NotificationScreen();
     }
   }
   

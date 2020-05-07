@@ -123,7 +123,10 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             children: <Widget>[
-             headerButton(),
+              Padding(
+                    padding: const EdgeInsets.only(top: 30.0),
+                    child: headerButton(model) //App header.
+                ), 
                Padding(
               padding: const EdgeInsets.only(top: 1.0),
               child: Row(
@@ -291,50 +294,36 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
                     },
                   ),
  
- 
- verticalSpaceSmall,
-  verticalSpaceLarge,
- GestureDetector(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
-                  child: Container(
-                    height: 50,
-                    child: Material(
-                      child: Center(
-                        child: Text('Continue',
-                          style: TextStyle(
-                              color: AppColor.white,
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.bold
-                          ),),
-                      ),
-                      color: (model.continueButton ? Color(0xFF45A1C9) : AppColor.disableButton),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18.0),
-                          side: BorderSide(color: AppColor.borderColor)
-                      ),
+ //******* REMOVE BUTTON FOR NOW. */
+//  verticalSpaceSmall,
+//   verticalSpaceLarge,
+//  GestureDetector(
+//                 child: Padding(
+//                   padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
+//                   child: Container(
+//                     height: 50,
+//                     child: Material(
+//                       child: Center(
+//                         child: Text('Continue',
+//                           style: TextStyle(
+//                               color: AppColor.white,
+//                               fontSize: 17.0,
+//                               fontWeight: FontWeight.bold
+//                           ),),
+//                       ),
+//                       color: (model.continueButton ? Color(0xFF45A1C9) : AppColor.disableButton),
+//                       shape: RoundedRectangleBorder(
+//                           borderRadius: new BorderRadius.circular(18.0),
+//                           side: BorderSide(color: AppColor.borderColor)
+//                       ),
 
-                    ),
-                  ),
-                ),
-                onTap: (){
-                  //   // if(model.continueButton == false){
-                    //   //   //DO Nothing
-                    //   // }else{
-                        if(model.getCountry == null){
-                        model.setCountry(selectedcountry: defaultCountry);
-                            }
-                        model.movetoScreen2(
-                        address: addressController.text.trim(),
-                        contactEmail: emailcontroller.text.trim(),
-                        phoneN: phoneNumber.text.trim(),
-                        isoCod: phoneIsoCode,
-                        country: model.getCountry,
-                        propertyName: propertyNameController.text.trim()
-                      );
-                    //  // }
-                },
-              )
+//                     ),
+//                   ),
+//                 ),
+//                 onTap: (){
+                 
+//                 },
+//               )
 
             ],
           ),
@@ -547,13 +536,13 @@ Padding(
      
   }
  
-  headerButton(){
+  headerButton( AddPropertyViewModel model){
 return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
          // crossAxisAlignment: Cros,
           children: <Widget>[
             GestureDetector(child: Padding(
-        padding: const EdgeInsets.only(left: 6.0, top: 30, bottom: 0),
+        padding: const EdgeInsets.all(1.0),
         child: Container(
           child: Material(
           child: Row(
@@ -579,14 +568,58 @@ return Row(
 borderRadius: new BorderRadius.circular(18.0),
 side: BorderSide(color: AppColor.primaryLight)
 ),
+
     ),
         ),
       ),
             onTap: (){
-               Navigator.pop(context);
+             Navigator.pop(context);
             },
-            ),   ],
+            ),
+    horizontalSpaceMedium,
+    GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 150,
+                        height: 35,
+                        child: Material(
+                        child: Center(
+                          child: Text('Continue', //If all field is entered, Display complete else Skip
+                          style: TextStyle(
+                            color: Color(0xFFEFF5F7),
+                            fontSize: 17.0,
+                          ),),
+                        ),
+                        color: (model.continueButton ? Color(0xFF45A1C9) : AppColor.disableButton),
+                        shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: AppColor.borderColor)
+    ),  ),)  
+),
+                    onTap: (){
+                     //   // if(model.continueButton == false){
+                    //   //   //DO Nothing
+                    //   // }else{
+                        if(model.getCountry == null){
+                        model.setCountry(selectedcountry: defaultCountry);
+                            }
+                        model.movetoScreen2(
+                        address: addressController.text.trim(),
+                        contactEmail: emailcontroller.text.trim(),
+                        phoneN: phoneNumber.text.trim(),
+                        isoCod: phoneIsoCode,
+                        country: model.getCountry,
+                        propertyName: propertyNameController.text.trim()
+                      );
+                    //  // }
+
+                    },
+                  ),
+
+                      ],
                     );
+
 }
 
   textInputField({
