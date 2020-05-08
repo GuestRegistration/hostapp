@@ -83,8 +83,6 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
                                             }else if(value == '3'){
                                                _customFuntion.shareReservationLink(link: getReservation.checkinUrl);
 
-                                            }else{
-                                              copyLink(context);
                                             }
 
                                            },
@@ -235,14 +233,6 @@ return showDialog(
               );});
 }
 
-copyLink(BuildContext context){
-  Clipboard.setData(new ClipboardData(text: getReservation.checkinUrl));
-                              Scaffold.of(context).showSnackBar( 
-          SnackBar(backgroundColor: AppColor.primary,
-            content:Text("Reservation link copied", style: AppTextStyle.error(context, Colors.white))));
-          print('Copired');
-}
-
 
 
 alreadyApproveDrop(){
@@ -274,17 +264,7 @@ alreadyApproveDrop(){
                                                     'Share',
                                                   ),
                                                 ),
-                                              ),
-
-                                              PopupMenuItem<String>(
-                                                value: '4',
-                                                child: ListTile(
-                                                  leading: const Icon(FontAwesomeIcons.copy),
-                                                  title: Text(
-                                                    'Copy',
-                                                  ),
-                                                ),
-                                              ),
+                                              )
                                            ];
 
 }
@@ -311,15 +291,7 @@ notApprovedDrop(){
               ),
             ),
           ),
-          PopupMenuItem<String>(
-          value: '4',
-          child: ListTile(
-            leading: const Icon(FontAwesomeIcons.copy),
-            title: Text(
-              'Copy',
-            ),
-          ),
-        ),
+         
         ];
 }
 }

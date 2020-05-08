@@ -118,9 +118,14 @@ List<GetProperties> getPropertiesList() {
    }
 
 propertyReservations({String propertyID})async{
+  print(_list.length);
   if(propertyID == null){
     _list = null;
   }else{
+    if(_list.isNotEmpty){
+      print('******************Am not Empty Jare************8');
+      _list.clear();
+    }
      String v = 'getPropertyReservations';
      loadingOther(true);
 
@@ -191,6 +196,8 @@ QueryResult result = await _client.query(
   }
  
 }
-
+movetoSettings(){
+   _navigationService.navigateTo(settingsRoute);
+}
 
 }

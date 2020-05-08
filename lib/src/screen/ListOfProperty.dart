@@ -9,11 +9,12 @@ import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/widget/PropertyWidget.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:hostapp/src/viewmodels/ListOfPropertyViewModel.dart';
+import 'package:hostapp/src/viewmodels/DashboardViewModel.dart';
+
+import 'package:provider/provider.dart';
 
 class ListOfProperty extends StatefulWidget {
-
 
   @override
   _ListOfPropertyState createState() => _ListOfPropertyState();
@@ -56,7 +57,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
         ),
         GestureDetector(child: Icon(Icons.settings, size: 30,),
          onTap: (){
-          model.movetoSettings();
+          //model.movetoSettings();
         },)
                 ],
               )

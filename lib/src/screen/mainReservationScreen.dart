@@ -27,7 +27,6 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
       builder: (context, model, child) =>
        buildTab(model)
       );
-  
   }
 
   buildTab(MainReservationViewModel model){
@@ -46,12 +45,22 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
               //     child: Icon(Icons.search, size: 30, color:  Colors.black,),
               //   )
               // ],
-              title:  Text('Reservations', 
-                style:  TextStyle(
-              color: AppColor.black,
-              fontSize: AppFontSizes.largest,
-              fontWeight: FontWeight.bold
-            )),
+              title:  Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Reservations', 
+              style:  TextStyle(
+            color: AppColor.black,
+            fontSize: AppFontSizes.largest,
+            fontWeight: FontWeight.bold
+          )
+        ),
+        GestureDetector(child: Icon(Icons.settings, size: 30,),
+         onTap: (){
+          model.movetoSettings();
+        },)
+                ],
+              ),
               bottom: TabBar(
                   unselectedLabelColor: Color(0xFFA0A0A0),
                   indicatorSize: TabBarIndicatorSize.label,

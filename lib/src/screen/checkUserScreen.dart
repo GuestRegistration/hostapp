@@ -62,11 +62,7 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
                Container(
                   height: 60,
                   width: 60,
-                  child: CircularProgressIndicator(
-                  strokeWidth: 1,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColor.borderColor,),
-                        backgroundColor: AppColor.borderColor,
-                  ),
+                  child: Icon(Icons.cancel, size: 70, color: Colors.red,)
                 ),
                 SizedBox(height: 30,),
                 Center(
@@ -80,6 +76,8 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
                            
                 ),
                 verticalSpaceLarge,
+
+                //******RETRY BUTTON */
                 GestureDetector(child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: Container(
@@ -106,6 +104,35 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
                   onTap: (){
                     model.initialize(widget.userEmail, context, widget.userid);
                     model.setErrorMessage(erorr: null);
+                  },
+                        ),
+//***GO BACK BUTTON */
+                        verticalSpaceMedium,
+                GestureDetector(child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      child: Material(
+                      child: Center(
+                          child: Text('Back',
+                          style: TextStyle(
+                            color: AppColor.white,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold
+                          ),),
+                      ),
+                      color: Color(0xFF45A1C9),
+                      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: AppColor.borderColor)
+    ),
+                   
+                ),
+                    ),
+                  ),
+                  onTap: (){
+                    Navigator.pop(context);
                   },
                         ),
               ],

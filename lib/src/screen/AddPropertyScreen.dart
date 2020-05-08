@@ -90,19 +90,15 @@ class _AddProprtyUIState extends State<AddProprtyUI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                Column(
+      body:  Column(
           children: <Widget>[
               horizontalSpaceLarge,
             horizontalSpaceLarge,
+            swtichHeader(widget.model, context),
            swtichScreen(widget.model, context)
           //screen2(context, widget.model),
           ],
         ),
-              ],)
-      ),
 
     );
   }
@@ -118,37 +114,19 @@ swtichScreen( AddPropertyViewModel model, BuildContext context){
   }
 }
 
+
+swtichHeader( AddPropertyViewModel model, BuildContext context){
+  if(model.pageIndex == 0){
+    return header1(model);
+  }else if(model.pageIndex == 1){
+     return header2(model);
+  }
+}
+
   screen1(BuildContext context, AddPropertyViewModel model, ){
-      return  Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-          child: Column(
+      return  Expanded(
+          child: ListView(
             children: <Widget>[
-              Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
-                    child: headerButton(model) //App header.
-                ), 
-               Padding(
-              padding: const EdgeInsets.only(top: 1.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                 Padding(
-                   padding: const EdgeInsets.all(8.0),
-                   child: Text('Add a Property', style:  TextStyle(
-            color: AppColor.black,
-            fontSize: AppFontSizes.largest,
-            fontWeight: FontWeight.bold
-          )
-        ),), ],),
-            ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-             Padding(
-               padding: const EdgeInsets.only(left: 8.0),
-               child: _customFuntion.errorUimessage(errorMessage: model.errorM),
-             )
-          ],),
                  verticalSpaceSmall,
               //  CollectText(ttile: 'Property Name',),
               //  verticalSpaceSmall,
@@ -339,41 +317,10 @@ setState(() {
   }
 
  screen2(BuildContext context, AddPropertyViewModel model, ){
-      return  Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-          child: Column(
+      return  Expanded(
+          child: ListView(
             children: <Widget>[
-              Padding(
-              padding: const EdgeInsets.only(top: 50.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                 Padding(
-                   padding: const EdgeInsets.all(8.0),
-                   child: Text('Property Rules', 
-                   style:  TextStyle( //Property Rules
-            color: AppColor.black,
-            fontSize: AppFontSizes.larger,
-            fontWeight: FontWeight.bold
-          )
-        ),), ],),
-            ),
-        //        verticalSpaceSmall,
-        //        Text('Property Rules and T&C Document', style: TextStyle(
-        //     color: Colors.grey,
-        //     fontSize: AppFontSizes.medium,
-        //     fontWeight: FontWeight.bold
-        //   )
-        // ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: _customFuntion.errorUimessage(errorMessage: model.errorM),
-          ),
-            ],
-          ),
+              
         verticalSpaceMedium,
                TextField(
                   keyboardType: TextInputType.multiline,
@@ -876,6 +823,73 @@ errasedAll(BuildContext contex){
 
 }
 
+
+header1(AddPropertyViewModel model,){
+return Column(children: <Widget>[
+  Padding(
+                    padding: const EdgeInsets.only(top: 30.0),
+                    child: headerButton(model) //App header.
+                ), 
+               Padding(
+              padding: const EdgeInsets.only(top: 1.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: Text('Add a Property', style:  TextStyle(
+            color: AppColor.black,
+            fontSize: AppFontSizes.largest,
+            fontWeight: FontWeight.bold
+          )
+        ),), ],),
+            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+             Padding(
+               padding: const EdgeInsets.only(left: 8.0),
+               child: _customFuntion.errorUimessage(errorMessage: model.errorM),
+             )
+          ],),
+],);
+}
+
+header2(AddPropertyViewModel model,){
+return Column(children: <Widget>[
+  Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: Text('Property Rules', 
+                   style:  TextStyle( //Property Rules
+            color: AppColor.black,
+            fontSize: AppFontSizes.larger,
+            fontWeight: FontWeight.bold
+          )
+        ),), ],),
+            ),
+        //        verticalSpaceSmall,
+        //        Text('Property Rules and T&C Document', style: TextStyle(
+        //     color: Colors.grey,
+        //     fontSize: AppFontSizes.medium,
+        //     fontWeight: FontWeight.bold
+        //   )
+        // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: _customFuntion.errorUimessage(errorMessage: model.errorM),
+          ),
+            ],
+          ),
+],);
+}
 }
 
 

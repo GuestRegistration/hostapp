@@ -39,10 +39,11 @@ class UpcomingTab extends ProviderWidget<MainReservationViewModel> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context , int index){
-             return  ReservationWidget(
+             return  (model.list[index].approved && model.list[index].alreadyCheckedin ? SizedBox.shrink(): 
+             ReservationWidget(
                 getReservation: model.list[index],
                 type: 'unApproved',
-                );  
+                ));  
                },))
                
                )

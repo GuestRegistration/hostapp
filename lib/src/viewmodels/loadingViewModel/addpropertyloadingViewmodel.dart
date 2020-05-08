@@ -169,7 +169,7 @@ updatePropertyAPI({List data})async{
 
            }else{
                setBusy(false);
-               _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
+               _navigationService.navigateToandRemove(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
 
            }
            

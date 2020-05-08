@@ -15,6 +15,9 @@ import 'package:hostapp/src/model/getPropertiesModel.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:hostapp/src/model/BookingChannelModel.dart'; 
 
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class EditReservationScreen extends StatefulWidget {
   final String  chekinD, checkoutD, invitelink, propertyN, bookingC, propertyId, instructions, initialGuestName, id;
@@ -43,6 +46,7 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
        List<dynamic> guestName;
        String selectedGuest;
 
+ final globalKey = GlobalKey<ScaffoldState>();
      @override
   void initState() {
     super.initState();
@@ -74,16 +78,14 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
        Scaffold(
-        body: SingleChildScrollView(
-                child: Padding(
+          key: globalKey,
+        body: Padding(
             padding: const EdgeInsets.only(left: 15.0, right: 15.0),
             child: Column(
                 children: <Widget>[
                    horizontalSpaceLarge,
                     horizontalSpaceLarge,
                  headerButton(), 
-                  Column(
-                      children: <Widget>[
                  Row(
                      mainAxisAlignment: MainAxisAlignment.start,
                      children: <Widget>[
@@ -96,150 +98,151 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
               )
           ),), 
                  ],),
+                  Expanded(
+                      child: ListView(
+                        children: <Widget>[
                _customFuntion.errorUimessage(errorMessage: model.errorM),
-                       verticalSpaceSmall,
-                        CollectTextWithout(title: 'Property',),
-                        AbsorbPointer(
-                            child: InputField(
-                          placeholder: 'PropertyName',
-                          decoration: null,
-                          controller: propertyNameController,
-                      ),
+                         verticalSpaceSmall,
+                          CollectTextWithout(title: 'Property',),
+                          AbsorbPointer(
+                              child: InputField(
+                            placeholder: 'PropertyName',
+                            decoration: null,
+                            controller: propertyNameController,
                         ),
-                       
-                             verticalSpaceSmall,
-                     Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: <Widget>[
-                       CollectTextWithout(title: 'Guest',),
-                       viewUI(model),
-
-                     ],),
-                      AbsorbPointer(
-                            child: InputField(
-                              placeholder: 'GuestName',
-                              decoration: null,
-                              controller: guestNameController,
-                          ),),
-                            
-                         
-                          verticalSpaceSmall,
-                           CollectTextWithout(title: 'Booking Channel',),
-                           AbsorbPointer(
-                            child: InputField(
-                              placeholder: 'bookingChannel',
-                              decoration: null,
-                              controller: bookingChannelController,
                           ),
-                           ),
-                      
-                         AbsorbPointer(
-                                                    child: Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Column(
-                              children: <Widget>[
-                               CollectTextWithout(title: 'Check in',),
-                                Container(
-                                 width: MediaQuery.of(context).size.width/2.5,
-                                  child: TextFormField(
-                                controller: checkinController,
-                                style: TextStyle(fontWeight: FontWeight.bold,),
-                                textAlign: TextAlign.center,
-                                keyboardType: TextInputType.number,
-                                decoration:  InputDecoration(
-                                  enabledBorder: new OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: new BorderSide(color: AppColor.borderColor,
-                                  ),
-                              ),
-                        border: new OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: new BorderSide(color: AppColor.borderColor
+                         
+                               verticalSpaceSmall,
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: <Widget>[
+                         CollectTextWithout(title: 'Guest',),
+                         viewUI(model),
+
+                       ],),
+                        AbsorbPointer(
+                              child: InputField(
+                                placeholder: 'GuestName',
+                                decoration: null,
+                                controller: guestNameController,
+                            ),),
+                              
+                           
+                            verticalSpaceSmall,
+                             CollectTextWithout(title: 'Booking Channel',),
+                             AbsorbPointer(
+                              child: InputField(
+                                placeholder: 'bookingChannel',
+                                decoration: null,
+                                controller: bookingChannelController,
                             ),
-
-                      ),
-                        hintStyle: AppTextStyle.inputHint(context),
+                             ),
                         
-                      ),   
-                      onTap: (){
-                            DatePicker.showDatePicker(
-                           context,
-                        showTitleActions: true,
-                        onChanged: (date) {
-                            String v = '${date.day}-${date.month}-${date.year}';
-                            setCheckinDate(value: v);
+                           AbsorbPointer(
+                                                      child: Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Column(
+                                children: <Widget>[
+                                 CollectTextWithout(title: 'Check in',),
+                                  Container(
+                                   width: MediaQuery.of(context).size.width/2.5,
+                                    child: TextFormField(
+                                  controller: checkinController,
+                                  style: TextStyle(fontWeight: FontWeight.bold,),
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                  decoration:  InputDecoration(
+                                    enabledBorder: new OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: new BorderSide(color: AppColor.borderColor,
+                                    ),
+                                ),
+                          border: new OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: new BorderSide(color: AppColor.borderColor
+                              ),
 
-                        }, onConfirm: (date) {
-                             String v = '${date.day}-${date.month}-${date.year}';
-                            setCheckinDate(value: v);
-                        }, currentTime: DateTime.now(), locale: LocaleType.en);
-                      },
-                        ), ), 
-                        ],
+                        ),
+                          hintStyle: AppTextStyle.inputHint(context),
+                          
+                        ),   
+                        onTap: (){
+                              DatePicker.showDatePicker(
+                             context,
+                          showTitleActions: true,
+                          onChanged: (date) {
+                              String v = '${date.day}-${date.month}-${date.year}';
+                              setCheckinDate(value: v);
+
+                          }, onConfirm: (date) {
+                               String v = '${date.day}-${date.month}-${date.year}';
+                              setCheckinDate(value: v);
+                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                        },
+                          ), ), 
+                          ],
+                               
+                              ),
                              
-                            ),
-                           
-                            Column(
-                              children: <Widget>[
-                                  verticalSpaceSmall,
-                               CollectTextWithout(title: 'Check out',),
-                               Container(
-                                   height: 70,
-                                   width: 150,
-                                  child: TextFormField(
-                                controller: checkoutController,
-                                style: TextStyle(fontWeight: FontWeight.bold,),
-                                textAlign: TextAlign.center,
-                                keyboardType: TextInputType.number,
-                                decoration:  InputDecoration(
-                                  enabledBorder: new OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: new BorderSide(color: AppColor.borderColor,
-                                  ),
+                              Column(
+                                children: <Widget>[
+                                    verticalSpaceSmall,
+                                 CollectTextWithout(title: 'Check out',),
+                                 Container(
+                                     height: 70,
+                                     width: 150,
+                                    child: TextFormField(
+                                  controller: checkoutController,
+                                  style: TextStyle(fontWeight: FontWeight.bold,),
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                  decoration:  InputDecoration(
+                                    enabledBorder: new OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: new BorderSide(color: AppColor.borderColor,
+                                    ),
+                                ),
+                          border: new OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: new BorderSide(color: AppColor.borderColor
                               ),
-                        border: new OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: new BorderSide(color: AppColor.borderColor
-                            ),
 
-                      ),
-                        hintStyle: AppTextStyle.inputHint(context),
-                        
-                      ),   
-                      onTap: (){
-                            DatePicker.showDatePicker(
-                           context,
-                        showTitleActions: true,
-                        onChanged: (date) {
-                            String v = '${date.day}-${date.month}-${date.year}';
-                            setCheckOutDate(value: v);
+                        ),
+                          hintStyle: AppTextStyle.inputHint(context),
+                          
+                        ),   
+                        onTap: (){
+                              DatePicker.showDatePicker(
+                             context,
+                          showTitleActions: true,
+                          onChanged: (date) {
+                              String v = '${date.day}-${date.month}-${date.year}';
+                              setCheckOutDate(value: v);
 
-                        }, onConfirm: (date) {
-                             String v = '${date.day}-${date.month}-${date.year}';
-                            setCheckOutDate(value: v);
-                        }, currentTime: DateTime.now(), locale: LocaleType.en);
-                      },
-                        ), ),  ],
-                           
-                            ),
-                              ],
-                            ),
-                         ),
-
-                    ],),
-                  Row(
+                          }, onConfirm: (date) {
+                               String v = '${date.day}-${date.month}-${date.year}';
+                              setCheckOutDate(value: v);
+                          }, currentTime: DateTime.now(), locale: LocaleType.en);
+                        },
+                          ), ),  ],
+                             
+                              ),
+                                ],
+                              ),
+                           ),
+ Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children: <Widget>[
                        CollectTextWithout(title: 'Check-In Link',),
                        shareView(),
                      ],),
-                     TextFormField(
-                          controller: inviteInLinkController,
-                          enabled: false,
-                          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.blue),
-                            keyboardType: TextInputType.number,
-                            decoration:  InputDecoration(
+                     GestureDetector(
+                       child: InputDecorator(
+                         child: Text(widget.invitelink,  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                                textAlign: TextAlign.start,),
+                        decoration: InputDecoration(
+                          //labelText: widget.invitelink,
                               enabledBorder: new OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.0),
                               borderSide: new BorderSide(color: AppColor.borderColor,
@@ -251,13 +254,15 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
                       ),
                       
                     )
-
                   ),
+                       ),
+                      
                   onTap: (){
-                    //Share Link
-                    _customFuntion.shareReservationLink(link: model.getinviteLink);
+                    print('Hi');
+                    //Copy Link
+                     copyLink();
                   },
-                      ),
+                     ),
  verticalSpaceSmall,
 
                       CollectTextWithout(title: 'Check-in Instructions',),
@@ -282,6 +287,9 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
                           verticalSpaceSmall,
                           verticalSpaceLarge,
 
+                      ],),
+                  ),
+                 
                 //     GestureDetector(
                 //   child: Padding(
                 //     padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
@@ -314,12 +322,8 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
                 ],
               ),
             
-          ) 
-                
+          )          
         )
-        
-      )
-
     );
   }
 
@@ -369,6 +373,7 @@ side: BorderSide(color: AppColor.primaryLight)
             ),   ],
                     );
 }
+ 
    listener(TextEditingController controller){
    controller.addListener(() {
       if(controller.text.isNotEmpty){
@@ -398,6 +403,7 @@ checkinController.text = value;
 checkoutController.text = value;
     });
   }
+  
   assignValue(AddReservationViewModel model){
     if(model.linkUIVisisblity){
      inviteInLinkController.text = model.getinviteLink;
@@ -459,9 +465,18 @@ return showDialog(
     ),  ),)  
                      ),
                     onTap: (){
-                     _customFuntion.shareReservationLink(link: widget.invitelink);
+                    _customFuntion.shareReservationLink(link: widget.invitelink);
+                   
                     },
                   );
   }
+  copyLink(){
+  Clipboard.setData(new ClipboardData(text: widget.invitelink));
+                              globalKey.currentState.showSnackBar( 
+          SnackBar(backgroundColor: AppColor.primary,
+            content:Text("Reservation link copied", style: AppTextStyle.error(context, Colors.white))));
+          
+}
+
 }
 

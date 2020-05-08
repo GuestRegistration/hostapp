@@ -27,7 +27,6 @@ class _DashboardState extends State<Dashboard>{
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
     resizeToAvoidBottomPadding: true,
       body:  switchBody(),

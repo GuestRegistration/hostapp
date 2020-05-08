@@ -86,28 +86,11 @@ buttonStatus({bool status}){
   Widget build(BuildContext context) {
    
     return Scaffold(
-      body: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-           Column(
+      body: Column(
           children: <Widget>[
               horizontalSpaceLarge,
             horizontalSpaceLarge,
-            view()
-          ],
-        ),
-              ],)
-      ),
-    );
-  }
-
-  //****** UI */
-
-  view(){
-    return  Padding(
-      padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-      child: Column(
-              children: <Widget>[
+              verticalSpaceMedium,
                 headerButton(),   
                 Padding(
                   padding: const EdgeInsets.only(top: 5.0),
@@ -131,143 +114,122 @@ buttonStatus({bool status}){
                  child: _customFuntion.errorUimessage(errorMessage: errorMessage, type: errorType),
                )
             ],),
-              CollectTextWithout(title: 'First Name',),
-              Padding(padding:  EdgeInsets.only(left: 10.0, right: 5.0),
-                      child: _customFuntion.textInputField(
-                          controller: name,
-                          hintText: 'Bloggs',
-                      ),),
+            view()
+          ],
+        ),
+    );
+  }
+
+  //****** UI */
+
+  view(){
+    return  Expanded(
+                    child: ListView(
+                    children: <Widget>[
+                    CollectTextWithout(title: 'First Name',),
+                    Padding(padding:  EdgeInsets.only(left: 10.0, right: 5.0),
+                            child: _customFuntion.textInputField(
+                                controller: name,
+                                hintText: 'Bloggs',
+                            ),),
 
 
 verticalSpaceMedium2,
-                      CollectTextWithout(title: 'Last Name',),
-                      Padding(padding:  EdgeInsets.only(left: 10.0, right: 5.0),
-                      child: _customFuntion.textInputField(
-                          controller: lastname,
-                          hintText: 'Doe',
-                      ),),
+                            CollectTextWithout(title: 'Last Name',),
+                            Padding(padding:  EdgeInsets.only(left: 10.0, right: 5.0),
+                            child: _customFuntion.textInputField(
+                                controller: lastname,
+                                hintText: 'Doe',
+                            ),),
 
  verticalSpaceMedium2,
-                      CollectTextWithout(title: 'Email',),
-                      AbsorbPointer(
-                        absorbing: true, //Email is not editable, I don't want uset to edit it.
-                         child: Padding(padding:  EdgeInsets.only(left: 10.0, right: 5.0),
-                        child: _customFuntion.textInputField(
-                            controller: email,
-                            textInputType: TextInputType.emailAddress,
-                            hintText: 'joebloggs@gmail.com',
-                        ),),
-                      ),
+                            CollectTextWithout(title: 'Email',),
+                            AbsorbPointer(
+                              absorbing: true, //Email is not editable, I don't want uset to edit it.
+                               child: Padding(padding:  EdgeInsets.only(left: 10.0, right: 5.0),
+                              child: _customFuntion.textInputField(
+                                  controller: email,
+                                  textInputType: TextInputType.emailAddress,
+                                  hintText: 'joebloggs@gmail.com',
+                              ),),
+                            ),
 
  verticalSpaceMedium2,
  CollectTextWithout(title: 'Mobile Number',),
   Padding(padding:  EdgeInsets.only(left: 10.0, right: 5.0),
-                            child:  Container(
-                            decoration: new BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: AppColor.primary),
-                                borderRadius:
-                                    new BorderRadius.circular(10.0)),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Container(
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                            color: AppColor.white,
-                                            border: Border.all(
-                                                color: Color(0xffC6DEE9)),
-                                            borderRadius:
-                                                 BorderRadius.circular(10.0)),
-                                        child:  CountryCodePicker(
-                                          onChanged: _onCountryChange,
-                                          // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                                          initialSelection: defaultphoneIsoCode,
-                                          favorite: ['+1', 'US'],
-                                          // optional. Shows only country name and flag
-                                          showCountryOnly: false,
-                                          // optional. Shows only country name and flag when popup is closed.
-                                          showOnlyCountryWhenClosed: false,
-                                          // optional. aligns the flag and the Text left
-                                          alignLeft: false,
-                                          //itemBuilder: _buildDropdownItem,
+                                  child:  Container(
+                                  decoration: new BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: AppColor.primary),
+                                      borderRadius:
+                                          new BorderRadius.circular(10.0)),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Container(
+                                              height: 50.0,
+                                              decoration: new BoxDecoration(
+                                                  color: AppColor.white,
+                                                  border: Border.all(
+                                                      color: Color(0xffC6DEE9)),
+                                                  borderRadius:
+                                                       BorderRadius.circular(10.0)),
+                                              child:  CountryCodePicker(
+                                                onChanged: _onCountryChange,
+                                                // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                                                initialSelection: defaultphoneIsoCode,
+                                                favorite: ['+1', 'US'],
+                                                // optional. Shows only country name and flag
+                                                showCountryOnly: false,
+                                                // optional. Shows only country name and flag when popup is closed.
+                                                showOnlyCountryWhenClosed: false,
+                                                // optional. aligns the flag and the Text left
+                                                alignLeft: false,
+                                                //itemBuilder: _buildDropdownItem,
+                                              ),
+                                            ),
+                                            Container(
+                                              alignment: Alignment.center,
+                                              width: 220.0,
+                                              child: new TextFormField(
+                                                  controller: phoneNumberController,
+                                                  keyboardType: TextInputType.phone,
+                                                  autofocus: false,
+                                                  validator: _customFuntion.validateMobile,
+                                                  onSaved: (String val) {
+                                                    mobile = val;
+                                                  },
+                                                  decoration: InputDecoration(
+                                                    hintText: "(123) 456-7890",
+                                                    fillColor: Color(0xffC8C3D4),
+                                                    hintStyle: TextStyle(
+                                                        color: Color(
+                                                      0xff63A5C0,
+                                                    )),
+                                                    contentPadding: EdgeInsets.fromLTRB(
+                                                        20.0, 10.0, 20.0, 10.0),
+                                                    border: InputBorder.none,
+                                                  )),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Container(
-                                        alignment: Alignment.center,
-                                        width: 220.0,
-                                        child: new TextFormField(
-                                            controller: phoneNumberController,
-                                            keyboardType: TextInputType.phone,
-                                            autofocus: false,
-                                            validator: _customFuntion.validateMobile,
-                                            onSaved: (String val) {
-                                              mobile = val;
-                                            },
-                                            decoration: InputDecoration(
-                                              hintText: "(123) 456-7890",
-                                              fillColor: Color(0xffC8C3D4),
-                                              hintStyle: TextStyle(
-                                                  color: Color(
-                                                0xff63A5C0,
-                                              )),
-                                              contentPadding: EdgeInsets.fromLTRB(
-                                                  20.0, 10.0, 20.0, 10.0),
-                                              border: InputBorder.none,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
+                                   
                                 ),
-                             
-                          ),
 
-                           verticalSpaceLarge,
-
-                          (_load ? _customFuntion.loadingIndicator() :  AbsorbPointer(
-                             absorbing: isButtonEnabled,
-                       child: GestureDetector(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
-                    child: Container(
-                      height: 50,
-                      child: Material(
-                        child: Center(
-                          child: Text('Update',
-                              style: TextStyle(
-                                  color: AppColor.white,
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.bold
-                              ),),
-                        ),
-                       color: (isButtonEnabled ? buttoncolor : Color(0xff45A1C9)),
-                        shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(18.0),
-                              side: BorderSide(color: AppColor.borderColor)
-                        ),
-
-                      ),
-                    ),
-                  ),
-                  onTap: (){
+                                 verticalSpaceLarge,
+                ],),
                   
-              String numb = "$defaultphoneIsoCode".toString() + "${phoneNumberController.text}".toString();
-              checkNumberExist(phoneNumber: numb);
-                  },
-                ), )
-                          ),
-
-            ],),
-    );
+        );
   }
 
   
   headerButton(){
 return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
          // crossAxisAlignment: Cros,
           children: <Widget>[
             GestureDetector(child: Padding(
-        padding: const EdgeInsets.only(left: 6.0, top: 30, bottom: 0),
+        padding: const EdgeInsets.all(1.0),
         child: Container(
           child: Material(
           child: Row(
@@ -299,7 +261,36 @@ side: BorderSide(color: AppColor.primaryLight)
             onTap: (){
                Navigator.pop(context);
             },
-            ),   ],
+            ),
+
+             (_load ? _customFuntion.loadingIndicator() :  AbsorbPointer(
+                             absorbing: isButtonEnabled,
+                       child:GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 150,
+                        height: 35,
+                        child: Material(
+                        child: Center(
+                          child: Text('Update', //If all field is entered, Display complete else Skip
+                          style: TextStyle(
+                            color: Color(0xFFEFF5F7),
+                            fontSize: 17.0,
+                          ),),
+                        ),
+                        color: (isButtonEnabled ? buttoncolor : Color(0xff45A1C9)),
+                        shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: AppColor.borderColor)
+    ),  ),)  
+),
+                    onTap: (){
+                   String numb = "$defaultphoneIsoCode".toString() + "${phoneNumberController.text}".toString();
+              checkNumberExist(phoneNumber: numb);
+                    },
+                  ))) ],
+                    
                     );
 }
 
