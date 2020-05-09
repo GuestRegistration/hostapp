@@ -166,11 +166,33 @@ swtichHeader( AddPropertyViewModel model, BuildContext context){
                   ),  
                   )),
                    CollectText(ttile: 'Property Address',),
-                    InputField(
-                    placeholder: 'PropertyAddress',
-                    decoration: null,
-                    controller: addressController,
-                  ), 
+                  
+                   GestureDetector(
+                        child:  TextFormField(
+                          controller: addressController,
+                      keyboardType: TextInputType.number,
+                      decoration:  InputDecoration(
+                        enabledBorder: new OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: new BorderSide(color: AppColor.borderColor,
+                        ),
+                    ),
+                      border: new OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: new BorderSide(color: AppColor.borderColor
+                        ),
+                    ),
+                      hintStyle: AppTextStyle.inputHint(context),
+                    ),
+                     onTap: ()async{
+                         Prediction prediction = await PlacesAutocomplete.show(
+                            context: context,
+                            apiKey: model.key,
+                            mode: Mode.overlay, // Mode.fullscreen
+                            );
+               addressController.text = prediction.structuredFormatting.secondaryText;
+             }, ),  
+                    ),
                    verticalSpaceSmall,
                     //CollectText(ttile: 'Country',),
 //                   Row(children: <Widget>[

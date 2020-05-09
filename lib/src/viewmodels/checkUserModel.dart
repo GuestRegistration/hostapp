@@ -25,7 +25,7 @@ String get getErrorMessage => _errorMessage;
    final CustomFuntion _customFuntion = locator<CustomFuntion>();
 
 
-void initialize(String userEmail, BuildContext context, String userID)async{
+void initialize(String userEmail, BuildContext context, String userID, String fname, String lname)async{
   setBusy(true);
   //Those two code below, will firstly launch before their next line, We have use await to delay.
   await _graphQlConfiq.getFromServerClientToken();

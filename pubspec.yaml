@@ -39,6 +39,7 @@ dependencies:
   international_phone_input: ^1.0.2
   graphql_flutter: ^3.0.0
   sticky_headers: ^0.1.8+1
+  pull_to_refresh: ^1.5.8
   # flutter_places_dialog: ^1.0.5
 
   intl: ^0.16.1

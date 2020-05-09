@@ -7,8 +7,8 @@ import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
 class CheckUserScreen extends StatefulWidget {
-  final String userEmail, userid;
-  CheckUserScreen({this.userEmail, this.userid});
+  final String userEmail, userid, fname, lname;
+  CheckUserScreen({this.userEmail, this.userid, this.fname, this.lname});
 
   @override
   _CheckUserScreenState createState() => _CheckUserScreenState();
@@ -19,7 +19,7 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
   Widget build(BuildContext context) {
     return ViewModelProvider<CheckUserModel>.withConsumer(
       viewModel: CheckUserModel(),
-      onModelReady: (model) => model.initialize(widget.userEmail, context, widget.userid),
+      onModelReady: (model) => model.initialize(widget.userEmail, context, widget.userid, widget.fname, widget.lname ),
       builder: (context, model, child) =>
           Scaffold(
         body:  (model.getErrorMessage == null || model.busy ?
@@ -102,39 +102,12 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
                     ),
                   ),
                   onTap: (){
-                    model.initialize(widget.userEmail, context, widget.userid);
+                    model.initialize(widget.userEmail, context, widget.userid, widget.fname, widget.lname);
                     model.setErrorMessage(erorr: null);
                   },
                         ),
-//***GO BACK BUTTON */
-                        verticalSpaceMedium,
-                GestureDetector(child: Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: Container(
-                      width: 150,
-                      height: 50,
-                      child: Material(
-                      child: Center(
-                          child: Text('Back',
-                          style: TextStyle(
-                            color: AppColor.white,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.bold
-                          ),),
-                      ),
-                      color: Color(0xFF45A1C9),
-                      shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(18.0),
-            side: BorderSide(color: AppColor.borderColor)
-    ),
-                   
-                ),
-                    ),
-                  ),
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                        ),
+
+              
               ],
             );
   }

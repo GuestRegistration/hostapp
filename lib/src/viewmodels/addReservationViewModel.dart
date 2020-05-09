@@ -143,7 +143,7 @@ showMessage(error: 'Check-in Date required');
   }else if(checkoutD.isEmpty){
 showMessage(error: 'Check-out Date required');
 
-  }else if(guestName.isNotEmpty && bookChanl.isNotEmpty && checkinD.isNotEmpty && checkoutD.isNotEmpty){
+  }else if(guestName.isNotEmpty && bookChanl.isNotEmpty && checkinD.isNotEmpty && checkoutD.isNotEmpty && errorM == null){
      
     _pId = propertyID; _gName = guestName; _bookingC = bookChanl;  _checkinD = checkinD; 
     _checkoutD = checkoutD; 
@@ -154,13 +154,10 @@ showMessage(error: 'Check-out Date required');
      transfetData.add(_gName);
      transfetData.add(_bookingC);
      transfetData.add(_checkinD);
-     transfetData.add(_checkoutD);
-
-     
+     transfetData.add(_checkoutD); 
     
      //TODO SEND RESERVATION DATA TO NEXT SCREEEN
    _navigationService.navigateTo(reservationInstructionRoute, arguments: transfetData); 
-    
   }
   
   }
@@ -218,7 +215,6 @@ QueryResult result = await _client.query(
 
 List<BookingChannelModel> getBookingList() {
      return _bookingList;
-   
   }
 
   setApiError({String erorr}){
@@ -227,8 +223,5 @@ List<BookingChannelModel> getBookingList() {
    notifyListeners();
 }
 
-
-
-
-    
-}
+   
+} 

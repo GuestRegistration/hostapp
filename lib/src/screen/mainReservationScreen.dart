@@ -8,6 +8,7 @@ import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart'; 
 import 'package:hostapp/src/viewmodels/MainReservationViewModel.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 
 class MainReservationScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class MainReservationScreen extends StatefulWidget {
 class _MainReservationScreenState extends State<MainReservationScreen> {
        GetProperties _selectedProperty;
        String propertyID;
+        RefreshController _refreshController =  RefreshController(initialRefresh: false);
   
   @override
   Widget build(BuildContext context) {
@@ -107,75 +109,83 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
          
             ),
           ),
-          body: TabBarView(children: [
-             Padding(
-               padding: const EdgeInsets.only(top: 9, ),
-               child: Column(children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                  (model.busy ? CircularProgressIndicator() : dropdownProperty(model: model)),
-                ],),
-                 Expanded(child: Padding(
-                   padding: const EdgeInsets.only(top: 30.0, left: 8.0, right: 8.0),
-                   child: (model.loadingOthers ? loadingWidget()
-                 :
-                 (model.getErrorMessage == null ? 
-                   UpcomingTab()
-                   : errorWidget(model)
-                   )
-                  
+          body: SmartRefresher(
+               enablePullDown: true,
+         header: WaterDropHeader(waterDropColor: Colors.black,),
+        controller: _refreshController,
+        onRefresh: (){
+          _onRefresh(model);
+        },
+          child: TabBarView(children: [
+               Padding(
+                 padding: const EdgeInsets.only(top: 9, ),
+                 child: Column(children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                    (model.busy ? CircularProgressIndicator() : dropdownProperty(model: model)),
+                  ],),
+                   Expanded(child: Padding(
+                     padding: const EdgeInsets.only(top: 30.0, left: 8.0, right: 8.0),
+                     child: (model.loadingOthers ? loadingWidget()
+                   :
+                   (model.getErrorMessage == null ? 
+                     UpcomingTab()
+                     : errorWidget(model)
+                     )
+                    
+                     ),
                    ),
-                 ),
-                 )
-               ],)
-             ),
+                   )
+                 ],)
+               ),
 
 Padding(
-               padding: const EdgeInsets.only(top: 9, left: 8.0, right: 8.0),
-               child: Column(children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                (model.busy ? CircularProgressIndicator() : dropdownProperty(model: model)),
-                ],),
-                 Expanded(child: Padding(
-                   padding: const EdgeInsets.only(top: 30.0),
-                   child:
-                    (model.busy ? loadingWidget()
-                 :
-                 (model.getErrorMessage == null ? 
-                   ApprovedTab()
-                   : errorWidget(model)
-                   ))
-                 ),
-                 )
-               ],)
-             ),
-
-Padding(
-               padding: const EdgeInsets.only(top: 9, left: 8.0, right: 8.0),
-               child: Column(children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
+                 padding: const EdgeInsets.only(top: 9, left: 8.0, right: 8.0),
+                 child: Column(children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
                   (model.busy ? CircularProgressIndicator() : dropdownProperty(model: model)),
-                ],),
-                Expanded(child: Padding(
-                   padding: const EdgeInsets.only(top: 30.0),
-                   child:
-                    (model.busy ? loadingWidget()
-                 :
-                 (model.getErrorMessage == null ? 
-                   PastTab()
-                   : errorWidget(model)
-                   ))
-                 ),
-                 )
-                 
-               ],)
-             ),
-          ]),
+                  ],),
+                   Expanded(child: Padding(
+                     padding: const EdgeInsets.only(top: 30.0),
+                     child:
+                      (model.busy ? loadingWidget()
+                   :
+                   (model.getErrorMessage == null ? 
+                     ApprovedTab()
+                     : errorWidget(model)
+                     ))
+                   ),
+                   )
+                 ],)
+               ),
+
+Padding(
+                 padding: const EdgeInsets.only(top: 9, left: 8.0, right: 8.0),
+                 child: Column(children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                    (model.busy ? CircularProgressIndicator() : dropdownProperty(model: model)),
+                  ],),
+                  Expanded(child: Padding(
+                     padding: const EdgeInsets.only(top: 30.0),
+                     child:
+                      (model.busy ? loadingWidget()
+                   :
+                   (model.getErrorMessage == null ? 
+                     PastTab()
+                     : errorWidget(model)
+                     ))
+                   ),
+                   )
+                   
+                 ],)
+               ),
+            ]),
+          ),
           floatingActionButton:FloatingActionButton(onPressed: () { 
             model.addReservation();
              },
@@ -313,6 +323,12 @@ Padding(
     );
   }
   
-  
+   void _onRefresh(MainReservationViewModel model) async{
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    model.tab1Initialize();
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
   }
 

@@ -36,10 +36,13 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
        BookingChannelModel _selectedBokingModel;
        String selectedBookingName;
        String propertyID;
+       int checkinDAY, checkinMONTH, checkinYEAR, checkoutDAY, checkoutMONTH, checkoutYEAR;
+       int currentDay, currentMonth, currentYear;
 
      @override
   void initState() {
     super.initState();
+    current();
      listener(nameofGuestController);
    // listener(guestEmailController); No guest Email for now
    // listener(bookingChannelController);
@@ -214,10 +217,23 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                       onChanged: (date) {
                         String v = '${date.day}-${date.month}-${date.year}';
                         setCheckinDate(value: v);
+                       
+
 
                       }, onConfirm: (date) {
                          String v = '${date.day}-${date.month}-${date.year}';
                         setCheckinDate(value: v);
+                        checkinDAY = date.day; checkinMONTH = date.month; checkinYEAR = date.year;
+
+                        if(currentDay == checkinDAY && currentMonth == checkinMONTH && currentYear == checkinYEAR){
+                           model.showMessage(error: null); //back to null
+
+                        }else{
+                          model.showMessage(error: null); //back to null
+                          model.showMessage(error: 'Your checkin date must start from today');
+
+                        }
+                       
                       }, currentTime: DateTime.now(), locale: LocaleType.en);
                     },
                       ), ), 
@@ -263,6 +279,21 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                       }, onConfirm: (date) {
                          String v = '${date.day}-${date.month}-${date.year}';
                         setCheckOutDate(value: v);
+                         print('Check-out Day : ${date.day}');
+                        print('Check-out Month : ${date.month}');
+                        print(' Check-out Year : ${date.year}');
+                        checkoutDAY = date.day; checkoutMONTH = date.month; checkoutYEAR = date.year;
+
+                        //Checkout date shoul be in 24hrs
+                        if(currentDay+1 == checkoutDAY && currentMonth == checkoutMONTH && currentYear == checkoutYEAR){
+                           model.showMessage(error: null); //back to null
+
+                        }else{
+                          model.showMessage(error: null); //back to null
+                          model.showMessage(error: 'Your checkout date must be after 24hr');
+                         
+
+                        }
                       }, currentTime: DateTime.now(), locale: LocaleType.en);
                     },
                       ), ),  ],
@@ -568,6 +599,14 @@ checkoutController.text = value;
                           backgroundColor: AppColor.borderColor,
                     ),
     );
+  }
+
+//Getting currentDate
+  current(){
+     DateTime date = DateTime.now();
+      currentDay = date.day;
+      currentMonth = date.month;
+      currentYear = date.year;
   }
 
 }

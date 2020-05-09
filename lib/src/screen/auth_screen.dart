@@ -346,10 +346,12 @@ sigInwithG()async{
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
   );
-    print(googleSignInAuthentication.accessToken);
+    print('ACCESS TOKEN ${googleSignInAuthentication.accessToken}');
 
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
+  print('DISPLAYED NAME: ${user.displayName}');
+
      print('***************** AFTER SUCCESS');
      _customFuntion.saveEmailandID(email: user.email, uid: user.uid, idToken: googleSignInAuthentication.idToken);
      Navigator.pushReplacement(
@@ -358,6 +360,8 @@ sigInwithG()async{
               builder: (context) => CheckUserScreen(
                     userEmail: user.email,
                     userid: user.uid,
+                    fname: user.displayName,
+                    lname: user.displayName,
                   )));
     // print(googleSignInAuthentication.accessToken);
     // print(googleSignInAuthentication.idToken);

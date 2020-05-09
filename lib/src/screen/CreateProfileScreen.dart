@@ -14,9 +14,9 @@ import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 
 class CreateProfileScreen extends StatefulWidget {
-   final String userEmail, userid;
+   final String userEmail, userid, fname, lname;
 
-  const CreateProfileScreen({this.userEmail, this.userid});
+  const CreateProfileScreen({this.userEmail, this.userid, this.fname, this.lname});
 
   @override
   _CreateProfileScreenState createState() => _CreateProfileScreenState();
@@ -49,6 +49,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   void initState() {
     super.initState();
+    name.text = widget.fname;
+    lastname.text = widget.lname;
     listener(name);
     listener(lastname);
     listener(phone);

@@ -96,7 +96,7 @@ class CustomFuntion{
          Text(errorMessage,
            style: TextStyle(
                color: (type == 1 ? Colors.green : AppColor.kErrorRed),
-               fontSize: 17.0,
+               fontSize: 14.0,
                fontWeight: FontWeight.normal
            ),),
 

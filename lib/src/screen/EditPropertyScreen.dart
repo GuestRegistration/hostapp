@@ -83,6 +83,7 @@ TextEditingController propertyNameController =  TextEditingController();
      docuemntController.text  = widget.doclink;
      defaultCountry = widget.country;
      defaultphoneIsoCode = widget.phoneIcode;
+     print('Country $defaultCountry');
 
     listenertoChange(propertyNameController);
     listenertoChange(addressController);
@@ -173,14 +174,34 @@ TextEditingController propertyNameController =  TextEditingController();
                     )
                   ),
                     verticalSpaceSmall,
-
-                CollectTextWithout(title: 'Property Address',),
-                    InputField(
-                      placeholder: 'Address',
-                      decoration: null,
-                      controller: addressController,
+                     CollectTextWithout(title: 'Property Address',),
+                    GestureDetector(
+                        child:  TextFormField(
+                          controller: addressController,
+                      keyboardType: TextInputType.number,
+                      decoration:  InputDecoration(
+                        enabledBorder: new OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: new BorderSide(color: AppColor.borderColor,
+                        ),
                     ),
-
+                      border: new OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: new BorderSide(color: AppColor.borderColor
+                        ),
+                    ),
+                      hintStyle: AppTextStyle.inputHint(context),
+                    ),
+                     onTap: ()async{
+                         Prediction prediction = await PlacesAutocomplete.show(
+                            context: context,
+                            apiKey: model.key,
+                            mode: Mode.overlay, // Mode.fullscreen
+                            );
+               addressController.text = prediction.structuredFormatting.secondaryText;
+             }, ),  
+                    ),
+                    
                      verticalSpaceSmall,
                 CollectTextWithout(title: 'Country',),
                     Row(children: <Widget>[
@@ -199,16 +220,15 @@ TextEditingController propertyNameController =  TextEditingController();
                              mainAxisAlignment: MainAxisAlignment.center,
                              children: <Widget>[
                              CountryCodePicker(
+
                     onChanged: (value){
                     model.setCountry(selectedcountry:value.name.toString());
                      setPhoneIcode(value.dialCode);//include icode when selecting country
-                    
-                        
                     },
                     initialSelection: defaultphoneIsoCode, //just same mean as default country
                     favorite: ['+39','FR'],
-                    showCountryOnly: false,
-                    alignLeft: false,
+                   showCountryOnly: true,
+                    showOnlyCountryWhenClosed: true,
                   ),
                   SizedBox(width: 10,),
                   Icon(Icons.arrow_drop_down, size: 25,)

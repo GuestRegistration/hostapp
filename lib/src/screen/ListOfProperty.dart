@@ -10,8 +10,7 @@ import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/widget/PropertyWidget.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:hostapp/src/viewmodels/ListOfPropertyViewModel.dart';
-import 'package:hostapp/src/viewmodels/DashboardViewModel.dart';
-
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:provider/provider.dart';
 
 class ListOfProperty extends StatefulWidget {
@@ -21,7 +20,8 @@ class ListOfProperty extends StatefulWidget {
 }
 
 class _ListOfPropertyState extends State<ListOfProperty>{
- 
+  RefreshController _refreshController =  RefreshController(initialRefresh: false);
+
  @override
   void initState() {
     super.initState();
@@ -39,57 +39,66 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                  (model.getErrorMessage == null ? 
                    Scaffold(
     resizeToAvoidBottomPadding: true,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-            children: <Widget>[
-               Padding(
-              padding: const EdgeInsets.only(top: 30.0, left: 20),
-              child:  Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SmartRefresher(
+            enablePullDown: true,
+        header: WaterDropHeader(waterDropColor: Colors.black,),
+        controller: _refreshController,
+        onRefresh: (){
+          _onRefresh(model);
+        },
+         child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
                 children: <Widget>[
-                  Text('Properties', 
-              style:  TextStyle(
-            color: AppColor.black,
-            fontSize: AppFontSizes.largest,
-            fontWeight: FontWeight.bold
-          )
-        ),
-        GestureDetector(child: Icon(Icons.settings, size: 30,),
-         onTap: (){
-          //model.movetoSettings();
-        },)
-                ],
+                   Padding(
+                  padding: const EdgeInsets.only(top: 30.0, left: 20),
+                  child:  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('Properties', 
+                  style:  TextStyle(
+                color: AppColor.black,
+                fontSize: AppFontSizes.largest,
+                fontWeight: FontWeight.bold
               )
             ),
-            (model.properties == null ?  Expanded(
-                          child: Center(
-                child: Text('You do not have any registered property. '
-                    'Click on the ‘’Add icon’’ button below to add one property for free.',
-                    textAlign: TextAlign.center,
-                  style:  TextStyle(
-                    color: Colors.red,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 16,
+            GestureDetector(child: Icon(Icons.settings, size: 30,),
+             onTap: (){
+              model.movetoSettings();
+            },)
+                    ],
                   )
                 ),
-                ),
-            ) : 
-            Expanded(
-           child:
-           ListView.builder(
-          itemCount: (model.properties == null ? 0 : model.properties.length),
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          itemBuilder: (BuildContext context , int index){
-            return  PropertyWidget(
-                getProperties: model.properties[index],
-                );
-             },)
-                      
-            ))
-          ],),
-      ),
+                (model.properties == null ?  Expanded(
+                              child: Center(
+                    child: Text('You do not have any registered property. '
+                        'Click on the ‘’Add icon’’ button below to add one property for free.',
+                        textAlign: TextAlign.center,
+                      style:  TextStyle(
+                        color: Colors.red,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 16,
+                      )
+                    ),
+                    ),
+                ) : 
+                Expanded(
+               child:
+               ListView.builder(
+              itemCount: (model.properties == null ? 0 : model.properties.length),
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (BuildContext context , int index){
+                return  PropertyWidget(
+                    getProperties: model.properties[index],
+                    );
+                 },)
+                          
+                ))
+              ],),
+        ),
+         ),
+      
          floatingActionButton:
            ((model.properties == null ? 0 : model.properties.length) >= 1   //>= 1 
            ? FloatingActionButton(
@@ -100,18 +109,16 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                              fontWeight: FontWeight.bold
                          ),),
              onPressed: () { 
-          //    model.proPage();
-               model.addproperty();
-             
+              model.proPage();
+              
              },
             )
-            
              : FloatingActionButton(onPressed: () { 
              model.addproperty();
              },
             child: Icon(Icons.add, size: 30,),
               ))
-        )
+                   )
                    : errorWidget(model)
                    )
                    ), );
@@ -131,9 +138,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                         color: Colors.red,
                     fontSize: AppFontSizes.medium,
                     fontWeight: FontWeight.bold
-                              ),),
-                             
-                  ),
+                              ),),),
                   verticalSpaceLarge,
                   GestureDetector(child: Padding(
                       padding: const EdgeInsets.all(1.0),
@@ -177,6 +182,14 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                     backgroundColor: AppColor.borderColor,
                     ),
     );
+  }
+
+  void _onRefresh(ListOfPropertyViewModel model) async{
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    model.initialize();
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
   }
 }
 
