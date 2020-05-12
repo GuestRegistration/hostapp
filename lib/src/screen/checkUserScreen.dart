@@ -55,6 +55,7 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
       ),
     );
   }
+  
   errorWidget(CheckUserModel model, String data){
     return Column(
               mainAxisAlignment: MainAxisAlignment.center,

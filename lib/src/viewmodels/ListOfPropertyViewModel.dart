@@ -5,6 +5,8 @@ import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:hostapp/src/service/graphQlQuery.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 
@@ -93,7 +95,8 @@ void addproperty(){
 }
 
 void proPage(){
-    _navigationService.navigateTo(proRoute);
+   // _navigationService.navigateTo(proRoute);
+   geturl('prolink');
 }
 
 setErrorMessage({String erorr}){
@@ -109,4 +112,21 @@ d()async{
 movetoSettings(){
   _navigationService.navigateTo(settingsRoute);
 }
+
+ Future geturl(String url) async {
+    print("url" + url);
+    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    var result;
+    try {
+      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
+      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
+      await remoteConfig.activateFetched();
+      result = remoteConfig.getString(url);
+    } on FetchThrottledException catch (exception) {
+      print(exception);
+    } catch (exception) {
+      print("unable to fetch remote config");
+    }
+    return launch(result);
+  }
 }

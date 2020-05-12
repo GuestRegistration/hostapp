@@ -584,8 +584,7 @@ checkoutController.text = value;
                     onTap: (){
                       model.initialize();
                       model.showMessage(error: null); //back to null
-                    },
-                          ),
+                    },),
                 ],
               ),
     );
