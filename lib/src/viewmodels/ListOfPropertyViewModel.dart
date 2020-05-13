@@ -19,11 +19,13 @@ List<GetProperties> _propertlist = List<GetProperties>();
 List<GetProperties> get properties => _propertlist;
 String _errorMessage;
 String get getErrorMessage => _errorMessage;
+ var result;
 
 
 void initialize()async{
   setBusy(true);
    await _graphQlConfiq.getNeccessartyToken();
+   await getProUrl();
 
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
@@ -94,9 +96,9 @@ void addproperty(){
   _navigationService.navigateTo(addPropertyRoute);
 }
 
-void proPage(){
+void proPage()async{
    // _navigationService.navigateTo(proRoute);
-   geturl('prolink');
+   launch(result);
 }
 
 setErrorMessage({String erorr}){
@@ -113,20 +115,21 @@ movetoSettings(){
   _navigationService.navigateTo(settingsRoute);
 }
 
- Future geturl(String url) async {
-    print("url" + url);
+  getProUrl() async {
     final RemoteConfig remoteConfig = await RemoteConfig.instance;
-    var result;
+
     try {
       remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
       await remoteConfig.fetch(expiration: const Duration(seconds: 0));
       await remoteConfig.activateFetched();
-      result = remoteConfig.getString(url);
+      result = remoteConfig.getString('prolink');
+
     } on FetchThrottledException catch (exception) {
       print(exception);
     } catch (exception) {
       print("unable to fetch remote config");
     }
-    return launch(result);
+    return result;
   }
+
 }

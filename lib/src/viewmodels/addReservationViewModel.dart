@@ -51,6 +51,7 @@ QueryResult result = await _client.query(
    QueryOptions(
         documentNode: gql(getProperties),
       ),
+
 ).catchError((e){
       setBusy(false);
       print('Error Occur, ${e.toString()}');
@@ -61,7 +62,6 @@ QueryResult result = await _client.query(
           setApiError(erorr: 'Server Timeout');
         },);
 
-        
    if(result.data == null) {
       loadingOther(false);
              print('Result is Null');

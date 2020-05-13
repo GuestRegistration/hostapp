@@ -126,6 +126,7 @@ class _GuestScreenState extends State<GuestScreen> {
                _customFuntion.approveGuestUimessage(errorMessage: model.getSimpleMessage,
                   type: model.getErrorType)
             ],),
+            
             (widget.isApproved ? Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

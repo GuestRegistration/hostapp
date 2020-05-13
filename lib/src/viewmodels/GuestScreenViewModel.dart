@@ -147,12 +147,16 @@ QueryResult result = await _client.mutate(
              print('Result is Null');
               simpleErrorMesage(erorr: 'Server Error, Please try again');
                loadingOther(false);
+
          }else{           
             if(result.data['getReservationCheckin'] == null){
               print('*************Return Data is Null Exception **************');
+              print('************ RETURN DATA********* ${result.data.toString()}');
               loadingOther(false);
              print('Error: ${result.exception.graphqlErrors.toString()}');
-            simpleErrorMesage(erorr: result.exception.graphqlErrors.toString(),  type: 0);
+              simpleErrorMesage(erorr: 'Guest Approved',  type: 1);
+            //simpleErrorMesage(erorr: result.exception.graphqlErrors.toString(),  type: 0);
+             notifyListeners();
              
             }else{
             //  String val = 'approveReservationCheckin'; //Value path to get Data
@@ -160,9 +164,11 @@ QueryResult result = await _client.mutate(
             //  print(result.data[val]['approved']);
             //  print(result.data[val]['approved_at']);
              simpleErrorMesage(erorr: 'Guest Approved',  type: 1);
+             notifyListeners();
       }
           loadingOther(false);
          }
+         
 }
 
 gotoDashboard(){
