@@ -90,15 +90,20 @@ class _AddProprtyUIState extends State<AddProprtyUI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Column(
-          children: <Widget>[
+      body:  GestureDetector(
+              child: Column(
+            children: <Widget>[
+                horizontalSpaceLarge,
               horizontalSpaceLarge,
-            horizontalSpaceLarge,
-            swtichHeader(widget.model, context),
-           swtichScreen(widget.model, context)
-          //screen2(context, widget.model),
-          ],
-        ),
+              swtichHeader(widget.model, context),
+             swtichScreen(widget.model, context)
+            //screen2(context, widget.model),
+            ],
+          ),
+          onTap:(){
+         FocusScope.of(context).requestFocus(new FocusNode());
+       }
+      ),
 
     );
   }

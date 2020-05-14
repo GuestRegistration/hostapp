@@ -113,19 +113,24 @@ TextEditingController propertyNameController =  TextEditingController();
       onModelReady: (model) => model.editInitalize(),
       builder: (context, model, child) =>
      Scaffold(
-      body: Column(
-                children: <Widget>[
-                horizontalSpaceLarge,
-                horizontalSpaceLarge,
-                Padding(
-                    padding: const EdgeInsets.only(top: 50.0),
-                    child: headerButton(model)
-                ),
-                _customFuntion.errorUimessage(errorMessage: model.errorM),
-                verticalSpaceSmall,
-                screen1(context, model),
+      body: GestureDetector(
+              child: Column(
+                  children: <Widget>[
+                  horizontalSpaceLarge,
+                  horizontalSpaceLarge,
+                  Padding(
+                      padding: const EdgeInsets.only(top: 50.0),
+                      child: headerButton(model)
+                  ),
+                  _customFuntion.errorUimessage(errorMessage: model.errorM),
+                  verticalSpaceSmall,
+                  screen1(context, model),
 
-              ],)
+                ],),
+     onTap:(){
+         FocusScope.of(context).requestFocus(new FocusNode());
+       }
+      )
     )
       );
   }
