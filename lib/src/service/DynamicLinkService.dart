@@ -36,14 +36,7 @@ final NavigationService _navigationService = locator<NavigationService>();
     final Uri deepLink = data?.link;
     
   if (deepLink != null) {
-    //_navigationService.navigateTowithoutBack(splashRoute);
-    var navigationRoute = deepLink.queryParameters['route'];
-    var params = deepLink.queryParameters['params'];
-
-    print('********************_handleDeepLink | deeplink: $deepLink');
-     print('********************navigationRoute | ${deepLink.queryParameters['route']}');
-     print('********************queryParameters(route) : $navigationRoute');
-       print('********************queryParameters(Params): $params');
+   //After getting link, Automatically goto verification link.
         if (deepLink != null) {
       _navigationService.navigateToandRemove(signInwithEmailLOADERRoute, arguments: deepLink);
     }
