@@ -3,26 +3,31 @@ import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
 import 'package:hostapp/src/screen/ProScreen.dart';
 import 'package:hostapp/src/screen/AddReservationScreen.dart';
+import 'package:hostapp/src/screen/SignwithEmailScreen.dart';
+import 'package:hostapp/src/screen/VerifyDynamicRegister.dart';
 import 'package:hostapp/src/widget/loadingScreen/AddReservationLoadingWidget.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/screen/NotificationScreen.dart';
 import 'package:hostapp/src/screen/SendCheckInInstruction.dart';
 import 'package:hostapp/src/widget/loadingScreen/UpdatePropertyWidget.dart';
 import 'package:hostapp/src/util/constants.dart';
+import 'package:hostapp/src/app.dart';
+import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/SettingsScreen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case signUpViewRoute:
-//     return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: SignUpView(),
-//      );
-      case signInViewRoute:
-//     return _getPageRoute(
-//        routeName: settings.name,
-//        viewToShow: LoginView(),
-//      );
+    case authRoute:
+    return _getPageRoute(
+       routeName: settings.name,
+       viewToShow: AuthScreen(),
+     );
+
+      case passwordLessRoute:
+    return _getPageRoute(
+       routeName: settings.name,
+       viewToShow: PasswordlessApp(),
+     );
      
     
     case addPropertyRoute:
@@ -62,6 +67,22 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: SettingsScreen(),
       );
+
+      case signInwithEmailRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SignwithEmailScreen(),
+      );
+
+      
+      case signInwithEmailLOADERRoute:
+     var values = settings.arguments; //Index to show when going to this page
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: VerifyDynamicRegister(data: values,),
+      );
+
+      
 
       
 

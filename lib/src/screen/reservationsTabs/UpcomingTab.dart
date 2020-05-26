@@ -10,20 +10,24 @@ import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/widget/ReservationWidget.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
+import 'package:string_validator/string_validator.dart';
+import 'package:hostapp/src/model/getReservationMode.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:hostapp/src/viewmodels/MainReservationViewModel.dart';
 
 class UpcomingTab extends ProviderWidget<MainReservationViewModel> {
+  
   @override
   Widget build(BuildContext context, MainReservationViewModel model) {
+
     return (model.busy ? Center(
       child: CircularProgressIndicator(
                     strokeWidth: 4,
                           valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
                           backgroundColor: AppColor.borderColor,
                     ),
-    ) :  (model.list == null ? 
+    ) :  (model.list == null || model.list.isEmpty? 
     Center(child: Text('You do not have any reservation. '
                   'Click on the ‘’Add icon’’ button below to add one reservation for free.',
                    textAlign: TextAlign.center,
@@ -39,16 +43,32 @@ class UpcomingTab extends ProviderWidget<MainReservationViewModel> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context , int index){
-             return  (model.list[index].approved && model.list[index].alreadyCheckedin ? SizedBox.shrink(): 
-             ReservationWidget(
-                getReservation: model.list[index],
-                type: 'unApproved',
-                ));  
-               },))
-               
+             return  checker(checkoutDate: model.list[index].checkoutDate,
+            list:  model.list, index: index);  
+               },)
                )
-        
-               ;
+               );
+  }
+
+    checker({String checkoutDate, List<GetReservationModel> list, int index}){
+    if(checkoutDate == null){
+        return SizedBox.shrink();
+    }else{
+      //print('Server => $checkoutDate');    
+  
+  DateTime date = DateTime.now();
+  String today = '${date.day}-${date.month}-${date.year}';
+  //print('Me => $today');
+
+  if(!equals(checkoutDate, today) && list[index].approved && list[index].alreadyCheckedin){
+    return SizedBox.shrink();
+  }else{
+     ReservationWidget(
+                getReservation: list[index],
+                type: 'unApproved',
+                );
+  }
+ }
   }
   
 }

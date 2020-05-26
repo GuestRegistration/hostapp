@@ -7,8 +7,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hostapp/src/screen/checkUserScreen.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/locator.dart';
+import 'package:hostapp/src/service/DynamicLinkService.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
+import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/service/queryMutation.dart';
+import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'welcome.dart';
 import 'sign_in.dart';
@@ -22,6 +25,9 @@ class AuthScreen extends StatefulWidget {
 
 class AuthScreenState extends State<AuthScreen> {
     final CustomFuntion _customFuntion = locator<CustomFuntion>(); //instance of custom function
+    final NavigationService _navigationService = locator<NavigationService>();
+     final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
+
   FirebaseUser user;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var existingemail;
@@ -44,7 +50,9 @@ class AuthScreenState extends State<AuthScreen> {
     super.didChangeDependencies();
   }
 
+ @override
   void initState() {
+    initializeDynamicLink();
     getdeviceinfo();
     super.initState();
   }
@@ -71,7 +79,9 @@ class AuthScreenState extends State<AuthScreen> {
   }
   //Function end to check device type
 
-  /// Function start for handling apple signup
+ initializeDynamicLink()async{
+   await _dynamicLinkService.handleDynamicLinks(); //Initialize dynamic 
+ }
 
   
 
@@ -207,7 +217,7 @@ class AuthScreenState extends State<AuthScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12))),
                     onPressed: () async {
-                      startLoading(); //start show progress bar
+                     
                       sigInwithG();
                      
                     },
@@ -266,6 +276,38 @@ class AuthScreenState extends State<AuthScreen> {
                   
                   ),
                   visible: _appledevice,
+                ),
+                Container(
+                  width: 318.0,
+                  height: 47.0,
+                  decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.circular(
+                      13.0,
+                    ),
+                  ),
+                  child: RaisedButton(
+                    color: const Color(0xffF1F1F1),
+                    child: new Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        new Icon(Icons.email, color: Colors.black),
+                        new Container(
+                            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                            child: new Text(
+                              "Continue with Email",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.0),
+                            )),
+                      ],
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12))),
+                    onPressed: () async {
+                     _navigationService.navigateTo(signInwithEmailRoute);  //Navigate to sign-in with Email Screen
+                    },
+                  ),
                 ),
                  Align(
                   child: loadingIndicator,
@@ -332,7 +374,7 @@ class AuthScreenState extends State<AuthScreen> {
 
 
 sigInwithG()async{
-  clearErrorMessage();
+  clearErrorMessage(); //clear error messgae
   startLoading();
   try{
     GoogleSignInAccount account = await googleSignIn.signIn();
@@ -378,6 +420,7 @@ sigInwithG()async{
 }
 
  signInWithApple() async {
+clearErrorMessage(); //clear error messgae
     startLoading();
     try {
       final AuthorizationResult result = await AppleSignIn.performRequests([
@@ -462,5 +505,10 @@ clearErrorMessage(){
        errorMessage = null;
       });
 }
+
+
+
+
+
 
 }

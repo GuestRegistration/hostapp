@@ -15,6 +15,7 @@ class Constants {
   static const String error = "Please check the input field";
   static const String verificationFailed = "Verification failed";
   static const String thankYou = "Thank you for authenticating!";
+  static const String enteredEmail = "providedEmail";
   // Numbers
   static const int timeOutDuration = 90;
   //Saved constData
@@ -31,6 +32,7 @@ static const String constmail = 'Email';
 static const String constPhoneN = 'PhoneNumber';
 static const String constPhoneContryCode = 'CountryCodePhone';
 static const String constCompletePhone = 'CompletePhone';
+static const String passwordlessDynamicUrl = 'https://guestregistration-4140a.firebaseapp.com';
 }
 
 
@@ -49,5 +51,8 @@ const String updatepropertyloadingRoute = '/updateProperty';
 const String addReservationloadingRoute = '/reseloading';
 const String reservationInstructionRoute = '/reservationInstru';
 const String settingsRoute = '/settings';
+const String signInwithEmailRoute = '/withEmail';
+const String signInwithEmailLOADERRoute = '/withEmailLoadder';
+const String authRoute = '/authR';
 
 

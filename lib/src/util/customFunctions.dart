@@ -10,6 +10,7 @@ import 'package:share/share.dart';
 import 'package:hostapp/src/util/constants.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomFuntion{
@@ -30,6 +31,12 @@ class CustomFuntion{
      await storage.write(key: Constants.constPhoneContryCode, value: phoneCode.toString());
       await storage.write(key: Constants.constCompletePhone, value: completePhone.toString());
       await storage.write(key: Constants.constID, value: userID.toString());
+  }
+
+  entredEmail(String providedEMail)async{
+    //Temporary saving email when login with email, SO that i can retrieve it and signi with this email and dynamic link
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+       prefs.setString(Constants.enteredEmail, providedEMail);
   }
 
   

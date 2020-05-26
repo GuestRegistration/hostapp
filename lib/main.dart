@@ -15,6 +15,7 @@ import 'package:hostapp/src/screen/ProScreen.dart';
 import 'package:hostapp/src/screen/SettingsScreen.dart';
 import 'package:hostapp/src/screen/GuestScreen.dart';
 import 'package:hostapp/src/screen/PersonalDetailsScreen.dart';
+import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/tester.dart';
 import 'package:hostapp/src/GraphQLDemo/FirebasePerformance.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: PasswordlessApp(),//ProScreen(),//PasswordlessApp(),
+      home: AuthScreen(),//PasswordlessApp(),
       //PasswordlessApp(),//PersonalDetailsScreen(),//PasswordlessApp(),//Dashboard(showIndex: 0,),//PasswordlessApp(),// Dashboard(showIndex: 0,),////PasswordlessApp(),//PersonalDetailsScreen(),//,//PersonalDetailsScreen(),//Dashboard(showIndex: 0,),//
       onGenerateRoute: generateRoute,
     ),

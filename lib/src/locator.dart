@@ -7,6 +7,7 @@ import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hostapp/src/service/DynamicLinkService.dart';
 
 //Instead of creating instance of an Object, Multiple times
 //Dependency inject solve it by creating this code.
@@ -21,6 +22,7 @@ locator.registerLazySingleton(() => DialogService());
 locator.registerLazySingleton(() => FirestoreService());
 locator.registerLazySingleton(() => CloudStorageService()); 
 locator.registerLazySingleton(() => GraphQLConfiguration()); 
+locator.registerLazySingleton(() => DynamicLinkService());
 }
 
  //Creating an injection.
