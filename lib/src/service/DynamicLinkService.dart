@@ -40,8 +40,6 @@ final NavigationService _navigationService = locator<NavigationService>();
         if (deepLink != null) {
       _navigationService.navigateToandRemove(signInwithEmailLOADERRoute, arguments: deepLink);
     }
-
-    
   }
   }
 
