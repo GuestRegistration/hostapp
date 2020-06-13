@@ -68,7 +68,6 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
                   indicatorSize: TabBarIndicatorSize.label,
                   labelColor: Color(0xFF45A1C9),
                   indicatorWeight: 1.0,
-                  
                   indicator: BoxDecoration(
                       gradient: LinearGradient(
                           colors: [AppColor.disableButton, AppColor.disableButton]),
@@ -81,9 +80,8 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
                       child: Tab(
                         child: Align(
                           alignment: Alignment.center,
-                          child: Text("UNAPPROVED"),
+                          child: Text("UNAPPROVED", style: TextStyle(fontSize: 13),),
                         ),
-                      
                       ),
                     ),
                     Container(
@@ -91,7 +89,7 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
                       child: Tab(
                         child: Align(
                           alignment: Alignment.center,
-                          child: Text("APPROVED"),
+                          child: Text("APPROVED",  style: TextStyle(fontSize: 13),),
                         ),
                       ),
                     ),
@@ -100,7 +98,7 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
                       child: Tab(
                         child: Align(
                           alignment: Alignment.center,
-                          child: Text("PAST"),
+                          child: Text("PAST", style: TextStyle(fontSize: 13),),
                         ),
                       ),
                     ),

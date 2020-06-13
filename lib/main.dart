@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: AuthScreen(),//PasswordlessApp(),
+      home: PasswordlessApp(),
       //PasswordlessApp(),//PersonalDetailsScreen(),//PasswordlessApp(),//Dashboard(showIndex: 0,),//PasswordlessApp(),// Dashboard(showIndex: 0,),////PasswordlessApp(),//PersonalDetailsScreen(),//,//PersonalDetailsScreen(),//Dashboard(showIndex: 0,),//
       onGenerateRoute: generateRoute,
     ),

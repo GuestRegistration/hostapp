@@ -44,7 +44,11 @@ class UpcomingTab extends ProviderWidget<MainReservationViewModel> {
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context , int index){
              return  checker(checkoutDate: model.list[index].checkoutDate,
-            list:  model.list, index: index);  
+            list:  model.list, index: index); 
+            // return ReservationWidget(
+            //     getReservation: model.list[index],
+            //     type: 'unApproved',
+            //     ); 
                },)
                )
                );
@@ -60,13 +64,13 @@ class UpcomingTab extends ProviderWidget<MainReservationViewModel> {
   String today = '${date.day}-${date.month}-${date.year}';
   //print('Me => $today');
 
-  if(!equals(checkoutDate, today) && list[index].approved && list[index].alreadyCheckedin){
-    return SizedBox.shrink();
-  }else{
-     ReservationWidget(
+  if(!equals(checkoutDate, today) && !list[index].approved && !list[index].alreadyCheckedin){
+    return  ReservationWidget(
                 getReservation: list[index],
                 type: 'unApproved',
                 );
+  }else{
+     return SizedBox.shrink();
   }
  }
   }

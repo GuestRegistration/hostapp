@@ -11,6 +11,7 @@ import 'package:hostapp/src/widget/ReservationWidget.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:hostapp/src/viewmodels/MainReservationViewModel.dart';
+import 'package:string_validator/string_validator.dart';
 
 class ApprovedTab extends ProviderWidget<MainReservationViewModel> {
   @override
@@ -36,7 +37,29 @@ class ApprovedTab extends ProviderWidget<MainReservationViewModel> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context , int index){
-                return   (model.list[index].approved && model.list[index].alreadyCheckedin ? ReservationWidget(
+              String  checkoutDate = model.list[index].checkoutDate;
+  //             if(checkoutDate == null){
+  //       return SizedBox.shrink();
+  //   }else{
+  //     //print('Server => $checkoutDate');    
+  DateTime date = DateTime.now();
+  String today = '${date.day}-${date.month}-${date.year}';
+//print('Me => $today');
+
+  // if(equals(checkoutDate, today)){
+  //  // print('Sane $today => $checkoutDate');
+
+  //   return SizedBox.shrink();
+  // }else{
+  //    return ReservationWidget(
+  //               getReservation: list[index],
+  //               type: 'Past',
+  //               );
+  // }
+  // print(date);
+ //}
+                return   (model.list[index].approved && model.list[index].alreadyCheckedin && 
+                equals(checkoutDate, today) ? ReservationWidget(
                 getReservation: model.list[index],
                 type: 'Approved',
                 ) :
@@ -46,4 +69,6 @@ class ApprovedTab extends ProviderWidget<MainReservationViewModel> {
                )
                ;
   }
+
+
 }

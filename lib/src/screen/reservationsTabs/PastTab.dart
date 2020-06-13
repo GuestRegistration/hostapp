@@ -33,10 +33,8 @@ class PastTab extends ProviderWidget<MainReservationViewModel> {
             itemBuilder: (BuildContext context , int index){
                return  datechecker(checkoutDate: model.list[index].checkoutDate,
             list:  model.list, index: index);
-           
                },))
-               )
-               ;
+               );
   }
 
 
