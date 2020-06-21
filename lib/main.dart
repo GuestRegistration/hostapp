@@ -25,28 +25,28 @@ import 'package:hostapp/src/service/navigation_service.dart';
 import 'dart:async';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 
-void main()async{
-  WidgetsFlutterBinding.ensureInitialized();
-  setupLocator(); // Register all the models and services before the app starts
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
+void main()async{  WidgetsFlutterBinding.ensureInitialized();
+setupLocator(); // Register all the models and services before the app starts
+SystemChrome.setPreferredOrientations([
+  DeviceOrientation.portraitUp,
+  DeviceOrientation.portraitDown,
+  DeviceOrientation.landscapeLeft,
+  DeviceOrientation.landscapeRight,
+]);
 
-  Crashlytics.instance.enableInDevMode = true;
-  Crashlytics.instance.setUserEmail('horlaz229@gmail.com');
-  Crashlytics.instance.setUserName('Harbdollar');
-  Crashlytics.instance.setUserIdentifier('Harbdollar USER IDENTIFIER');
+Crashlytics.instance.enableInDevMode = true;
+Crashlytics.instance.setUserEmail('horlaz229@gmail.com');
+Crashlytics.instance.setUserName('Harbdollar');
+Crashlytics.instance.setUserIdentifier('Harbdollar USER IDENTIFIER');
 
-  // Pass all uncaught errors from the framework to Crashlytics.
-  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+// Pass all uncaught errors from the framework to Crashlytics.
+FlutterError.onError = Crashlytics.instance.recordFlutterError;
 
-    // runApp(MyApp(),); 
-    runZoned(() {
-    runApp(MyApp());
-  }, onError: Crashlytics.instance.recordError);
+// runApp(MyApp(),);
+runZoned(() {
+  runApp(MyApp());
+}, onError: Crashlytics.instance.recordError);
+
 
 }
 
