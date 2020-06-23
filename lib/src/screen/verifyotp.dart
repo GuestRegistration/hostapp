@@ -54,6 +54,7 @@ class _VerifyotpState extends State<Verifyotp> {
            createUser( 
              id:$id,
              email: $email,
+             
           phone: $phone , first_name:$name,last_name:$lastname
         ){ 
           id

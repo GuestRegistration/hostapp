@@ -23,6 +23,7 @@ String get getErrorMessage => _errorMessage;
     String phoneIcode = data[5]; //phonce icode
       String rules = data[6]; //Rules
       String docLink = data[7]; //Rules
+      String fullPhone = '$phoneIcode $phoneN';
 
       // print('**************** COMING DATA *****************');
       //  print(pName); 
@@ -56,6 +57,7 @@ setBusy(true);
               "email": cEmail,
               "street": pAddress,
               "rules": rules,
+              "phone_number": '$phoneIcode $phoneN',
               'phoneCountry_code': phoneIcode,
               "terms": docLink,
               "country": country

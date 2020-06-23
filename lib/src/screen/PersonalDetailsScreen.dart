@@ -388,6 +388,7 @@ updateProfile()async{
           'last_name': lastname.text.trim(),
           'phone_country_code': defaultphoneIsoCode.toString(),
           "phone_number": phoneNumberController.text,
+          "phone" : '${defaultphoneIsoCode.toString()} ${phoneNumberController.text}'
         },
       )
     ).catchError((e){
@@ -419,9 +420,9 @@ updateProfile()async{
                name: Name(fName: result.data[v]['name']['first_name'],
                 lName: result.data[v]['name']['last_name'],),
                phone: Phone(
-              completePhone: result.data[v]['phone']['complete_phone'],
-            countryCode: result.data[v]['phone']['country_code'],
-            phoneNumber: result.data[v]['phone']['phone_number'],)
+              completePhone: result.data[v]['phone_meta']['complete_phone'],
+            countryCode: result.data[v]['phone_meta']['country_code'],
+            phoneNumber: result.data[v]['phone_meta']['phone_number'],)
             );                
                                 //Save details to Secure Storage
         _customFuntion.saveUserData(

@@ -39,6 +39,7 @@ void initialize({String phoneNumber, lastname, phoneCode, name, authuid, email, 
           "phone_number": phoneNumber,
           "email": email,
           "name": name,
+          "phone" : '$phoneCode $phoneNumber',
           "lastname": lastname,
         },
       )
@@ -71,9 +72,9 @@ void initialize({String phoneNumber, lastname, phoneCode, name, authuid, email, 
                name: Name(fName: result.data[v]['name']['first_name'],
                 lName: result.data[v]['name']['last_name'],),
                 phone: Phone(
-              completePhone: result.data[v]['phone']['complete_phone'],
-              countryCode: result.data[v]['phone']['country_code'],
-              phoneNumber: result.data[v]['phone']['phone_number'],)
+              completePhone: result.data[v]['phone_meta']['complete_phone'],
+              countryCode: result.data[v]['phone_meta']['country_code'],
+              phoneNumber: result.data[v]['phone_meta']['phone_number'],)
             );                
                                 //Save details to Secure Storage
         _customFuntion.saveUserData(
@@ -86,6 +87,7 @@ void initialize({String phoneNumber, lastname, phoneCode, name, authuid, email, 
           phoneCode: createUserModel.phone.countryCode,
         );
               setBusy(false);
+              
              Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) {

@@ -322,8 +322,7 @@ void _onCountryChange(countryCode) {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) {
-          return CreateProfileLoadingS( 
-            
+          return CreateProfileLoadingS(
             phoneNumber: phone.text,
             phoneCountryCode: phoneCode,
             name: name.text,//name.text,

@@ -93,9 +93,9 @@ for (var index = 0; index < result.data["getUserProperties"].length; index++) {
                   name: result.data["getUserProperties"][index]["name"],
                   rulesText: result.data["getUserProperties"][index]["rules"],
                   propertyPhone: PropertyPhone(
-                  completePhone: result.data["getUserProperties"][index]["phone"]['complete_phone'], 
-                  countryCode: result.data["getUserProperties"][index]["phone"]['country_code'], 
-                  phoneNumber: result.data["getUserProperties"][index]["phone"]['phone_number']),
+                  completePhone: result.data["getUserProperties"][index]["phone_meta"]['complete_phone'], 
+                  countryCode: result.data["getUserProperties"][index]["phone_meta"]['country_code'], 
+                  phoneNumber: result.data["getUserProperties"][index]["phone_meta"]['phone_number']),
                   address:
                   Address(street: result.data["getUserProperties"][index]["address"]['street'],
                   country: result.data["getUserProperties"][index]["address"]['country']),

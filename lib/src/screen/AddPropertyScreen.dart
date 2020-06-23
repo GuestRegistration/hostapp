@@ -130,52 +130,30 @@ swtichHeader( AddPropertyViewModel model, BuildContext context){
 
   screen1(BuildContext context, AddPropertyViewModel model, ){
       return  Expanded(
-          child: ListView(
-            children: <Widget>[
-                 verticalSpaceSmall,
-              //  CollectText(ttile: 'Property Name',),
-              //  verticalSpaceSmall,
-              //       InputField(
-              //       placeholder: 'PropertyAddress',
-              //       decoration: null,
-              //       controller: propertyNameController,
-              //     ), 
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+            child: ListView(
+              children: <Widget>[
+                   verticalSpaceSmall,
+                //  CollectText(ttile: 'Property Name',),
+                //  verticalSpaceSmall,
+                //       InputField(
+                //       placeholder: 'PropertyAddress',
+                //       decoration: null,
+                //       controller: propertyNameController,
+                //     ), 
        
-              //     verticalSpaceSmall,
-              //      CollectText(ttile: 'Property Address',),
-              //       InputField(
-              //       placeholder: 'PropertyAddress',
-              //       decoration: null,
-              //       controller: addressController,
-              //     ),
-              (model.busy ? _customFuntion.loadingIndicator() : GestureDetector(
-                      child:  TextFormField(
-                        controller: propertyNameController,
-                    keyboardType: TextInputType.text,
-                    decoration:  InputDecoration(
-                      enabledBorder: new OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: new BorderSide(color: AppColor.borderColor,
-                      ),
-                  ),
-                    border: new OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: new BorderSide(color: AppColor.borderColor
-                      ),
-                  ),
-                    hintStyle: AppTextStyle.inputHint(context),
-                  ),
-                   onTap: ()async{
-                      placeAPI(model);
-          },
-                  ),  
-                  )),
-                   CollectText(ttile: 'Property Address',),
-                  
-                   GestureDetector(
+                //     verticalSpaceSmall,
+                //      CollectText(ttile: 'Property Address',),
+                //       InputField(
+                //       placeholder: 'PropertyAddress',
+                //       decoration: null,
+                //       controller: addressController,
+                //     ),
+                (model.busy ? _customFuntion.loadingIndicator() : GestureDetector(
                         child:  TextFormField(
-                          controller: addressController,
-                      keyboardType: TextInputType.number,
+                          controller: propertyNameController,
+                      keyboardType: TextInputType.text,
                       decoration:  InputDecoration(
                         enabledBorder: new OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -190,16 +168,40 @@ swtichHeader( AddPropertyViewModel model, BuildContext context){
                       hintStyle: AppTextStyle.inputHint(context),
                     ),
                      onTap: ()async{
-                         Prediction prediction = await PlacesAutocomplete.show(
-                            context: context,
-                            apiKey: model.key,
-                            mode: Mode.overlay, // Mode.fullscreen
-                            );
-               addressController.text = prediction.structuredFormatting.secondaryText;
-             }, ),  
-                    ),
-                   verticalSpaceSmall,
-                    //CollectText(ttile: 'Country',),
+                        placeAPI(model);
+            },
+                    ),  
+                    )),
+                     CollectText(ttile: 'Property Address',),
+                    
+                     GestureDetector(
+                          child:  TextFormField(
+                            controller: addressController,
+                        keyboardType: TextInputType.number,
+                        decoration:  InputDecoration(
+                          enabledBorder: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(color: AppColor.borderColor,
+                          ),
+                      ),
+                        border: new OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(color: AppColor.borderColor
+                          ),
+                      ),
+                        hintStyle: AppTextStyle.inputHint(context),
+                      ),
+                       onTap: ()async{
+                           Prediction prediction = await PlacesAutocomplete.show(
+                              context: context,
+                              apiKey: model.key,
+                              mode: Mode.overlay, // Mode.fullscreen
+                              );
+                 addressController.text = prediction.structuredFormatting.secondaryText;
+               }, ),  
+                      ),
+                     verticalSpaceSmall,
+                      //CollectText(ttile: 'Country',),
 //                   Row(children: <Widget>[
 // Expanded(
 //      child: Container(
@@ -222,7 +224,7 @@ swtichHeader( AddPropertyViewModel model, BuildContext context){
 //                                  model.setCountry(selectedcountry:value.name.toString());
 //                               setcountry(value.dialCode);
 //                               print(value.name);
-                      
+                        
 //                   },
 //                   initialSelection: phoneIsoCode,
 //                   favorite: ['+39','FR'],
@@ -236,68 +238,68 @@ swtichHeader( AddPropertyViewModel model, BuildContext context){
 //                         ),
 //                       ),
 //                   ],),
-                   
-                   verticalSpaceSmall,
-                    CollectText(ttile: 'Contact Phone',),
-                    InputField(
-                   placeholder: 'ContactPhone',
-                    controller: phoneNumber,
-                    textInputType: TextInputType.number,
-                    decoration:  InputDecoration(
-                      enabledBorder: new OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: new BorderSide(color: AppColor.primary,
-                      ),
+                     
+                     verticalSpaceSmall,
+                      CollectText(ttile: 'Contact Phone',),
+                      InputField(
+                     placeholder: 'ContactPhone',
+                      controller: phoneNumber,
+                      textInputType: TextInputType.number,
+                      decoration:  InputDecoration(
+                        enabledBorder: new OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: new BorderSide(color: AppColor.primary,
+                        ),
+                    ),
+                      border: new OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: new BorderSide(color: AppColor.borderColor
+                        ),
+                    ),
+                      hintText: "xxxxxx",
+                      hintStyle: AppTextStyle.inputHint(context),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: ClipRRect(
+                           borderRadius: BorderRadius.circular(8.0),
+                          child: Container(
+                            decoration: new BoxDecoration(
+                          color: AppColor.fieldDecoration,
+                         borderRadius: new BorderRadius.only(
+                            topLeft: const Radius.circular(8.0),
+                            topRight: const Radius.circular(8.0),
+                            bottomLeft: const Radius.circular(8.0),
+                            bottomRight: const Radius.circular(8.0),
+                            ),
+                            
+                            ),
+                           child: CountryCodePicker(
+                    onChanged: (value){
+                    model.setCountry(selectedcountry:value.name.toString());
+                     setcountry(value.dialCode);//include icode when selecting country
+                        
+                    },
+                    initialSelection: phoneIsoCode,
+                    favorite: ['+39','FR'],
+                    showCountryOnly: false,
+                    alignLeft: false,
                   ),
-                    border: new OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      borderSide: new BorderSide(color: AppColor.borderColor
-                      ),
-                  ),
-                    hintText: "xxxxxx",
-                    hintStyle: AppTextStyle.inputHint(context),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: ClipRRect(
-                         borderRadius: BorderRadius.circular(8.0),
-                        child: Container(
-                          decoration: new BoxDecoration(
-                        color: AppColor.fieldDecoration,
-                       borderRadius: new BorderRadius.only(
-                          topLeft: const Radius.circular(8.0),
-                          topRight: const Radius.circular(8.0),
-                          bottomLeft: const Radius.circular(8.0),
-                          bottomRight: const Radius.circular(8.0),
                           ),
-                          
-                          ),
-                         child: CountryCodePicker(
-                  onChanged: (value){
-                  model.setCountry(selectedcountry:value.name.toString());
-                   setcountry(value.dialCode);//include icode when selecting country
-                      
-                  },
-                  initialSelection: phoneIsoCode,
-                  favorite: ['+39','FR'],
-                  showCountryOnly: false,
-                  alignLeft: false,
-                ),
                         ),
                       ),
+                      
                     ),
-                    
-                  ),
-                  ),
-                 
-                  verticalSpaceSmall,
-                     CollectText(ttile: 'Contact Email',),
-                  InputField(
-                    placeholder: '',
-                    controller: emailcontroller,
-                    textInputType: TextInputType.emailAddress,
-                    onChanged: (value){
-                    },
-                  ),
+                    ),
+                   
+                    verticalSpaceSmall,
+                       CollectText(ttile: 'Contact Email',),
+                    InputField(
+                      placeholder: '',
+                      controller: emailcontroller,
+                      textInputType: TextInputType.emailAddress,
+                      onChanged: (value){
+                      },
+                    ),
  
  //******* REMOVE BUTTON FOR NOW. */
 //  verticalSpaceSmall,
@@ -326,11 +328,12 @@ swtichHeader( AddPropertyViewModel model, BuildContext context){
 //                   ),
 //                 ),
 //                 onTap: (){
-                 
+                   
 //                 },
 //               )
 
-            ],
+              ],
+            ),
           ),
         );
   
@@ -345,54 +348,16 @@ setState(() {
 
  screen2(BuildContext context, AddPropertyViewModel model, ){
       return  Expanded(
-          child: ListView(
-            children: <Widget>[
-              
+          child: Padding(
+           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+            child: ListView(
+              children: <Widget>[
+                
         verticalSpaceMedium,
-               TextField(
-                  keyboardType: TextInputType.multiline,
-                  controller: rulesController,
-                   maxLines: 10,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                      enabledBorder: new OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: new BorderSide(color: AppColor.borderColor,
-                        ),
-                      ),
-                    labelText: 'Paste your property rules here..',
-                    labelStyle: GoogleFonts.abel(
-                    )
-                  ),
-                  // onChanged: (value){
-                  //     if(model.selectedDocument == null && rulesController.text.isEmpty){
-                  //         model.setPropertyRulesButtonStatus(false);
-                        
-                  //     }else{
-                  //       model.setPropertyRulesButtonStatus(true);
-                  //     }
-                  //   },
-                ),
-                      verticalSpaceLarge,
-Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-     Text('Terms & Conditions', textAlign: TextAlign.left, style: TextStyle(
-                     fontSize: AppFontSizes.medium,
-                   ),),
-                    ],
-                    
-                  ),
-                ),
-                //  textInputField(
-                //       placeholder: 'Attached document here',
-                //     controller: rulesController,
-                //   ),
-                 GestureDetector(
-                       child: TextField(
-                  //  obscureText: false,
-                    controller: docuemntController,
+                 TextField(
+                    keyboardType: TextInputType.multiline,
+                    controller: rulesController,
+                     maxLines: 10,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                         enabledBorder: new OutlineInputBorder(
@@ -400,111 +365,152 @@ Padding(
                           borderSide: new BorderSide(color: AppColor.borderColor,
                           ),
                         ),
-                        hintText: 'Paste URL here',
-                      suffixIcon: Icon(Icons.attachment)
+                      labelText: 'Paste your property rules here..',
+                      labelStyle: GoogleFonts.abel(
+                      )
                     ),
-                    onChanged: (value) {
-                      
-                    },
-                    onTap: (){
-                      //   //TODO Select Document from Gallery.
-                      // model.pickDocument(docuemntController);
-                      //  if(docuemntController.text.isNotEmpty && rulesController.text.isNotEmpty){
-                      //   model.setPropertyRulesButtonStatus(true);
-                      // }else{
-                      //     model.setPropertyRulesButtonStatus(false);
-                      // }
-                    },
-                ),
-                 ),
-  verticalSpaceLarge,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    // onChanged: (value){
+                    //     if(model.selectedDocument == null && rulesController.text.isEmpty){
+                    //         model.setPropertyRulesButtonStatus(false);
+                          
+                    //     }else{
+                    //       model.setPropertyRulesButtonStatus(true);
+                    //     }
+                    //   },
+                  ),
+                        verticalSpaceLarge,
+Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
                       children: <Widget>[
-                        GestureDetector(child: Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: Container(
-                      width: 150,
-                      height: 50,
-                      child: Material(
-                      child: Center(
-                          child: Text('Skip',
-                          style: TextStyle(
-                            color: AppColor.white,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.bold
-                          ),),
-                      ),
-                      color: Color(0xFF45A1C9),
-                      shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(18.0),
-            side: BorderSide(color: AppColor.borderColor)
-    ),
-                   
-                ),
+     Text('Terms & Conditions', textAlign: TextAlign.left, style: TextStyle(
+                       fontSize: AppFontSizes.medium,
+                     ),),
+                      ],
+                      
                     ),
                   ),
-                  onTap: (){
-                    
-                     model.lastScreenbutton(
-                       rules: rulesController.text.trim(),
-                       mustSetData: false, //No, It's not a Must to set rules and document
-                       document: docuemntController.text.trim()
-                    );
-                  },
-                        ),
+                  //  textInputField(
+                  //       placeholder: 'Attached document here',
+                  //     controller: rulesController,
+                  //   ),
+                   GestureDetector(
+                         child: TextField(
+                    //  obscureText: false,
+                      controller: docuemntController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                          enabledBorder: new OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: new BorderSide(color: AppColor.borderColor,
+                            ),
+                          ),
+                          hintText: 'Paste URL here',
+                        suffixIcon: Icon(Icons.attachment)
+                      ),
+                      onChanged: (value) {
                         
-                  horizontalSpaceSmall,
-                  GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      },
+                      onTap: (){
+                        //   //TODO Select Document from Gallery.
+                        // model.pickDocument(docuemntController);
+                        //  if(docuemntController.text.isNotEmpty && rulesController.text.isNotEmpty){
+                        //   model.setPropertyRulesButtonStatus(true);
+                        // }else{
+                        //     model.setPropertyRulesButtonStatus(false);
+                        // }
+                      },
+                  ),
+                   ),
+  verticalSpaceLarge,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          GestureDetector(child: Padding(
+                      padding: const EdgeInsets.all(1.0),
                       child: Container(
                         width: 150,
                         height: 50,
                         child: Material(
                         child: Center(
-                          child: Text(('Complete'),  //model.isPropertyRulesSet ? 'Complete' : 'Skip' If all field is entered, Display complete else Skip
-                          style: TextStyle(
-                            color: AppColor.white,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.bold
-                          ),),
+                            child: Text('Skip',
+                            style: TextStyle(
+                              color: AppColor.white,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.bold
+                            ),),
                         ),
                         color: Color(0xFF45A1C9),
                         shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(18.0),
-            side: BorderSide(color: AppColor.borderColor)
-    ),  ),
+              side: BorderSide(color: AppColor.borderColor)
+    ),
+                     
+                  ),
                       ),
                     ),
                     onTap: (){
                       
                        model.lastScreenbutton(
-                       rules: rulesController.text.trim(),
-                       document: docuemntController.text.trim(),
-                     mustSetData: true //YES, It's  a Must to set rules and document
-                    );
+                         rules: rulesController.text.trim(),
+                         mustSetData: false, //No, It's not a Must to set rules and document
+                         document: docuemntController.text.trim()
+                      );
                     },
-                  ),
-                  // BusyButton(
-                  //     title: 'Skip',
-                  //     busy: model.busy,
-                  //     onPressed: () {
-                  //        //TODO Submit all to Firestore
-                  //     model.lastScreenbutton(
-                  //      propertyName: propertyNameController.text.trim(),
-                  //     address: addressController.text.trim(),
-                  //     contactEmail: emailcontroller.text.trim(),
-                  //       phoneN: phoneNumber.text.trim(),
-                  //       image: model.selectedImage,
-                  //       propertyRule: rulesController.text.trim()
-                  //   );
-                  //   print(propertyNameController.text);
-                  //     },
-                  //   )
-                      ],
-                    )
-            ],
+                          ),
+                          
+                    horizontalSpaceSmall,
+                    GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 150,
+                          height: 50,
+                          child: Material(
+                          child: Center(
+                            child: Text(('Complete'),  //model.isPropertyRulesSet ? 'Complete' : 'Skip' If all field is entered, Display complete else Skip
+                            style: TextStyle(
+                              color: AppColor.white,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.bold
+                            ),),
+                          ),
+                          color: Color(0xFF45A1C9),
+                          shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(18.0),
+              side: BorderSide(color: AppColor.borderColor)
+    ),  ),
+                        ),
+                      ),
+                      onTap: (){
+                        
+                         model.lastScreenbutton(
+                         rules: rulesController.text.trim(),
+                         document: docuemntController.text.trim(),
+                       mustSetData: true //YES, It's  a Must to set rules and document
+                      );
+                      },
+                    ),
+                    // BusyButton(
+                    //     title: 'Skip',
+                    //     busy: model.busy,
+                    //     onPressed: () {
+                    //        //TODO Submit all to Firestore
+                    //     model.lastScreenbutton(
+                    //      propertyName: propertyNameController.text.trim(),
+                    //     address: addressController.text.trim(),
+                    //     contactEmail: emailcontroller.text.trim(),
+                    //       phoneN: phoneNumber.text.trim(),
+                    //       image: model.selectedImage,
+                    //       propertyRule: rulesController.text.trim()
+                    //   );
+                    //   print(propertyNameController.text);
+                    //     },
+                    //   )
+                        ],
+                      )
+              ],
+            ),
           ),
         );
      

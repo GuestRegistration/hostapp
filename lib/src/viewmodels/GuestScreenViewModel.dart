@@ -83,9 +83,9 @@ QueryResult result = await _client.query(
                 user: User(
                   id: result.data[val]['user']['id'],
                   phone: PhoneModel(
-              countryCode: result.data[val]['user']['phone']['country_code'],
-              phoneNumber: result.data[val]['user']['phone']['phone_number'],
-              completePhone: result.data[val]['user']['phone']['complete_phone'],),
+              countryCode: result.data[val]['user']['phone_meta']['country_code'],
+              phoneNumber: result.data[val]['user']['phone_meta']['phone_number'],
+              completePhone: result.data[val]['user']['phone_meta']['complete_phone'],),
                   name: Name(fname: result.data[val]['user']['name']["first_name"],
                   lname: result.data[val]['user']['name']["last_name"],
                   ),

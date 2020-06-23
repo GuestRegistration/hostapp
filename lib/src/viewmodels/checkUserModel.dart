@@ -75,9 +75,9 @@ void initialize(String userEmail, BuildContext context, String userID, String fn
                             name: Name(fName: result.data[v][0]['name']['first_name'],
                               lName: result.data[v][0]['name']['last_name'],),
                               phone: Phone(
-                                completePhone: result.data[v][0]['phone']['complete_phone'],
-                              countryCode: result.data[v][0]['phone']['country_code'],
-                              phoneNumber: result.data[v][0]['phone']['phone_number'],)
+                                completePhone: result.data[v][0]['phone_meta']['complete_phone'],
+                              countryCode: result.data[v][0]['phone_meta']['country_code'],
+                              phoneNumber: result.data[v][0]['phone_meta']['phone_number'],)
                               );
                               
                                 //Save details to Secure Storage

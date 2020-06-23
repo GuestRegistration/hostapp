@@ -1,6 +1,7 @@
 const  String addPropertyQuery = r"""
         mutation addProperty(
           $phone: String!
+          $phone_number: String!
           $name: String!
           $email: String!
           $street: String!
@@ -10,7 +11,9 @@ const  String addPropertyQuery = r"""
           $country: String!
         ){
         createProperty(name: $name,
-        phone_number: $phone, email: $email, street: $street, 
+        phone_number: $phone_number, 
+        phone: $phone,
+        email: $email, street: $street, 
           terms: $terms, phone_country_code: $phoneCountry_code,
           country: $country, rules: $rules){
           id
@@ -25,6 +28,7 @@ const  String addPropertyQuery = r"""
               $name: String!
                 $phone: String!
                 $email: String!
+                $phone_number: String
                 $street: String!
                 $phoneCountry_code: String!
                 $country: String!
@@ -32,15 +36,17 @@ const  String addPropertyQuery = r"""
                 $terms: String
             ){
               updateProperty(id: $id, name: $name,
-              phone_number: $phone, email: $email, street: $street, 
+              phone_number: $phone_number, 
+               phone: $phone, email: $email, street: $street, 
                phone_country_code: $phoneCountry_code,
                 country: $country, rules: $rules, terms: $terms,){
                 name
                 email,
-                phone{
-                  country_code
-                  phone_number
-                }
+                phone_meta{
+          phone_number
+          country_code
+          complete_phone
+              }
                 address{
                   street
                   city
@@ -55,11 +61,11 @@ const String getProperties = r"""
   getUserProperties{
     id
     name
-    phone{
-      country_code
-      phone_number
-      complete_phone
-    }
+    phone_meta{
+          phone_number
+          country_code
+          complete_phone
+              }
     address{
       street
       country
@@ -133,11 +139,11 @@ const String getBookingChannel = r"""
   getReservationCheckin(id: $id){
     user{
       id
-      phone{
-        country_code
-        phone_number
-        complete_phone
-      }
+      phone_meta{
+          phone_number
+          country_code
+          complete_phone
+              }
       name{
         first_name
         last_name
@@ -166,10 +172,10 @@ const String getBookingChannel = r"""
                 first_name
                 last_name
               }
-              phone{
-                phone_number
-                country_code
-                complete_phone
+             phone_meta{
+          phone_number
+          country_code
+          complete_phone
               }
               }
             }
@@ -177,7 +183,7 @@ const String getBookingChannel = r"""
  const String getphone = r"""
           query($phone: String!){
   getUserByPhone(phone: $phone){
-    phone{
+   phone_meta{
           phone_number
           country_code
           complete_phone
@@ -189,6 +195,7 @@ const String insertData = r"""
         mutation users(        
         $id: String!       
          $phone_number: String!
+         $phone: String!
          $phone_country_code: String!
          $email: String!
          $name: String!
@@ -197,7 +204,9 @@ const String insertData = r"""
              id:$id,
              email: $email,
              phone_country_code: $phone_country_code,
-          phone_number: $phone_number, first_name:$name, last_name:$lastname
+             phone: $phone,
+             phone_number: $phone_number,
+             first_name:$name, last_name:$lastname
         ){ 
           id
           email
@@ -206,7 +215,7 @@ const String insertData = r"""
             first_name
             last_name
           }       
-          phone{
+          phone_meta{
           phone_number
           country_code
           complete_phone
@@ -218,18 +227,19 @@ const String insertData = r"""
  mutation($email: String!,$id:String!,
   $phone_number: String!,
    $phone_country_code: String!,
+   $phone: String!,
  $first_name:String!,$last_name:String!){
   updateUser(email:$email,id:$id,first_name:$first_name,last_name:$last_name,
   phone_country_code: $phone_country_code,
           phone_number: $phone_number){
-     id
+          id
           email
           country_of_residence
           name{
             first_name
             last_name
           }       
-          phone{
+          phone_meta{
           phone_number
           country_code
           complete_phone
