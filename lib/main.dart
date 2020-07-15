@@ -27,6 +27,7 @@ import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 
 void main()async{  WidgetsFlutterBinding.ensureInitialized();
 setupLocator(); // Register all the models and services before the app starts
+
 SystemChrome.setPreferredOrientations([
   DeviceOrientation.portraitUp,
   DeviceOrientation.portraitDown,
@@ -53,8 +54,8 @@ runZoned(() {
 class MyApp extends StatelessWidget {
   var _graphQlConfiq = locator<GraphQLConfiguration>();
   @override
-  Widget build(BuildContext context) {
-    return GraphQLProvider(
+        Widget build(BuildContext context) {
+      return GraphQLProvider(
        client: _graphQlConfiq.initilize(),
       child:  MaterialApp(
       title: 'HostApp',
