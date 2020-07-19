@@ -24,7 +24,7 @@ class _GuestScreenState extends State<GuestScreen> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<GuestScreenViewModel>.withConsumer(
-      viewModel: GuestScreenViewModel(),
+       viewModelBuilder: () => GuestScreenViewModel(),
       onModelReady: (model) => model.initialize(id: widget.reservationID),
       builder: (context, model, child) =>
       //If busy, start loading else

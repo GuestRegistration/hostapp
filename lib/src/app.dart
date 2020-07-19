@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/screen/auth_screen.dart';
-import 'package:hostapp/src/screen/login_page.dart';
 import 'package:hostapp/src/screen/CheckUserScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:hostapp/src/style/AppImage.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 

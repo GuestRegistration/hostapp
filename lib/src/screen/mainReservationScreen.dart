@@ -24,7 +24,7 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
   @override
   Widget build(BuildContext context) {
      return ViewModelProvider<MainReservationViewModel>.withConsumer(
-      viewModel: MainReservationViewModel(),
+       viewModelBuilder: () => MainReservationViewModel(),
       onModelReady: (model) => model.tab1Initialize(),
       builder: (context, model, child) =>
        buildTab(model)

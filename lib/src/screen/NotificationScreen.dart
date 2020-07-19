@@ -14,7 +14,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<NotificationViewModel>.withConsumer(
-      viewModel: NotificationViewModel(),
+       viewModelBuilder: () => NotificationViewModel(),
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
       Scaffold(

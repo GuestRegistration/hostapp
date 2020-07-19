@@ -1,7 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hostapp/src/GraphQLDemo/CrasylisticsTester.dart';
 import 'package:hostapp/src/app.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/managers/dialog_manager.dart';
@@ -12,7 +11,8 @@ import 'package:hostapp/src/service/navigation_service.dart';
 import 'dart:async';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 
-void main()async{  WidgetsFlutterBinding.ensureInitialized();
+void main()async{  
+  WidgetsFlutterBinding.ensureInitialized();
 setupLocator(); // Register all the models and services before the app starts
 
 SystemChrome.setPreferredOrientations([
@@ -41,7 +41,7 @@ runZoned(() {
 class MyApp extends StatelessWidget {
   var _graphQlConfiq = locator<GraphQLConfiguration>();
   @override
-        Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
       return GraphQLProvider(
        client: _graphQlConfiq.initilize(),
       child:  MaterialApp(
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: locator<NavigationService>().navigationKey,
       theme: ThemeData(
         primaryColor: Color.fromARGB(255, 9, 202, 172),
-        backgroundColor: Color.fromARGB(255, 26, 27, 30),
+        backgroundColor:Color.fromARGB(255, 26, 27, 30),
         textTheme: Theme.of(context).textTheme.apply(
           fontFamily: 'Open Sans',
         ),

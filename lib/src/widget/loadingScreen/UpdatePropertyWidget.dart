@@ -20,7 +20,7 @@ class _UpdatePropertyWidgetState extends State<UpdatePropertyWidget> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<CRUDpropertyloadingViewmodel>.withConsumer(
-      viewModel: CRUDpropertyloadingViewmodel(),
+       viewModelBuilder: () => CRUDpropertyloadingViewmodel(),
       onModelReady: (model) => model.updatePropertyAPI(data: widget.data),
       builder: (context, model, child) =>
           Scaffold(

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:flutter/material.dart';
@@ -115,7 +113,6 @@ class InserDemo extends StatefulWidget {
 }
 
 class _InserDemoState extends State<InserDemo> {
-  var _graphQlConfiq = locator<GraphQLConfiguration>();
   bool processing = false;
   String insertData = r"""
         mutation addProperty(

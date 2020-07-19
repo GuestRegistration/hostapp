@@ -7,16 +7,12 @@ import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/viewmodels/addReservationViewModel.dart';
 import 'package:hostapp/src/widget/CollectText.dart';
 import 'package:hostapp/src/widget/input_field.dart';
-import 'package:hostapp/src/widget/ButtomPicker.dart';
-import 'package:hostapp/src/widget/Menu.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
-import 'package:intl/intl.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:hostapp/src/model/BookingChannelModel.dart'; 
-import 'package:sticky_headers/sticky_headers.dart';
 
 class AddReservationScreen extends StatefulWidget {
   @override
@@ -53,7 +49,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<AddReservationViewModel>.withConsumer(
-      viewModel: AddReservationViewModel(),
+       viewModelBuilder: () => AddReservationViewModel(),
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
       (model.busy ? loadingWidget()

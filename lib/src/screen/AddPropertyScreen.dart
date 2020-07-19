@@ -8,7 +8,6 @@ import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/viewmodels/AddProperty_view_mode.dart';
 import 'package:hostapp/src/widget/input_field.dart';
 import 'package:hostapp/src/widget/CollectText.dart';
-import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -22,7 +21,7 @@ class AddPropertyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<AddPropertyViewModel>.withoutConsumer(
-      viewModel: AddPropertyViewModel(),
+       viewModelBuilder: () => AddPropertyViewModel(),
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
       

@@ -20,7 +20,7 @@ class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<CRUDpropertyloadingViewmodel>.withConsumer(
-      viewModel: CRUDpropertyloadingViewmodel(),
+       viewModelBuilder: () => CRUDpropertyloadingViewmodel(),
       onModelReady: (model) => model.addPropertyAPI(
         data: widget.data),
       builder: (context, model, child) =>

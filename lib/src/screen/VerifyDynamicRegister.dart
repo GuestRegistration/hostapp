@@ -24,7 +24,7 @@ class _VerifyDynamicRegisterState extends State<VerifyDynamicRegister> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<VerifyDynamicRegisterVM>.withConsumer(
-      viewModel: VerifyDynamicRegisterVM(),
+       viewModelBuilder: () => VerifyDynamicRegisterVM(),
       onModelReady: (model) => model.initialize(data: widget.data, context: context),
       builder: (context, model, child) =>
           Scaffold(

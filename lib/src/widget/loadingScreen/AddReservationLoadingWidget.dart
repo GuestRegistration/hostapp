@@ -20,7 +20,7 @@ class _AddReservationLoadingWidgetState extends State<AddReservationLoadingWidge
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<CRUDReservationVM>.withConsumer(
-      viewModel: CRUDReservationVM(),
+       viewModelBuilder: () => CRUDReservationVM(),
       onModelReady: (model) => model.addReservationAPI(data: widget.data, context: context),
       builder: (context, model, child) =>
           Scaffold(

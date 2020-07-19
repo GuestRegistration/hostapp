@@ -2,25 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0545143f-f6fc-43c0-93db-0dd887824cbd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.metadata" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/Flutter/.last_build_id" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/hostapp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hostapp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/key.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/key.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/util/customFunctions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/util/customFunctions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592771379883</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="local android resolve">
+      <created>1595144172608</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1595144172608</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -188,13 +177,18 @@
     <MESSAGE value="merge all branches and bug fixed" />
     <MESSAGE value="gradle changes" />
     <MESSAGE value="gradle resolve" />
-    <option name="LAST_COMMIT_MESSAGE" value="gradle resolve" />
+    <MESSAGE value="local android resolve" />
+    <option name="LAST_COMMIT_MESSAGE" value="local android resolve" />
   </component>
   <component name="WindowStateProjectService">
     <state x="200" y="99" key="#PSD" timestamp="1595140409278">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="200" y="99" key="#PSD/0.0.1366.728@0.0.1366.728" timestamp="1595140409278" />
+    <state x="220" y="0" key="CommitChangelistDialog2" timestamp="1595144165964">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="220" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1595144165964" />
     <state width="1323" height="150" key="GridCell.Tab.0.bottom" timestamp="1595142374556">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -215,6 +209,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1595140498588" />
+    <state x="275" y="85" key="Vcs.Push.Dialog.v2" timestamp="1595144180725">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="85" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1595144180725" />
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1595144054706">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

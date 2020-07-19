@@ -26,7 +26,7 @@ import 'package:google_maps_webservice/places.dart';
 //  @override
 //  Widget build(BuildContext context) {
 //    return ViewModelProvider<AddPropertyViewModel>.withoutConsumer(
-//        viewModel: AddPropertyViewModel(),
+//         viewModelBuilder: () => AddPropertyViewModel(),
 //        onModelReady: (model) => model.initialize(),
 //        builder: (context, model, child) =>
 //
@@ -109,7 +109,7 @@ TextEditingController propertyNameController =  TextEditingController();
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<AddPropertyViewModel>.withConsumer(
-      viewModel: AddPropertyViewModel(),
+       viewModelBuilder: () => AddPropertyViewModel(),
       onModelReady: (model) => model.editInitalize(),
       builder: (context, model, child) =>
      Scaffold(

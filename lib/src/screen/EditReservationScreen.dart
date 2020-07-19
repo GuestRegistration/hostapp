@@ -74,7 +74,7 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<AddReservationViewModel>.withConsumer(
-      viewModel: AddReservationViewModel(),
+       viewModelBuilder: () => AddReservationViewModel(),
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
        Scaffold(

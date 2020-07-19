@@ -31,7 +31,7 @@ TextEditingController propertyNameController =  TextEditingController();
   @override
   Widget build(BuildContext context) {
    return ViewModelProvider<ProViewModel>.withConsumer(
-      viewModel: ProViewModel(),
+       viewModelBuilder: () => ProViewModel(),
       onModelReady: (model) => model.setupRemoteConfig(),
       builder: (context, model, child) =>
        Scaffold(

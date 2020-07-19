@@ -7,7 +7,6 @@ import 'package:hostapp/src/screen/SignwithEmailScreen.dart';
 import 'package:hostapp/src/screen/VerifyDynamicRegister.dart';
 import 'package:hostapp/src/widget/loadingScreen/AddReservationLoadingWidget.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
-import 'package:hostapp/src/screen/NotificationScreen.dart';
 import 'package:hostapp/src/screen/SendCheckInInstruction.dart';
 import 'package:hostapp/src/widget/loadingScreen/UpdatePropertyWidget.dart';
 import 'package:hostapp/src/util/constants.dart';

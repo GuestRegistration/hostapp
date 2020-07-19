@@ -31,7 +31,7 @@ class _CreateProfileLoadingSState extends State<CreateProfileLoadingS> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<CreateProfileVM>.withConsumer(
-      viewModel: CreateProfileVM(),
+       viewModelBuilder: () => CreateProfileVM(),
       onModelReady: (model) => model.initialize(email: widget.email, 
       authuid: widget.authuid, lastname: widget.lastname,
       phoneCode: widget.phoneCountryCode, 

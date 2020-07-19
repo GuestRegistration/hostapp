@@ -28,7 +28,7 @@ class _SendCheckInInstructionState extends State<SendCheckInInstruction> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<AddReservationViewModel>.withConsumer(
-      viewModel: AddReservationViewModel(),
+       viewModelBuilder: () => AddReservationViewModel(),
       builder: (context, model, child) =>
           Scaffold(
          body: SingleChildScrollView(

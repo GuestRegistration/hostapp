@@ -18,7 +18,7 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<CheckUserModel>.withConsumer(
-      viewModel: CheckUserModel(),
+       viewModelBuilder: () => CheckUserModel(),
       onModelReady: (model) => model.initialize(widget.userEmail, context, widget.userid, widget.fname, widget.lname ),
       builder: (context, model, child) =>
           Scaffold(

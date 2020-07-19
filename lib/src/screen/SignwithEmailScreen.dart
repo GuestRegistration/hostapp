@@ -16,7 +16,7 @@ class _SignwithEmailScreenState extends State<SignwithEmailScreen> {
   @override
   Widget build(BuildContext context) {
   return ViewModelProvider<SignwithEmailScreenViewModel>.withConsumer(
-      viewModel: SignwithEmailScreenViewModel(),
+       viewModelBuilder: () => SignwithEmailScreenViewModel(),
       builder: (context, model, child) =>
      Scaffold(
       body: SingleChildScrollView(

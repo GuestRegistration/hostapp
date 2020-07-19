@@ -31,7 +31,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
   @override
   Widget build(BuildContext context) {
      return ViewModelProvider<ListOfPropertyViewModel>.withConsumer(
-      viewModel: ListOfPropertyViewModel(),
+       viewModelBuilder: () => ListOfPropertyViewModel(),
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
       (model.busy ? loadingWidget()
