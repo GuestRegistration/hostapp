@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "840040500916-i23d3pub5tj0amgrsgcjbdsv0qjfu7ma.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.macaulaygidado.hostapp",
+            "certificate_hash": "e94c420f5cfc1630b3a1bc2613889ef809d0b9ab"
+          }
+        },
+        {
+          "client_id": "840040500916-kamu3uf343g6mmoj7bqignm0mg7ba60b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.macaulaygidado.hostapp",
+            "certificate_hash": "729fc10bf05ddd658e6bfbb3dd735be3aceda204"
+          }
+        },
+        {
+          "client_id": "840040500916-401mpbd0iochkgcjqs4uhi0ib1gsq557.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.macaulaygidado.hostapp",
+            "certificate_hash": "59b538ec590ca2ec14e390e203d526f10821e52e"
+          }
+        },
+        {
           "client_id": "840040500916-5v5p49fj9lu7keucn8mdfe67ptov1db8.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -35,7 +59,8 @@
               "client_id": "840040500916-97j6dio4k64odgmc8tt8maifcc4jic3h.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.macaulaygidado.hostapp"
+                "bundle_id": "com.macaulaygidado.hostapp",
+                "app_store_id": "1497853972"
               }
             }
           ]

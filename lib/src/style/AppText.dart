@@ -1,14 +1,23 @@
 //******************************************************************
-// This file contain App Default Texts  that will use throughout the entire App
+// This file contain App Default Texts that will use throughout the entire App
 //***********************************************************************
+
 import 'package:hostapp/src/style/AppImage.dart';
 
 class AppText{
+ static const String errorMessage  = "You haven’t finished filling out your information";
+ static const String proceed = 'Proceed';
   static const String appName = "Guest Registration";
-   static const String slogan = "Easiest way for Guest Registration";
+  static const String slogan = "Easiest way for Guest Registration";
   static const String skip = "Skip";
   static const String next = "Next";
   static const String done = "Done";
+  static const String addPHoldOn = "Hold on while we create your property... It will only take a few seconds";
+  static const String addPHoldOnUpdateProperty = "Hold on while we update your property... It will only take a few seconds";
+   static const String addPHoldOnReservation = "Hold on while we create your reservation... It will only take a few seconds";
+     static const String checkinUser = "Hold on while we are verifying you... It will only take a few seconds";
+      static const String createProfile = "Hold on while we are creating your profile... It will only take a few seconds";
+
 
   /// the welcome screen data
   static const List onBoardingData = [

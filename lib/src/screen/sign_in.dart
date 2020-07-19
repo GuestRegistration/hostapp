@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
+  GoogleSignIn _googleSignIn = GoogleSignIn();
 
 String name;
 String email;
@@ -11,8 +12,7 @@ String imageUrl;
 
 Future<String> signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-  final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+  final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
   final AuthCredential credential = GoogleAuthProvider.getCredential(
     accessToken: googleSignInAuthentication.accessToken,
@@ -45,8 +45,11 @@ Future<String> signInWithGoogle() async {
   return 'signInWithGoogle succeeded: $user';
 }
 
+
 void signOutGoogle() async {
   await googleSignIn.signOut();
-
   print("User Sign Out");
 }
+
+
+
