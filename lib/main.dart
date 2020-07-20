@@ -61,7 +61,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: PasswordlessApp(),
-      //PasswordlessApp(),//PersonalDetailsScreen(),//PasswordlessApp(),//Dashboard(showIndex: 0,),//PasswordlessApp(),// Dashboard(showIndex: 0,),////PasswordlessApp(),//PersonalDetailsScreen(),//,//PersonalDetailsScreen(),//Dashboard(showIndex: 0,),//
+      //PasswordlessApp(),
+      //PersonalDetailsScreen(),
+      //PasswordlessApp(),
+      //Dashboard(showIndex: 0,),
+      //PasswordlessApp(),
+      // Dashboard(showIndex: 0,),////PasswordlessApp(),//PersonalDetailsScreen(),//,//PersonalDetailsScreen(),//Dashboard(showIndex: 0,),//
       onGenerateRoute: generateRoute,
     ),
     );

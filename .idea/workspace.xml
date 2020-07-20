@@ -4,12 +4,7 @@
     <list default="true" id="0545143f-f6fc-43c0-93db-0dd887824cbd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595144172608</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="SHA key resolve">
+      <created>1595190045798</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1595190045798</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -185,44 +187,45 @@
     <MESSAGE value="gradle changes" />
     <MESSAGE value="gradle resolve" />
     <MESSAGE value="local android resolve" />
-    <option name="LAST_COMMIT_MESSAGE" value="local android resolve" />
+    <MESSAGE value="SHA key resolve" />
+    <option name="LAST_COMMIT_MESSAGE" value="SHA key resolve" />
   </component>
   <component name="WindowStateProjectService">
     <state x="200" y="99" key="#PSD" timestamp="1595140409278">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="200" y="99" key="#PSD/0.0.1366.728@0.0.1366.728" timestamp="1595140409278" />
-    <state x="220" y="0" key="CommitChangelistDialog2" timestamp="1595144165964">
+    <state x="220" y="0" key="CommitChangelistDialog2" timestamp="1595190038756">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="220" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1595144165964" />
-    <state width="1286" height="91" key="GridCell.Tab.0.bottom" timestamp="1595189657583">
+    <state x="220" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1595190038756" />
+    <state width="1286" height="22" key="GridCell.Tab.0.bottom" timestamp="1595190096364">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1286" height="91" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1595189657583" />
-    <state width="1286" height="91" key="GridCell.Tab.0.center" timestamp="1595189657582">
+    <state width="1286" height="22" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1595190096364" />
+    <state width="1286" height="22" key="GridCell.Tab.0.center" timestamp="1595190096364">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1286" height="91" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1595189657582" />
-    <state width="1286" height="91" key="GridCell.Tab.0.left" timestamp="1595189657582">
+    <state width="1286" height="22" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1595190096364" />
+    <state width="1286" height="22" key="GridCell.Tab.0.left" timestamp="1595190096363">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1286" height="91" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1595189657582" />
-    <state width="1286" height="91" key="GridCell.Tab.0.right" timestamp="1595189657582">
+    <state width="1286" height="22" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1595190096363" />
+    <state width="1286" height="22" key="GridCell.Tab.0.right" timestamp="1595190096364">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1286" height="91" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1595189657582" />
+    <state width="1286" height="22" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1595190096364" />
     <state x="184" y="7" key="SettingsEditor" timestamp="1595140498588">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1595140498588" />
-    <state x="275" y="85" key="Vcs.Push.Dialog.v2" timestamp="1595144180725">
+    <state x="275" y="85" key="Vcs.Push.Dialog.v2" timestamp="1595190055275">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="85" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1595144180725" />
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1595188440442">
+    <state x="275" y="85" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1595190055275" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1595259944257">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1595188440442" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1595259944257" />
   </component>
 </project>
