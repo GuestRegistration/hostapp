@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:hostapp/src/locator.dart';
-import 'package:hostapp/src/service/authentication.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
-import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/widget/PropertyWidget.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:hostapp/src/viewmodels/ListOfPropertyViewModel.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:provider/provider.dart';
 
 class ListOfProperty extends StatefulWidget {
 

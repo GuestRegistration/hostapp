@@ -6,6 +6,7 @@ import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/managers/dialog_manager.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/route.dart';
+import 'package:hostapp/src/screen/NotificationScreen.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'dart:async';
@@ -60,24 +61,9 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: PasswordlessApp(),
-      //PasswordlessApp(),
-      //PersonalDetailsScreen(),
-      //PasswordlessApp(),
-      //Dashboard(showIndex: 0,),
-      //PasswordlessApp(),
-      // Dashboard(showIndex: 0,),////PasswordlessApp(),//PersonalDetailsScreen(),//,//PersonalDetailsScreen(),//Dashboard(showIndex: 0,),//
+      home: NotificationScreen(),//PasswordlessApp(), //
       onGenerateRoute: generateRoute,
     ),
     );
   }
 }
-
-// CreateProfileScreen(),
-//       // home: LoginPage(
-//       //   email: 'jordandaze969@gmail.com',
-//       //   // existingemail: 'jordandaze969@gmail.com',
-//       //   // lastname: 'MyLastName',
-//       //   // name: 'myName',
-        
-//       // ), //
