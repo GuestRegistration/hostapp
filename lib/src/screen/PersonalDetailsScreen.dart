@@ -297,7 +297,6 @@ side: BorderSide(color: AppColor.primaryLight)
 //***************** FUNCTIONS */
 
 
-
   //check if number exist
   checkNumberExist({String phoneNumber})async{
     startLoading();

@@ -35,8 +35,6 @@ FlutterError.onError = Crashlytics.instance.recordFlutterError;
 runZoned(() {
   runApp(MyApp());
 }, onError: Crashlytics.instance.recordError);
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -61,7 +59,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: NotificationScreen(),//PasswordlessApp(), //
+      home: PasswordlessApp(),//PasswordlessApp(), //
       onGenerateRoute: generateRoute,
     ),
     );

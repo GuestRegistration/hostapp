@@ -79,10 +79,11 @@ class GraphQLConfiguration {
         uri:'https://us-central1-guestregistration-4140a.cloudfunctions.net/api',
         headers: header);
 
-    print('*************************************************************');
-    print('*** Cleint token *** $clientToken');
-    print("******** User toke****** \n $userToken");
-    print('*************************************************************');
+    // print('*************************************************************');
+    // print('*** Cleint token *** $clientToken');
+    // print("******** User toke****** \n $userToken");
+    print('*********************User token****************************************');
+    original(userToken);
     return GraphQLClient(
       cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
       link: httpLink,
@@ -124,7 +125,7 @@ class GraphQLConfiguration {
          //print(result.token);
          //var toke = await user.getIdToken(refresh: true);
          //logPrint(result.token);
-          original(result.token);
+        //  original(result.token);
 
    }
 

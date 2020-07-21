@@ -258,4 +258,18 @@ const String approveReservation = r"""
 }
  """;
 
+ 
+const String propertyNotification = r"""
+ query getPropertyNotifications($propertyId: String!){
+    getPropertyNotifications(property_id: $propertyId){
+      text
+    timestamp
+    time
+    read
+
+    }
+}
+ """;
+ 
+
 

@@ -5,6 +5,8 @@ import 'package:hostapp/src/service/authentication.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
+import 'package:hostapp/src/service/graphQlQuery.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 
 
@@ -14,20 +16,76 @@ final NavigationService _navigationService = locator<NavigationService>();
   final GraphQLConfiguration _graphQlConfiq = locator<GraphQLConfiguration>();
   List<GetNotificationModel> _notificationList = List<GetNotificationModel>();
 List<GetNotificationModel> get notifications => _notificationList;
+String _errorMessage;
+String get getErrorMessage => _errorMessage;
 
 
-initialize(){
-for (var index = 0; index < 10; index++) {
+
+
+void initialize()async{
+  setBusy(true);
+   await _graphQlConfiq.getNeccessartyToken();
+
+GraphQLClient _client = _graphQlConfiq.clientToQuery();
+QueryResult result = await _client.query(
+   QueryOptions(
+        documentNode: gql(propertyNotification),
+         variables: <String, dynamic>{
+             'propertyId': "0GsULSqn5vVuTRdLhkSK",
+          }
+      ),
+).catchError((e){
+      setBusy(false);
+      print('Error Occur, ${e.toString()}');
+      setErrorMessage(erorr: e.toString());
+        }).timeout(Duration(seconds: 10,), onTimeout: (){
+           setBusy(false);
+          setErrorMessage(erorr: 'Server Timeout');
+        },);
+
+   if(result.data == null) {
+      setBusy(false);
+             print('Result is Null');
+             print(result.exception);
+              setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+              
+         }else{
+           if(result.data['getPropertyNotifications'] == null){
+             setBusy(false);
+              print('*************Return Data is Null Exception **************');
+              print(result.exception.graphqlErrors);
+             setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+
+            }else{
+               print('Result is not Null,becaue I have data with me');
+               if(result.data["getPropertyNotifications"].length == 0){
+                 print('Am Empty');
+                 _notificationList = null;
+
+               }else{
+for (var index = 0; index < result.data["getPropertyNotifications"].length; index++) {
+ 
             _notificationList.add(
                   GetNotificationModel(
-                  text: 'We\'ve review your property now',
-                  time: '12-10-200',
-                  timestamp: 'timestamp',
-                  read: 'Read'
+                  text: result.data["getPropertyNotifications"][index]["text"],
+                  timestamp: result.data["getPropertyNotifications"][index]["timestamp"],
+                  time: result.data["getPropertyNotifications"][index]["time"],
+                  read: result.data["getPropertyNotifications"][index]["read"],
                     )
               );
-      } 
+      }  }
+               
+      }
+       setBusy(false);
+         }
 }
+setErrorMessage({String erorr}){
+  _errorMessage = erorr;
+  print(erorr);
+  notifyListeners();
+}
+
+
 
 
  movetoSettings(){

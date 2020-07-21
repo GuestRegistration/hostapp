@@ -63,6 +63,7 @@ QueryResult result = await _client.query(
 
                }else{
 for (var index = 0; index < result.data["getUserProperties"].length; index++) {
+  print(result.data["getUserProperties"][index]["id"]);
             _propertlist.add(
                   GetProperties(
                   email: result.data["getUserProperties"][index]["email"],
@@ -73,8 +74,7 @@ for (var index = 0; index < result.data["getUserProperties"].length; index++) {
                   completePhone: result.data["getUserProperties"][index]["phone_meta"]['complete_phone'], 
                   countryCode: result.data["getUserProperties"][index]["phone_meta"]['country_code'], 
                   phoneNumber: result.data["getUserProperties"][index]["phone_meta"]['phone_number']),
-                  address:
-                  Address(street: result.data["getUserProperties"][index]["address"]['street'],
+                  address:  Address(street: result.data["getUserProperties"][index]["address"]['street'],
                   country: result.data["getUserProperties"][index]["address"]['country']),
                   terms: result.data["getUserProperties"][index]["terms"],
                     )
