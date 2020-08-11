@@ -82,8 +82,8 @@ class GraphQLConfiguration {
     // print('*************************************************************');
     // print('*** Cleint token *** $clientToken');
     // print("******** User toke****** \n $userToken");
-    print('*********************User token****************************************');
-    original(userToken);
+   //print('*********************User token****************************************');
+     //original(userToken);
     return GraphQLClient(
       cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
       link: httpLink,

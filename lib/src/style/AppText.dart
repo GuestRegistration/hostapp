@@ -17,6 +17,7 @@ class AppText{
    static const String addPHoldOnReservation = "Hold on while we create your reservation... It will only take a few seconds";
      static const String checkinUser = "Hold on while we are verifying you... It will only take a few seconds";
       static const String createProfile = "Hold on while we are creating your profile... It will only take a few seconds";
+      static const String fetchingRdetails = "Hold on while we fetch your reservation details... It will only take a few seconds";
 
 
   /// the welcome screen data

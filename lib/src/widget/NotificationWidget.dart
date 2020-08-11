@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/model/GetNotificationModel.dart';
+import 'package:hostapp/src/screen/EditPropertyScreen.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
+import 'package:hostapp/src/util/customFunctions.dart';
+import 'package:hostapp/src/screen/SingleReservationDetailsScreen.dart';
+import 'package:popup_menu/popup_menu.dart';
+import 'package:intl/intl.dart';
 
 class NotificationWidget extends StatelessWidget {
   final GetNotificationModel getNotificationModel;
    final Function onDeleteItem;
 
-     const NotificationWidget({
+      NotificationWidget({
     Key key,
     this.getNotificationModel,
     this.onDeleteItem,
   }) : super(key: key);
 
+  final CustomFuntion _developerFunction = locator<CustomFuntion>();
+
   @override
   Widget build(BuildContext context) {
+    PopupMenu.context = context;
      return GestureDetector(
                          child: Container(
                             // height: 100,
@@ -41,29 +50,114 @@ class NotificationWidget extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 10.0),
                                   child: ListTile(
+                                    dense: true,
                                    title: Padding(
                                      padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
-                                     child: Text(getNotificationModel.getTime(), style: AppTextStyle.title(context),),
+                                     child: Text(getNotificationModel.getText(), style: AppTextStyle.title(context),),
                                    ),
-                                   subtitle: Padding(
+                                   subtitle: Row(
+                                     children: <Widget>[
+                                       Expanded(
+                                         child: Padding(
                                      padding: const EdgeInsets.only(bottom: 8.0),
-                                     child: Text(getNotificationModel.getRead(), style: AppTextStyle.subtitle(context),),
+                                     child: Text('${getNotificationModel.getTime().toString()} ${_developerFunction.calculateTimeStamp(int.parse(getNotificationModel.getTimeStamp()))}', //
+                                     style: AppTextStyle.subtitle(context),),
                                    ),
-                                  //  trailing: Column(
-                                  //    children: <Widget>[
-                                  //      SizedBox(height: 30,),
-                                  //      Icon(Icons.more_vert),
-                                  //    ],
-                                  //  )
-                               ),
-                                ),
-                             ),
-                           ),
-                    onTap: (){
-                    
-                    },
-                  );
-               
+                                       )
+                                     
+                                   ],),
+                                   leading: Icon(Icons.calendar_today,),
+                                   trailing: Column(children: <Widget>[
+                                     PopupMenuButton<String>(
+                                           padding: EdgeInsets.zero,
+                                           itemBuilder: (context) =>dropemenu(),
+                                           onSelected: (value){
+                                            //1 - Approve Reservation
+                                            //2 - View Property
+                                            //3 - None
+                                            if(value == '1'){
+                                              approveReservation(context, getNotificationModel.getPayLoad().getReservationID());
 
-  }
+                                            }else if(value == '2'){
+                                              viewProperty(context);
+                                              
+                                                                                          }
+                                              
+                                                                                         },
+                                                                                       ),
+                                                        
+                                   ],)
+                                                                             ),
+                                                                              ),
+                                                                           ),
+                                                                         ),
+                                                                  onTap: (){
+                                                                  
+                                                                  },
+                                                                );
+                                                             
+                                              
+                                                }
+                                                dropemenu(){
+                                                return <PopupMenuEntry<String>>[
+                                                                                  PopupMenuItem<String>(
+                                                                                              value: '1',
+                                                                                              child: ListTile(
+                                                                                                leading: const Icon(Icons.done_all),
+                                                                                                title: Text(
+                                                                                                  'View Reservation',
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                            PopupMenuItem<String>(
+                                                                                              value: '2',
+                                                                                              child: ListTile(
+                                                                                                leading: const Icon(Icons.visibility),
+                                                                                                title: Text(
+                                                                                                  'View Property',
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                              
+                                                                                            // PopupMenuItem<String>(
+                                                                                            //   value: '3',
+                                                                                            //   child: ListTile(
+                                                                                            //     leading: const Icon(Icons.share),
+                                                                                            //     title: Text(
+                                                                                            //       'Share',
+                                                                                            //     ),
+                                                                                            //   ),
+                                                                                            // )
+                                                                                         ];
+                                              
+                                              }
+                                              
+                                              
+                                              approveReservation(BuildContext context, String reservationID){
+                                              
+                                               Navigator.push( context,
+                      MaterialPageRoute(builder: (context) =>
+                        SingleReservationDetailsScreen(reservationID: reservationID,
+                      )));
+
+                                              }
+                                              
+                                                void viewProperty(BuildContext context) {
+                                                  Navigator.push( context,
+                                                MaterialPageRoute(builder: (context) => EditPropertyScreen(
+                                                  country: getNotificationModel.getProperties.address.country,
+                                                  pAddress: getNotificationModel.getProperties.address.street,
+                                                  pEmail: getNotificationModel.getProperties.email,
+                                                  prules: getNotificationModel.getProperties.rulesText,
+                                                  pName:getNotificationModel.getProperties.name,
+                                                  pNumber: getNotificationModel.getProperties.propertyPhone.phoneNumber,
+                                                  doclink: getNotificationModel.getProperties.terms,
+                                                  propertyID: getNotificationModel.getProperties.id,
+                                                  phoneIcode: getNotificationModel.getProperties.propertyPhone.countryCode,
+                                                )));
+                                                }
+
+
+
+
 }

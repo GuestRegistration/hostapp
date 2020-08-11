@@ -115,6 +115,7 @@ showMessage({String error}){
 _errorMessage = error;
 notifyListeners();
 }
+
 setLinkUIVisibilty({bool status}){
    linkUIVisisblity = status;
    notifyListeners();

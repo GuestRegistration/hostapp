@@ -196,6 +196,8 @@ QueryResult result = await _client.query(
   }
  
 }
+
+
 movetoSettings(){
    _navigationService.navigateTo(settingsRoute);
 }

@@ -6,6 +6,7 @@ import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:share/share.dart';
 import 'package:hostapp/src/util/constants.dart';
 
@@ -360,6 +361,12 @@ textInputField({
       ],
     );
 }
+String calculateTimeStamp(int value){
+ final df = new DateFormat('hh:mm a');
+   int myvalue = value;
+   var formattedDate = (df.format(new DateTime.fromMillisecondsSinceEpoch(myvalue*1000)));
+return formattedDate.toString();
 
+}
 
 }

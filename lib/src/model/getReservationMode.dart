@@ -33,6 +33,8 @@ String id;
 
    getCheckInDate() => this.checkInDate;
 
+    getCheckOutDate() => this.checkoutDate;
+
     getIsApproved() => this.approved;
 
     getInstructions() => this.instrucstions;

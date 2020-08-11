@@ -119,6 +119,8 @@ simpleErrorMesage({String erorr, int type}){
 
 //Button clicked to approve User and pass reservation ID
 approveGuest({String id})async{
+  print('ID =>>>>>>>>> $id');
+  String val = 'approveReservationCheckin'; //Value path to get Data
  
 loadingOther(true);
  await _graphQlConfiq.getNeccessartyToken();
@@ -149,22 +151,25 @@ QueryResult result = await _client.mutate(
                loadingOther(false);
 
          }else{           
-            if(result.data['getReservationCheckin'] == null){
+            if(result.data[val] == null){
               print('*************Return Data is Null Exception **************');
-              print('************ RETURN DATA********* ${result.data.toString()}');
-              loadingOther(false);
+            //   print('************ RETURN DATA********* ${result.data.toString()}');
+            //   loadingOther(false);
              print('Error: ${result.exception.graphqlErrors.toString()}');
-              simpleErrorMesage(erorr: 'Guest Approved',  type: 1);
-            //simpleErrorMesage(erorr: result.exception.graphqlErrors.toString(),  type: 0);
-             notifyListeners();
+             loadingOther(false);
+              print('*************Return Data is Null Exception **************');
+              print(result.exception.toString());
+             simpleErrorMesage(erorr: result.exception.graphqlErrors.toString(), type: 0);
              
             }else{
-            //  String val = 'approveReservationCheckin'; //Value path to get Data
-            //  print(result.data[val]['already_checkedin']);
-            //  print(result.data[val]['approved']);
-            //  print(result.data[val]['approved_at']);
+              
+               print('*******************************************');
+              print(result.data[val]['already_checkedin']);
+             print(result.data[val]['approved']);
+              print(result.data[val]['approved_at']);
              simpleErrorMesage(erorr: 'Guest Approved',  type: 1);
              notifyListeners();
+             print('*******************************************');
       }
           loadingOther(false);
          }

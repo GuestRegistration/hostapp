@@ -31,7 +31,7 @@ class PastTab extends ProviderWidget<MainReservationViewModel> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context , int index){
-               return  datechecker(checkoutDate: model.list[index].checkoutDate,
+             return  datechecker(checkoutDate: model.list[index].checkoutDate,
             list:  model.list, index: index);
                },))
                );
@@ -39,23 +39,32 @@ class PastTab extends ProviderWidget<MainReservationViewModel> {
 
 
   datechecker({String checkoutDate, List<GetReservationModel> list, int index}){
+
     if(checkoutDate == null){
+      print('Checkout>>>>> $checkoutDate');
         return SizedBox.shrink();
-    }else{
-      //print('Server => $checkoutDate');    
+    }else{    
   DateTime date = DateTime.now();
   String today = '${date.day}-${date.month}-${date.year}';
-  //print('Me => $today');
 
-  if(equals(checkoutDate, today)){
-   // print('Sane $today => $checkoutDate');
+  if(equals(checkoutDate, today)){ 
+    print('Sane $today => $checkoutDate');
+   
 
     return SizedBox.shrink();
   }else{
-     return ReservationWidget(
+    if(!list[index].alreadyCheckedin){ //IF (Have not check-in) is true, Don't show the card
+       print('$index \n ${list[index].alreadyCheckedin}');
+       return SizedBox.shrink();
+    }else{
+      return ReservationWidget(
                 getReservation: list[index],
                 type: 'Past',
                 );
+
+    }
+   
+     
   }
   // print(date);
  }

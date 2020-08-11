@@ -37,27 +37,10 @@ class ApprovedTab extends ProviderWidget<MainReservationViewModel> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context , int index){
-              String  checkoutDate = model.list[index].checkoutDate;
-  //             if(checkoutDate == null){
-  //       return SizedBox.shrink();
-  //   }else{
-  //     //print('Server => $checkoutDate');    
+              String  checkoutDate = model.list[index].checkoutDate;   
   DateTime date = DateTime.now();
   String today = '${date.day}-${date.month}-${date.year}';
-//print('Me => $today');
 
-  // if(equals(checkoutDate, today)){
-  //  // print('Sane $today => $checkoutDate');
-
-  //   return SizedBox.shrink();
-  // }else{
-  //    return ReservationWidget(
-  //               getReservation: list[index],
-  //               type: 'Past',
-  //               );
-  // }
-  // print(date);
- //}
                 return   (model.list[index].approved && model.list[index].alreadyCheckedin && 
                 equals(checkoutDate, today) ? ReservationWidget(
                 getReservation: model.list[index],

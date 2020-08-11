@@ -260,15 +260,58 @@ const String approveReservation = r"""
 
  
 const String propertyNotification = r"""
- query getPropertyNotifications($propertyId: String!){
-    getPropertyNotifications(property_id: $propertyId){
+ query{
+  getPropertyNotifications{
       text
-    timestamp
-    time
-    read
-
+      timestamp
+      time
+      read
+    property{
+      id
+    name
+    phone_meta{
+          phone_number
+          country_code
+          complete_phone
+              }
+      address{
+      street
+      country
     }
+    email
+    terms  
+    rules
+    }
+    payload{
+     reservation_id
+      property_id
+      user_id
+      identity_id
+    }
+    } 
 }
+ """;
+
+const String getSingleReservationDetails = r"""
+query getReservationDetails($reservationID: String!){
+  getReservation( id: $reservationID){
+    id
+    name
+    booking_channel
+    already_checkedin
+    checkedin_at
+    checkin_date
+    checkin_url
+    approved
+    instruction
+    checkout_date
+    property{
+      id
+      name
+    }
+  }
+}
+ 
  """;
  
 

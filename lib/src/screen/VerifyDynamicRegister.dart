@@ -52,7 +52,6 @@ class _VerifyDynamicRegisterState extends State<VerifyDynamicRegister> {
                     fontSize: AppFontSizes.medium,
                     fontWeight: FontWeight.bold
                               ),),
-                             
                   ),
                 ],
               ),

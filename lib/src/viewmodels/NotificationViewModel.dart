@@ -1,4 +1,5 @@
 import 'package:hostapp/src/model/GetNotificationModel.dart';
+import 'package:hostapp/src/model/getPropertiesModel.dart';
 import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/authentication.dart';
@@ -25,21 +26,19 @@ String get getErrorMessage => _errorMessage;
 void initialize()async{
   setBusy(true);
    await _graphQlConfiq.getNeccessartyToken();
-
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
         documentNode: gql(propertyNotification),
-         variables: <String, dynamic>{
-             'propertyId': "0GsULSqn5vVuTRdLhkSK",
-          }
       ),
 ).catchError((e){
       setBusy(false);
+       print(e);
       print('Error Occur, ${e.toString()}');
       setErrorMessage(erorr: e.toString());
         }).timeout(Duration(seconds: 10,), onTimeout: (){
            setBusy(false);
+          
           setErrorMessage(erorr: 'Server Timeout');
         },);
 
@@ -71,10 +70,28 @@ for (var index = 0; index < result.data["getPropertyNotifications"].length; inde
                   timestamp: result.data["getPropertyNotifications"][index]["timestamp"],
                   time: result.data["getPropertyNotifications"][index]["time"],
                   read: result.data["getPropertyNotifications"][index]["read"],
-                    )
-              );
+                  getProperties: GetProperties(
+                  email: result.data["getPropertyNotifications"][index]["property"]["email"],
+                  id: result.data["getPropertyNotifications"][index]["property"]["id"],
+                  name: result.data["getPropertyNotifications"][index]["property"]["name"],
+                  rulesText: result.data["getPropertyNotifications"][index]["property"]["rules"],
+                  propertyPhone: PropertyPhone(
+                  completePhone: result.data["getPropertyNotifications"][index]["property"]["phone_meta"]['complete_phone'], 
+                  countryCode: result.data["getPropertyNotifications"][index]["property"]["phone_meta"]['country_code'], 
+                  phoneNumber: result.data["getPropertyNotifications"][index]["property"]["phone_meta"]['phone_number']),
+                  address:  Address(street: result.data["getPropertyNotifications"][index]["property"]["address"]['street'],
+                  country: result.data["getPropertyNotifications"][index]["property"]["address"]['country']),
+                  terms: result.data["getPropertyNotifications"][index]["property"]["terms"], ),
+                  payload: PayLoad(
+                    identityID: result.data["getPropertyNotifications"][index]["payload"]["identity_id"],
+                    propertyID: result.data["getPropertyNotifications"][index]["payload"]["property_id"],
+                    reservationID: result.data["getPropertyNotifications"][index]["payload"]["reservation_id"],
+                    userID: result.data["getPropertyNotifications"][index]["payload"]["user_id"],
+                  )
+                    ));
+             // print(result.data["getPropertyNotifications"].toString());
+                  print(result.data["getPropertyNotifications"][index]["payload"]['reservation_id']);
       }  }
-               
       }
        setBusy(false);
          }
@@ -84,9 +101,6 @@ setErrorMessage({String erorr}){
   print(erorr);
   notifyListeners();
 }
-
-
-
 
  movetoSettings(){
   _navigationService.navigateTo(settingsRoute);
