@@ -23,7 +23,7 @@ class GraphQLConfiguration {
 
   //  print('*************************************************************');
   //   print('*** Cleint token *** $clientToken');
-  //   print("******** User toke****** \n $userToken");
+    // print("******** User toke****** \n $userToken");
   //   print('*************************************************************');
 
     httpLink = HttpLink(
@@ -82,8 +82,8 @@ class GraphQLConfiguration {
     // print('*************************************************************');
     // print('*** Cleint token *** $clientToken');
     // print("******** User toke****** \n $userToken");
-   //print('*********************User token****************************************');
-     //original(userToken);
+  //  print('*********************User token****************************************');
+  //    original(userToken);
     return GraphQLClient(
       cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
       link: httpLink,
@@ -187,7 +187,7 @@ for(int i = 1; storeToken.length > i; i++){
 }
    }
 
-original(String token){
+   original(String token){
 while (token.length > 0) {
   int initLength = (token.length >= 500 ? 500 : token.length);
   print(token.substring(0, initLength));
@@ -195,4 +195,5 @@ while (token.length > 0) {
   token = token.substring(initLength, endLength);
 }
 }
+
 }

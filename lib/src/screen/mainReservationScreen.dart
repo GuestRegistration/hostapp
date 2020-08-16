@@ -1,4 +1,7 @@
+import 'package:device_id/device_id.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hostapp/src/localNotification.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/screen/reservationsTabs/UpcomingTab.dart';
@@ -9,6 +12,17 @@ import 'package:provider_architecture/provider_architecture.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart'; 
 import 'package:hostapp/src/viewmodels/MainReservationViewModel.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:rxdart/subjects.dart';
 
 
 class MainReservationScreen extends StatefulWidget {
@@ -20,6 +34,70 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
        GetProperties _selectedProperty;
        String propertyID;
         RefreshController _refreshController =  RefreshController(initialRefresh: false);
+
+         final MethodChannel platform =
+      MethodChannel('crossingthestreams.io/resourceResolver');
+  @override
+  void initState() {
+    super.initState();
+    _requestIOSPermissions();
+    _configureDidReceiveLocalNotificationSubject();
+    _configureSelectNotificationSubject();
+  }
+
+  void _requestIOSPermissions() {
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  }
+
+  void _configureDidReceiveLocalNotificationSubject() {
+    didReceiveLocalNotificationSubject.stream
+        .listen((ReceivedNotification receivedNotification) async {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: receivedNotification.title != null
+              ? Text(receivedNotification.title)
+              : null,
+          content: receivedNotification.body != null
+              ? Text(receivedNotification.body)
+              : null,
+          actions: [
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text('Ok'),
+              onPressed: () async {
+                Navigator.of(context, rootNavigator: true).pop();
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        SecondScreen(receivedNotification.payload),
+                  ),
+                );
+              },
+            )
+          ],
+        ),
+      );
+    });
+  }
+
+  void _configureSelectNotificationSubject() {
+    selectNotificationSubject.stream.listen((String payload) async {
+      await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SecondScreen(payload)),
+      );
+    });
+  }
+
   
   @override
   Widget build(BuildContext context) {
@@ -30,6 +108,7 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
        buildTab(model)
       );
   }
+
 
   buildTab(MainReservationViewModel model){
     return DefaultTabController(
@@ -327,6 +406,11 @@ Padding(
     model.tab1Initialize();
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
+  }
+
+  getID()async{
+    // String device_id = await DeviceId.getID;
+    // print('Device ID >>>>>>>>>>>>>>>>> $device_id');
   }
   }
 

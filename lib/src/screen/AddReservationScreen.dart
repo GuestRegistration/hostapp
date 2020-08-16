@@ -144,40 +144,40 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                           controller: nameofGuestController,
                         ),
                          
-                          verticalSpaceSmall,
-                           CollectTextWithout(title: 'Booking Channel',),
-                         (model.loadingOthers2 ? Center(child: CircularProgressIndicator()) :
-                          Container(
-                                height: 50,
-                                 width: MediaQuery.of(context).size.width,
-                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    border: Border.all(
-                                        color: AppColor.primary, style: BorderStyle.solid, width: 0.80),
-                                  ),
-                              child: DropdownButton<BookingChannelModel>(
-                                isExpanded: true,
-                                iconEnabledColor: AppColor.primary,
-                                    underline: SizedBox(),
-                                    value: _selectedBokingModel,
-                                    onChanged: (value) {
-                                      setState(() {
-                                     _selectedBokingModel = value;
-                                      selectedBookingName = _selectedBokingModel.name;
-                                     // print(selectedBookingName);
-                                      });
-                                    },
-                                    items: model.getBookingList().map((BookingChannelModel lang) {
-                                    return DropdownMenuItem<BookingChannelModel>(
-                                              value: lang, //Show Name 
-                                              child: Text(lang.name,
-                                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
-                                            );
-                                                }).toList(),
+                        //   verticalSpaceSmall,
+                        //    CollectTextWithout(title: 'Booking Channel',),
+                        //  (model.loadingOthers2 ? Center(child: CircularProgressIndicator()) :
+                        //   Container(
+                        //         height: 50,
+                        //          width: MediaQuery.of(context).size.width,
+                        //           padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        //           decoration: BoxDecoration(
+                        //             borderRadius: BorderRadius.circular(15.0),
+                        //             border: Border.all(
+                        //                 color: AppColor.primary, style: BorderStyle.solid, width: 0.80),
+                        //           ),
+                        //       child: DropdownButton<BookingChannelModel>(
+                        //         isExpanded: true,
+                        //         iconEnabledColor: AppColor.primary,
+                        //             underline: SizedBox(),
+                        //             value: _selectedBokingModel,
+                        //             onChanged: (value) {
+                        //               setState(() {
+                        //              _selectedBokingModel = value;
+                        //               selectedBookingName = _selectedBokingModel.name;
+                        //              // print(selectedBookingName);
+                        //               });
+                        //             },
+                        //             items: model.getBookingList().map((BookingChannelModel lang) {
+                        //             return DropdownMenuItem<BookingChannelModel>(
+                        //                       value: lang, //Show Name 
+                        //                       child: Text(lang.name,
+                        //                       style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
+                        //                     );
+                        //                         }).toList(),
                                   
-                                  ),
-                            )),
+                        //           ),
+                        //     )),
                       
                          Row(
                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -481,7 +481,7 @@ side: BorderSide(color: AppColor.primaryLight)
 ),
                     onTap: (){
                    model.authenticateReservation(
-                    bookChanl: selectedBookingName,
+                    bookChanl: 'Removed',//selectedBookingName,
                     checkinD: checkinController.text,
                     checkoutD: checkoutController.text,
                   //  guestEmail: guestEmailController.text,

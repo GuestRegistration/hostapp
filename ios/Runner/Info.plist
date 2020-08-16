@@ -60,5 +60,7 @@
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>Using location to display on a map</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 </dict>
 </plist>

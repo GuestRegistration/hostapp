@@ -102,7 +102,7 @@ for (var index = 0; index < result.data["getUserProperties"].length; index++) {
           loadingOther(false);
          }
 
-           getBookinChannel(); //fetch list of reservation  
+          // getBookinChannel(); //fetch list of reservation  
        
 }
 

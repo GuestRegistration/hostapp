@@ -81,7 +81,9 @@ class NotificationWidget extends StatelessWidget {
                                             }else if(value == '2'){
                                               viewProperty(context);
                                               
-                                                                                          }
+                                         }else if(value == '3'){
+                                                                                            //Remove Notification
+                                          }
                                               
                                                                                          },
                                                                                        ),
@@ -119,15 +121,15 @@ class NotificationWidget extends StatelessWidget {
                                                                                               ),
                                                                                             ),
                                               
-                                                                                            // PopupMenuItem<String>(
-                                                                                            //   value: '3',
-                                                                                            //   child: ListTile(
-                                                                                            //     leading: const Icon(Icons.share),
-                                                                                            //     title: Text(
-                                                                                            //       'Share',
-                                                                                            //     ),
-                                                                                            //   ),
-                                                                                            // )
+                                                                                            PopupMenuItem<String>(
+                                                                                              value: '3',
+                                                                                              child: ListTile(
+                                                                                                leading: const Icon(Icons.delete_forever),
+                                                                                                title: Text(
+                                                                                                  'Remove Notification',
+                                                                                                ),
+                                                                                              ),
+                                                                                            )
                                                                                          ];
                                               
                                               }

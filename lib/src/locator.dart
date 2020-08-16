@@ -5,6 +5,7 @@ import 'package:hostapp/src/service/authentication.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
+import 'package:hostapp/src/service/push_Notification.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hostapp/src/service/DynamicLinkService.dart';
@@ -23,6 +24,7 @@ locator.registerLazySingleton(() => FirestoreService());
 locator.registerLazySingleton(() => CloudStorageService()); 
 locator.registerLazySingleton(() => GraphQLConfiguration()); 
 locator.registerLazySingleton(() => DynamicLinkService());
+locator.registerLazySingleton(() => PushNotification());
 }
 
  //Creating an injection.

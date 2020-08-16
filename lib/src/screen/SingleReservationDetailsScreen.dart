@@ -100,15 +100,15 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
                               ),),
                                 
                              
-                              verticalSpaceSmall,
-                               CollectTextWithout(title: 'Booking Channel',),
-                               AbsorbPointer(
-                                child: InputField(
-                                  placeholder: 'bookingChannel',
-                                  decoration: null,
-                                  controller: bookingChannelController,
-                              ),
-                               ),
+                              // verticalSpaceSmall,
+                              //  CollectTextWithout(title: 'Booking Channel',),
+                              //  AbsorbPointer(
+                              //   child: InputField(
+                              //     placeholder: 'bookingChannel',
+                              //     decoration: null,
+                              //     controller: bookingChannelController,
+                              // ),
+                              //  ),
                           
                              AbsorbPointer(
                                                         child: Row(

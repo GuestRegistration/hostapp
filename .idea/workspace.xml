@@ -2,7 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0545143f-f6fc-43c0-93db-0dd887824cbd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/locator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/locator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/AddReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/AddReservationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/EditReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/EditReservationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/SingleReservationDetailsScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/SingleReservationDetailsScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/mainReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/mainReservationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/service/GraphQLConfiguration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/service/GraphQLConfiguration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/MainReservationViewmodel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/MainReservationViewmodel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/addReservationViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/addReservationViewModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widget/NotificationWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widget/NotificationWidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_driver/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test_driver/app.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,11 +73,11 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="C:/src/flutter/bin/cache/dart-sdk" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="flutter.settings" />
+    <property name="settings.editor.selected.configurable" value="dart.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
@@ -197,6 +218,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="220" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1595190038756" />
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1597301905996">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1597301905996" />
     <state width="1286" height="22" key="GridCell.Tab.0.bottom" timestamp="1595190096364">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -213,17 +238,17 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1286" height="22" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1595190096364" />
-    <state x="184" y="7" key="SettingsEditor" timestamp="1595140498588">
+    <state x="184" y="7" key="SettingsEditor" timestamp="1597302070925">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1595140498588" />
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1597302070925" />
     <state x="275" y="85" key="Vcs.Push.Dialog.v2" timestamp="1595190055275">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="85" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1595190055275" />
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1595399916209">
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1597446587569">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1595399916209" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1597446587569" />
   </component>
 </project>

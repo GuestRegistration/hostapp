@@ -1,3 +1,4 @@
+import 'package:hostapp/src/service/push_Notification.dart';
 import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/authentication.dart';
@@ -21,6 +22,7 @@ List<GetProperties> _propertlist = List<GetProperties>();
 List<GetProperties> get properties => _propertlist;
 String get getErrorMessage => _errorMessage;
 String firstId, firstName;
+final PushNotification _pushNotification = locator<PushNotification>();
 
 
 void addReservation(){
@@ -31,6 +33,8 @@ _navigationService.navigateTo(addReservationRoute);
 
 void tab1Initialize()async{
 //   setBusy(true);
+await _pushNotification.initialise();
+//await _pushNotification.showLocalNotification();
 fetchProperties();
 }
 

@@ -2,5 +2,5 @@
 import 'package:hostapp/main.dart' as app;
 void main(){
 //enableFlutterDriverExtension();
-app.MyApp();
+//app.MyApp();
 }
