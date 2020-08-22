@@ -4,6 +4,7 @@ import 'package:hostapp/src/localNotification.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'dart:io';
+import 'package:hostapp/src/util/constants.dart';
 
 class PushNotification{
   final FirebaseMessaging _fcm = FirebaseMessaging();
@@ -15,7 +16,7 @@ class PushNotification{
   }
 
   Future initialise()async{
-   // getToken();
+  //  getToken();
     if(Platform.isIOS){
       _fcm.requestNotificationPermissions(IosNotificationSettings());
     }
@@ -34,43 +35,34 @@ class PushNotification{
         serialNavigation(message: message);
       }
     );
-  
   }
 
   void serialNavigation({Map<String, dynamic> message}){
     var data = message['data']; //For notification details like, click navigation, priority, link etc
    var view = data['view'];
 
-
     var notification = message['notification']; //For Notificaton Data like body, title etc
      var title =  notification['title'];
     var body = notification['body'];
 
-  
    
-    print('Notification View >>>>> $view');
-    print('Notification ActionData >>>>>> $data');
-    print('Notification Title >>>>>> $title');
-     print('Notification Body >>>>>> $body');
+    // print('Notification View >>>>> $view');
+    // print('Notification ActionData >>>>>> $data');
+    // print('Notification Title >>>>>> $title');
+    //  print('Notification Body >>>>>> $body');
       showLocalNotification(
         channelDes: 'HostApp for Mobile Channel',
-        channelID: 'hostApp Channel',
+        channelID: '001',
         channelName: 'HostApp',
-        notificationTitle: 'Checked-in',
-        notificationBody: 'Someone just checked-in',
+        notificationTitle: '$title',
+        notificationBody: '$body',
         payload: 'My fucking Payload');
 
       if(view != null){
-
-        // if(view == notificationRoute){
-        //   _navigationService.navigateTo(notificationRoute);
-
-        // }else if(view == dashboardRoute){
-        //     _navigationService.navigateTo(dashboardRoute);
-        // }
+         _navigationService.navigateTo(dashboardRoute, arguments: 2);
 
       }else{
-         // _navigationService.navigateTo(dashboardRoute);
+          _navigationService.navigateTo(dashboardRoute, arguments: 2);
       }
 
   }

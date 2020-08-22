@@ -42,7 +42,6 @@ void initialize(String userEmail, BuildContext context, String userID, String fn
                         ).catchError((e){
                             setBusy(false);
                             setErrorMessage(erorr: e.toString());
-
                             }).timeout(Duration(seconds: 10,), onTimeout: (){
                                setBusy(false);
                               setErrorMessage(erorr: 'Server Timeout');

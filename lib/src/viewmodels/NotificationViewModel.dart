@@ -19,9 +19,14 @@ final NavigationService _navigationService = locator<NavigationService>();
 List<GetNotificationModel> get notifications => _notificationList;
 String _errorMessage;
 String get getErrorMessage => _errorMessage;
+int indexDelete = -1;
 
 
-
+setIndexDelete(int v){
+  loadingOther2(true);
+  indexDelete = v;
+  loadingOther2(false);
+}
 
 void initialize()async{
   setBusy(true);
@@ -38,7 +43,6 @@ QueryResult result = await _client.query(
       setErrorMessage(erorr: e.toString());
         }).timeout(Duration(seconds: 10,), onTimeout: (){
            setBusy(false);
-          
           setErrorMessage(erorr: 'Server Timeout');
         },);
 
@@ -66,6 +70,7 @@ for (var index = 0; index < result.data["getPropertyNotifications"].length; inde
  
             _notificationList.add(
                   GetNotificationModel(
+                  id: result.data["getPropertyNotifications"][index]["id"],
                   text: result.data["getPropertyNotifications"][index]["text"],
                   timestamp: result.data["getPropertyNotifications"][index]["timestamp"],
                   time: result.data["getPropertyNotifications"][index]["time"],
@@ -90,7 +95,7 @@ for (var index = 0; index < result.data["getPropertyNotifications"].length; inde
                   )
                     ));
              // print(result.data["getPropertyNotifications"].toString());
-                  print(result.data["getPropertyNotifications"][index]["payload"]['reservation_id']);
+                  print('Notification ID =>> ${result.data["getPropertyNotifications"][index]["id"]}');
       }  }
       }
        setBusy(false);
@@ -105,4 +110,63 @@ setErrorMessage({String erorr}){
  movetoSettings(){
   _navigationService.navigateTo(settingsRoute);
 } 
+
+
+deleteNotification({String propertyId, String notificationID})async{
+   loadingOther(true);
+   await _graphQlConfiq.getNeccessartyToken();
+       GraphQLClient _client = _graphQlConfiq.clientToQuery();
+    QueryResult result = await _client.mutate(
+      MutationOptions(
+          documentNode: gql(removeNotification),
+          onError: (error) {
+            print('******************Error Occur: ${error.toString()}');
+          },
+          onCompleted: (data) {
+            //Note: Don't compare data here or do anything that's pertaining to returened Data, This will definately return even if it's error
+          },
+          variables: <String, dynamic>{
+                "propertyId": propertyId,
+                "id": notificationID
+          }
+      )
+    )
+.catchError((e){
+      loadingOther(false);
+       print(e);
+      print('Error Occur, ${e.toString()}');
+      setErrorMessage(erorr: e.toString());
+        }).timeout(Duration(seconds: 10,), onTimeout: (){
+           loadingOther(false);
+          setErrorMessage(erorr: 'Server Timeout');
+        },);
+
+   if(result.data == null) {
+      loadingOther(false);
+             print('Result is Null');
+             print(result.exception);
+              setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+              
+         }else{
+            if(result.data['deletePropertyNotification'] == null){
+                        loadingOther(false);
+              print('*************Return Data is Null Exception **************');
+              print(result.exception.graphqlErrors);
+             setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+
+              }else{
+                //check if is false
+                if(!result.data['deletePropertyNotification']){
+                     loadingOther(false);
+                  setErrorMessage(erorr: 'Failed to delete Notification, Please Try again');
+
+            }else{
+               loadingOther(false);
+               initialize(); //Reload the Page....
+              }       
+      }
+      }
+           loadingOther(false);
+         }
+
 }

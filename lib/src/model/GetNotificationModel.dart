@@ -1,14 +1,16 @@
 import 'package:hostapp/src/model/getPropertiesModel.dart';
 
 class GetNotificationModel{
-  String text, timestamp, time;
+  String id, text, timestamp, time;
   bool read;
   GetProperties getProperties;
   PayLoad payload;
 
-  GetNotificationModel({this.text, this.timestamp, this.time, this.read, this.getProperties,
+  GetNotificationModel({this.id, this.text, this.timestamp, this.time, this.read, this.getProperties,
   this.payload});
 
+ getID() => this.id;
+ 
    getText() => this.text;
 
   getTimeStamp() => this.timestamp;

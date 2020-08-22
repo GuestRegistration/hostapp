@@ -2,20 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/model/GetNotificationModel.dart';
 import 'package:hostapp/src/screen/EditPropertyScreen.dart';
+import 'package:hostapp/src/style/AppColor.dart';
+import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/screen/SingleReservationDetailsScreen.dart';
+import 'package:hostapp/src/viewmodels/NotificationViewModel.dart';
+import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:popup_menu/popup_menu.dart';
 import 'package:intl/intl.dart';
 
 class NotificationWidget extends StatelessWidget {
   final GetNotificationModel getNotificationModel;
    final Function onDeleteItem;
+   final NotificationViewModel model;
+   final int index;
 
       NotificationWidget({
     Key key,
     this.getNotificationModel,
     this.onDeleteItem,
+    this.model,
+    this.index
   }) : super(key: key);
 
   final CustomFuntion _developerFunction = locator<CustomFuntion>();
@@ -23,7 +31,15 @@ class NotificationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PopupMenu.context = context;
-     return GestureDetector(
+     return model.loadingOthers ? Center(
+       child: CircularProgressIndicator(
+                            strokeWidth: 4,
+                            valueColor: AlwaysStoppedAnimation(
+                                AppColor.primary,
+                            ),
+                          ),
+     ) :
+     GestureDetector(
                          child: Container(
                             // height: 100,
                              decoration: new BoxDecoration(
@@ -36,12 +52,10 @@ class NotificationWidget extends StatelessWidget {
                                   end: const FractionalOffset(1.0, 1.0),
                                   stops: [0.0, 1.0],),
                                 // borderRadius: BorderRadius.circular(20),
-                            ),
-                               child: Card(
+                            ),child: Card(
                                 elevation: 10,
-                                
-                                shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
+                                   shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(20),
                                   bottomLeft: Radius.circular(20),
                                   topLeft:Radius.circular(20),
@@ -82,24 +96,24 @@ class NotificationWidget extends StatelessWidget {
                                               viewProperty(context);
                                               
                                          }else if(value == '3'){
-                                                                                            //Remove Notification
-                                          }
-                                              
-                                                                                         },
-                                                                                       ),
-                                                        
+                                          //Remove Notification
+                                             deleteNotification(
+                                               context: context, 
+                                               notifyID: getNotificationModel.getID(),
+                                               propertyID: getNotificationModel.getPropertyData().getId(), 
+                                              );
+                                          }},),     
                                    ],)
                                                                              ),
                                                                               ),
                                                                            ),
                                                                          ),
-                                                                  onTap: (){
+                                 onTap: (){
                                                                   
-                                                                  },
-                                                                );
-                                                             
-                                              
-                                                }
+    }, );
+  
+  
+  }
                                                 dropemenu(){
                                                 return <PopupMenuEntry<String>>[
                                                                                   PopupMenuItem<String>(
@@ -133,11 +147,9 @@ class NotificationWidget extends StatelessWidget {
                                                                                          ];
                                               
                                               }
-                                              
-                                              
-                                              approveReservation(BuildContext context, String reservationID){
-                                              
-                                               Navigator.push( context,
+  
+    approveReservation(BuildContext context, String reservationID){
+  Navigator.push( context,
                       MaterialPageRoute(builder: (context) =>
                         SingleReservationDetailsScreen(reservationID: reservationID,
                       )));
@@ -159,7 +171,60 @@ class NotificationWidget extends StatelessWidget {
                                                 )));
                                                 }
 
+                     void deleteNotification({BuildContext context, String propertyID, String notifyID}) {
+                        // print('Property iD =>>> ${propertyID}');
+                        // print('Notification ID =>>>> ${notifyID}');
+                      
+                     model.deleteNotification(notificationID: notifyID, propertyId: propertyID);
+                     }
 
-
-
+                       
+  errorWidget(NotificationViewModel model){
+    return Center(
+      child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 30,),
+                  Center(
+                    child: Text(model.getErrorMessage,
+                     textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.red,
+                    fontSize: AppFontSizes.medium,
+                    fontWeight: FontWeight.bold
+                              ),),),
+                  verticalSpaceLarge,
+                  GestureDetector(child: Padding(
+                      padding: const EdgeInsets.all(1.0),
+                      child: Container(
+                        width: 150,
+                        height: 50,
+                        child: Material(
+                        child: Center(
+                            child: Text('Retry',
+                            style: TextStyle(
+                              color: AppColor.white,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.bold
+                            ),),
+                        ),
+                        color: Color(0xFF45A1C9),
+                        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(18.0),
+              side: BorderSide(color: AppColor.borderColor)
+      ),
+                     
+                  ),
+                      ),
+                    ),
+                    onTap: (){
+                      model.deleteNotification(notificationID:  getNotificationModel.getID(), 
+                      propertyId: getNotificationModel.getPropertyData().getPropertyID());
+                    },
+                          ),
+                ],
+              ),
+    );
+  }
+  
 }

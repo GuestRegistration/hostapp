@@ -262,6 +262,7 @@ const String approveReservation = r"""
 const String propertyNotification = r"""
  query{
   getPropertyNotifications{
+      id
       text
       timestamp
       time
@@ -313,6 +314,12 @@ query getReservationDetails($reservationID: String!){
 }
  
  """;
- 
+const String removeNotification = r"""
+mutation($propertyId: String
+  $id: String
+){
+  deletePropertyNotification(property_id: $propertyId, id : $id)
+}
+ """;
 
 

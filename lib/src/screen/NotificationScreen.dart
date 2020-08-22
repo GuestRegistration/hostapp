@@ -63,7 +63,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     ),
                     ),
                 ) : 
-                 Expanded(
+                (model.loadingOthers ? _developerFunction.loadingWidget() :  Expanded(
                           child: GroupedListView<dynamic, String>(
           elements: model.notifications,
           groupBy: (e) => 'Recent',
@@ -78,11 +78,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
           indexedItemBuilder: (BuildContext context, element, int index) {
               return NotificationWidget(
                 getNotificationModel: model.notifications[index],
+                model: model,
+                index: index
               );
           },
           order: GroupedListOrder.ASC,
         ),
-            )
+            ))
+                
            
            
 

@@ -79,7 +79,7 @@ for (var index = 0; index < result.data["getUserProperties"].length; index++) {
                   terms: result.data["getUserProperties"][index]["terms"],
                     )
               );
-             // print( result.data["getProperties"][index]["rules"]);
+             print(result.data["getUserProperties"][index]["id"],);
       } 
                }
                
