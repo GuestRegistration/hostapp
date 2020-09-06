@@ -4,6 +4,9 @@ import 'package:hostapp/src/viewmodels/SignwithEmailScreenViewModel.dart';
 import 'package:hostapp/src/widget/input_field.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:hostapp/src/style/AppImage.dart';
+import 'package:hostapp/src/util/customFunctions.dart';
+import 'package:hostapp/src/locator.dart';
 
 class SignwithEmailScreen extends StatefulWidget {
   @override
@@ -12,7 +15,9 @@ class SignwithEmailScreen extends StatefulWidget {
 
 class _SignwithEmailScreenState extends State<SignwithEmailScreen> {
   
+    final CustomFuntion _customFuntion = locator<CustomFuntion>();
    TextEditingController emailcontroller = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
   return ViewModelProvider<SignwithEmailScreenViewModel>.withConsumer(
@@ -21,67 +26,130 @@ class _SignwithEmailScreenState extends State<SignwithEmailScreen> {
      Scaffold(
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
-            verticalSpaceLarge, //Enable space btw
-              verticalSpaceLarge, //Enable space btw
-                verticalSpaceLarge, //Enable space btw
-
-                Center(child:Text(model.errorM == null ? '' : model.errorM),),
-
-           InputField(
-                    placeholder: '',
-                    controller: emailcontroller,
-                    textInputType: TextInputType.emailAddress,
-                    decoration:  InputDecoration(
-                  hintText: 'Email',
-                  enabledBorder: new OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: new BorderSide(color: AppColor.black,
+          SizedBox(height: 15,),
+           Padding(
+             padding: const EdgeInsets.all(8.0),
+             child: Image.asset(AppImage.header,),
+           ),
+Center(child: Container(
+                    child: Text(
+                      "Enter your email",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24.0),
+                    ),
                   ),
-                                ),
-                          border: new OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                              borderSide: new BorderSide(color: AppColor.black
-                              ),
-                        ),
-                          suffixIcon: (model.errorType == 0 ? SizedBox.shrink() : Icon(Icons.warning, color: Colors.red,))
-                        ),
-                    onChanged: (value){
-                    },
+                ),
+                 verticalSpaceTiny,
+                Center(
+                  child: SizedBox(
+                    child: Text(
+                      "We will send you a magic sign-in link",
+                      style: TextStyle(
+                        color: Color(0xff8F8F8F),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
+                ),
+                 SizedBox(height: 15,),
+                 _customFuntion.errorUimessage(errorMessage: model.errorM,
+                 type: 0),
+               // Center(child:Text(),),
+                 verticalSpaceLarge,
 
-                   verticalSpaceLarge, //Enable space btw
+           Padding(
+             padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+             child: TextFormField(
+                //textAlignVertical: TextAlignVertical.center,
+                      controller: emailcontroller,
+                      textInputAction: TextInputAction.done,
+                      keyboardType:TextInputType.emailAddress,
+                      decoration:  InputDecoration(
+                        hintText: 'Email',
+                         contentPadding: EdgeInsets.all(10.0),
+                        enabledBorder: new OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: new BorderSide(color: AppColor.rimary,
+                        ),
+                                  ),
+                        border: new OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: new BorderSide(color: AppColor.black
+                            ),
+                      ),
+                        suffixIcon: (model.errorType == 0 ? SizedBox.shrink() : Icon(Icons.warning, color: Colors.red,))
+                      ),
+                      onChanged: (value){
+                      },
+                    ),
+           ),
 
-           GestureDetector(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 6.0, right:6.0, bottom: 20),
-                    child: Container(
-                      height: 50,
-                      child: Material(
-                        child: Center(
-                          child: Row(children: <Widget>[
-                            Icon(Icons.email, color: Colors.black),
+                   verticalSpaceMedium, //Enable space btw
+                    Container(
+                  width: 318.0,
+                  height: 47.0,
+                  decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.circular(
+                      13.0,
+                    ),
+                  ),
+                  child: RaisedButton(
+                    color: const Color(0xffF1F1F1),
+                    child: new Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                         Image.asset(AppImage.email,),
+                          horizontalSpaceTiny,
                             Text('Send Magic Link',
                             style: TextStyle(
                                 color: AppColor.black,
                                 fontSize: 17.0,
                                 fontWeight: FontWeight.bold
                             ),),
-                          ],)
-                        ),
-                        color: Color(0xFFD24E4E),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: AppColor.borderColor)
-                        ),
+                      ],
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12))),
+                    onPressed: () async {
+                    model.signIn(emailcontroller.text);
+                    },
+                  ),
+                ),
+     
+                   verticalSpaceMedium,
 
+                FlatButton(
+                    onPressed: () {
+                      _customFuntion.havingProblemCondition();
+                    },
+                    child: const Text(
+                      'Having problems click here',
+                      style: TextStyle(
+                        color: Color(0xff8F8F8F),
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.underline,
                       ),
                     ),
                   ),
-                  onTap: (){
-                    model.signIn(emailcontroller.text);
-                   
-                  },
-                )
+
+                  FlatButton(
+                    onPressed: () {
+                      _customFuntion.getTermconditions();
+                    },
+                    child: const Text(
+                      'Terms & Conditions',
+                      style: TextStyle(
+                        color: Color(0xff8F8F8F),
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
         ],),
       )
     )

@@ -199,14 +199,22 @@ const String insertData = r"""
          $phone_country_code: String!
          $email: String!
          $name: String!
-         $lastname: String!){
+         $lastname: String!
+         $device_ip: String
+         $device_id: String
+         $device_name: String
+         $notification_token: String){
            createUser( 
              id:$id,
              email: $email,
              phone_country_code: $phone_country_code,
              phone: $phone,
              phone_number: $phone_number,
-             first_name:$name, last_name:$lastname
+             first_name:$name, last_name:$lastname, 
+              device_ip: $device_ip,
+               device_id: $device_id,
+                device_name: $device_name,
+                 notification_token: $notification_token
         ){ 
           id
           email
@@ -322,4 +330,18 @@ mutation($propertyId: String
 }
  """;
 
+
+const String updateNotificationData = r"""
+mutation($deviceid: String
+        $device_name : String
+        $token : String
+){
+  updateUserDevice(device_id: $deviceid, 
+    device_name: $device_name, notification_token: $token){
+    device_id,
+    notification_token
+    device_name
+  }
+}
+""";
 

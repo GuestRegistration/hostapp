@@ -23,17 +23,7 @@ String get getErrorMessage => _errorMessage;
     String phoneIcode = data[5]; //phonce icode
       String rules = data[6]; //Rules
       String docLink = data[7]; //Rules
-      String fullPhone = '$phoneIcode $phoneN';
-
-      // print('**************** COMING DATA *****************');
-      //  print(pName); 
-      //   print(pAddress); 
-      //   print(phoneN); 
-      //   print(country); 
-      //   print(cEmail); 
-      //    print(rules); 
-      //    print(docLink); 
-      //    print('**************** *****************');
+      //String fullPhone = '$phoneIcode $phoneN';
 
 setBusy(true);
 
@@ -50,14 +40,13 @@ setBusy(true);
 
           },
  //"userID": Constants().dummyUseriD,
-          
           variables: <String, dynamic>{
               "name": pName,
               "phone": phoneN,
               "email": cEmail,
               "street": pAddress,
               "rules": rules,
-              "phone_number": '$phoneIcode $phoneN',
+              "phone_number": '$phoneN',
               'phoneCountry_code': phoneIcode,
               "terms": docLink,
               "country": country
@@ -77,21 +66,19 @@ setBusy(true);
      if (result.data == null) {
              print('Result is Null');
               setBusy(false);
+
          }else{
-            if(result.data['createProperty'] == null){
-                setBusy(false);
+            if(result.data['createProperty'] == null || result.data['createProperty']['id'] == null){ //id
+            setBusy(false);
             print(result.exception.graphqlErrors);
-            print(result.exception.clientException);
             setErrorMessage(erorr: result.exception.graphqlErrors.toString());
             print('Result is not Null');
              
-
            }else{
              setBusy(false);
             print('Result is not Null');
              _navigationService.navigateTo(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
            }
-            
          }
   }
 
@@ -132,7 +119,6 @@ updatePropertyAPI({List data})async{
           onCompleted: (data) {
             //Note: Don't compare data here or do anything that's pertaining to returened Data, 
             //This will definately return even if it's error
-           
           },
           //Later (Rules and document)
           variables: <String, dynamic>{
@@ -167,17 +153,11 @@ updatePropertyAPI({List data})async{
             print(result.exception.graphqlErrors);
             setErrorMessage(erorr: result.exception.graphqlErrors.toString());
             print('Result is not Null');
-             
-
            }else{
                setBusy(false);
                _navigationService.navigateToandRemove(dashboardRoute, arguments: 1); //Show index 1 when lauching dashborad
-
            }
-           
-           
          }
-
 }
 
 setErrorMessage({String erorr}){

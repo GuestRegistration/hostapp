@@ -454,6 +454,7 @@ return showDialog(
                     },
                   );
   }
+ 
   copyLink(){
   Clipboard.setData(new ClipboardData(text: inviteInLinkController.text));
                               globalKey.currentState.showSnackBar( 
@@ -518,7 +519,7 @@ return showDialog(
             );
   }
 
-setData(SingleReservationDetailsViewModel model){
+  setData(SingleReservationDetailsViewModel model){
   bookingChannelController.text = model.bookingC;
    checkinController.text = model.chekinD;
      checkoutController.text =  model.checkoutD; 

@@ -26,7 +26,7 @@ class _ShareLinkDialogState extends State<ShareLinkDialog> {
    final CustomFuntion _customFuntion = locator<CustomFuntion>();
    final NavigationService _navigationService = locator<NavigationService>(); 
 
-   @override
+    @override
   void initState() {
     // TODO: implement initState
     super.initState();

@@ -5,6 +5,7 @@ import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'dart:io';
 import 'package:hostapp/src/util/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PushNotification{
   final FirebaseMessaging _fcm = FirebaseMessaging();
@@ -12,7 +13,16 @@ class PushNotification{
 
   getToken()async{
     print('FCM TOKEN>>>>>>>>>>>>>>>>>>>>>>>>');
-   await _fcm.getToken().then((value) => original(value));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+   await _fcm.getToken().then((value){
+      prefs.setString(Constants.notificationToken, value);
+      String data  = prefs.getString(Constants.notificationToken);
+      print('Stored Data >>>>>>>>>');
+            original(data);
+
+             print('Token Data >>>>>>>>>');
+            original(value);
+   });
   }
 
   Future initialise()async{
@@ -56,7 +66,7 @@ class PushNotification{
         channelName: 'HostApp',
         notificationTitle: '$title',
         notificationBody: '$body',
-        payload: 'My fucking Payload');
+        payload: '');
 
       if(view != null){
          _navigationService.navigateTo(dashboardRoute, arguments: 2);

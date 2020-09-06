@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hostapp/src/locator.dart';
+import 'package:hostapp/src/service/push_Notification.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
+import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/viewmodels/CheckUserModel.dart';
 import 'package:hostapp/src/style/AppText.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
@@ -15,6 +18,16 @@ class CheckUserScreen extends StatefulWidget {
 }
 
 class _CheckUserScreenState extends State<CheckUserScreen> {
+   final CustomFuntion _customFuntion = locator<CustomFuntion>();
+    final PushNotification _pushNotification = locator<PushNotification>();
+
+
+ void initState() {
+     _customFuntion.getID();
+     _pushNotification.getToken();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<CheckUserModel>.withConsumer(

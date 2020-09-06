@@ -103,9 +103,8 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                              fontWeight: FontWeight.bold
                          ),),
              onPressed: () { 
-             model.proPage();
-               
-              
+           //  model.proPage();
+              model.addproperty();  
              },
             )
              : FloatingActionButton(onPressed: () { 

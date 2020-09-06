@@ -1,3 +1,5 @@
+import 'package:device_id/device_id.dart';
+import 'package:device_info/device_info.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -14,14 +16,27 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 class CustomFuntion{
     final storage = new FlutterSecureStorage();
-
+static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   //Save Email and Id to secure storage
   saveEmailandID({String email, String uid, String idToken})async{
       await storage.write(key: Constants.constEmail, value: email.toString());
         await storage.write(key: Constants.constID, value: uid.toString());
          await storage.write(key: Constants.constUserToken, value: idToken);
+  }
+  
+   getID()async{
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String device_id = await DeviceId.getID;
+      await deviceInfoPlugin.androidInfo.then((value){
+          String name = value.device;
+          prefs.setString(Constants.deviceName, name);
+          //print('Device NAME >>>>>>>>>>>>>>>>> $name');
+     });
+    print('Device ID >>>>>>>>>>>>>>>>> $device_id');
+       prefs.setString(Constants.deviceID, device_id);
   }
 
   saveUserData({String email, String fname, String lname, String phoneN, String completePhone, String userID, String phoneCode})async{
@@ -39,7 +54,6 @@ class CustomFuntion{
     SharedPreferences prefs = await SharedPreferences.getInstance();
        prefs.setString(Constants.enteredEmail, providedEMail);
   }
-
   
 
   dialog({BuildContext context, String message, title}) {
@@ -367,6 +381,11 @@ String calculateTimeStamp(int value){
    var formattedDate = (df.format(new DateTime.fromMillisecondsSinceEpoch(myvalue*1000)));
 return formattedDate.toString();
 
+}
+
+savedTokenVerification({bool value})async{
+   SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setBool(Constants.tokenVerified, value);
 }
 
 }

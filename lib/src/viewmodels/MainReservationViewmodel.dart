@@ -34,6 +34,7 @@ _navigationService.navigateTo(addReservationRoute);
 void tab1Initialize()async{
 //   setBusy(true);
 await _pushNotification.initialise();
+_pushNotification.getToken(); //Get Notification Token
 //await _pushNotification.showLocalNotification();
 fetchProperties();
 }

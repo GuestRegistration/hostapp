@@ -1,21 +1,17 @@
-import 'dart:io';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/screen/CreateProfileScreen.dart';
 import 'package:hostapp/src/service/graphQlQuery.dart';
-import 'package:hostapp/src/service/FirestoreService.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hostapp/src/screen/login_page.dart';
-import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
+import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
 import 'package:hostapp/src/model/createUserModel.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hostapp/src/service/graphQlQuery.dart';
 
 class CheckUserModel extends BaseModel{
     final GraphQLConfiguration _graphQlConfiq = locator<GraphQLConfiguration>();
@@ -89,15 +85,13 @@ void initialize(String userEmail, BuildContext context, String userID, String fn
                                   completePhone: createUserModel.phone.completePhone,
                                   phoneCode: createUserModel.phone.countryCode,
                                 );
-                          
-                          //Move to Dashboard
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Dashboard(showIndex: 0,
-                                      )));
+
+                                //TODO GET NOTIFICATION DATA AND SEND IT TO SERVER...
+                                print('Sending notification Data>>>>');
+                                updateNotification(context);
                         }
 }
+
 
 
 setErrorMessage({String erorr}){
@@ -105,6 +99,63 @@ _errorMessage = erorr;
 notifyListeners();
 }
 
+void updateNotification(BuildContext context)async{
+  setBusy(true);
+   await _graphQlConfiq.getNeccessartyToken(); //MuST CALL THIS BEFRE API 
+   SharedPreferences prefs = await SharedPreferences.getInstance();
+   String notificationToken  = prefs.getString(Constants.notificationToken);
+   String deviceId  = prefs.getString(Constants.deviceID);
+    String deviceName  = prefs.getString(Constants.deviceName);
+    print('device_id >>> $deviceId');
+    print('notification_token >> $notificationToken');
+    print('device_name >> $deviceName');
+   
+     GraphQLClient _client = _graphQlConfiq.clientToQuery();
+    
+    QueryResult result = await _client.mutate(
+      MutationOptions(
+          documentNode: gql(updateNotificationData),
+        variables: {
+          "deviceid": deviceId,
+          "device_name": deviceName,
+          "token": notificationToken,
+        },
+      )
+    ).catchError((e){
+      setBusy(false);
+      print('Error Occur, ${e.toString()}');
+       setErrorMessage(erorr: e.toString());
+
+        }).timeout(Duration(seconds: 10,), onTimeout: (){
+           setBusy(false);
+          setErrorMessage(erorr: 'Server Timeout, Please retry');
+        },);
+
+     if (result.data == null) {
+        setBusy(false);
+             print('Result is Null and Error Occur');
+             print(result.exception.graphqlErrors);
+             
+              setErrorMessage(erorr: result.exception.graphqlErrors.toString());
+
+         }else if (result.data['updateUserDevice'] == null) {
+           setBusy(false);
+
+         }else{
+        //TODO WHICH MEANS NOTIFICATION DETAILS IS SENT SUCCESSFULLY
+        _customFuntion.savedTokenVerification(value: true);
+              setBusy(false);
+              
+             Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) {
+                  return Dashboard(showIndex: 0);
+                },
+              ),
+    );
+              
+         }
+}
 
 
 

@@ -62,8 +62,6 @@ class PropertyWidget extends StatelessWidget{
                              ),
                            ),
                     onTap: (){
-                     // print(getProperties.propertyPhone.countryCode);
-                     
                       Navigator.push( context,
                    MaterialPageRoute(builder: (context) => EditPropertyScreen(
                      country: getProperties.address.country,

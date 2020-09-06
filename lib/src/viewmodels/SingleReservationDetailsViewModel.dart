@@ -23,7 +23,7 @@ GetReservationModel reservationModel;
 GetReservationModel get getReservationModel => getReservationModel;
 String _apiError;
 String get getErrorMessage => _apiError;
-bool appoved;
+bool appoved = false;
 String bookingC,  chekinD,  checkoutD,  invitelink, 
  propertyName,  guestName,  instructions;
 

@@ -86,7 +86,10 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
                   children: <Widget>[
                      horizontalSpaceLarge,
                       horizontalSpaceLarge,
-                   headerButton(), 
+                      Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: headerButton(model)
+                  ),
                    Row(
                        mainAxisAlignment: MainAxisAlignment.start,
                        children: <Widget>[
@@ -333,14 +336,12 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
   }
 
 
-headerButton(){
+   headerButton(AddReservationViewModel model){
 return Row(
           mainAxisAlignment: MainAxisAlignment.start,
          // crossAxisAlignment: Cros,
           children: <Widget>[
-            GestureDetector(child: Padding(
-        padding: const EdgeInsets.only(left: 6.0, top: 30, bottom: 10),
-        child: Container(
+            GestureDetector(child: Container(
           child: Material(
           child: Row(
               children: <Widget>[
@@ -367,7 +368,7 @@ side: BorderSide(color: AppColor.primaryLight)
 ),
     ),
         ),
-      ),
+   
             onTap: (){
 //               Navigator.push( context,
 //                    MaterialPageRoute(builder: (context) => Dashboard(
@@ -375,8 +376,45 @@ side: BorderSide(color: AppColor.primaryLight)
 //                    ))); 
               Navigator.pop(context);  
             },
-            ),   ],
-                    );
+            ), 
+              horizontalSpaceLarge,
+              horizontalSpaceLarge,
+              horizontalSpaceSmall,
+     GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: (model.busy  ? 
+                        CircularProgressIndicator(
+                    strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(AppColor.primary, ),
+                          backgroundColor: AppColor.borderColor,
+                    )
+                         : 
+                        Container(
+                          width: 150,
+                          height: 35,
+                          child: Material(
+                          child: Center(
+                            child: Text('Save Changes', //If all field is entered, Display complete else Skip
+                            style: TextStyle(
+                              color: Color(0xFFEFF5F7),
+                              fontSize: 17.0,
+                            ),),
+                          ),
+                          color:Color(0xFF45A1C9),
+                          shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(18.0),
+              side: BorderSide(color: AppColor.borderColor)
+      ),  ),)  
+                        ),),
+                      onTap: (){
+                     
+                      },
+                    ),
+   
+              ],
+            
+                );
 }
  
    listener(TextEditingController controller){
@@ -386,14 +424,12 @@ side: BorderSide(color: AppColor.primaryLight)
                       }else{
                       //  widget.model.setdataEnterdStatus(false);
                       }
-
       // if(propertyNameController.text.isNotEmpty && addressController.text.isNotEmpty && widget.model.getCountry != null &&
       // emailcontroller.text.isNotEmpty && phoneNumber.text.isNotEmpty){
       //   widget.model.setCountinueButton(true);
       // }else{
       //   widget.model.setCountinueButton(false);
       // }
-      
     });
 }
 
@@ -475,6 +511,7 @@ return showDialog(
                     },
                   );
   }
+ 
   copyLink(){
   Clipboard.setData(new ClipboardData(text: widget.invitelink));
                               globalKey.currentState.showSnackBar( 
@@ -484,4 +521,3 @@ return showDialog(
 }
 
 }
-

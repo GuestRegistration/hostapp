@@ -56,22 +56,42 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   String phoneIsoCode;
   var confirmedNumber;
   String insertData = r"""
-        mutation users(     
-         $id: String!  
+        mutation users(        
+        $id: String!       
+         $phone_number: String!
          $phone: String!
-         $email : String!
+         $phone_country_code: String!
+         $email: String!
          $name: String!
-         $lastname: String!){
-           createUser( id: $id,email: $email,
-          phone: $phone , first_name:$name,last_name:$lastname
+         $lastname: String!
+         $device_ip: String
+         $device_id: String
+         $device_name: String
+         $notification_token: String){
+           createUser( 
+             id:$id,
+             email: $email,
+             phone_country_code: $phone_country_code,
+             phone: $phone,
+             phone_number: $phone_number,
+             first_name:$name, last_name:$lastname, 
+              device_ip: $device_ip,
+               device_id: $device_id,
+                device_name: $device_name,
+                 notification_token: $notification_token
         ){ 
           id
           email
-          phone  
+          country_of_residence
           name{
             first_name
-          last_name
+            last_name
           }       
+          phone_meta{
+          phone_number
+          country_code
+          complete_phone
+              }
                 }
         }
           """;

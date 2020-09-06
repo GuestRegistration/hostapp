@@ -7,6 +7,7 @@ import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/managers/dialog_manager.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hostapp/src/route.dart';
+import 'package:hostapp/src/screen/CheckInboxScreen.dart';
 import 'package:hostapp/src/screen/NotificationScreen.dart';
 import 'package:hostapp/src/service/dialog_service.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
@@ -29,6 +30,31 @@ import 'package:rxdart/subjects.dart';
 void main()async{  
   WidgetsFlutterBinding.ensureInitialized();
 setupLocator(); // Register all the models and services before the app starts
+  notificationAppLaunchDetails =
+      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
+  var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+  // Note: permissions aren't requested here just to demonstrate that can be done later using the `requestPermissions()` method
+  // of the `IOSFlutterLocalNotificationsPlugin` class
+  var initializationSettingsIOS = IOSInitializationSettings(
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: false,
+      onDidReceiveLocalNotification:
+          (int id, String title, String body, String payload) async {
+        didReceiveLocalNotificationSubject.add(ReceivedNotification(
+            id: id, title: title, body: body, payload: payload));
+      });
+  var initializationSettings = InitializationSettings(
+      initializationSettingsAndroid, initializationSettingsIOS);
+      
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: (String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+    selectNotificationSubject.add(payload);
+  });
 
 SystemChrome.setPreferredOrientations([
   DeviceOrientation.portraitUp,
@@ -73,7 +99,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Open Sans',
         ),
       ),
-      home: PasswordlessApp(),//PasswordlessApp(), //
+      home: PasswordlessApp(),
       onGenerateRoute: generateRoute,
     ),
     );

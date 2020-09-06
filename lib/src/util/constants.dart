@@ -16,6 +16,7 @@ class Constants {
   static const String verificationFailed = "Verification failed";
   static const String thankYou = "Thank you for authenticating!";
   static const String enteredEmail = "providedEmail";
+  static const String tokenVerified = 'tokenVerified';
   // Numbers
   static const int timeOutDuration = 90;
   //Saved constData
@@ -33,6 +34,10 @@ static const String constPhoneN = 'PhoneNumber';
 static const String constPhoneContryCode = 'CountryCodePhone';
 static const String constCompletePhone = 'CompletePhone';
 static const String passwordlessDynamicUrl = 'https://guestregistration-4140a.firebaseapp.com';
+static const String deviceID = 'deviceID';
+static const String deviceIP = 'deviceIP';
+static const String notificationToken = 'NotificationToken';
+static const String deviceName = 'DeviceName';
 }
 
 
@@ -54,5 +59,6 @@ const String settingsRoute = '/settings';
 const String signInwithEmailRoute = '/withEmail';
 const String signInwithEmailLOADERRoute = '/withEmailLoadder';
 const String authRoute = '/authR';
+const String checkInboxRoute = '/checkInboxRoute';
 
 

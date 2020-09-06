@@ -46,8 +46,7 @@ QueryResult result = await _client.query(
       setBusy(false);
              print('Result is Null');
              print(result.exception);
-              setErrorMessage(erorr: result.exception.graphqlErrors.toString());
-              
+              setErrorMessage(erorr: result.exception.graphqlErrors.toString());         
          }else{
            if(result.data['getUserProperties'] == null){
              setBusy(false);
@@ -79,13 +78,13 @@ for (var index = 0; index < result.data["getUserProperties"].length; index++) {
                   terms: result.data["getUserProperties"][index]["terms"],
                     )
               );
-             print(result.data["getUserProperties"][index]["id"],);
+             
+             print('API >>>>>>>>>>>>>>');
+              print(result.data["getUserProperties"][index]["phone_meta"]['phone_number']);
+              print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
       } 
                }
-               
-      
-      }
-           
+      }  
      // print(_propertlist.length);
        setBusy(false);
          }

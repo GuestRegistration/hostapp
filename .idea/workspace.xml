@@ -2,28 +2,73 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0545143f-f6fc-43c0-93db-0dd887824cbd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/ic_launcher-web.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable/app_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable/app_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/locator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/locator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/app.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/AddPropertyScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/AddPropertyScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/screen/AddReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/AddReservationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/EditPropertyScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/EditPropertyScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/screen/EditReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/EditReservationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/ListOfProperty.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/ListOfProperty.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/NotificationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/NotificationScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/screen/SingleReservationDetailsScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/SingleReservationDetailsScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/auth_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/auth_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/checkUserScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/checkUserScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/login_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/screen/mainReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/mainReservationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/verifyotp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/verifyotp.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/service/GraphQLConfiguration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/service/GraphQLConfiguration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/service/graphQlQuery.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/service/graphQlQuery.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/service/push_Notification.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/service/push_Notification.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/util/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/util/constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/util/customFunctions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/util/customFunctions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/CreateProfileVM.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/CreateProfileVM.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/ListOfPropertyViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/ListOfPropertyViewModel.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/MainReservationViewmodel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/MainReservationViewmodel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/addReservationViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/addReservationViewModel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widget/NotificationWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widget/NotificationWidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/NotificationViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/NotificationViewModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/SingleReservationDetailsViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/SingleReservationDetailsViewModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/checkUserModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/checkUserModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/loadingViewModel/addpropertyloadingViewmodel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/loadingViewModel/addpropertyloadingViewmodel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widget/PropertyWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widget/PropertyWidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widget/ShareLinkDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widget/ShareLinkDialog.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_driver/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test_driver/app.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,6 +259,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="200" y="99" key="#PSD/0.0.1366.728@0.0.1366.728" timestamp="1595140409278" />
+    <state x="375" y="85" key="#main.dart" timestamp="1598700025343">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="375" y="85" key="#main.dart/0.0.1366.728@0.0.1366.728" timestamp="1598700025343" />
     <state x="220" y="0" key="CommitChangelistDialog2" timestamp="1595190038756">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -238,17 +287,17 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1286" height="22" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1595190096364" />
-    <state x="184" y="7" key="SettingsEditor" timestamp="1597302070925">
+    <state x="184" y="7" key="SettingsEditor" timestamp="1598700079188">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1597302070925" />
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1598700079188" />
     <state x="275" y="85" key="Vcs.Push.Dialog.v2" timestamp="1595190055275">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="85" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1595190055275" />
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1597446587569">
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1599164739409">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1597446587569" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1599164739409" />
   </component>
 </project>

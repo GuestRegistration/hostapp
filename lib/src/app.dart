@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/CheckUserScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
+import 'package:hostapp/src/service/push_Notification.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:hostapp/src/style/AppImage.dart';
 import 'package:hostapp/src/style/AppColor.dart';
+import 'package:hostapp/src/util/customFunctions.dart';
 
 class PasswordlessApp extends StatefulWidget {
   @override
@@ -16,6 +19,8 @@ class PasswordlessApp extends StatefulWidget {
 class _PasswordlessAppState extends State<PasswordlessApp> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   String email1;
+   final CustomFuntion _customFuntion = locator<CustomFuntion>();
+   final PushNotification _pushNotification = locator<PushNotification>();
 
   
   void _showDialog() {
@@ -33,6 +38,8 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
  
  
   void initState() {
+     _customFuntion.getID();
+     _pushNotification.getToken();
    // data();
     Timer.run(() {
       try {
@@ -51,7 +58,6 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
       }
 
     });
-
     super.initState();
   }
 
@@ -99,4 +105,5 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
   //    await graphQLConfiguration.getFromServerClientToken();
   // await graphQLConfiguration.getNeccessartyToken();
   // }
+  
 }

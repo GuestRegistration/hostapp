@@ -15,8 +15,7 @@ import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'welcome.dart';
 import 'sign_in.dart';
-import 'login_page.dart';
-import 'dart:async';
+import 'package:hostapp/src/style/AppImage.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -42,8 +41,7 @@ class AuthScreenState extends State<AuthScreen> {
   Locale _myLocale;
   String errorMessage = '';
 
-
-    
+  
   @override
   void didChangeDependencies() {
    _myLocale = Localizations.localeOf(context);
@@ -137,6 +135,10 @@ class AuthScreenState extends State<AuthScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+               Image.asset(AppImage.longLogo, height: 90),
+ SizedBox(
+                  height: 5.0,
+                ),
                 Text((errorMessage == null ? '' : errorMessage),
                       style: TextStyle(
                           color: Colors.red,
@@ -144,7 +146,7 @@ class AuthScreenState extends State<AuthScreen> {
                           fontSize: 18.0),
                     ),
                 SizedBox(
-                  height: 50.0,
+                  height: 30.0,
                 ),
                 Center(
                   child: Container(
@@ -163,7 +165,7 @@ class AuthScreenState extends State<AuthScreen> {
                 Center(
                   child: SizedBox(
                     child: Text(
-                      "Select a method to begin using",
+                      "Click below to continue with",
                       style: TextStyle(
                         color: Color(0xff8F8F8F),
                         fontSize: 14.0,
@@ -174,7 +176,7 @@ class AuthScreenState extends State<AuthScreen> {
                 ),
                 SizedBox(
                   child: Text(
-                    "Guest Registration.",
+                    "your preferred sign-in",
                     style: TextStyle(
                       color: Color(0xff8F8F8F),
                       fontSize: 14.0,
@@ -223,6 +225,7 @@ class AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                 ),
+             
                 SizedBox(
                   height: 32.0,
                 ),

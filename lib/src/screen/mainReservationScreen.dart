@@ -13,16 +13,9 @@ import 'package:hostapp/src/model/getPropertiesModel.dart';
 import 'package:hostapp/src/viewmodels/MainReservationViewModel.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'dart:async';
-import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
-import 'package:rxdart/subjects.dart';
 
 
 class MainReservationScreen extends StatefulWidget {
@@ -408,9 +401,6 @@ Padding(
     _refreshController.refreshCompleted();
   }
 
-  getID()async{
-    // String device_id = await DeviceId.getID;
-    // print('Device ID >>>>>>>>>>>>>>>>> $device_id');
-  }
+ 
   }
 

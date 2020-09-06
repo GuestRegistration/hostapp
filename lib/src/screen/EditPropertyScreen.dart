@@ -22,25 +22,6 @@ import 'package:hostapp/src/viewmodels/ProViewModel.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
-//class EditPropertyView extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return ViewModelProvider<AddPropertyViewModel>.withoutConsumer(
-//         viewModelBuilder: () => AddPropertyViewModel(),
-//        onModelReady: (model) => model.initialize(),
-//        builder: (context, model, child) =>
-//
-//        //Check device screen type
-//        ScreenTypeLayout(
-//          mobile: OrientationLayoutBuilder(
-//              landscape: (context) => AddPropertyLandscape(),
-//              portrait: (context) =>  AddPropertyPortrait()
-//          ),
-//          tablet: AddPropertyLandscape(),
-//        )
-//    );
-//  }
-//}
 
 class EditPropertyScreen extends StatefulWidget {
   final String pName, pAddress, pNumber,pEmail, country, prules, doclink, propertyID, phoneIcode;
@@ -68,11 +49,11 @@ TextEditingController propertyNameController =  TextEditingController();
     TextEditingController docuemntController = new TextEditingController(text: '');
     bool changesIsMade =false;
      String defaultphoneIsoCode = '+1';
-//     String phoNumber;
-// String phoneIsoCode = 'NG', confirmedNumber;
 
     @override
   void initState() {
+    print('Am now in Edit Screen>>> ${widget.pNumber}');
+
     // TODO: implement initState
     super.initState();
      propertyNameController.text = widget.pName;
@@ -83,7 +64,6 @@ TextEditingController propertyNameController =  TextEditingController();
      docuemntController.text  = widget.doclink;
      defaultCountry = widget.country;
      defaultphoneIsoCode = widget.phoneIcode;
-     print('Country $defaultCountry');
 
     listenertoChange(propertyNameController);
     listenertoChange(addressController);
@@ -136,7 +116,7 @@ TextEditingController propertyNameController =  TextEditingController();
   }
 
 
-  screen1(BuildContext context, AddPropertyViewModel model, ){
+  screen1(BuildContext context, AddPropertyViewModel model,){
       return  Expanded(
               child: Padding(
             padding: const EdgeInsets.only(left: 15.0, right: 15.0),
@@ -481,6 +461,7 @@ side: BorderSide(color: AppColor.primaryLight)
                      if(model.getCountry == null){
                           model.setCountry(selectedcountry: defaultCountry);
                         }
+                      
                         model.updateDetails(
                             address: addressController.text.trim(),
                             contactEmail: emailcontroller.text.trim(),
@@ -526,7 +507,6 @@ side: BorderSide(color: AppColor.primaryLight)
   final BuildContext context
  }
   ){
-
 
   double fieldHeight = 55;
 
@@ -654,9 +634,7 @@ side: BorderSide(color: AppColor.primaryLight)
                               ),
                             ),
                             onTap: (){
-                              //Navigator.pop(context);
-                              //Navigator.of(context, rootNavigator: true).pop();
-                              // Navigator.popAndPushNamed(context, addPropertyRoute);
+                              
                               Navigator.of(contex).pop();
 
 
@@ -711,7 +689,5 @@ setState(() {
    changesIsMade= true;
 });
   }
-
- 
 
 }

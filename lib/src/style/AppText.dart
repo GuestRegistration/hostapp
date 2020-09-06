@@ -18,6 +18,8 @@ class AppText{
      static const String checkinUser = "Hold on while we are verifying you... It will only take a few seconds";
       static const String createProfile = "Hold on while we are creating your profile... It will only take a few seconds";
       static const String fetchingRdetails = "Hold on while we fetch your reservation details... It will only take a few seconds";
+      static const String emailText = "We sent an email to";
+      static const String emailText2 = "Check your inbox including your spam and junk folders, tap the button, and you’ll be directed back to the app.";
 
 
   /// the welcome screen data

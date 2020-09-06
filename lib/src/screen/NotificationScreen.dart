@@ -94,7 +94,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
     ) : errorWidget(model)
   ) )
-     
     );
   
   }
@@ -133,17 +132,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(18.0),
               side: BorderSide(color: AppColor.borderColor)
-      ),
-                     
-                  ),
+      ),        ),
                       ),
                     ),
                     onTap: (){
                       //model.d(); //DEBUG ONLY
                       model.initialize();
                       model.setErrorMessage(erorr: null); //back to null
-                    },
-                          ),
+                    },),
                 ],
               ),
     );

@@ -32,8 +32,8 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
        BookingChannelModel _selectedBokingModel;
        String selectedBookingName;
        String propertyID;
-       int checkinDAY, checkinMONTH, checkinYEAR, checkoutDAY, checkoutMONTH, checkoutYEAR;
-       int currentDay, currentMonth, currentYear;
+       int checkinDAY, checkinMONTH, checkinYEAR, checkoutDAY, checkoutMONTH, checkoutYEAR,
+        currentDay, currentMonth, currentYear;
 
      @override
   void initState() {
@@ -218,18 +218,27 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
 
 
                         }, onConfirm: (date) {
+                          
+                          checkinDAY = date.day; checkinMONTH = date.month; checkinYEAR = date.year;
+                          print('Check-out Day : ${date.day} Current>>> $currentDay');
+                          print('Check-out Month : ${date.month} Current>>> $currentMonth');
+                          print(' Check-out Year : ${date.year} Current>>> $currentYear');
                            String v = '${date.day}-${date.month}-${date.year}';
                           setCheckinDate(value: v);
-                          checkinDAY = date.day; checkinMONTH = date.month; checkinYEAR = date.year;
 
                           if(currentDay == checkinDAY && currentMonth == checkinMONTH && currentYear == checkinYEAR){
                              model.showMessage(error: null); //back to null
+//                            print('*****HERER.....*****');
 
-                          }else{
-                            model.showMessage(error: null); //back to null
-                            model.showMessage(error: 'Your checkin date must start from today');
 
-                          }
+                          }else if(currentDay > checkinDAY || currentMonth > checkinMONTH || currentYear > checkinYEAR){
+                             model.showMessage(error: null); //back to null
+                          model.showMessage(error: 'Past Date cannot be checkin');
+                           }
+                          // else{
+                          //        model.showMessage(error: null); //back to null
+                          //   model.showMessage(error: 'Your checkin date must start from today');
+                          // }
                          
                         }, currentTime: DateTime.now(), locale: LocaleType.en);
                       },
@@ -274,23 +283,37 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
                           setCheckOutDate(value: v);
 
                         }, onConfirm: (date) {
+                          checkoutDAY = date.day; checkoutMONTH = date.month; checkoutYEAR = date.year;
+                          print('Check-out Day : ${date.day} Current>>> $currentDay');
+                          print('Check-out Month : ${date.month} Current>>> $currentMonth');
+                          print(' Check-out Year : ${date.year} Current>>> $currentYear');
+
                            String v = '${date.day}-${date.month}-${date.year}';
                           setCheckOutDate(value: v);
-                           print('Check-out Day : ${date.day}');
-                          print('Check-out Month : ${date.month}');
-                          print(' Check-out Year : ${date.year}');
-                          checkoutDAY = date.day; checkoutMONTH = date.month; checkoutYEAR = date.year;
+                         // checkinDAY = date.day; checkinMONTH = date.month; checkinYEAR = date.year;
 
                           //Checkout date shoul be in 24hrs
-                          if(currentDay+1 == checkoutDAY && currentMonth == checkoutMONTH && currentYear == checkoutYEAR){
+                          if(checkinDAY+1 == checkoutDAY && checkinMONTH == checkoutMONTH && checkinYEAR == checkoutYEAR){
                              model.showMessage(error: null); //back to null
 
-                          }else{
-                            model.showMessage(error: null); //back to null
-                            model.showMessage(error: 'Your checkout date must be after 24hr');
+                          }else if(currentDay > checkoutDAY || currentMonth > checkoutMONTH || currentYear > checkoutYEAR){
+                             model.showMessage(error: null); //back to null
+                             model.showMessage(error: 'Past Date cannot be checkout');
                            
+                    } else if(checkinDAY > checkoutDAY || checkinMONTH > checkoutMONTH || checkinYEAR > checkoutYEAR){
+                             model.showMessage(error: null); //back to null
+                             model.showMessage(error: 'Your checkout date cannot be \n Past Date of checkin Date');
+
+                          }else if(checkinDAY == checkoutDAY || checkinMONTH == checkoutMONTH){
+                              model.showMessage(error: null); //back to null
+                             model.showMessage(error: 'Check-in date and checkout date \n must not be d same');
 
                           }
+                          // else{
+                          //   model.showMessage(error: null); //back to null
+                          //   model.showMessage(error: 'Your checkout date must be after 24hr \n of checkin date');
+                           
+                          // }
                         }, currentTime: DateTime.now(), locale: LocaleType.en);
                       },
                         ), ),  ],

@@ -339,6 +339,7 @@ swtichHeader( AddPropertyViewModel model, BuildContext context){
  
   
   }
+ 
    setcountry(String code){
 setState(() {
   phoneIsoCode = code;
@@ -843,13 +844,11 @@ errasedAll(BuildContext contex){
                         ),
                       ),
                           ],
-                        ) ],)
+                        ) ],)                      
                         ),
                       ),
           ),
-
         ),
-        
       );
 
 

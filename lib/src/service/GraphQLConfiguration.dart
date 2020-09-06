@@ -4,7 +4,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import "package:flutter/material.dart";
+import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/util/constants.dart';
+import 'package:hostapp/src/util/customFunctions.dart';
 
 class GraphQLConfiguration {
   String d;
@@ -13,6 +15,7 @@ class GraphQLConfiguration {
   final storage = new FlutterSecureStorage();
   String userToken, result, result1;
   List<String> storeToken = List<String>();
+   final CustomFuntion _customFuntion = locator<CustomFuntion>();
 
 
   ValueNotifier<GraphQLClient> initilize() {
@@ -56,6 +59,8 @@ class GraphQLConfiguration {
 
 //Anytime when you want to query, Firstly put this before clientoQuery function
   getNeccessartyToken()async{
+    
+    _customFuntion.getID();
     final FirebaseAuth auth = FirebaseAuth.instance;
               final FirebaseUser user = await auth.currentUser();
               

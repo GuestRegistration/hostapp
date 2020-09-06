@@ -101,6 +101,7 @@ for (var index = 0; index < result.data["getPropertyNotifications"].length; inde
        setBusy(false);
          }
 }
+
 setErrorMessage({String erorr}){
   _errorMessage = erorr;
   print(erorr);

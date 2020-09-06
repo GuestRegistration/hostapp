@@ -12,10 +12,12 @@ import 'package:hostapp/src/screen/login_page.dart';
 import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
+import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/service/GraphQLConfiguration.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateProfileVM extends BaseModel{
   final GraphQLConfiguration _graphQlConfiq = locator<GraphQLConfiguration>();
@@ -28,8 +30,16 @@ String get getErrorMessage => _errorMessage;
 void initialize({String phoneNumber, lastname, phoneCode, name, authuid, email, BuildContext context})async{
   setBusy(true);
    await _graphQlConfiq.getNeccessartyToken(); //MuST CALL THIS BEFRE API 
+   SharedPreferences prefs = await SharedPreferences.getInstance();
+   String notificationToken  = prefs.getString(Constants.notificationToken);
+   String deviceId  = prefs.getString(Constants.deviceID);
+    String deviceName  = prefs.getString(Constants.deviceName);
+    print('device_id >>> $deviceId');
+    print('notification_token >> $notificationToken');
+    print('device_name >> $deviceName');
    
      GraphQLClient _client = _graphQlConfiq.clientToQuery();
+    
     QueryResult result = await _client.mutate(
       MutationOptions(
           documentNode: gql(insertData),
@@ -41,6 +51,10 @@ void initialize({String phoneNumber, lastname, phoneCode, name, authuid, email, 
           "name": name,
           "phone" : '$phoneCode $phoneNumber',
           "lastname": lastname,
+          "device_ip": '',
+          "device_id": deviceId,
+          "device_name": deviceName,
+          "notification_token": notificationToken,
         },
       )
     ).catchError((e){
@@ -86,6 +100,8 @@ void initialize({String phoneNumber, lastname, phoneCode, name, authuid, email, 
           completePhone: createUserModel.phone.completePhone,
           phoneCode: createUserModel.phone.countryCode,
         );
+        //TODO WHICH MEANS NOTIFICATION DETAILS IS SENT SUCCESSFULLY
+        _customFuntion.savedTokenVerification(value: true);
               setBusy(false);
               
              Navigator.of(context).pushReplacement(

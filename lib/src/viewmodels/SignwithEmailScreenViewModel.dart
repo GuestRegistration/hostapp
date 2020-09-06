@@ -3,14 +3,16 @@ import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostapp/src/util/constants.dart';
+import 'package:hostapp/src/service/navigation_service.dart';
 
 class SignwithEmailScreenViewModel extends BaseModel{
 
 String _errorMessage;
 String get errorM => _errorMessage;
-int _errorMessageType;
+int _errorMessageType = 0;
 int get errorType => _errorMessageType;
 
+final NavigationService _navigationService = locator<NavigationService>();
  final CustomFuntion _customFuntion = locator<CustomFuntion>();
  final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -30,7 +32,7 @@ showMessage(error: 'Email required');
      bool sent = await _sendLinkToProvidedEmail(providedEmail: email);
      if(sent){
        _customFuntion.entredEmail(email); //save enteredEmail
-       showMessage(error: 'Link sent to $email,', type: 1);
+       _navigationService.navigateToandRemove(checkInboxRoute,arguments: email);  
      }else{
        showMessage(error: 'Not Send', type: 0);
      }
@@ -38,6 +40,7 @@ showMessage(error: 'Email required');
   }
   }
  }
+ 
  showMessage({String error, int type}){
 _errorMessage = error;
 _errorMessageType = type;

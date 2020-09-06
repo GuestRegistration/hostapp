@@ -13,6 +13,7 @@ import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/app.dart';
 import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/SettingsScreen.dart';
+import 'package:hostapp/src/screen/CheckInboxScreen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -105,6 +106,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: AddReservationLoadingWidget(data: settings.arguments,),
+      );
+
+       case checkInboxRoute:
+        var data = settings.arguments as String;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: CheckInboxScreen(email: data,),
       );
 
     
