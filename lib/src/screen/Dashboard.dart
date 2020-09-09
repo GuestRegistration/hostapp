@@ -91,7 +91,6 @@ class _DashboardState extends State<Dashboard>{
 
 //Switching body, from one Screen to another
   switchBody(){
-
     if(_selectedIndex == 0){
        return MainReservationScreen();
 

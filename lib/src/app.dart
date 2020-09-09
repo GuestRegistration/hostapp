@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/locator.dart';
+import 'package:hostapp/src/screen/OnboardScreen.dart';
 import 'package:hostapp/src/screen/auth_screen.dart';
 import 'package:hostapp/src/screen/CheckUserScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -71,7 +72,7 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
                  FirebaseUser user = snapshot.data;
                  if (user == null) {
                    //Not yet register
-                   return AuthScreen();
+                   return OnboardScreen();
                  }else{
                    //This User already Login.
                    return CheckUserScreen(userEmail: user.email, userid: user.uid,);
