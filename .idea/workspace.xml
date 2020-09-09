@@ -2,74 +2,210 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0545143f-f6fc-43c0-93db-0dd887824cbd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/hostapp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hostapp.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/ic_launcher-web.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable/app_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable/app_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/key.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/key.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/app.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/AddPropertyScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/AddPropertyScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/AddReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/AddReservationScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/EditPropertyScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/EditPropertyScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/EditReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/EditReservationScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/ListOfProperty.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/ListOfProperty.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/NotificationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/NotificationScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/SingleReservationDetailsScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/SingleReservationDetailsScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/auth_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/auth_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/checkUserScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/checkUserScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/login_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/mainReservationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/mainReservationScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/screen/verifyotp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/verifyotp.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/service/GraphQLConfiguration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/service/GraphQLConfiguration.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/service/graphQlQuery.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/service/graphQlQuery.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/service/push_Notification.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/service/push_Notification.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/util/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/util/constants.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/util/customFunctions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/util/customFunctions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/CreateProfileVM.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/CreateProfileVM.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/ListOfPropertyViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/ListOfPropertyViewModel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/MainReservationViewmodel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/MainReservationViewmodel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/NotificationViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/NotificationViewModel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/SingleReservationDetailsViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/SingleReservationDetailsViewModel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/checkUserModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/checkUserModel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/viewmodels/loadingViewModel/addpropertyloadingViewmodel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/viewmodels/loadingViewModel/addpropertyloadingViewmodel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widget/PropertyWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widget/PropertyWidget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widget/ShareLinkDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widget/ShareLinkDialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/screen/OnboardScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/screen/OnboardScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/style/AppColor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/style/AppColor.dart" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/.pub/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/apple_sign_in/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/apple_sign_in/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/apple_sign_in/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/apple_sign_in/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/apple_sign_in/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/apple_sign_in/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity_macos/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity_macos/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity_macos/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity_macos/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity_macos/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/connectivity_macos/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/country_list_pick/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/country_list_pick/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/country_list_pick/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/country_list_pick/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/country_list_pick/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/country_list_pick/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/device_info/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/device_info/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/device_info/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/device_info/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/device_info/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/device_info/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/file_picker/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/file_picker/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/file_picker/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/file_picker/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/file_picker/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/file_picker/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_analytics/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_analytics/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_analytics/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_analytics/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_analytics/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_analytics/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_oauth/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_oauth/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_oauth/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_oauth/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_oauth/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_oauth/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_oauth_web/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_oauth_web/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_oauth_web/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_web/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_web/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_auth_web/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_core/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_core/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_core/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_core/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_core/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_core/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_core_web/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_core_web/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_core_web/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_crashlytics/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_crashlytics/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_crashlytics/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_crashlytics/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_crashlytics/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_crashlytics/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_dynamic_links/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_dynamic_links/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_dynamic_links/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_dynamic_links/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_dynamic_links/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_dynamic_links/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_performance/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_performance/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_performance/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_performance/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_performance/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_performance/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_remote_config/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_remote_config/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_remote_config/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_remote_config/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_remote_config/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/firebase_remote_config/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_plugin_android_lifecycle/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_plugin_android_lifecycle/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_plugin_android_lifecycle/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_plugin_android_lifecycle/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_plugin_android_lifecycle/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_plugin_android_lifecycle/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_secure_storage/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_secure_storage/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_secure_storage/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_secure_storage/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_secure_storage/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_secure_storage/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/fluttertoast/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/fluttertoast/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/fluttertoast/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/fluttertoast/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/fluttertoast/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/fluttertoast/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/google_sign_in/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/google_sign_in/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/google_sign_in/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/google_sign_in/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/google_sign_in/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/google_sign_in/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/google_sign_in_web/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/google_sign_in_web/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/google_sign_in_web/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/image_picker/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/image_picker/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/image_picker/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/image_picker/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/image_picker/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/image_picker/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/libphonenumber/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/libphonenumber/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/libphonenumber/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/libphonenumber/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/libphonenumber/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/libphonenumber/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/path_provider_macos/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/path_provider_macos/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider/path_provider_macos/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_linux/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_linux/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_linux/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_linux/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_linux/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_linux/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_macos/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_macos/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_macos/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_macos/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_macos/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_macos/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/share/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_macos/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_macos/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_macos/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_macos/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_macos/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_macos/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_web/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_web/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_web/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher_macos/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher_macos/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher_macos/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher_macos/example/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher_macos/example/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher_macos/example/build/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher_web/.dart_tool/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher_web/.pub/" />
+    <ignored path="$PROJECT_DIR$/ios/.symlinks/plugins/url_launcher_web/build/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -77,6 +213,53 @@
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="ZY326SQHXS" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/src/screen/OnboardScreen.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="327">
+              <caret line="68" column="32" lean-forward="true" selection-start-line="68" selection-start-column="32" selection-end-line="68" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/style/AppFontSizes.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="21" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/style/AppTextStyle.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="270" column="11" lean-forward="true" selection-start-line="270" selection-start-column="11" selection-end-line="276" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/src/style/AppColor.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="327">
+              <caret line="54" column="23" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -98,14 +281,77 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="version-2" />
       </map>
     </option>
     <option name="RESET_MODE" value="HARD" />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/android/key.properties" />
+        <option value="$PROJECT_DIR$/lib/src/style/AppColor.dart" />
+        <option value="$PROJECT_DIR$/lib/src/screen/OnboardScreen.dart" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="852" />
+  </component>
   <component name="ProjectId" id="1etU3G2VfOpGQoVDG1v5ZpP8FMP" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="hostapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hostapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hostapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hostapp" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hostapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hostapp" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hostapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hostapp" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="style" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="hostapp" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/AndroidStudioProjects/hostapp" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
+    </panes>
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -124,6 +370,18 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="dart.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" singleton="false">
@@ -215,12 +473,79 @@
     <option name="localTasksCounter" value="11" />
     <servers />
   </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1440" height="852" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.3297568" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="Build Variants" order="5" side_tool="true" />
+      <window_info id="Resources Explorer" order="6" />
+      <window_info id="Capture Tool" order="7" />
+      <window_info id="Favorites" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Dart Analysis" order="0" />
+      <window_info active="true" anchor="bottom" id="Run" order="1" visible="true" weight="0.042105265" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Logcat" order="4" />
+      <window_info anchor="bottom" id="Debug" order="5" />
+      <window_info anchor="bottom" id="Terminal" order="6" weight="0.69736844" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.28947368" />
+      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Theme Preview" order="2" />
+      <window_info anchor="right" id="Flutter Inspector" order="3" />
+      <window_info anchor="right" id="Flutter Outline" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="Flutter Performance" order="6" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.24962178" />
+      <window_info id="Designer" order="1" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.33963692" />
+      <window_info id="Structure" order="3" side_tool="true" />
+      <window_info id="Build Variants" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Resources Explorer" order="7" weight="0.32980332" />
+      <window_info id="Favorites" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Dart Analysis" order="0" sideWeight="0.49924356" weight="0.32715008" />
+      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.4977307" visible="true" weight="0.29679596" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Debug" order="4" />
+      <window_info anchor="bottom" id="Terminal" order="5" weight="0.9494098" />
+      <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.50226927" side_tool="true" weight="0.3237774" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Logcat" order="8" />
+      <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.4977307" weight="0.3237774" />
+      <window_info anchor="bottom" id="Find" order="10" />
+      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" weight="0.32980332" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Theme Preview" order="2" />
+      <window_info anchor="right" id="Flutter Performance" order="3" weight="0.32980332" />
+      <window_info anchor="right" id="Flutter Inspector" order="4" weight="0.32980332" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="Flutter Outline" order="6" weight="0.32980332" />
+    </layout-to-restore>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
             <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
@@ -255,49 +580,82 @@
     <option name="LAST_COMMIT_MESSAGE" value="SHA key resolve" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="200" y="99" key="#PSD" timestamp="1595140409278">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="200" y="99" key="#PSD/0.0.1366.728@0.0.1366.728" timestamp="1595140409278" />
-    <state x="375" y="85" key="#main.dart" timestamp="1598700025343">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="375" y="85" key="#main.dart/0.0.1366.728@0.0.1366.728" timestamp="1598700025343" />
-    <state x="220" y="0" key="CommitChangelistDialog2" timestamp="1595190038756">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="220" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1595190038756" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1597301905996">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1597301905996" />
-    <state width="1286" height="22" key="GridCell.Tab.0.bottom" timestamp="1595190096364">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1286" height="22" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1595190096364" />
-    <state width="1286" height="22" key="GridCell.Tab.0.center" timestamp="1595190096364">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1286" height="22" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1595190096364" />
-    <state width="1286" height="22" key="GridCell.Tab.0.left" timestamp="1595190096363">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1286" height="22" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1595190096363" />
-    <state width="1286" height="22" key="GridCell.Tab.0.right" timestamp="1595190096364">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1286" height="22" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1595190096364" />
-    <state x="184" y="7" key="SettingsEditor" timestamp="1598700079188">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1598700079188" />
-    <state x="275" y="85" key="Vcs.Push.Dialog.v2" timestamp="1595190055275">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="275" y="85" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1595190055275" />
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1599164739409">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1599164739409" />
+    <state x="200" y="99" key="#PSD" />
+    <state x="200" y="99" key="#PSD/0.0.1366.728@0.0.1366.728" />
+    <state x="375" y="85" key="#main.dart" />
+    <state x="375" y="85" key="#main.dart/0.0.1366.728@0.0.1366.728" />
+    <state x="220" y="0" key="CommitChangelistDialog2" />
+    <state x="220" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" />
+    <state x="463" y="119" key="FileChooserDialogImpl" />
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" />
+    <state width="1286" height="22" key="GridCell.Tab.0.bottom" />
+    <state width="1286" height="22" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" />
+    <state width="1286" height="22" key="GridCell.Tab.0.center" />
+    <state width="1286" height="22" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" />
+    <state width="1286" height="22" key="GridCell.Tab.0.left" />
+    <state width="1286" height="22" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" />
+    <state width="1286" height="22" key="GridCell.Tab.0.right" />
+    <state width="1286" height="22" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" />
+    <state x="184" y="7" key="SettingsEditor" />
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" />
+    <state x="275" y="85" key="Vcs.Push.Dialog.v2" />
+    <state x="275" y="85" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/key.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/screen/welcome.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1457" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/style/AppFontSizes.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="21" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/style/AppTextStyle.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="270" column="11" lean-forward="true" selection-start-line="270" selection-start-column="11" selection-end-line="276" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/style/AppColor.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="54" column="23" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/screen/OnboardScreen.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="68" column="32" lean-forward="true" selection-start-line="68" selection-start-column="32" selection-end-line="68" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

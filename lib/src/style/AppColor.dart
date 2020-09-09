@@ -49,7 +49,11 @@ class AppColor {
   static const Color nearlyBlack = Color(0xFF213333);
   static const Color dark_grey = Color(0xFF313A44);
   static const Color borderColor = Color(0xFFC6DEE9);
-  static const Color fieldDecoration = Color(0xFFededed);
+  static const Color fieldDecoration = Color(0xFFededed); //
+  static const Color b1 = Color(0xFFD9A00D);
+  static const Color b2 = Color(0xFF151212); //
+  static const Color b4 = Color(0xFF07689f);
+  static const Color b5 = Color(0xFFffc93c);
 
 //  static const Color darkText = Color(0xFF253840);
 //  static const Color darkerText = Color(0xFF17262A);
@@ -57,14 +61,14 @@ class AppColor {
   static const Color spacer = Color(0xFFF2F2F2);
   static const Color loginGradientEnd  = const Color(0xFF940026);
   static const primaryGradient = const LinearGradient(
-    colors: const [primary, colordark],
+    colors: const [b4, b5],
     stops: const [0.0, 1.0],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
 
   static const SecondaryGradient = const LinearGradient(
-    colors: const [primary, colordark],
+    colors: const [b4, b5],
     stops: const [0.0, 1.0],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/style/AppColor.dart';
+import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/style/AppImage.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -20,7 +22,14 @@ class _OnboardScreenState extends State<OnboardScreen> {
   
   final pages = [
  Container(
-      color: AppColor.rimary,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          colors: [AppColor.b1, AppColor.b2],
+          tileMode: TileMode.repeated
+        )
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
@@ -31,37 +40,40 @@ class _OnboardScreenState extends State<OnboardScreen> {
             fit: BoxFit.cover,
           ),
           Padding(padding: const EdgeInsets.all(20.0)),
-          Column(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(
-                "Hi",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Billy",
-                    fontWeight: FontWeight.w600),
+               Expanded(
+                 child: Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: Text(
+                    "Verify your guests and protect your property against bad actors",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.sura(
+                        fontSize: AppFontSizes.medium,
+                        textStyle: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: AppColor.white
+                        )
+                    )
               ),
-              new Text(
-                "It's Me",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Billy",
-                    fontWeight: FontWeight.w600),
-              ),
-              new Text(
-                "Sahdeep",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Billy",
-                    fontWeight: FontWeight.w600),
-              ),
+                 ),
+               ),
+
             ],
           )
         ],
       ),
     ),
-
-  Container(
-      color: Colors.deepPurpleAccent,
+    Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [AppColor.b1, AppColor.b2],
+              tileMode: TileMode.repeated
+          )
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
@@ -72,37 +84,41 @@ class _OnboardScreenState extends State<OnboardScreen> {
             fit: BoxFit.cover,
           ),
           Padding(padding: const EdgeInsets.all(20.0)),
-          Column(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(
-                "Take a",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Billy",
-                    fontWeight: FontWeight.w600),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      "Customize your registration flow, depending on what you require from guest",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.sura(
+                          fontSize: AppFontSizes.medium,
+                          textStyle: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: AppColor.white
+                          )
+                      )
+                  ),
+                ),
               ),
-              new Text(
-                "look at",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Billy",
-                    fontWeight: FontWeight.w600),
-              ),
-              new Text(
-                "Liquid Swipe",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Billy",
-                    fontWeight: FontWeight.w600),
-              ),
+
             ],
           )
         ],
       ),
     ),
-   
-  Container(
-      color: Colors.greenAccent,
+
+    Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [AppColor.b1, AppColor.b2],
+              tileMode: TileMode.repeated
+          )
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
@@ -113,34 +129,68 @@ class _OnboardScreenState extends State<OnboardScreen> {
             fit: BoxFit.cover,
           ),
           Padding(padding: const EdgeInsets.all(20.0)),
-          Column(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(
-                "Liked?",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Billy",
-                    fontWeight: FontWeight.w600),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      "Share your unique link with guest so they can walk through ahead of time",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.sura(
+                          fontSize: AppFontSizes.medium,
+                          textStyle: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: AppColor.white
+                          )
+                      )
+                  ),
+                ),
               ),
-              new Text(
-                "Fork!",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Billy",
-                    fontWeight: FontWeight.w600),
-              ),
-              new Text(
-                "Give Star!",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Billy",
-                    fontWeight: FontWeight.w600),
-              ),
+
             ],
-          
-         
-         ),
-                             GestureDetector(
+          )
+        ],
+      ),
+    ),
+
+  Container(
+    decoration: BoxDecoration(
+        gradient: AppColor.primaryGradient
+    ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Image.asset(
+            AppImage.board4,
+            fit: BoxFit.cover,
+          ),
+          Padding(padding: const EdgeInsets.all(20.0)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      "Once guest go through your registration flow, You will receive all the documentation instantly",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.sura(
+                          fontSize: AppFontSizes.medium,
+                          textStyle: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: AppColor.white
+                          )
+                      )
+                  ),
+                ),
+              ),
+
+            ],
+          ),                GestureDetector(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
@@ -155,7 +205,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                               fontWeight: FontWeight.bold
                             ),),
                           ),
-                          color: Color(0xFF45A1C9),
+                          color: AppColor.b4,
                           shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(18.0),
               side: BorderSide(color: AppColor.rimary)
