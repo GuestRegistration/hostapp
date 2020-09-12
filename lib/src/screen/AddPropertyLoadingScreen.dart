@@ -26,9 +26,11 @@ class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
       builder: (context, model, child) =>
           Scaffold(
         body:  Center(
-            child: (model.getErrorMessage == null || model.busy ? Column(
+            child: (model.getErrorMessage == null || model.busy ?
+             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+
                Container(
                   height: 60,
                   width: 60,
@@ -38,7 +40,9 @@ class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
                         backgroundColor: AppColor.borderColor,
                   ),
                 ),
+
                 SizedBox(height: 30,),
+
                 Center(
                   child: Text(AppText.addPHoldOn,
                    textAlign: TextAlign.center,
@@ -46,9 +50,10 @@ class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
                       color: Colors.grey,
                   fontSize: AppFontSizes.medium,
                   fontWeight: FontWeight.bold
-                            ),),
-                           
+                            ),
+                            ),  
                 ),
+
               ],
             )
             : errorWidget(model, widget.data))
@@ -103,8 +108,7 @@ class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
                   ),
                   onTap: (){
                     model.addPropertyAPI(data: widget.data);
-                  },
-                        ),
+                  }, ),
 
                         //***GO BACK BUTTON */
                         verticalSpaceMedium,

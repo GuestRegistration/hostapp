@@ -30,6 +30,7 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
 
          final MethodChannel platform =
       MethodChannel('crossingthestreams.io/resourceResolver');
+
   @override
   void initState() {
     super.initState();
@@ -90,8 +91,7 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
       );
     });
   }
-
-  
+ 
   @override
   Widget build(BuildContext context) {
      return ViewModelProvider<MainReservationViewModel>.withConsumer(
@@ -180,14 +180,14 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
             ),
           ),
           body: SmartRefresher(
-               enablePullDown: true,
+         enablePullDown: true,
          header: WaterDropHeader(waterDropColor: Colors.black,),
         controller: _refreshController,
         onRefresh: (){
           _onRefresh(model);
         },
           child: TabBarView(children: [
-               Padding(
+Padding(
                  padding: const EdgeInsets.only(top: 9, ),
                  child: Column(children: <Widget>[
                   Row(
@@ -203,7 +203,6 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
                      UpcomingTab()
                      : errorWidget(model)
                      )
-                    
                      ),
                    ),
                    )
@@ -256,7 +255,8 @@ Padding(
                ),
             ]),
           ),
-          floatingActionButton:FloatingActionButton(onPressed: () { 
+          floatingActionButton:FloatingActionButton(
+            onPressed: () { 
             model.addReservation();
              },
             child: Icon(Icons.add, size: 30,),
@@ -400,7 +400,6 @@ Padding(
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
-
  
   }
 

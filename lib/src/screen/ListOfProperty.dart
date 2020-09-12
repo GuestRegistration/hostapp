@@ -29,8 +29,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
       (model.busy ? loadingWidget()
-                 :
-                 (model.getErrorMessage == null ? 
+       :(model.getErrorMessage == null ? 
                    Scaffold(
     resizeToAvoidBottomPadding: true,
       body: SmartRefresher(
@@ -77,8 +76,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                     ),
                 ) : 
                 Expanded(
-               child:
-               ListView.builder(
+               child: ListView.builder(
               itemCount: (model.properties == null ? 0 : model.properties.length),
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
@@ -86,9 +84,9 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                 return  PropertyWidget(
                     getProperties: model.properties[index],
                     );
-                 },)
-                          
-                ))
+                 },
+                 ) 
+                 ) )
               ],),
         ),
          ),
@@ -101,7 +99,8 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                              color: AppColor.white,
                              fontSize: 16.0,
                              fontWeight: FontWeight.bold
-                         ),),
+                         ),
+                         ),
              onPressed: () { 
            //  model.proPage();
               model.addproperty();  
@@ -182,8 +181,8 @@ class _ListOfPropertyState extends State<ListOfProperty>{
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
     model.initialize();
-    // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
+
 }
 
