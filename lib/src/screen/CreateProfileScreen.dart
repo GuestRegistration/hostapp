@@ -2,11 +2,8 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/screen/CreatProfileLoadingS.dart';
-import 'package:hostapp/src/screen/verifyotp.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hostapp/src/screen/OTPScreen.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/widget/CollectText.dart';
 import 'package:hostapp/src/service/graphQlQuery.dart';
@@ -270,9 +267,7 @@ verticalSpaceMedium2,
                               ),
                             ),
                           ),
-                        ],
-                      
-             
+                        ],  
             ),
               ),
           ),
@@ -311,7 +306,6 @@ void _onCountryChange(countryCode) {
     print("New Country selected: " + countryCode.toString());
   }
 
-
    Future<void> navigateotp() async {
      print('****BEFORE Create NAVIGATION');
       // print(" CreateProfile Email: ${widget.userEmail}");
@@ -333,6 +327,7 @@ void _onCountryChange(countryCode) {
         },
       ),
     );
+  
   }
 
   //check if number exist
@@ -394,6 +389,5 @@ void _onCountryChange(countryCode) {
       errorMessage = error;
     });
   }
-
 
 }

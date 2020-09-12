@@ -66,14 +66,15 @@ class _AddProprtyUIState extends State<AddProprtyUI> {
     @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     listener(propertyNameController);
     listener(addressController);
     listener(emailcontroller);
     listener(phoneNumber);
     listenerScreen2(rulesController);
-     listenerScreen2(docuemntController);
-     widget.model.setCountry(selectedcountry: defaultCountry);
+    listenerScreen2(docuemntController);
+    widget.model.setCountry(selectedcountry: defaultCountry);
   }
   
 // void onPhoneNumberChange(String number, String internationalizedPhoneNumber, String isoCode) {
@@ -352,7 +353,7 @@ setState(() {
            padding: const EdgeInsets.only(left: 15.0, right: 15.0),
             child: ListView(
               children: <Widget>[
-                
+
         verticalSpaceMedium,
                  TextField(
                     keyboardType: TextInputType.multiline,
@@ -422,6 +423,7 @@ Padding(
                       },
                   ),
                    ),
+  
   verticalSpaceLarge,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -483,7 +485,6 @@ Padding(
                         ),
                       ),
                       onTap: (){
-                        
                          model.lastScreenbutton(
                          rules: rulesController.text.trim(),
                          document: docuemntController.text.trim(),
@@ -512,8 +513,7 @@ Padding(
               ],
             ),
           ),
-        );
-     
+        );   
   }
  
   headerButton( AddPropertyViewModel model){
@@ -921,6 +921,7 @@ return Column(children: <Widget>[
           ),
 ],);
 }
+
 }
 
 

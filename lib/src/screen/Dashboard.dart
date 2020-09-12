@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart'; 
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hostapp/src/screen/ListOfProperty.dart';
 import 'package:hostapp/src/screen/MainReservationScreen.dart';
 import 'package:hostapp/src/screen/NotificationScreen.dart';

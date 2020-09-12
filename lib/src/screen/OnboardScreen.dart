@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostapp/src/locator.dart';
+import 'package:hostapp/src/service/DynamicLinkService.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/style/AppImage.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-
 
 
 class OnboardScreen extends StatefulWidget {
@@ -19,6 +19,7 @@ final NavigationService _navigationService = locator<NavigationService>();
 
 class _OnboardScreenState extends State<OnboardScreen> {
   int page = 0;
+   final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
   
   final pages = [
  Container(
@@ -224,6 +225,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
   @override
   void initState() {
+    initializeDynamicLink();
     super.initState();
   }
 
@@ -241,5 +243,9 @@ class _OnboardScreenState extends State<OnboardScreen> {
       enableSlideIcon: true,
         )));
   }
+  
+ initializeDynamicLink()async{
+   await _dynamicLinkService.handleDynamicLinks(); //Initialize dynamic 
+ }
 
 }
