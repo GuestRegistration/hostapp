@@ -69,7 +69,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
           groupBy: (e) => 'Recent',
           groupSeparatorBuilder: (String groupByValue) => Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(groupByValue.toString(),style:  TextStyle(
+            child: Text(groupByValue.toString(),
+            style:  TextStyle(
             color: AppColor.black,
             fontSize: AppFontSizes.large,
             fontWeight: FontWeight.bold

@@ -1,15 +1,7 @@
-import 'dart:io';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/model/createUserModel.dart';
-import 'package:hostapp/src/screen/CreateProfileScreen.dart';
 import 'package:hostapp/src/service/graphQlQuery.dart';
-import 'package:hostapp/src/service/FirestoreService.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hostapp/src/screen/login_page.dart';
-import 'package:hostapp/src/screen/AddPropertyLoadingScreen.dart';
 import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 import 'package:hostapp/src/util/constants.dart';
@@ -117,11 +109,7 @@ void initialize({String phoneNumber, lastname, phoneCode, name, authuid, email, 
 
 setErrorMessage({String error}){
    _errorMessage = error;
-notifyListeners();
+    notifyListeners();
   }
-
-
-
-
 
 }

@@ -78,10 +78,9 @@ for (var index = 0; index < result.data["getUserProperties"].length; index++) {
                   terms: result.data["getUserProperties"][index]["terms"],
                     )
               );
-             
-             print('API >>>>>>>>>>>>>>');
-              print(result.data["getUserProperties"][index]["phone_meta"]['phone_number']);
-              print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        print('API >>>>>>>>>>>>>>');
+        print(result.data["getUserProperties"][index]["phone_meta"]['phone_number']);
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
       } 
                }
       }  
@@ -114,7 +113,7 @@ movetoSettings(){
   _navigationService.navigateTo(settingsRoute);
 }
 
-  getProUrl() async {
+ getProUrl() async {
     final RemoteConfig remoteConfig = await RemoteConfig.instance;
 
     try {
@@ -129,6 +128,6 @@ movetoSettings(){
       print("unable to fetch remote config");
     }
     return result;
-  }
+ }
 
 }

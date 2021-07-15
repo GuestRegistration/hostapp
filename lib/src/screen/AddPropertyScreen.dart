@@ -31,7 +31,7 @@ class AddPropertyView extends StatelessWidget {
           landscape: (context) => AddPropertyLandscape(),
           portrait: (context) =>  AddPropertyPortrait()
                 ),
-  tablet: AddPropertyLandscape(),
+  tablet: AddPropertyTablet(),
 )
       );
   }
@@ -428,7 +428,7 @@ Padding(
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          GestureDetector(child: Padding(
+                       GestureDetector(child: Padding(
                       padding: const EdgeInsets.all(1.0),
                       child: Container(
                         width: 150,
@@ -713,6 +713,7 @@ listenerScreen2(TextEditingController controller){
       
     });
 }
+
 placeAPI(AddPropertyViewModel model)async{
     Prediction prediction = await PlacesAutocomplete.show(
                           context: context,

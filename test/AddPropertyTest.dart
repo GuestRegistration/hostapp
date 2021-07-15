@@ -9,7 +9,6 @@ void main() {
     Finder firstNameField = find.byKey(Key('Property Address'));
     await tester.enterText(firstNameField, 'NO 30, Oluware Ibadan.');
 
-
      Finder propertyAddressField = find.byKey(Key(' Address'));
     await tester.enterText(propertyAddressField, 'NO 30,Property Oluware Ibadan.');
 

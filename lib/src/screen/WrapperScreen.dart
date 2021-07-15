@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/locator.dart';
-import 'package:hostapp/src/screen/Dashboard.dart';
 import 'package:hostapp/src/service/authentication.dart';
 
 var authService = locator<AuthService>();

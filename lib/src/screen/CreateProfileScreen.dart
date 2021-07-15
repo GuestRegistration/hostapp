@@ -164,7 +164,6 @@ verticalSpaceMedium2,
                                     ],
                                   ),
                                 ),
-                             
                           ),
 
                            verticalSpaceLarge,

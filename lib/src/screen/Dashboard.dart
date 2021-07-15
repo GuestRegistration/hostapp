@@ -34,12 +34,15 @@ class _DashboardState extends State<Dashboard>{
             backgroundColor: Colors.white,
              onTap: (index) => _onItemTapped(index),
             items: <BottomNavigationBarItem>[  
-//Home
               BottomNavigationBarItem(
-                icon:  Icon(Icons.calendar_today,  color: (_selectedIndex == 0 ? AppColor.primary : Colors.grey), size: 25,),
+                icon:  Icon(Icons.calendar_today, 
+                 color: (_selectedIndex == 0 ? AppColor.primary
+                  : Colors.grey), size: 25,),
                 title: new Text("RESERVATIONS", 
                   style: TextStyle(
-                      color:(_selectedIndex == 0 ? AppColor.primary :  Colors.grey),
+                      color:(_selectedIndex == 0 ?
+                       AppColor.primary : 
+                        Colors.grey),
                       fontSize: 13,
                   ),
               
@@ -94,7 +97,6 @@ class _DashboardState extends State<Dashboard>{
 
     }else if(_selectedIndex == 1){
      return ListOfProperty();
-   
 
     }else if(_selectedIndex == 2){ 
      return NotificationScreen();
@@ -106,4 +108,5 @@ class _DashboardState extends State<Dashboard>{
       _selectedIndex = index;
     });
   }
+  
 }

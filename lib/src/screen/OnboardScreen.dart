@@ -66,7 +66,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
         ],
       ),
     ),
-    Container(
+ 
+  Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,

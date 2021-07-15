@@ -106,11 +106,13 @@ class _ListOfPropertyState extends State<ListOfProperty>{
               model.addproperty();  
              },
             )
-             : FloatingActionButton(onPressed: () { 
+             : FloatingActionButton(
+             onPressed: () { 
              model.addproperty();
              },
             child: Icon(Icons.add, size: 30,),
-              ))
+              )
+              )
                    )
                    : errorWidget(model)
                    )
@@ -151,9 +153,7 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(18.0),
               side: BorderSide(color: AppColor.borderColor)
-      ),
-                     
-                  ),
+      ),  ),
                       ),
                     ),
                     onTap: (){

@@ -96,17 +96,6 @@ updatePropertyAPI({List data})async{
     String rules = data[7]; 
     String doclink = data[8]; 
     
-    // print(propertyID);
-    // print(propertyName);
-    // print(address);
-    // print(phoneN);
-    // print(country);
-    // print(contactEmail);
-    // print(phoneIcode);
-    // print(rules);
-    // print(uid);
-    // print(doclink);
-
 
           setBusy(true);
      GraphQLClient _client = _graphQlConfiq.clientToQuery();

@@ -28,3 +28,15 @@ class AddPropertyLandscape extends ProviderWidget<AddPropertyViewModel> {
     );
   }
 }
+
+class AddPropertyTablet extends ProviderWidget<AddPropertyViewModel> {
+  @override
+  Widget build(BuildContext context, AddPropertyViewModel model) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: AddProprtyUI(model),
+      ),
+    );
+  }
+}

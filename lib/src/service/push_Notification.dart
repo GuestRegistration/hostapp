@@ -87,7 +87,8 @@ while (token.length > 0) {
 }
 
 
-  Future<void> showLocalNotification({String channelID, String channelName, String channelDes, String notificationTitle, String notificationBody, String payload}) async {
+  Future<void> showLocalNotification({String channelID, String channelName, String channelDes, 
+  String notificationTitle, String notificationBody, String payload}) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         channelID, channelName, channelDes,
         importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
@@ -98,4 +99,6 @@ while (token.length > 0) {
         0, notificationTitle, notificationBody, platformChannelSpecifics,
         payload: payload);
   }
+
+
 }

@@ -436,8 +436,7 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
     );
   }
 
-
-headerButton(AddReservationViewModel model){
+  headerButton(AddReservationViewModel model){
 return Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
          // crossAxisAlignment: Cros,
@@ -518,12 +517,9 @@ side: BorderSide(color: AppColor.primaryLight)
    
                       ],
                     );
-
-
 }
    
-   
-   listener(TextEditingController controller){
+  listener(TextEditingController controller){
    controller.addListener(() {
       if(controller.text.isNotEmpty){
                     //widget.model.setdataEnterdStatus(true);
@@ -562,8 +558,6 @@ checkoutController.text = value;
     }
     
   }
-
-
    
   errorWidget(AddReservationViewModel model){
     return Center(
@@ -631,5 +625,3 @@ checkoutController.text = value;
   }
 
 }
-
-

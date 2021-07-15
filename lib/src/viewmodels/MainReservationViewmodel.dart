@@ -197,9 +197,7 @@ QueryResult result = await _client.query(
             }
        loadingOther(false);
          }
-
   }
- 
 }
 
 

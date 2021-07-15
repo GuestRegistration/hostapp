@@ -156,7 +156,4 @@ void updateNotification(BuildContext context)async{
               
          }
 }
-
-
-
 }

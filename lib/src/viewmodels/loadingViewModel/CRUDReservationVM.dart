@@ -80,7 +80,7 @@ addReservationAPI({List data, BuildContext context})async{
 
             }else{
               setBusy(false);
-            print(result.data['createReservation']['checkin_url']);
+            //print(result.data['createReservation']['checkin_url']);
             display(context, result.data['createReservation']['checkin_url']);
            
       }

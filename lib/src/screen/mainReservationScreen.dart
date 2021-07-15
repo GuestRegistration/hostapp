@@ -1,4 +1,3 @@
-import 'package:device_id/device_id.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/localNotification.dart';
@@ -27,9 +26,7 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
        GetProperties _selectedProperty;
        String propertyID;
         RefreshController _refreshController =  RefreshController(initialRefresh: false);
-
-         final MethodChannel platform =
-      MethodChannel('crossingthestreams.io/resourceResolver');
+         final MethodChannel platform =  MethodChannel('crossingthestreams.io/resourceResolver');
 
   @override
   void initState() {
@@ -102,7 +99,6 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
       );
   }
 
-
   buildTab(MainReservationViewModel model){
     return DefaultTabController(
         length: 3,
@@ -142,7 +138,8 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
                   indicatorWeight: 1.0,
                   indicator: BoxDecoration(
                       gradient: LinearGradient(
-                          colors: [AppColor.disableButton, AppColor.disableButton]),
+                          colors: [AppColor.disableButton,
+                            AppColor.disableButton]),
                       borderRadius: BorderRadius.circular(15),
                       color: AppColor.borderColor),
                       //indicatorColor: Color(0xFF45A1C9),
@@ -265,7 +262,6 @@ Padding(
      );
   }
 
-
   dropdownProperty({MainReservationViewModel model}){
   //  return Text('Am here')
   if(model.properties == null){
@@ -331,8 +327,7 @@ Padding(
   
   }
   }
-  
-   
+
   errorWidget(MainReservationViewModel model){
     return Center(
       child: Column(
@@ -400,6 +395,6 @@ Padding(
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
- 
+
   }
 

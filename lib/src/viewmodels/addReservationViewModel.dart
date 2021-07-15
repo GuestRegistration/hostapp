@@ -160,13 +160,11 @@ showMessage(error: 'Check-out Date required');
      //TODO SEND RESERVATION DATA TO NEXT SCREEEN
    _navigationService.navigateTo(reservationInstructionRoute, arguments: transfetData); 
   }
-  
   }
 
   checkInInstrusion({@required String instruction, @required List moved})async{
     _instruction = instruction;
     //Move to loading Page and send data to API
-
     //  print(_pId);
     //  print(_gName);
     //  print(_bookingC);

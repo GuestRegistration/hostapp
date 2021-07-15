@@ -13,13 +13,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
-import 'package:hostapp/src/style/AppColor.dart';
-import 'package:hostapp/src/style/AppImage.dart';
-import 'package:hostapp/src/util/constants.dart';
-import 'package:hostapp/src/widget/ui_helpers.dart';
-import 'package:hostapp/src/style/AppFontSizes.dart';
-import 'package:hostapp/src/viewmodels/ProViewModel.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 
@@ -127,7 +120,6 @@ TextEditingController propertyNameController =  TextEditingController();
                     :  GestureDetector(
                         child:  TextFormField(
                           controller: propertyNameController,
-                    
                       keyboardType: TextInputType.number,
                       decoration:  InputDecoration(
                         enabledBorder: new OutlineInputBorder(
