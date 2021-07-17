@@ -21,13 +21,13 @@ class _FirebaseCrashlyticsState extends State<FirebaseCrashlytics> {
               FlatButton(
                 child: const Text('Key'),
                 onPressed: () {
-                  Crashlytics.instance.setString('foo', 'bar');
+                  //Crashlytics.instance.setString('foo', 'bar');
                 },
               ),
               FlatButton(
                 child: const Text('Log'),
                 onPressed: () {
-                  Crashlytics.instance.log('baz');
+                 // Crashlytics.instance.log('baz');
                 },
               ),
               FlatButton(
@@ -35,7 +35,7 @@ class _FirebaseCrashlyticsState extends State<FirebaseCrashlytics> {
                 onPressed: () {
                   // Use Crashlytics to throw an error. Use this for
                   // confirmation that errors are being correctly reported.
-                  Crashlytics.instance.crash();
+                 // Crashlytics.instance.crash();
                 },
               ),
               FlatButton(
@@ -65,8 +65,8 @@ FlatButton(
                     } catch (e, s) {
                       // "context" will append the word "thrown" in the
                       // Crashlytics console.
-                      Crashlytics.instance
-                          .recordError(e, s, context: 'as an example');
+                      //Crashlytics.instance
+                         // .recordError(e, s, context: 'as an example');
                     }
                   }),
             ],

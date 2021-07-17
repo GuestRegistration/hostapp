@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,35 +20,36 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 void main()async{  
   
   WidgetsFlutterBinding.ensureInitialized();
-setupLocator(); // Register all the models and services before the app starts
-  notificationAppLaunchDetails =
-      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-
-  var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-  // Note: permissions aren't requested here just to demonstrate that can be done later using the `requestPermissions()` method
-  // of the `IOSFlutterLocalNotificationsPlugin` class
-  var initializationSettingsIOS = IOSInitializationSettings(
-      requestAlertPermission: false,
-      requestBadgePermission: false,
-      requestSoundPermission: false,
-      onDidReceiveLocalNotification:
-          (int id, String title, String body, String payload) async {
-        didReceiveLocalNotificationSubject.add(ReceivedNotification(
-            id: id, title: title, body: body, payload: payload));
-      });
-  var initializationSettings = InitializationSettings(
-      initializationSettingsAndroid, initializationSettingsIOS);
-      
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onSelectNotification: (String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-    
-final NavigationService _navigationService = locator<NavigationService>();
-    //selectNotificationSubject.add(payload);
-    _navigationService.navigateToandRemove(dashboardRoute, arguments: 2);
-  });
+  await Firebase.initializeApp();
+  setupLocator(); // Register all the models and services before the app starts
+//   notificationAppLaunchDetails =
+//       await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+//
+//   var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+//   // Note: permissions aren't requested here just to demonstrate that can be done later using the `requestPermissions()` method
+//   // of the `IOSFlutterLocalNotificationsPlugin` class
+//   var initializationSettingsIOS = IOSInitializationSettings(
+//       requestAlertPermission: false,
+//       requestBadgePermission: false,
+//       requestSoundPermission: false,
+//       onDidReceiveLocalNotification:
+//           (int id, String title, String body, String payload) async {
+//         didReceiveLocalNotificationSubject.add(ReceivedNotification(
+//             id: id, title: title, body: body, payload: payload));
+//       });
+//   var initializationSettings = new InitializationSettings();
+//   //initializationSettingsAndroid, initializationSettingsIOS
+//
+//   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+//       onSelectNotification: (String payload) async {
+//     if (payload != null) {
+//       debugPrint('notification payload: ' + payload);
+//     }
+//
+// final NavigationService _navigationService = locator<NavigationService>();
+//     //selectNotificationSubject.add(payload);
+//     _navigationService.navigateToandRemove(dashboardRoute, arguments: 2);
+//   });
 
 SystemChrome.setPreferredOrientations([
   DeviceOrientation.portraitUp,
@@ -56,22 +58,23 @@ SystemChrome.setPreferredOrientations([
   DeviceOrientation.landscapeRight,
 ]);
 
-Crashlytics.instance.enableInDevMode = true;
-Crashlytics.instance.setUserEmail('horlaz229@gmail.com');
-Crashlytics.instance.setUserName('Harbdollar');
-Crashlytics.instance.setUserIdentifier('Harbdollar USER IDENTIFIER');
+// Crashlytics.instance.enableInDevMode = true;
+// Crashlytics.instance.setUserEmail('horlaz229@gmail.com');
+// Crashlytics.instance.setUserName('Harbdollar');
+// Crashlytics.instance.setUserIdentifier('Harbdollar USER IDENTIFIER');
+//
+// // Pass all uncaught errors from the framework to Crashlytics.
+// FlutterError.onError = Crashlytics.instance.recordFlutterError;
 
-// Pass all uncaught errors from the framework to Crashlytics.
-FlutterError.onError = Crashlytics.instance.recordFlutterError;
-
-// runApp(MyApp(),);
-runZoned(() {
-  runApp(MyApp());
-}, onError: Crashlytics.instance.recordError);
+ runApp(MyApp(),);
+// runZoned(() {
+//   runApp(MyApp());
+// }, onError: Crashlytics.instance.recordError);
 }
 
 class MyApp extends StatelessWidget {
   var _graphQlConfiq = locator<GraphQLConfiguration>();
+
   @override
   Widget build(BuildContext context) {
       return GraphQLProvider(

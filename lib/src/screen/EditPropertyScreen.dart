@@ -10,7 +10,7 @@ import 'package:hostapp/src/widget/input_field.dart';
 import 'package:hostapp/src/widget/CollectText.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -81,10 +81,10 @@ TextEditingController propertyNameController =  TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<AddPropertyViewModel>.withConsumer(
-       viewModelBuilder: () => AddPropertyViewModel(),
-      onModelReady: (model) => model.editInitalize(),
-      builder: (context, model, child) =>
+    return ViewModelBuilder<AddPropertyViewModel>.reactive(
+        viewModelBuilder: () => AddPropertyViewModel(),
+        onModelReady: (model) => model.editInitalize(),
+        builder: (context, model, child) =>
      Scaffold(
       body: GestureDetector(
               child: Column(
@@ -106,6 +106,8 @@ TextEditingController propertyNameController =  TextEditingController();
       )
     )
       );
+
+
   }
 
 

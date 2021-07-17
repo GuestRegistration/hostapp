@@ -143,7 +143,7 @@ class _VerifyotpState extends State<Verifyotp> {
           verificationCompleted: (AuthCredential phoneAuthCredential) async {
             print("phoneAuthCredential" + phoneAuthCredential.toString());
           },
-          verificationFailed: (AuthException exceptio) {
+          verificationFailed: (exceptio) {
             print('exceptio.message+ ${exceptio.message}');
           });
     } catch (e) {
@@ -175,7 +175,7 @@ class _VerifyotpState extends State<Verifyotp> {
           verificationCompleted: (AuthCredential phoneAuthCredential) {
             print("phoneAuthCredential" + phoneAuthCredential.toString());
           },
-          verificationFailed: (AuthException exceptio) {
+          verificationFailed: (exceptio) {
             print('exceptio.message+ ${exceptio.message}');
           });
     } catch (e) {
@@ -224,7 +224,7 @@ class _VerifyotpState extends State<Verifyotp> {
     GraphQLClient _client = await graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
-        documentNode: gql(insertData),
+        document: gql(insertData),
         variables: {
           "id": "${widget.authuid}",
           "phone": "$phoneCode" + "-" + "${phone.text}",
@@ -242,7 +242,7 @@ class _VerifyotpState extends State<Verifyotp> {
     GraphQLClient _client = await graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
-        documentNode: gql(insertData),
+        document: gql(insertData),
         variables: {
           "id": "${widget.authuid}",
           "phone": "${widget.phoneNumber1}",
@@ -378,13 +378,13 @@ class _VerifyotpState extends State<Verifyotp> {
 
   signIn() async {
     try {
-      final AuthCredential credential = PhoneAuthProvider.getCredential(
+      final AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
         smsCode: smsOTP,
       );
 
       FirebaseAuth _auth = FirebaseAuth.instance;
-      final FirebaseUser user =
+      final User user =
           await _auth.signInWithCredential(credential).then((user) {
         print("navigation call to the add user");
       }).catchError((e) {
@@ -424,9 +424,10 @@ class _VerifyotpState extends State<Verifyotp> {
 
   Future<void> getuserid() async {
     print("inside getuserid()  ");
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    user.getIdToken().then((tokenresult) {
-      token = tokenresult.token;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User user =  auth.currentUser;
+    user.getIdToken().then((tokenResult) {
+      token = tokenResult;
       print(
           "tokennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" +
               token);
@@ -470,7 +471,7 @@ class _VerifyotpState extends State<Verifyotp> {
     //child:
     return Scaffold(
         backgroundColor: Colors.white,
-        resizeToAvoidBottomPadding: false,
+        //resizeToAvoidBottomPadding: false,
         body: new Container(
             child: Container(
                 child: SingleChildScrollView(
@@ -580,13 +581,13 @@ class _VerifyotpState extends State<Verifyotp> {
 
                         try {
                           final AuthCredential credential =
-                              PhoneAuthProvider.getCredential(
+                              PhoneAuthProvider.credential(
                             verificationId: verificationId,
                             smsCode: smsOTP,
                           );
 
                           FirebaseAuth _auth = FirebaseAuth.instance;
-                          final FirebaseUser user = await _auth.signInWithCredential(credential)
+                          final User user = await _auth.signInWithCredential(credential)
                               .then((user) {
                             print("navigation call to the add user");
                             if (resendcode == true) {

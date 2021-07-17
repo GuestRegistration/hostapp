@@ -3,11 +3,11 @@ import 'package:hostapp/src/model/getReservationMode.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/widget/ReservationWidget.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/viewmodels/MainReservationViewModel.dart';
 
 
-class PastTab extends ProviderWidget<MainReservationViewModel> {
+class PastTab extends ViewModelWidget<MainReservationViewModel> {
   @override
   Widget build(BuildContext context, MainReservationViewModel model) {
     return (model.busy ? Center(

@@ -31,7 +31,7 @@ setBusy(true);
     GraphQLClient _client = _graphQlConfiq.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
-          documentNode: gql(addPropertyQuery),
+          document: gql(addPropertyQuery),
           onError: (error) {
             print('******************Error Occur: ${error.toString()}');
           },
@@ -101,7 +101,7 @@ updatePropertyAPI({List data})async{
      GraphQLClient _client = _graphQlConfiq.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
-          documentNode: gql(updatePropertyQuery),
+          document: gql(updatePropertyQuery),
           onError: (error) {
             print('******************Error Occur: ${error.toString()}');
           },

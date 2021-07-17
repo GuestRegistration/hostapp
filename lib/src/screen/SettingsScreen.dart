@@ -1,5 +1,6 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hostapp/src/screen/PersonalDetailsScreen.dart';
 import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
@@ -98,14 +99,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final RemoteConfig remoteConfig = await RemoteConfig.instance;
     var result;
     try {
-      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
-      await remoteConfig.activateFetched();
+      remoteConfig.setConfigSettings(RemoteConfigSettings(fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: Duration.zero,));
+      await remoteConfig.fetch();
+      await remoteConfig.activate();
       result = remoteConfig.getString(url);
-    } on FetchThrottledException catch (exception) {
+
+    } on PlatformException catch (exception) {
+      // Fetch throttled.
       print(exception);
     } catch (exception) {
-      print("unable to fetch remote config");
+      print('Unable to fetch remote config. Cached or default values will be '
+          'used');
     }
     return launch(result);
   }

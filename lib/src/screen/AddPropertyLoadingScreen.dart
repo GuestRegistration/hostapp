@@ -3,7 +3,7 @@ import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/style/AppText.dart';
 import 'package:hostapp/src/viewmodels/loadingViewModel/addpropertyloadingViewmodel.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 
 class AddProprtyLoadingScreen extends StatefulWidget {
@@ -19,10 +19,10 @@ class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<CRUDpropertyloadingViewmodel>.withConsumer(
-       viewModelBuilder: () => CRUDpropertyloadingViewmodel(),
+    return ViewModelBuilder<CRUDpropertyloadingViewmodel>.reactive(
+      viewModelBuilder: () => CRUDpropertyloadingViewmodel(),
       onModelReady: (model) => model.addPropertyAPI(
-        data: widget.data),
+          data: widget.data),
       builder: (context, model, child) =>
           Scaffold(
         body:  Center(
@@ -60,6 +60,8 @@ class _AddProprtyLoadingScreenState extends State<AddProprtyLoadingScreen> {
           )
       ),
     );
+
+
   }
 
   errorWidget(CRUDpropertyloadingViewmodel model, List<String> data){

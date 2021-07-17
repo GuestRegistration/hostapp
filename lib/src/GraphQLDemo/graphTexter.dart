@@ -62,7 +62,7 @@ class _FetchDataDemoState extends State<FetchDataDemo> {
       ),
       body: Query(
         options: QueryOptions(
-           documentNode: gql(getProperties),
+           document: gql(getProperties),
     
         ),
         builder: (QueryResult result, {
@@ -144,7 +144,7 @@ class _InserDemoState extends State<InserDemo> {
       body: Center(
         child: Mutation(
           options: MutationOptions(
-            documentNode: gql(insertData),
+            document: gql(insertData),
             onCompleted: (data) {
               stopLoading();
               print(data.toString());

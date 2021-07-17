@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -20,6 +21,7 @@ class GraphQLConfiguration {
 
   ValueNotifier<GraphQLClient> initilize() {
       putInInitalize(); //only ckient token
+
     Map<String, String> header = new HashMap();
     header['gr-client-token'] = clientToken;
     header['gr-user-token'] = "Bearer $userToken"; //userToken;
@@ -30,17 +32,15 @@ class GraphQLConfiguration {
   //   print('*************************************************************');
 
     httpLink = HttpLink(
-        uri:
-        'https://us-central1-guestregistration-4140a.cloudfunctions.net/api',
-        headers: header);
+        'https://us-central1-guestregistration-4140a.cloudfunctions.net/api',defaultHeaders: header);
 
 //Endpoint confiquration
-    ValueNotifier<GraphQLClient> client =
-    ValueNotifier<GraphQLClient>(GraphQLClient(
+    ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(GraphQLClient(
         link: httpLink,
-        cache: OptimisticCache(
-          dataIdFromObject: typenameDataIdFromObject,
-        )));
+        // cache: OptimisticCache(
+        //   dataIdFromObject: typenameDataIdFromObject,
+        // )
+    ));
 
     return client;
   }
@@ -62,13 +62,13 @@ class GraphQLConfiguration {
     
     _customFuntion.getID();
     final FirebaseAuth auth = FirebaseAuth.instance;
-              final FirebaseUser user = await auth.currentUser();
+              final User user =  auth.currentUser;
               
          var result = await user.getIdToken();
    //await getFromServerClientToken();
      clientToken = await storage.read(key: Constants.constClientToken);
      // userToken = await storage.read(key: Constants.constUserToken);
-     userToken = result.token;
+     userToken = result;
 
       // print('*** In getNeccessartyToken() Cleint token *** $clientToken');
     //  print("********  In getNeccessartyToken() User toke****** \n $userToken");
@@ -81,8 +81,8 @@ class GraphQLConfiguration {
     header['gr-user-token'] = "Bearer $userToken";
 
     httpLink = HttpLink(
-        uri:'https://us-central1-guestregistration-4140a.cloudfunctions.net/api',
-        headers: header);
+       'https://us-central1-guestregistration-4140a.cloudfunctions.net/api',
+        defaultHeaders: header);
 
     // print('*************************************************************');
     // print('*** Cleint token *** $clientToken');
@@ -90,8 +90,9 @@ class GraphQLConfiguration {
    print('*********************User token****************************************');
      original(userToken);
     return GraphQLClient(
-      cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
+      //cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
       link: httpLink,
+
     );
   }
 
@@ -101,13 +102,14 @@ class GraphQLConfiguration {
     var result;
 
     try {
-      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-      await remoteConfig.fetch(expiration: const Duration(seconds: 10));
-      await remoteConfig.activateFetched();
+      remoteConfig.setConfigSettings(RemoteConfigSettings(fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: Duration.zero,));
+      await remoteConfig.fetch();
+      await remoteConfig.activate();
       result = remoteConfig.getString('ClientToken'); //Firebase config Name
       await storage.write(key: Constants.constClientToken, value: result.toString());
 
-    } on FetchThrottledException catch (exception) {
+    } on PlatformException catch (exception) {
       // Fetch throttled.
       print(exception);
     } catch (exception) {
@@ -119,12 +121,13 @@ class GraphQLConfiguration {
 
   putInInitalize()async{
  await getFromServerClientToken();
+ await initHiveForFlutter();
   //await getNeccessartyToken();
   }
 
    getUserToken()async{
       final FirebaseAuth auth = FirebaseAuth.instance;
-              final FirebaseUser user = await auth.currentUser();
+              final User user = auth.currentUser;
               
          var result = await user.getIdToken();
          //print(result.token);

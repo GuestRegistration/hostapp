@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/graphQlQuery.dart';
@@ -167,13 +168,13 @@ nextPage();
 
 
  Future pickImage()async{
-    var pickedImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-    _image = pickedImage;
+    // var pickedImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+    // _image = pickedImage;
     notifyListeners(); //To Notify changes
  } 
 
 Future pickDocument(TextEditingController docuemntController)async{
-    var pickedDocument = await FilePicker.getFile();
+    var pickedDocument ;//= await FilePicker.getFile();
     _file = pickedDocument;
     docuemntController.text = _file.path;
     //setPropertyRulesButtonStatus(true);
@@ -313,26 +314,25 @@ showMessage(error: 'Property rules required');
   
  Future setupRemoteConfig() async {
    setBusy(true);
-  final RemoteConfig remoteConfig = await RemoteConfig.instance;
+  final RemoteConfig remoteConfig =  RemoteConfig.instance;
   // Enable developer mode to relax fetch throttling
    var result;
-
    try {
-             remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-              await remoteConfig.fetch(expiration: const Duration(seconds: 0));
-              await remoteConfig.activateFetched();
-             result = remoteConfig.getString('key');
-            } on FetchThrottledException catch (exception) {
-              // Fetch throttled.
-              print(exception);
-            } catch (exception) {
-              print(
-                  'Unable to fetch remote config. Cached or default values will be '
-                  'used');
-            }
+     remoteConfig.setConfigSettings(RemoteConfigSettings(fetchTimeout: const Duration(seconds: 10),
+       minimumFetchInterval: Duration.zero,));
+     await remoteConfig.fetch();
+     await remoteConfig.activate();
+     result = remoteConfig.getString('key');
 
-             setBusy(false);
-  return result;
+   } on PlatformException catch (exception) {
+     // Fetch throttled.
+     print(exception);
+   } catch (exception) {
+     print('Unable to fetch remote config. Cached or default values will be '
+         'used');
+   }
+   setBusy(false);
+   return result;
 }
 
 }

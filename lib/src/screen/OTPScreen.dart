@@ -427,7 +427,7 @@ class _OTPScreenState extends State<OTPScreen> {
 //      GraphQLClient _client = _graphQlConfiq.clientToQuery();
 //     QueryResult result = await _client.mutate(
 //       MutationOptions(
-//           documentNode: gql(insertData),
+//           document: gql(insertData),
 //         variables: {
 //           "id": "${widget.authuid}",
 //           "phone": "$phoneCode" + "-" + "${phone.text}",

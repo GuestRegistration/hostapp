@@ -8,7 +8,7 @@ import 'package:hostapp/src/util/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PushNotification{
-  final FirebaseMessaging _fcm = FirebaseMessaging();
+   FirebaseMessaging _fcm; //FirebaseMessaging() ; //= new FirebaseMessaging
   final NavigationService _navigationService = locator<NavigationService>();
 
   getToken()async{
@@ -28,23 +28,23 @@ class PushNotification{
   Future initialise()async{
   //  getToken();
     if(Platform.isIOS){
-      _fcm.requestNotificationPermissions(IosNotificationSettings());
+      //_fcm.requestPermission(IosNotificationSettings()); //requestNotificationPermissions
     }
 
-    _fcm.configure(
-      onMessage: (Map<String, dynamic> message)async{
-        print('OnMessage: $message');
-          serialNavigation(message: message);
-      },
-      onLaunch: (Map<String, dynamic> message)async{
-        print('********onLaunch: $message');
-        serialNavigation(message: message);
-      },
-      onResume: (Map<String, dynamic> message)async{
-         print('********onResume: $message');
-        serialNavigation(message: message);
-      }
-    );
+    // _fcm.configure(
+    //   onMessage: (Map<String, dynamic> message)async{
+    //     print('OnMessage: $message');
+    //       serialNavigation(message: message);
+    //   },
+    //   onLaunch: (Map<String, dynamic> message)async{
+    //     print('********onLaunch: $message');
+    //     serialNavigation(message: message);
+    //   },
+    //   onResume: (Map<String, dynamic> message)async{
+    //      print('********onResume: $message');
+    //     serialNavigation(message: message);
+    //   }
+    // );
   }
 
   void serialNavigation({Map<String, dynamic> message}){
@@ -91,10 +91,9 @@ while (token.length > 0) {
   String notificationTitle, String notificationBody, String payload}) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         channelID, channelName, channelDes,
-        importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
+        importance: Importance.high, priority: Priority.high, ticker: 'ticker');
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
-    var platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    var platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
         0, notificationTitle, notificationBody, platformChannelSpecifics,
         payload: payload);

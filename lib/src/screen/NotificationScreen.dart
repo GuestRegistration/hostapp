@@ -7,7 +7,7 @@ import 'package:hostapp/src/viewmodels/NotificationViewModel.dart';
 import 'package:hostapp/src/widget/NotificationWidget.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/locator.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -21,10 +21,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<NotificationViewModel>.withConsumer(
-       viewModelBuilder: () => NotificationViewModel(),
-      onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) =>
+    return ViewModelBuilder<NotificationViewModel>.reactive(
+        viewModelBuilder: () => NotificationViewModel(),
+        onModelReady: (model) => model.initialize(),
+        builder: (context, model, child) =>
       (model.busy ? _developerFunction.loadingWidget() : 
       (model.getErrorMessage == null ?  Scaffold(
       body: Padding(
@@ -96,7 +96,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     ) : errorWidget(model)
   ) )
     );
-  
+
   }
   
    

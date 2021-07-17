@@ -240,17 +240,20 @@ shareReservationLink({String link})async{
     final RemoteConfig remoteConfig = await RemoteConfig.instance;
     var result;
     try {
-      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
-      await remoteConfig.activateFetched();
-      //result = remoteConfig.getString('TermsConditions');
-      result = remoteConfig.getString('Termsurl');
-    } on FetchThrottledException catch (exception) {
+      remoteConfig.setConfigSettings(RemoteConfigSettings(fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: Duration.zero,));
+      await remoteConfig.fetch();
+      await remoteConfig.activate();
+      result = remoteConfig.getString('Termsurl'); //Firebase config Name
+
+    } on PlatformException catch (exception) {
+      // Fetch throttled.
       print(exception);
     } catch (exception) {
-      print("unable to fetch remote config");
+      print('Unable to fetch remote config. Cached or default values will be '
+          'used');
     }
-    return launch(result);
+    return result;
   }
 
      //getting data from remote config
@@ -258,17 +261,20 @@ shareReservationLink({String link})async{
     final RemoteConfig remoteConfig = await RemoteConfig.instance;
     var result;
     try {
-      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
-      await remoteConfig.activateFetched();
-      //result = remoteConfig.getString('TermsConditions');
-      result = remoteConfig.getString('havingProblem');
-    } on FetchThrottledException catch (exception) {
+      remoteConfig.setConfigSettings(RemoteConfigSettings(fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: Duration.zero,));
+      await remoteConfig.fetch();
+      await remoteConfig.activate();
+      result = remoteConfig.getString('havingProblem'); //Firebase config Name
+
+    } on PlatformException catch (exception) {
+      // Fetch throttled.
       print(exception);
     } catch (exception) {
-      print("unable to fetch remote config");
+      print('Unable to fetch remote config. Cached or default values will be '
+          'used');
     }
-    return launch(result);
+    return result;
   }
 
    loadingIndicator() {

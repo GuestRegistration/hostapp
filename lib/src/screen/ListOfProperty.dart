@@ -3,7 +3,7 @@ import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/widget/PropertyWidget.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/viewmodels/ListOfPropertyViewModel.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -24,14 +24,14 @@ class _ListOfPropertyState extends State<ListOfProperty>{
 
   @override
   Widget build(BuildContext context) {
-     return ViewModelProvider<ListOfPropertyViewModel>.withConsumer(
-       viewModelBuilder: () => ListOfPropertyViewModel(),
+    return ViewModelBuilder<ListOfPropertyViewModel>.reactive(
+      viewModelBuilder: () => ListOfPropertyViewModel(),
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
       (model.busy ? loadingWidget()
        :(model.getErrorMessage == null ? 
                    Scaffold(
-    resizeToAvoidBottomPadding: true,
+    //resizeToAvoidBottomPadding: true,
       body: SmartRefresher(
             enablePullDown: true,
         header: WaterDropHeader(waterDropColor: Colors.black,),
@@ -117,6 +117,8 @@ class _ListOfPropertyState extends State<ListOfProperty>{
                    : errorWidget(model)
                    )
                    ), );
+
+
   }
 
    

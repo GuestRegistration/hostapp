@@ -9,7 +9,7 @@ import 'package:hostapp/src/viewmodels/AddProperty_view_mode.dart';
 import 'package:hostapp/src/widget/input_field.dart';
 import 'package:hostapp/src/widget/CollectText.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,11 +20,10 @@ import 'package:hostapp/src/util/customFunctions.dart';
 class AddPropertyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<AddPropertyViewModel>.withoutConsumer(
-       viewModelBuilder: () => AddPropertyViewModel(),
-      onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) =>
-      
+    return ViewModelBuilder<AddPropertyViewModel>.reactive(
+        viewModelBuilder: () => AddPropertyViewModel(),
+        onModelReady: (model) => model.initialize(),
+        builder: (context, model, child) =>
       //Check device screen type 
       ScreenTypeLayout(
   mobile: OrientationLayoutBuilder(
@@ -35,6 +34,8 @@ class AddPropertyView extends StatelessWidget {
 )
       );
   }
+
+
 }
 
 class AddProprtyUI extends StatefulWidget {

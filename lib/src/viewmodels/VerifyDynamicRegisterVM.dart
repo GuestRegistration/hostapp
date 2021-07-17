@@ -27,7 +27,7 @@ String get getErrorMessage => _errorMessage;
     bool validLink = await user.isSignInWithEmailLink(data.toString());
     if (validLink) {
       try {
-       AuthResult authResult = await user.signInWithEmailAndLink(email: getEnteredEmail, link: data.toString());
+        UserCredential  authResult = await user.signInWithEmailLink(email: getEnteredEmail, emailLink: data.toString());
        if(authResult.user.email != null){
          //Move to create Profile.
          _navigationService.navigateToandRemove(passwordLessRoute);

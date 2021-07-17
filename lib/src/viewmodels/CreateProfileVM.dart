@@ -34,7 +34,7 @@ void initialize({String phoneNumber, lastname, phoneCode, name, authuid, email, 
     
     QueryResult result = await _client.mutate(
       MutationOptions(
-          documentNode: gql(insertData),
+          document: gql(insertData),
         variables: {
           "id": authuid,
           'phone_country_code': phoneCode,

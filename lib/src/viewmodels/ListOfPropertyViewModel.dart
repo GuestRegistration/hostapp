@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:hostapp/src/viewmodels/base_model.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/authentication.dart';
@@ -30,7 +31,7 @@ void initialize()async{
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
-        documentNode: gql(getProperties),
+        document: gql(getProperties),
       ),
 ).catchError((e){
       setBusy(false);
@@ -114,18 +115,19 @@ movetoSettings(){
 }
 
  getProUrl() async {
-    final RemoteConfig remoteConfig = await RemoteConfig.instance;
-
+    final RemoteConfig remoteConfig = RemoteConfig.instance;
     try {
-      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-      await remoteConfig.fetch(expiration: const Duration(seconds: 0));
-      await remoteConfig.activateFetched();
+      remoteConfig.setConfigSettings(RemoteConfigSettings(fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: Duration.zero,));
+      await remoteConfig.fetch();
+      await remoteConfig.activate();
       result = remoteConfig.getString('prolink');
-
-    } on FetchThrottledException catch (exception) {
+    } on PlatformException catch (exception) {
+      // Fetch throttled.
       print(exception);
     } catch (exception) {
-      print("unable to fetch remote config");
+      print('Unable to fetch remote config. Cached or default values will be '
+          'used');
     }
     return result;
  }

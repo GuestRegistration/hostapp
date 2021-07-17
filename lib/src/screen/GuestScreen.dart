@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/viewmodels/GuestScreenViewModel.dart'; 
 import 'package:hostapp/src/locator.dart';
@@ -23,8 +23,8 @@ class _GuestScreenState extends State<GuestScreen> {
   final CustomFuntion _customFuntion = locator<CustomFuntion>();
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<GuestScreenViewModel>.withConsumer(
-       viewModelBuilder: () => GuestScreenViewModel(),
+    return ViewModelBuilder<GuestScreenViewModel>.reactive(
+      viewModelBuilder: () => GuestScreenViewModel(),
       onModelReady: (model) => model.initialize(id: widget.reservationID),
       builder: (context, model, child) =>
       //If busy, start loading else
@@ -178,6 +178,8 @@ class _GuestScreenState extends State<GuestScreen> {
         ) ))
     ),
     );
+
+
   }
   
 

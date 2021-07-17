@@ -4,7 +4,7 @@ import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/viewmodels/loadingViewModel/CRUDReservationVM.dart';
 import 'package:hostapp/src/style/AppText.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 
 
 class AddReservationLoadingWidget extends StatefulWidget {
@@ -19,8 +19,8 @@ class AddReservationLoadingWidget extends StatefulWidget {
 class _AddReservationLoadingWidgetState extends State<AddReservationLoadingWidget> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<CRUDReservationVM>.withConsumer(
-       viewModelBuilder: () => CRUDReservationVM(),
+    return ViewModelBuilder<CRUDReservationVM>.reactive(
+      viewModelBuilder: () => CRUDReservationVM(),
       onModelReady: (model) => model.addReservationAPI(data: widget.data, context: context),
       builder: (context, model, child) =>
           Scaffold(
@@ -56,6 +56,9 @@ class _AddReservationLoadingWidgetState extends State<AddReservationLoadingWidge
         )
       ),
     );
+
+
+
   }
   errorWidget(CRUDReservationVM model, List<String> data){
     return Column(

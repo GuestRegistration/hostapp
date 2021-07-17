@@ -7,7 +7,7 @@ import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/viewmodels/CheckUserModel.dart';
 import 'package:hostapp/src/style/AppText.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 
 class CheckUserScreen extends StatefulWidget {
   final String userEmail, userid, fname, lname;
@@ -30,8 +30,8 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<CheckUserModel>.withConsumer(
-       viewModelBuilder: () => CheckUserModel(),
+    return ViewModelBuilder<CheckUserModel>.reactive(
+      viewModelBuilder: () => CheckUserModel(),
       onModelReady: (model) => model.initialize(widget.userEmail, context, widget.userid, widget.fname, widget.lname ),
       builder: (context, model, child) =>
           Scaffold(
@@ -67,6 +67,8 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
         )
       ),
     );
+
+
   }
   
   errorWidget(CheckUserModel model, String data){

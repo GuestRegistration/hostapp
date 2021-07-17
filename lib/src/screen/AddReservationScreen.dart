@@ -11,7 +11,7 @@ import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/model/BookingChannelModel.dart'; 
 
 class AddReservationScreen extends StatefulWidget {
@@ -48,8 +48,8 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
      
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<AddReservationViewModel>.withConsumer(
-       viewModelBuilder: () => AddReservationViewModel(),
+    return ViewModelBuilder<AddReservationViewModel>.reactive(
+      viewModelBuilder: () => AddReservationViewModel(),
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) =>
       (model.busy ? loadingWidget()
@@ -435,6 +435,8 @@ class _AddReservationScreenState extends State<AddReservationScreen> {
    
     );
   }
+
+
 
   headerButton(AddReservationViewModel model){
 return Row(

@@ -54,7 +54,7 @@ void fetchProperties()async{
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
-        documentNode: gql(getProperties),
+        document: gql(getProperties),
       ),
 ).catchError((e){
       setBusy(false);
@@ -139,7 +139,7 @@ propertyReservations({String propertyID})async{
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
-        documentNode: gql(getReservationsQuery),
+        document: gql(getReservationsQuery),
         variables: {
           'property_id' : propertyID
         }

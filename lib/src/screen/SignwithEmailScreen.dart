@@ -3,7 +3,7 @@ import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/viewmodels/SignwithEmailScreenViewModel.dart';
 import 'package:hostapp/src/widget/input_field.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/style/AppImage.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/locator.dart';
@@ -20,9 +20,9 @@ class _SignwithEmailScreenState extends State<SignwithEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
-  return ViewModelProvider<SignwithEmailScreenViewModel>.withConsumer(
-       viewModelBuilder: () => SignwithEmailScreenViewModel(),
-      builder: (context, model, child) =>
+    return ViewModelBuilder<SignwithEmailScreenViewModel>.reactive(
+        viewModelBuilder: () => SignwithEmailScreenViewModel(),
+        builder: (context, model, child) =>
      Scaffold(
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
@@ -155,4 +155,5 @@ Center(child: Container(
     )
       );
   }
+
 }

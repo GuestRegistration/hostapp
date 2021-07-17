@@ -304,7 +304,7 @@ side: BorderSide(color: AppColor.primaryLight)
      GraphQLClient _client = _graphQlConfiq.clientToQuery();
     QueryResult result = await _client.query(
       QueryOptions(
-          documentNode: gql(getphone),
+          document: gql(getphone),
           variables: <String, dynamic>{
              'phone': "$defaultphoneIsoCode".toString() + "${phoneNumberController.text}".toString(),
           }
@@ -379,7 +379,7 @@ updateProfile()async{
      GraphQLClient _client = _graphQlConfiq.clientToQuery();
     QueryResult result = await _client.query(
       QueryOptions(
-          documentNode: gql(updateuserquery),
+          document: gql(updateuserquery),
           variables: {
           'id':  uid,
           'email': email.text,

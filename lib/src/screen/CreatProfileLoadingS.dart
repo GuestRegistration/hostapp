@@ -4,7 +4,7 @@ import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/viewmodels/CreateProfileVM.dart';
 import 'package:hostapp/src/style/AppText.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
 
 import 'package:hostapp/src/locator.dart';
@@ -30,13 +30,12 @@ class _CreateProfileLoadingSState extends State<CreateProfileLoadingS> {
   final NavigationService _navigationService = locator<NavigationService>();
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<CreateProfileVM>.withConsumer(
-       viewModelBuilder: () => CreateProfileVM(),
-      onModelReady: (model) => model.initialize(email: widget.email, 
-      authuid: widget.authuid, lastname: widget.lastname,
-      phoneCode: widget.phoneCountryCode, 
-      name: widget.name, phoneNumber: widget.phoneNumber, context: context),
-
+    return ViewModelBuilder<CreateProfileVM>.reactive(
+      viewModelBuilder: () => CreateProfileVM(),
+      onModelReady: (model) => model.initialize(email: widget.email,
+          authuid: widget.authuid, lastname: widget.lastname,
+          phoneCode: widget.phoneCountryCode,
+          name: widget.name, phoneNumber: widget.phoneNumber, context: context),
       builder: (context, model, child) =>
           Scaffold(
         body:  (model.getErrorMessage == null || model.busy ?
@@ -71,6 +70,8 @@ class _CreateProfileLoadingSState extends State<CreateProfileLoadingS> {
         )
       ),
     );
+
+
   }
   errorWidget(CreateProfileVM model,){
     return Column(

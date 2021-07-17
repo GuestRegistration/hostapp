@@ -8,14 +8,14 @@ import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/style/AppTextStyle.dart';
 import 'package:hostapp/src/widget/ReservationWidget.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:hostapp/src/model/getReservationMode.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:hostapp/src/viewmodels/MainReservationViewModel.dart';
 
-class UpcomingTab extends ProviderWidget<MainReservationViewModel> {
+class UpcomingTab extends ViewModelWidget<MainReservationViewModel> {
   
   @override
   Widget build(BuildContext context, MainReservationViewModel model) {

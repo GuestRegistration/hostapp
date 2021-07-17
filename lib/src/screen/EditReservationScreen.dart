@@ -12,11 +12,9 @@ import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/widget/approveDialog.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart';
-import 'package:provider_architecture/provider_architecture.dart';
-import 'package:hostapp/src/model/BookingChannelModel.dart'; 
-
+import 'package:stacked/stacked.dart';
+import 'package:hostapp/src/model/BookingChannelModel.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class EditReservationScreen extends StatefulWidget {
@@ -73,10 +71,10 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
      
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<AddReservationViewModel>.withConsumer(
-       viewModelBuilder: () => AddReservationViewModel(),
-      onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) =>
+    return ViewModelBuilder<AddReservationViewModel>.reactive(
+        viewModelBuilder: () => AddReservationViewModel(),
+        onModelReady: (model) => model.initialize(),
+        builder: (context, model, child) =>
        Scaffold(
           key: globalKey,
         body: GestureDetector(
@@ -333,6 +331,8 @@ class _EditReservationScreenState extends State<EditReservationScreen> {
         )          
         )
     );
+
+
   }
 
 

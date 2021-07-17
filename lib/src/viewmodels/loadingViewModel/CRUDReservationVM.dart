@@ -35,7 +35,7 @@ addReservationAPI({List data, BuildContext context})async{
      GraphQLClient _client = _graphQlConfiq.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
-          documentNode: gql(addReservationQuery),
+          document: gql(addReservationQuery),
           onError: (error) {
             print('******************Error Occur: ${error.toString()}');
           },

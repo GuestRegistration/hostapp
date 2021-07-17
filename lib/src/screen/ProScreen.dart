@@ -10,7 +10,7 @@ import 'package:hostapp/src/widget/input_field.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/viewmodels/ProViewModel.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -30,12 +30,12 @@ TextEditingController propertyNameController =  TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-   return ViewModelProvider<ProViewModel>.withConsumer(
-       viewModelBuilder: () => ProViewModel(),
+    return ViewModelBuilder<ProViewModel>.reactive(
+      viewModelBuilder: () => ProViewModel(),
       onModelReady: (model) => model.setupRemoteConfig(),
       builder: (context, model, child) =>
        Scaffold(
-    resizeToAvoidBottomPadding: true,
+  //  resizeToAvoidBottomPadding: true,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -146,6 +146,7 @@ TextEditingController propertyNameController =  TextEditingController();
       ),
     ),
       );
+
   }
 
   secondPlace(ProViewModel model)async{

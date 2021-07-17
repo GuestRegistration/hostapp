@@ -195,7 +195,7 @@ void _onCountryChange(countryCode) {
      GraphQLClient _client = _graphQlConfiq.clientToQuery();
     QueryResult result = await _client.query(
       QueryOptions(
-          documentNode: gql(getphone),
+          document: gql(getphone),
           variables: <String, dynamic>{
              'phone': "$phoneCode".toString() + "${phone.text}".toString(),
           }

@@ -10,8 +10,6 @@ import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/widget/approveDialog.dart';
 import 'package:popup_menu/popup_menu.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 class ReservationWidget extends StatelessWidget{
 final CustomFuntion _customFuntion = locator<CustomFuntion>();
   final GetReservationModel getReservation;

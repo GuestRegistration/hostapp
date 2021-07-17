@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/screen/AddPropertyScreen.dart';
 import 'package:hostapp/src/viewmodels/AddProperty_view_mode.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 
-class AddPropertyPortrait extends ProviderWidget<AddPropertyViewModel> {
+class AddPropertyPortrait extends ViewModelWidget<AddPropertyViewModel> {
   @override
   Widget build(BuildContext context, AddPropertyViewModel model) {
     //print('AM Prostrait***************');
@@ -13,7 +13,7 @@ class AddPropertyPortrait extends ProviderWidget<AddPropertyViewModel> {
   }
 }
 
-class AddPropertyLandscape extends ProviderWidget<AddPropertyViewModel> {
+class AddPropertyLandscape extends ViewModelWidget<AddPropertyViewModel> {
   @override
   Widget build(BuildContext context, AddPropertyViewModel model) {
     return Scaffold(
@@ -29,7 +29,7 @@ class AddPropertyLandscape extends ProviderWidget<AddPropertyViewModel> {
   }
 }
 
-class AddPropertyTablet extends ProviderWidget<AddPropertyViewModel> {
+class AddPropertyTablet extends ViewModelWidget<AddPropertyViewModel> {
   @override
   Widget build(BuildContext context, AddPropertyViewModel model) {
     return Scaffold(

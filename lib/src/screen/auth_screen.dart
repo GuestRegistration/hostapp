@@ -27,7 +27,7 @@ class AuthScreenState extends State<AuthScreen> {
     final NavigationService _navigationService = locator<NavigationService>();
      final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
 
-  FirebaseUser user;
+  User user;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var existingemail;
   bool signupcheck = false;
@@ -387,14 +387,14 @@ sigInwithG()async{
     
   }else{
     GoogleSignInAuthentication googleSignInAuthentication = await account.authentication;
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
   );
     print('ACCESS TOKEN ${googleSignInAuthentication.accessToken}');
 
-  final AuthResult authResult = await _auth.signInWithCredential(credential);
-  final FirebaseUser user = authResult.user;
+  final UserCredential authResult = await _auth.signInWithCredential(credential);
+  final User user = authResult.user;
   print('DISPLAYED NAME: ${user.displayName}');
 
      print('***************** AFTER SUCCESS');
@@ -423,6 +423,7 @@ sigInwithG()async{
 }
 
  signInWithApple() async {
+    User firebaseUser;
 clearErrorMessage(); //clear error messgae
     startLoading();
     try {
@@ -442,33 +443,33 @@ clearErrorMessage(); //clear error messgae
             final AppleIdCredential appleIdCredential = result.credential;
 
             OAuthProvider oAuthProvider =
-                new OAuthProvider(providerId: "apple.com");
-            final AuthCredential credential = oAuthProvider.getCredential(
+                new OAuthProvider("apple.com");
+            final AuthCredential credential = oAuthProvider.credential(
               idToken: String.fromCharCodes(appleIdCredential.identityToken),
               accessToken:
                   String.fromCharCodes(appleIdCredential.authorizationCode),
             );
 
-            final AuthResult _res =  await FirebaseAuth.instance.signInWithCredential(credential);
-            FirebaseAuth.instance.currentUser().then((val) async {
-              UserUpdateInfo updateUser = UserUpdateInfo();
-              updateUser.displayName = "${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}";
-              updateUser.photoUrl = "define an url";
-              await val.updateProfile(updateUser);
-            });
+            final UserCredential _res =  await FirebaseAuth.instance.signInWithCredential(credential);
+            final FirebaseAuth auth = FirebaseAuth.instance;
+            final User user =  auth.currentUser;
+            // User.instance.currentUser().then((val) async {
+            //   UserUpdateInfo updateUser = UserUpdateInfo();
+            //   updateUser.displayName = "${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}";
+            //   updateUser.photoUrl = "define an url";
+            //   await val.updateProfile(updateUser);
+            // });
 
-             final FirebaseAuth auth = FirebaseAuth.instance;
-              final FirebaseUser user1 = await auth.currentUser();
               user.getIdToken().then((tokenresult) {
 
                 //print(tokenresult.token);
                 // showErrorMessage(error: 'Debug Only \n${user1.email} \n ${user1.uid} \n ${tokenresult.token}');
-                 _customFuntion.saveEmailandID(email: user1.email, uid: user1.uid, idToken: tokenresult.token);
+                 _customFuntion.saveEmailandID(email: user.email, uid: user.uid, idToken: tokenresult);
                  Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => CheckUserScreen(
-                          userEmail: user1.email,
+                          userEmail: user.email,
                           userid: user.uid,
                         )));
               });

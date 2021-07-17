@@ -48,7 +48,7 @@ getCheckedIn({id})async{
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
-        documentNode: gql(getReservationCheckin),
+        document: gql(getReservationCheckin),
         variables: <String, dynamic>{
             "id": id,
           }
@@ -127,7 +127,7 @@ loadingOther(true);
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.mutate(
    MutationOptions(
-        documentNode: gql(approveReservation),
+        document: gql(approveReservation),
         variables: <String, dynamic>{
             "id": id,
           }

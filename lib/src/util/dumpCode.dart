@@ -17,7 +17,7 @@
                       //       graphQLConfiguration.clientToQuery();
                       //   QueryResult result = await _client.mutate(
                       //     MutationOptions(
-                      //       documentNode: gql(selectdata),
+                      //       document: gql(selectdata),
                       //       //document: selectdata,
                       //       variables: {
                       //         'email': email1,

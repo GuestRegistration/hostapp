@@ -26,7 +26,7 @@ class _DashboardState extends State<Dashboard>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    resizeToAvoidBottomPadding: true,
+  //  resizeToAvoidBottomPadding: true,
       body:  switchBody(),
        bottomNavigationBar:  BottomNavigationBar(
             type: BottomNavigationBarType.fixed,

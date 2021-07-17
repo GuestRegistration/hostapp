@@ -7,7 +7,7 @@ import 'package:hostapp/src/screen/reservationsTabs/UpcomingTab.dart';
 import 'package:hostapp/src/screen/reservationsTabs/ApprovedTab.dart';
 import 'package:hostapp/src/screen/reservationsTabs/PastTab.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/model/getPropertiesModel.dart'; 
 import 'package:hostapp/src/viewmodels/MainReservationViewModel.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -91,12 +91,14 @@ class _MainReservationScreenState extends State<MainReservationScreen> {
  
   @override
   Widget build(BuildContext context) {
-     return ViewModelProvider<MainReservationViewModel>.withConsumer(
-       viewModelBuilder: () => MainReservationViewModel(),
-      onModelReady: (model) => model.tab1Initialize(),
-      builder: (context, model, child) =>
+    return ViewModelBuilder<MainReservationViewModel>.reactive(
+        viewModelBuilder: () => MainReservationViewModel(),
+        onModelReady: (model) => model.tab1Initialize(),
+        builder: (context, model, child) =>
        buildTab(model)
       );
+
+
   }
 
   buildTab(MainReservationViewModel model){

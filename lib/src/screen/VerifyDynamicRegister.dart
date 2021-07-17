@@ -4,7 +4,7 @@ import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/style/AppText.dart';
 import 'package:hostapp/src/viewmodels/VerifyDynamicRegisterVM.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/util/constants.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/service/navigation_service.dart';
@@ -23,8 +23,8 @@ class _VerifyDynamicRegisterState extends State<VerifyDynamicRegister> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<VerifyDynamicRegisterVM>.withConsumer(
-       viewModelBuilder: () => VerifyDynamicRegisterVM(),
+    return ViewModelBuilder<VerifyDynamicRegisterVM>.reactive(
+      viewModelBuilder: () => VerifyDynamicRegisterVM(),
       onModelReady: (model) => model.initialize(data: widget.data, context: context),
       builder: (context, model, child) =>
           Scaffold(
@@ -59,6 +59,8 @@ class _VerifyDynamicRegisterState extends State<VerifyDynamicRegister> {
         )
       ),
     );
+
+
   }
    errorWidget(VerifyDynamicRegisterVM model, List<String> data){
     return Column(

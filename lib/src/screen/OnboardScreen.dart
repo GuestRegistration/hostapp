@@ -241,7 +241,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
         print('Invalid $value');
       },
       fullTransitionValue: 500,
-      enableSlideIcon: true,
+     // enableSlideIcon: true,
         )));
   }
   

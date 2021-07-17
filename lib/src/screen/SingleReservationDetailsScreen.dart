@@ -12,7 +12,7 @@ import 'package:hostapp/src/util/customFunctions.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
 import 'package:hostapp/src/widget/approveDialog.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:flutter/services.dart';
 
 class SingleReservationDetailsScreen extends StatefulWidget {
@@ -42,11 +42,11 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
      
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<SingleReservationDetailsViewModel>.withConsumer(
-       viewModelBuilder: () => SingleReservationDetailsViewModel(),
-      onModelReady: (model) => model.initialize(id: widget.reservationID, 
-     ),
-      builder: (context, model, child) =>
+    return ViewModelBuilder<SingleReservationDetailsViewModel>.reactive(
+        viewModelBuilder: () => SingleReservationDetailsViewModel(),
+        onModelReady: (model) => model.initialize(id: widget.reservationID,
+        ),
+        builder: (context, model, child) =>
        Scaffold(
           key: globalKey,
         body: (!model.busy ?  GestureDetector(
@@ -326,6 +326,8 @@ final CustomFuntion _customFuntion = locator<CustomFuntion>();
          )
         )
     );
+
+
   }
 
 

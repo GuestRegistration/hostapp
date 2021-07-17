@@ -4,8 +4,8 @@ import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/style/AppText.dart';
 import 'package:hostapp/src/viewmodels/loadingViewModel/addpropertyloadingViewmodel.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
+import 'package:stacked/stacked.dart';
 
 
 class UpdatePropertyWidget extends StatefulWidget {
@@ -19,8 +19,8 @@ class UpdatePropertyWidget extends StatefulWidget {
 class _UpdatePropertyWidgetState extends State<UpdatePropertyWidget> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<CRUDpropertyloadingViewmodel>.withConsumer(
-       viewModelBuilder: () => CRUDpropertyloadingViewmodel(),
+    return ViewModelBuilder<CRUDpropertyloadingViewmodel>.reactive(
+      viewModelBuilder: () => CRUDpropertyloadingViewmodel(),
       onModelReady: (model) => model.updatePropertyAPI(data: widget.data),
       builder: (context, model, child) =>
           Scaffold(
@@ -54,6 +54,8 @@ class _UpdatePropertyWidgetState extends State<UpdatePropertyWidget> {
           )
       ),
     );
+
+
   }
 
   errorWidget(CRUDpropertyloadingViewmodel model, List<String> data){

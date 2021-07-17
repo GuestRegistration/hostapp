@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:hostapp/src/style/AppColor.dart';
@@ -97,21 +98,23 @@ children: <Widget>[
    var result;
 
    try {
-             remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-              await remoteConfig.fetch(expiration: const Duration(seconds: 0));
-              await remoteConfig.activateFetched();
-             result = remoteConfig.getString('key');
-             key = result.toString(); //Store API key in this string.
-             print('API KEY Fetched is : $key'); //If it's null, that means no API key. 
+     remoteConfig.setConfigSettings(RemoteConfigSettings(fetchTimeout: const Duration(seconds: 10),
+       minimumFetchInterval: Duration.zero,));
+     await remoteConfig.fetch();
+     await remoteConfig.activate();
+     result = remoteConfig.getString('key');
+     key = result.toString(); //Store API key in this string.
+     print('API KEY Fetched is : $key'); //If it's null, that means no API key.
 
-            } on FetchThrottledException catch (exception) {
-              // Fetch throttled.
-              print(exception);
-            } catch (exception) {
-              print('Unable to fetch remote config. Cached or default values will be used');
-            }
+   } on PlatformException catch (exception) {
+     // Fetch throttled.
+     print(exception);
+   } catch (exception) {
+     print('Unable to fetch remote config. Cached or default values will be '
+         'used');
+   }
+   stopLoading();
+   return result;
 
-             stopLoading();
-  return result;
 }
 }

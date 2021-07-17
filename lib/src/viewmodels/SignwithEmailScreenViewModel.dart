@@ -49,14 +49,18 @@ notifyListeners();
 
 Future<bool> _sendLinkToProvidedEmail({String providedEmail}) async {
   try {
-  _auth.sendSignInWithEmailLink(
+  _auth.sendSignInLinkToEmail( //sendSignInWithEmailLink
     email: providedEmail,
-    androidInstallIfNotAvailable: true,
-    androidMinimumVersion: '18',
-        androidPackageName: 'com.macaulaygidado.hostapp',
-        handleCodeInApp: true,
-        iOSBundleID: 'com.macaulaygidado.hostapp',
-        url: Constants.passwordlessDynamicUrl
+    actionCodeSettings: ActionCodeSettings(
+      androidMinimumVersion: '18',
+      androidPackageName: 'com.macaulaygidado.hostapp',
+      handleCodeInApp: true,
+     androidInstallApp: true,
+      iOSBundleId: 'com.macaulaygidado.hostapp',
+      // dynamicLinkDomain: Constants.passwordlessDynamicUrl,
+       url: Constants.passwordlessDynamicUrl
+    )
+
   );
  } catch (e) {
       return false;

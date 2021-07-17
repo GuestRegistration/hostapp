@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     print("inside navigate otp");
     print("internationalizedPhoneNumber" + interphone.toString());
     final FirebaseAuth auth = FirebaseAuth.instance;
-    final FirebaseUser user1 = await auth.currentUser();
+    final User user1 =  auth.currentUser;
     final email1 = user1.email;
     final uid = user1.uid;
     Navigator.of(context).push(
@@ -172,14 +172,13 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     graphQLConfiguration.putInInitalize();
     
     final HttpLink httpLink = HttpLink(
-        uri:
-            'https://us-central1-guestregistration-4140a.cloudfunctions.net/api');
+        'https://us-central1-guestregistration-4140a.cloudfunctions.net/api');
     final ValueNotifier<GraphQLClient> client =
         ValueNotifier<GraphQLClient>(GraphQLClient(
             link: httpLink,
-            cache: OptimisticCache(
-              dataIdFromObject: typenameDataIdFromObject,
-            )));
+           // cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject,
+            //)
+        ));
 
     if (isButtonEnabled == false) {
       buttoncolor = Color(0xff45A1C9);
@@ -215,7 +214,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
               // ),
               child: Mutation(
                 options: MutationOptions(
-                  documentNode: gql(insertData),
+                  document: gql(insertData),
                   onCompleted: (data) {
                     print(data.toString());
                   },
@@ -498,7 +497,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                   QueryResult result = await _client.mutate(
                                     MutationOptions(
                                       // document: getphone,
-                                      documentNode: gql(getphone),
+                                      document: gql(getphone),
                                       variables: {
                                         'phone': "$phoneCode".toString() + "${phone.text}".toString(),
                                       },

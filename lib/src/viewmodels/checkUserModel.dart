@@ -30,7 +30,7 @@ void initialize(String userEmail, BuildContext context, String userID, String fn
     GraphQLClient _client = _graphQlConfiq.clientToQuery();
                         QueryResult result = await _client.mutate(
                           MutationOptions(
-                            documentNode: gql(selectdata),
+                            document: gql(selectdata),
                             variables: {
                               'email': userEmail,
                             },
@@ -114,7 +114,7 @@ void updateNotification(BuildContext context)async{
     
     QueryResult result = await _client.mutate(
       MutationOptions(
-          documentNode: gql(updateNotificationData),
+          document: gql(updateNotificationData),
         variables: {
           "deviceid": deviceId,
           "device_name": deviceName,

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/screen/OnboardScreen.dart';
@@ -64,12 +65,12 @@ class _PasswordlessAppState extends State<PasswordlessApp> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  StreamBuilder<FirebaseUser>(
-             stream: FirebaseAuth.instance.onAuthStateChanged,
+      body:  StreamBuilder<User>(
+             stream: FirebaseAuth.instance.authStateChanges(),
              builder: (context, snapshot) {
 
                if (snapshot.connectionState == ConnectionState.active) {
-                 FirebaseUser user = snapshot.data;
+                 User user = snapshot.data;
                  if (user == null) {
                    //Not yet register
                    return OnboardScreen();

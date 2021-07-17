@@ -34,7 +34,7 @@ void initialize()async{
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
-        documentNode: gql(propertyNotification),
+        document: gql(propertyNotification),
       ),
 ).catchError((e){
       setBusy(false);
@@ -119,7 +119,7 @@ deleteNotification({String propertyId, String notificationID})async{
        GraphQLClient _client = _graphQlConfiq.clientToQuery();
     QueryResult result = await _client.mutate(
       MutationOptions(
-          documentNode: gql(removeNotification),
+          document: gql(removeNotification),
           onError: (error) {
             print('******************Error Occur: ${error.toString()}');
           },

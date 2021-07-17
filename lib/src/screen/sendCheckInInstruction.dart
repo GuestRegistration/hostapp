@@ -7,7 +7,7 @@ import 'package:hostapp/src/style/AppColor.dart';
 import 'package:hostapp/src/viewmodels/AddReservationViewModel.dart';
 import 'package:hostapp/src/style/AppFontSizes.dart';
 import 'package:hostapp/src/widget/ui_helpers.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:hostapp/src/locator.dart';
 import 'package:hostapp/src/util/customFunctions.dart';
 
@@ -27,8 +27,8 @@ class _SendCheckInInstructionState extends State<SendCheckInInstruction> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<AddReservationViewModel>.withConsumer(
-       viewModelBuilder: () => AddReservationViewModel(),
+    return ViewModelBuilder<AddReservationViewModel>.reactive(
+      viewModelBuilder: () => AddReservationViewModel(),
       builder: (context, model, child) =>
           Scaffold(
          body: SingleChildScrollView(
@@ -127,4 +127,5 @@ class _SendCheckInInstructionState extends State<SendCheckInInstruction> {
           ),
     );
   }
+
 }

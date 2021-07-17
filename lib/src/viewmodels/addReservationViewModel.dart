@@ -49,7 +49,7 @@ await _graphQlConfiq.getNeccessartyToken();
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
-        documentNode: gql(getProperties),
+        document: gql(getProperties),
       ),
 
 ).catchError((e){
@@ -183,7 +183,7 @@ showMessage(error: 'Check-out Date required');
 GraphQLClient _client = _graphQlConfiq.clientToQuery();
 QueryResult result = await _client.query(
    QueryOptions(
-        documentNode: gql(getBookingChannel),
+        document: gql(getBookingChannel),
       ),
 );
    if(result.data == null) {
